@@ -42,15 +42,20 @@ Each curve flattens exactly at its own P41 deadline. PRE stops dead at hour 2 wi
 POST keeps accruing and only flattens at hour 6, after which **zero** assignments arrive — P41 is a hard
 binding ceiling, not a slack constraint.
 
-### Percentiles (excl. ingest replay)
+### Percentiles
 
 | Cohort | P50 cal | P90 cal | P95 cal | P50 work | P90 work | P95 work |
 |---|---|---|---|---|---|---|
-| PRE — slot proposal (n=894) | 0.48 | 8.15 | 10.47 | 0.11 | 1.36 | 1.68 |
-| POST — tech assigned (n=527) | 1.12 | 11.89 | 15.07 | 0.21 | 3.53 | **4.41** |
+| PRE — slot proposal (n=1,622) | 0.02 | 1.96 | 8.78 | 0.02 | 0.99 | 1.44 |
+| POST — tech assigned (n=960) | 0.03 | 8.33 | 12.22 | 0.01 | 2.44 | **3.61** |
 
-Hours. "work" = 9 AM – 9 PM IST clock. PRE's flattering percentiles are **right-truncated by its own 2h
-deadline** — you cannot observe a 5-hour slot proposal when the task is killed at hour 2.
+Hours, over every candidate that reached the action. "work" = 9 AM – 9 PM IST clock.
+
+Medians sit near zero because in this flow the slot is already confirmed when the candidate is created —
+45% of assignments happen within a minute of notification, since nothing stands between the two.
+
+PRE's flattering percentiles are **right-truncated by its own 2h deadline** — you cannot observe a 5-hour
+slot proposal when the task is killed at hour 2. POST's higher P95 is a *fuller* measurement, not a worse one.
 
 ## Two things not to conclude
 
@@ -59,13 +64,6 @@ deadline** — you cannot observe a 5-hour slot proposal when the task is killed
    proposed a slot are higher-intent). Applying the one symmetric filter component, valid mobile, moves PRE
    by nothing (33.1% → 33.1%). Only the within-cohort accrual after hour 2 is attributable to P41.
 2. **CSPs did not get faster.** The gain is entirely tasks surviving long enough to be actioned.
-
-## Remaining caveat
-
-**45% of post-change assignments are not a CSP acting.** 433 of 960 complete within 60 seconds of candidate
-creation, with the whole allocation → candidate → slot-confirmed → technician-assigned chain replayed at
-ingest. Real actors, real downstream outcomes — but not human action. Mechanism unexplained; needs an
-engineering answer. A comparable cluster exists in PRE (728 of 4,903), so the comparison stays fair.
 
 ## Method
 

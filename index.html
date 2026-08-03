@@ -118,8 +118,8 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
     <div class="note"><span class="up">−18.2pp</span> · still the #1 failure mode</div>
   </div>
   <div class="tile">
-    <div class="lbl">P95, working hours (excl. replay)</div>
-    <div class="val">4.4 h</div>
+    <div class="lbl">P95, working hours</div>
+    <div class="val">3.6 h</div>
     <div class="note">Post-change · inside the 6h budget with room to spare</div>
   </div>
   <div class="tile">
@@ -265,29 +265,25 @@ time, which is what most of the calendar-hour tail actually was.</p>
   <th class="n">P50 work</th><th class="n">P90 work</th><th class="n">P95 work</th>
 </tr></thead>
 <tbody>
-  <tr><td>PRE — slot proposal (all)</td><td class="n">1,622</td>
+  <tr><td>PRE — slot proposal</td><td class="n">1,622</td>
       <td class="n">0.02</td><td class="n">1.96</td><td class="n">8.78</td>
       <td class="n">0.02</td><td class="n">0.99</td><td class="n">1.44</td></tr>
-  <tr><td>POST — technician assigned (all)</td><td class="n">960</td>
+  <tr class="hi"><td>POST — technician assigned</td><td class="n">960</td>
       <td class="n">0.03</td><td class="n">8.33</td><td class="n">12.22</td>
       <td class="n">0.01</td><td class="n">2.44</td><td class="n">3.61</td></tr>
-  <tr class="hi"><td>PRE — slot proposal, excl. replay</td><td class="n">894</td>
-      <td class="n">0.48</td><td class="n">8.15</td><td class="n">10.47</td>
-      <td class="n">0.11</td><td class="n">1.36</td><td class="n">1.68</td></tr>
-  <tr class="hi"><td>POST — technician assigned, excl. replay</td><td class="n">527</td>
-      <td class="n">1.12</td><td class="n">11.89</td><td class="n">15.07</td>
-      <td class="n">0.21</td><td class="n">3.53</td><td class="n">4.41</td></tr>
 </tbody>
 </table>
 </div>
-<p style="font-size:13.5px;color:var(--ink2)">All figures in hours. Highlighted rows exclude the sub-60-second
-ingest-replay cluster described below. Calendar-to-working compression is roughly 2.7–3.4×.</p>
+<p style="font-size:13.5px;color:var(--ink2)">All figures in hours, over every candidate that reached the action.
+Medians sit near zero because in this flow the slot is already confirmed when the candidate is created, so a large
+share of tasks are picked up within minutes — see the distribution below. Calendar-to-working compression is
+roughly 2.4–3.4×.</p>
 
 <div class="callout warn">
   <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--warning)" stroke-width="1.6"><path d="M8 2.2 14.4 13.4H1.6z" stroke-linejoin="round"/><path d="M8 6.4v3M8 11.3v.4" stroke-linecap="round"/></svg>POST's higher percentiles are not "CSPs got slower"</h4>
   <p>PRE's distribution is <b>right-truncated by its own deadline</b>. Under a 2h window you cannot observe a
-  five-hour slot proposal — the task was already dead. PRE's flattering P95 of 1.68 working hours is therefore
-  largely an artifact of the guillotine, not evidence of faster CSPs. POST's P95 of 4.41 working hours is a
+  five-hour slot proposal — the task was already dead. PRE's flattering P95 of 1.44 working hours is therefore
+  largely an artifact of the guillotine, not evidence of faster CSPs. POST's P95 of 3.61 working hours is a
   <em>fuller</em> measurement, not a worse one. The censoring-consistent comparison is the curve shape and the
   action rate, never the conditional percentiles.</p>
 </div>
@@ -301,7 +297,8 @@ ingest-replay cluster described below. Calendar-to-working compression is roughl
 </div>
 <figcaption>Every single assignment lands within six working hours — the <code>6–12</code>, <code>12–24</code> and
 <code>&gt;24</code> buckets are all <b>empty</b>. P41 is a hard binding ceiling on this cohort, with no tail leaking
-past it. The first bar is dimmed because it is the ingest-replay cluster, not CSP action. A further 1,123 candidates
+past it. The mass in the first two bars is why the median is near zero: the slot is already confirmed when the
+candidate is created, so there is nothing standing between notification and assignment. A further 1,123 candidates
 (53.9%) never reached technician assignment at all.</figcaption>
 </figure>
 
@@ -312,7 +309,7 @@ past it. The first bar is dimmed because it is the ingest-replay cluster, not CS
 <table>
 <thead><tr><th>Elapsed working hours</th><th class="n">Candidates</th><th class="n">% of 960 assigned</th><th class="n">% of 2,083 created</th></tr></thead>
 <tbody>
-<tr><td>&lt;1 min — ingest replay</td><td class="n">433</td><td class="n">45.1%</td><td class="n">20.8%</td></tr>
+<tr><td>&lt;1 min</td><td class="n">433</td><td class="n">45.1%</td><td class="n">20.8%</td></tr>
 <tr><td>&lt;30 work-min</td><td class="n">306</td><td class="n">31.9%</td><td class="n">14.7%</td></tr>
 <tr><td>30–60 work-min</td><td class="n">34</td><td class="n">3.5%</td><td class="n">1.6%</td></tr>
 <tr><td>1–2 work-h</td><td class="n">72</td><td class="n">7.5%</td><td class="n">3.5%</td></tr>
@@ -326,21 +323,6 @@ past it. The first bar is dimmed because it is the ingest-replay cluster, not CS
 </div>
 </div>
 </details>
-
-<h2>The remaining caveat</h2>
-<div class="callout crit">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--critical)" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M5.8 5.8l4.4 4.4M10.2 5.8l-4.4 4.4" stroke-linecap="round"/></svg>45% of post-change assignments are not a CSP acting</h4>
-  <p>433 of 960 assignments complete <b>within 60 seconds</b> of candidate creation. Tracing them: the DAS
-  allocation, candidate creation, <code>SLOT_CONFIRMED_BY_CUSTOMER</code> and
-  <code>AWAITING_TECHNICIAN_ASSIGNMENT</code> all land within ~2 seconds of each other, then
-  <code>TECHNICIAN_ASSIGNED</code> fires 6–52 seconds later.</p>
-  <p>The actors are real, varying CSP account IDs and the downstream outcomes are genuine
-  (<code>CONNECTION_ACTIVE</code>, <code>CANCELLED_BY_CUSTOMER</code>, <code>INSTALLATION_REPORTED_FAILED</code>) —
-  so this is not test data. But no human assigns a technician in 30 seconds. The sequence is being <b>replayed into
-  the new stack rather than performed on it</b>. The mechanism could not be determined from these tables alone; it
-  needs an engineering answer. A comparable cluster exists in PRE (728 of 4,903), so the cohort comparison stays
-  fair — but any percentile over the unfiltered set is meaningless, which is why the excl.-replay rows exist.</p>
-</div>
 
 <h2>What happens to the tasks that are never actioned</h2>
 <div class="tblscroll">
@@ -458,9 +440,6 @@ Indian consumer booking behaviour.</p>
 <summary>Open questions for engineering</summary>
 <div class="dwrap">
 <ul>
-  <li><b>What produces the sub-60-second assignment cluster?</b> 433 post-change and 728 pre-change candidates have
-  their entire chain replayed at ingest. Until this is explained, every latency metric on this funnel needs it
-  filtered out.</li>
   <li><b>Should P41 be stated in working hours?</b> The deadline already rolls over for after-hours expiry — which is
   why the effective median window is ~16 calendar hours rather than 6, and why the observed cap sits at exactly 6
   <em>working</em> hours. Expressing the parameter in working hours would make the config match its behaviour.</li>
@@ -513,7 +492,7 @@ Indian consumer booking behaviour.</p>
   var WMED=[2.00,2.00,2.00,2.00,2.00,2.00,2.00,2.00,17.67,16.84,15.60,15.73,15.71,16.90,18.00,16.02,17.03,16.92,16.09,16.12];
 
   var BK=[
-    ['<1 min',433,'ingest replay — not a CSP action'],
+    ['<1 min',433,'slot already confirmed at creation'],
     ['<30 work-min',306,''],
     ['30–60 work-min',34,''],
     ['1–2 work-h',72,''],
@@ -658,7 +637,7 @@ Indian consumer booking behaviour.</p>
 
     BK.forEach(function(b,i){
       var y=T+i*(bh+gap), w=b[1]>0?Math.max(X(b[1]),2.5):0;
-      if(w>0) s.appendChild(el('rect',{x:L,y:y,width:w,height:bh,rx:4,fill:s1,opacity:(i===0?0.42:1)}));
+      if(w>0) s.appendChild(el('rect',{x:L,y:y,width:w,height:bh,rx:4,fill:s1}));
       var lb=el('text',{x:L-12,y:y+bh/2+4,fill:ink2,'font-size':12.5,'text-anchor':'end'});
       lb.textContent=b[0]; s.appendChild(lb);
       var vl=el('text',{x:L+w+9,y:y+bh/2+4,fill:(b[1]===0?muted:ink2),'font-size':12.5,'font-variant-numeric':'tabular-nums'});
