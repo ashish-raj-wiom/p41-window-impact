@@ -353,7 +353,7 @@ happened to those bookings under the old window instead.</p>
 <figure>
 <div class="chartcard">
   <div class="charttitle">Install rate by assignment latency</div>
-  <div class="chartsub">POST cohort · 1,323 assigned tasks · dashed line = pooled rate 48.60%</div>
+  <div class="chartsub">POST cohort · 1,323 assigned tasks · dashed line = pooled rate 48.68%</div>
   <svg id="c7" viewBox="0 0 760 330" role="img" aria-label="Install rate by assignment latency band"></svg>
 </div>
 <figcaption>Every band sits on the pooled rate. Whether the CSP assigned in fifteen minutes or in five hours, the
@@ -364,7 +364,7 @@ task installs about half the time.</figcaption>
 <table>
 <thead><tr><th>Assignment latency</th><th class="n">Assigned</th><th class="n">Installed</th><th class="n">Install rate</th><th class="n">Failed</th><th class="n">Cx cancelled</th><th class="n">In flight</th></tr></thead>
 <tbody>
-<tr><td>&lt;15 min</td><td class="n">987</td><td class="n">480</td><td class="n">48.63%</td><td class="n">196</td><td class="n">94</td><td class="n">74</td></tr>
+<tr><td>&lt;15 min</td><td class="n">987</td><td class="n">481</td><td class="n">48.73%</td><td class="n">196</td><td class="n">94</td><td class="n">74</td></tr>
 <tr><td>15–60 min</td><td class="n">89</td><td class="n">44</td><td class="n">49.44%</td><td class="n">19</td><td class="n">7</td><td class="n">6</td></tr>
 <tr><td>1–2 h</td><td class="n">101</td><td class="n">45</td><td class="n">44.55%</td><td class="n">28</td><td class="n">11</td><td class="n">6</td></tr>
 <tr class="hi"><td>2–3 h</td><td class="n">54</td><td class="n">30</td><td class="n">55.56%</td><td class="n">7</td><td class="n">4</td><td class="n">5</td></tr>
@@ -373,13 +373,13 @@ task installs about half the time.</figcaption>
 <tr class="hi"><td>5–6 h</td><td class="n">27</td><td class="n">14</td><td class="n">51.85%</td><td class="n">8</td><td class="n">3</td><td class="n">1</td></tr>
 </tbody>
 <tbody>
-<tr><td><b>Pooled</b></td><td class="n"><b>1,323</b></td><td class="n"><b>643</b></td><td class="n"><b>48.60%</b></td><td class="n">273</td><td class="n">122</td><td class="n">97</td></tr>
+<tr><td><b>Pooled</b></td><td class="n"><b>1,323</b></td><td class="n"><b>644</b></td><td class="n"><b>48.68%</b></td><td class="n">273</td><td class="n">122</td><td class="n">97</td></tr>
 </tbody>
 </table>
 </div>
 
 <p>Install rate is flat across the whole window — every band lands between 43.75% and 55.56% against a pooled
-48.60%, with no trend as latency rises. Highlighted rows are the tasks that exist only because the window was
+48.68%, with no trend as latency rises. Highlighted rows are the tasks that exist only because the window was
 extended; they install at the same rate as everything else. The hourly bands are small (27–54 tasks each), so their
 individual movement is not worth reading into — what matters is that none of them departs from the pooled rate.</p>
 
@@ -390,9 +390,9 @@ kept, against everything it would have thrown away:</p>
 <table>
 <thead><tr><th>Assignment latency</th><th class="n">Assigned</th><th class="n">Installed</th><th class="n">Install rate</th><th>What the old 2h window would have done</th></tr></thead>
 <tbody>
-<tr><td>Within 2 working hours</td><td class="n">1,177</td><td class="n">569</td><td class="n">48.34%</td><td style="color:var(--ink2)">Kept — unaffected by the change</td></tr>
+<tr><td>Within 2 working hours</td><td class="n">1,177</td><td class="n">570</td><td class="n">48.43%</td><td style="color:var(--ink2)">Kept — unaffected by the change</td></tr>
 <tr class="hi"><td><b>2–6 working hours</b></td><td class="n"><b>146</b></td><td class="n"><b>74</b></td><td class="n"><b>50.68%</b></td><td style="color:var(--ink2)">Killed at hour 2 and rerouted</td></tr>
-<tr><td><b>Total assigned</b></td><td class="n"><b>1,323</b></td><td class="n"><b>643</b></td><td class="n"><b>48.60%</b></td><td></td></tr>
+<tr><td><b>Total assigned</b></td><td class="n"><b>1,323</b></td><td class="n"><b>644</b></td><td class="n"><b>48.68%</b></td><td></td></tr>
 </tbody>
 </table>
 </div>
@@ -401,39 +401,87 @@ kept, against everything it would have thrown away:</p>
 exist as assignments solely because P41 was extended. They are 11.0% of all assignments in the cohort, and 74 of
 them reached an install.</p>
 
+<h3>So does the longer window lift supply efficiency? Yes.</h3>
+<p>Those 74 installs are the whole point. Because they convert at the normal rate, they land straight on top of
+the existing install base. Stated at both denominators — per task, and per connection/booking, which is the level
+supply efficiency is usually read at:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr>
+  <th>Supply efficiency</th><th class="n">Denominator</th>
+  <th class="n">SE at P41 = 2h</th><th class="n">SE at P41 = 6h</th><th class="n">Uplift</th>
+</tr></thead>
+<tbody>
+<tr><td><b>Task level</b> — installs per install candidate</td><td class="n">3,165 tasks</td>
+    <td class="n">18.01%</td><td class="n">20.35%</td><td class="n"><b class="up">+2.34pp</b></td></tr>
+<tr class="hi"><td><b>Connection / booking level</b> — installs per connection</td><td class="n">1,654 connections</td>
+    <td class="n">36.22%</td><td class="n">40.69%</td><td class="n"><b class="up">+4.47pp</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The connection-level figure is roughly double the task-level one for a mechanical reason: the 3,165 tasks sit
+on only <b>1,654 distinct connections</b> — about 1.9 candidates per connection, because a rerouted booking
+generates a fresh candidate each time. Installs are counted once either way, so the smaller denominator makes the
+same 74 installs worth more. <b>Per booking, extending P41 lifts supply efficiency from 36.22% to 40.69%.</b></p>
+
+<p>Both figures above credit P41 with the full 74 installs. Section 2 nets off what the old path would have
+recovered on its own, which is the number to actually plan against.</p>
+
 <h3>2. A timed-out booking is not a lost booking</h3>
 <p>When a candidate dies on <code>TIMEOUT_P41</code> the connection is released and rerouted — <b>78.1%</b> of them
 pick up a fresh candidate, and <b>15.9%</b> of the timed-out connections go on to install anyway with somebody else.
 So the counterfactual for those 146 late assignments is not zero installs; it is roughly 23.</p>
 
+<p>Of the 146 tasks the extension bought, roughly <b>23 would have installed anyway</b> under the old window, via a
+different CSP after reroute. Only the remaining <b>≈51</b> are genuinely new. Restating the same two levels net of
+that:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr>
+  <th>Supply efficiency</th><th class="n">Denominator</th>
+  <th class="n">Raw uplift</th><th class="n">Less reroute</th><th class="n">Net uplift</th>
+</tr></thead>
+<tbody>
+<tr><td><b>Task level</b> — per install candidate</td><td class="n">3,165 tasks</td>
+    <td class="n">+2.34pp</td><td class="n">−0.73pp</td><td class="n"><b class="up">+1.60pp</b></td></tr>
+<tr class="hi"><td><b>Connection / booking level</b> — per connection</td><td class="n">1,654 connections</td>
+    <td class="n">+4.47pp</td><td class="n">−1.40pp</td><td class="n"><b class="up">+3.07pp</b></td></tr>
+</tbody>
+</table>
+</div>
+
 <div class="tiles">
   <div class="tile">
-    <div class="lbl">Raw uplift — installs from the 2–6h band</div>
-    <div class="val">+2.34pp</div>
-    <div class="note">74 installs on 3,165 candidates, counting the old window as a total loss</div>
+    <div class="lbl">Net SE uplift — per booking</div>
+    <div class="val up">+3.07pp</div>
+    <div class="note">36.22% → 39.29% at connection level, after netting off reroute</div>
   </div>
   <div class="tile">
-    <div class="lbl">Less what reroute would have recovered</div>
-    <div class="val">−0.74pp</div>
-    <div class="note">146 × 15.9% ≈ 23 installs the old path would have produced anyway</div>
+    <div class="lbl">Net SE uplift — per task</div>
+    <div class="val up">+1.60pp</div>
+    <div class="note">18.01% → 19.61% at candidate level</div>
   </div>
   <div class="tile">
-    <div class="lbl">Net install-rate gain</div>
-    <div class="val up">≈ +1.6pp</div>
-    <div class="note">And this is an upper bound — see below</div>
+    <div class="lbl">Genuinely new installs</div>
+    <div class="val">≈ 51</div>
+    <div class="note">74 from the 2–6h band, less ~23 reroute would have recovered</div>
   </div>
   <div class="tile">
-    <div class="lbl">POST cohort install rate</div>
-    <div class="val">20.3%</div>
-    <div class="note">643 of 3,165 installed on their first candidate</div>
+    <div class="lbl">Relative lift on booking SE</div>
+    <div class="val">≈ 8.5%</div>
+    <div class="note">+3.07pp against a 36.22% base</div>
   </div>
 </div>
 
-<p>Four more hours raises the install rate by about <b>+1.6pp</b> — not the +4.61pp of extra positive action, and not
-the +2.34pp of raw installs. The difference is the reroute path, which was already recovering about one in six
-timed-out bookings without any change to P41.</p>
+<p><b>The answer to "does raising P41 increase supply efficiency" is yes — about +3pp per booking, +1.6pp per
+task.</b> Not the +4.61pp of extra positive action, and not the +4.47pp of raw installs; the difference in each
+case is the reroute path, which was already recovering about one in six timed-out bookings without any change
+to P41.</p>
 
-<p><b>+1.6pp is a ceiling, not a point estimate.</b> Reroute recovery rises the younger the cohort — 7.9% for
+<p><b>Treat these as a ceiling, not a point estimate.</b> Reroute recovery rises the younger the cohort — 7.9% for
 mid-June, 9.0% for early July, 15.1% for late July — so the 15.9% subtracted here will likely grow, shrinking the
 net gain further.</p>
 
@@ -1041,7 +1089,7 @@ never reached technician assignment at all.</figcaption>
   /* ---------- chart 7: install rate by latency band ---------- */
   /* label, n, rate */
   var IB=[
-    ['<15 min',   987,48.63],
+    ['<15 min',   987,48.73],
     ['15–60 min',  89,49.44],
     ['1–2 h',     101,44.55],
     ['2–3 h',      54,55.56],
@@ -1049,7 +1097,7 @@ never reached technician assignment at all.</figcaption>
     ['4–5 h',      33,48.48],
     ['5–6 h',      27,51.85]
   ];
-  var POOLED=48.60;
+  var POOLED=48.68;
 
   function c7(){
     var s=document.getElementById('c7'); if(!s) return; s.innerHTML='';
@@ -1068,7 +1116,7 @@ never reached technician assignment at all.</figcaption>
     s.appendChild(el('line',{x1:X(POOLED),x2:X(POOLED),y1:T,y2:T+ph,
       stroke:muted,'stroke-width':1.5,'stroke-dasharray':'4 3'}));
     var pl=el('text',{x:X(POOLED),y:T-4,fill:muted,'font-size':11.5,'text-anchor':'middle','font-weight':600});
-    pl.textContent='pooled 48.6%'; s.appendChild(pl);
+    pl.textContent='pooled 48.7%'; s.appendChild(pl);
     s.appendChild(el('line',{x1:L,x2:L,y1:T,y2:T+ph,stroke:axis,'stroke-width':1}));
 
     IB.forEach(function(b,i){

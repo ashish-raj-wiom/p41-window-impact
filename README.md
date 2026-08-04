@@ -65,17 +65,17 @@ got a technician assigned, the share reaching `CONNECTION_ACTIVE`:
 
 | Assignment latency | Assigned | Installed | Install rate |
 |---|---:|---:|---:|
-| <15 min | 987 | 480 | 48.63% |
+| <15 min | 987 | 481 | 48.73% |
 | 15–60 min | 89 | 44 | 49.44% |
 | 1–2 h | 101 | 45 | 44.55% |
 | **2–3 h** | 54 | 30 | 55.56% |
 | **3–4 h** | 32 | 14 | 43.75% |
 | **4–5 h** | 33 | 16 | 48.48% |
 | **5–6 h** | 27 | 14 | 51.85% |
-| **Pooled** | **1,323** | **643** | **48.60%** |
+| **Pooled** | **1,323** | **644** | **48.68%** |
 
-**No change in install rate.** Every band lands between 43.75% and 55.56% against a pooled 48.60%, with no trend
-as latency rises. Grouped the other way: <2h installs at 48.34%, 2–6h at 50.68%. Bolded rows are the P41 gain —
+**No change in install rate.** Every band lands between 43.75% and 55.56% against a pooled 48.68%, with no trend
+as latency rises. Grouped the other way: <2h installs at 48.43%, 2–6h at 50.68%. Bolded rows are the P41 gain —
 they install like everything else. The hourly bands are small (27–54 tasks each), so individual band movement
 isn't worth reading into; what matters is that none departs from the pooled rate.
 
@@ -84,9 +84,9 @@ kept, against everything it would have thrown away:
 
 | Assignment latency | Assigned | Installed | Install rate | Old 2h window |
 |---|---:|---:|---:|---|
-| Within 2 working hours | 1,177 | 569 | 48.34% | Kept |
+| Within 2 working hours | 1,177 | 570 | 48.43% | Kept |
 | **2–6 working hours** | **146** | **74** | **50.68%** | Killed at hour 2, rerouted |
-| **Total assigned** | **1,323** | **643** | **48.60%** | |
+| **Total assigned** | **1,323** | **644** | **48.68%** | |
 
 **That is where 146 comes from** — the tasks a CSP only got to between working-hour 2 and 6, which exist as
 assignments solely because P41 was extended. They are 11.0% of all assignments, and 74 of them reached an install.
@@ -95,13 +95,29 @@ assignments solely because P41 was extended. They are 11.0% of all assignments, 
 up a fresh candidate and **15.9% install anyway with somebody else**. So those 146 late assignments would have
 produced ~23 installs regardless.
 
-| | |
-|---|---|
-| Raw uplift — 74 installs on 3,165 candidates | +2.34pp |
-| Less what reroute would have recovered (146 × 15.9%) | −0.74pp |
-| **Net install-rate gain** | **≈ +1.6pp** |
+### Supply-efficiency uplift — does raising P41 lift SE? Yes
 
-**Treat +1.6pp as a ceiling.** Reroute recovery rises the *younger* the cohort — 7.9% (mid-Jun), 9.0% (early Jul),
+Stated at both denominators. The 3,165 tasks sit on only **1,654 distinct connections** (~1.9 candidates each,
+because a rerouted booking generates a fresh candidate), so the booking-level figure is roughly double.
+
+| Supply efficiency | Denominator | SE at P41 = 2h | SE at P41 = 6h | Raw uplift |
+|---|---:|---:|---:|---:|
+| **Task level** — per install candidate | 3,165 tasks | 18.01% | 20.35% | **+2.34pp** |
+| **Connection / booking level** | 1,654 connections | 36.22% | 40.69% | **+4.47pp** |
+
+Net of the reroute counterfactual (~23 of the 146 would have installed anyway, leaving ≈51 genuinely new):
+
+| Supply efficiency | Raw uplift | Less reroute | **Net uplift** |
+|---|---:|---:|---:|
+| **Task level** | +2.34pp | −0.73pp | **+1.60pp** |
+| **Connection / booking level** | +4.47pp | −1.40pp | **+3.07pp** |
+
+**So: raising P41 lifts supply efficiency by about +3pp per booking (36.22% → 39.29%), +1.6pp per task** — a
+relative lift of ~8.5% on booking SE. Not the +4.61pp of extra positive action, and not the +4.47pp of raw
+installs; the difference in each case is the reroute path, which was already recovering one in six timed-out
+bookings without any change to P41.
+
+**Treat these as a ceiling.** Reroute recovery rises the *younger* the cohort — 7.9% (mid-Jun), 9.0% (early Jul),
 11.1% (mid-Jul), 15.1% (late Jul) — which is the opposite of a censoring artifact, so the 15.9% subtracted here
 will likely grow and shrink the net gain further.
 
