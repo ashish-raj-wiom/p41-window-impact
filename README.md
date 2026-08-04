@@ -79,24 +79,29 @@ Ranking every CSP by **his own response rate** across the week's tasks — 237 C
 and cutting them into four equal groups of CSPs. Percentiles are of the response times those CSPs actually
 delivered:
 
-| CSP group (by how often they answer) | CSPs | Bookings | Answers at all | P50 | P90 | P95 |
-|---|---:|---:|---:|---:|---:|---:|
-| Best quarter | 60 | 485 | **100%** | 38 sec | 1h 37m | 3h 24m |
-| Second | 59 | 545 | 90% | 5m | 3h 11m | 4h 23m |
-| Third | 59 | 568 | 55% | 6m | 3h 48m | 4h 42m |
-| **Worst quarter** | 59 | 544 | **5%** | 33m | 4h 12m | **4h 52m** |
+| CSP group (by how often they answer) | CSPs | Bookings | Responds to | Accepts | Declines | Respond P50 | P90 | P95 | Accept P50 | P90 | P95 | Decline P50 | P90 | P95 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Best quarter | 60 | 485 | **100%** | 68% | 32% | 42 sec | 1h 49m | 3h 26m | 34 sec | 1h 30m | 3h 26m | 4m 35s | 2h 9m | 3h 26m |
+| Second | 59 | 545 | 90% | 46% | 44% | 4m 17s | 3h 11m | 4h 25m | 48 sec | 1h 56m | 3h 36m | 30m 40s | 3h 35m | 4h 49m |
+| Third | 59 | 568 | 55% | 38% | 17% | 5m 2s | 3h 46m | 4h 40m | 2m 11s | 3h 22m | 4h 9m | 41m 33s | 4h 31m | 5h 10m |
+| **Worst quarter** | 59 | 544 | **5%** | 4% | 1% | 33m 26s | 4h 12m | **4h 52m** | 22m 39s | 3h 32m | 4h 52m | 3h 52m | 4h 22m | 4h 25m |
 
 **Response rate collapses 100% → 5.1%, a 20× spread.** That is the real difference between CSPs.
 
 **Response speed barely moves in comparison.** The worst quarter's P95 is 4h 52m against the best quarter's
-3h 24m — under 90 minutes of spread at P95, against a 6-hour window. Every quarter's median is minutes, not
+3h 26m — under 90 minutes of spread at P95, against a 6-hour window. Every quarter's median is minutes, not
 hours. **No quarter of CSPs needs more than six working hours; the bad quarter simply does not answer.**
+
+**Accepting is always faster than declining.** In every group the median acceptance lands in under three minutes,
+while the median decline runs from five minutes in the best group to nearly four hours in the worst. A CSP who is
+going to take the job does it almost immediately; the later hours are mostly spent waiting on people who will
+eventually say no, or nothing at all.
 
 #### CSPs on the Dominance programme
 
 The same cut for the 25 CSPs who accepted Dominance in late July, counted only from the day each one joined:
 
-| Group | CSPs | Bookings | Answers at all | Takes the job | P50 | P90 | P95 |
+| Group | CSPs | Bookings | Responds to | Takes the job | P50 | P90 | P95 |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | **Dominance** | 23 | 81 | **86%** | **69%** | 50 sec | 1h 32m | 2h 28m |
 | Everyone else | 655 | 3,068 | 62% | 41% | 71 sec | 2h 49m | 4h 7m |
@@ -117,20 +122,20 @@ install candidates. All 25 resolved; 24 were active that week, 23 after their ow
 
 | P41 set to | Q1 | Q2 | Q3 | Q4 | Overall response | Overall jobs taken |
 |---:|---:|---:|---:|---:|---:|---:|
-| 1 h | 84.5% | 61.5% | 35.9% | 2.9% | 47.4% | 34.0% |
-| 2 h — old setting | 91.8% | 75.8% | 41.7% | 3.3% | 54.1% | 37.2% |
-| 3 h | 94.2% | 80.4% | 46.7% | 3.9% | 57.1% | 38.9% |
-| 4 h | 96.3% | 84.6% | 49.5% | 4.4% | 59.2% | 39.9% |
-| 5 h | 98.8% | 86.8% | 52.3% | 4.8% | 61.0% | 41.0% |
+| 1 h | 82.3% | 63.3% | 36.1% | 2.9% | 47.4% | 34.0% |
+| 2 h — old setting | 91.1% | 76.1% | 41.9% | 3.3% | 54.1% | 37.2% |
+| 3 h | 94.0% | 80.4% | 46.8% | 3.9% | 57.1% | 38.9% |
+| 4 h | 96.1% | 84.6% | 49.6% | 4.4% | 59.2% | 39.9% |
+| 5 h | 98.8% | 86.6% | 52.5% | 4.8% | 61.0% | 41.0% |
 | **6 h — current** | **100%** | **89.9%** | **54.6%** | **5.1%** | **62.6%** | **41.8%** |
-| **Gain per hour, 2h → 6h** | **+2.1 points** | **+3.5 points** | **+3.2 points** | **+0.5 points** | **+2.1 points** | **+1.2 points** |
+| **Gain per hour, 2h → 6h** | **+2.2 points** | **+3.5 points** | **+3.2 points** | **+0.4 points** | **+2.1 points** | **+1.2 points** |
 
 **Every extra hour buys more response, at a near-constant rate.** The first hour is the steep one; from hour 2
 onward each additional hour adds roughly the same again — 2.1 points an hour overall. Nothing in the 1h–6h range flattens
 out, so there is no point where the next hour stops paying.
 
-**The shape is the same in every quarter; the size is not.** Q1–Q3 gain 2–3.5 points per hour. Q4 gains **0.5 points per
-hour**, a seventh of Q2's rate. Waiting buys real response from CSPs who engage at all and almost nothing from
+**The shape is the same in every quarter; the size is not.** The best three groups gain 2.2–3.5 points per hour. The weakest gains **0.4 points
+per hour**, a ninth of the second group's rate. Waiting buys real response from CSPs who engage at all and almost nothing from
 those who do not.
 
 **What the move from 2h to 6h was worth.** Response rose **54.1% → 62.6% (+8.5 points)**, jobs taken **37.2% → 41.8%

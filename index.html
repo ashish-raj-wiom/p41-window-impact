@@ -194,18 +194,38 @@ least 5 bookings that week. The times are how long the answers took, when they c
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>CSP group <span style="font-weight:400;color:var(--ink2)">(by how often they answer)</span></th>
-<th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Answers at all</th>
-<th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
+<thead>
+<tr><th rowspan="2">CSP group <span style="font-weight:400;color:var(--ink2)">(by how often they answer)</span></th>
+    <th class="n" rowspan="2">CSPs</th><th class="n" rowspan="2">Bookings</th>
+    <th class="n" rowspan="2">Responds to</th><th class="n" rowspan="2">Accepts</th><th class="n" rowspan="2">Declines</th>
+    <th class="n" colspan="3" style="text-align:center;border-bottom:none">Time to respond</th>
+    <th class="n" colspan="3" style="text-align:center;border-bottom:none">Time to accept</th>
+    <th class="n" colspan="3" style="text-align:center;border-bottom:none">Time to decline</th></tr>
+<tr><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th>
+    <th class="n">P50</th><th class="n">P90</th><th class="n">P95</th>
+    <th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr>
+</thead>
 <tbody>
-<tr><td>Best quarter</td><td class="n">60</td><td class="n">485</td><td class="n"><b>100%</b></td>
-    <td class="n">38 sec</td><td class="n">1h 37m</td><td class="n">3h 24m</td></tr>
-<tr><td>Second</td><td class="n">59</td><td class="n">545</td><td class="n">90%</td>
-    <td class="n">5m</td><td class="n">3h 11m</td><td class="n">4h 23m</td></tr>
-<tr><td>Third</td><td class="n">59</td><td class="n">568</td><td class="n">55%</td>
-    <td class="n">6m</td><td class="n">3h 48m</td><td class="n">4h 42m</td></tr>
-<tr class="hi"><td><b>Worst quarter</b></td><td class="n">59</td><td class="n">544</td><td class="n"><b>5%</b></td>
-    <td class="n">33m</td><td class="n">4h 12m</td><td class="n"><b>4h 52m</b></td></tr>
+<tr><td>Best quarter</td><td class="n">60</td><td class="n">485</td>
+    <td class="n"><b>100%</b></td><td class="n">68%</td><td class="n">32%</td>
+    <td class="n">42 sec</td><td class="n">1h 49m</td><td class="n">3h 26m</td>
+    <td class="n">34 sec</td><td class="n">1h 30m</td><td class="n">3h 26m</td>
+    <td class="n">4m 35s</td><td class="n">2h 9m</td><td class="n">3h 26m</td></tr>
+<tr><td>Second</td><td class="n">59</td><td class="n">545</td>
+    <td class="n">90%</td><td class="n">46%</td><td class="n">44%</td>
+    <td class="n">4m 17s</td><td class="n">3h 11m</td><td class="n">4h 25m</td>
+    <td class="n">48 sec</td><td class="n">1h 56m</td><td class="n">3h 36m</td>
+    <td class="n">30m 40s</td><td class="n">3h 35m</td><td class="n">4h 49m</td></tr>
+<tr><td>Third</td><td class="n">59</td><td class="n">568</td>
+    <td class="n">55%</td><td class="n">38%</td><td class="n">17%</td>
+    <td class="n">5m 2s</td><td class="n">3h 46m</td><td class="n">4h 40m</td>
+    <td class="n">2m 11s</td><td class="n">3h 22m</td><td class="n">4h 9m</td>
+    <td class="n">41m 33s</td><td class="n">4h 31m</td><td class="n">5h 10m</td></tr>
+<tr class="hi"><td><b>Worst quarter</b></td><td class="n">59</td><td class="n">544</td>
+    <td class="n"><b>5%</b></td><td class="n">4%</td><td class="n">1%</td>
+    <td class="n">33m 26s</td><td class="n">4h 12m</td><td class="n"><b>4h 52m</b></td>
+    <td class="n">22m 39s</td><td class="n">3h 32m</td><td class="n">4h 52m</td>
+    <td class="n">3h 52m</td><td class="n">4h 22m</td><td class="n">4h 25m</td></tr>
 </tbody>
 </table>
 </div>
@@ -213,8 +233,13 @@ least 5 bookings that week. The times are how long the answers took, when they c
 <p><b>How often they answer varies twentyfold — 100% down to 5%.</b> That is the real difference between CSPs.</p>
 
 <p><b>How fast they answer barely varies at all.</b> Every group answers in minutes at the median, and even the
-slowest group has a P95 under 5 hours. <b>No group of CSPs needs more than 6 hours. The weak group
-simply does not answer.</b></p>
+slowest group has a P95 under 5 hours. <b>No group of CSPs needs more than 6 hours. The weak group simply does
+not answer.</b></p>
+
+<p><b>Accepting is always faster than declining.</b> In every group the median acceptance lands in under three
+minutes, while the median decline takes from five minutes in the best group to nearly four hours in the worst.
+A CSP who is going to take the job does it almost immediately; the later hours of the window are mostly spent
+waiting on people who will eventually say no, or nothing at all.</p>
 
 <h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">CSPs on the Dominance programme</h4>
 
@@ -223,7 +248,7 @@ counted only from the day each one joined:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Group</th><th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Answers at all</th>
+<thead><tr><th>Group</th><th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Responds to</th>
 <th class="n">Takes the job</th><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
 <tbody>
 <tr class="hi"><td><b>Dominance</b></td><td class="n">23</td><td class="n">81</td>
@@ -267,14 +292,14 @@ value, for each CSP quarter:</p>
 <table>
 <thead><tr><th class="n">P41 set to</th><th class="n">Q1</th><th class="n">Q2</th><th class="n">Q3</th><th class="n">Q4</th><th class="n">Overall response</th><th class="n">Overall jobs taken</th></tr></thead>
 <tbody>
-<tr><td class="n">1 h</td><td class="n">84.5%</td><td class="n">61.5%</td><td class="n">35.9%</td><td class="n">2.9%</td><td class="n">47.4%</td><td class="n">34.0%</td></tr>
-<tr><td class="n">2 h — old setting</td><td class="n">91.8%</td><td class="n">75.8%</td><td class="n">41.7%</td><td class="n">3.3%</td><td class="n">54.1%</td><td class="n">37.2%</td></tr>
-<tr><td class="n">3 h</td><td class="n">94.2%</td><td class="n">80.4%</td><td class="n">46.7%</td><td class="n">3.9%</td><td class="n">57.1%</td><td class="n">38.9%</td></tr>
-<tr><td class="n">4 h</td><td class="n">96.3%</td><td class="n">84.6%</td><td class="n">49.5%</td><td class="n">4.4%</td><td class="n">59.2%</td><td class="n">39.9%</td></tr>
-<tr><td class="n">5 h</td><td class="n">98.8%</td><td class="n">86.8%</td><td class="n">52.3%</td><td class="n">4.8%</td><td class="n">61.0%</td><td class="n">41.0%</td></tr>
+<tr><td class="n">1 h</td><td class="n">82.3%</td><td class="n">63.3%</td><td class="n">36.1%</td><td class="n">2.9%</td><td class="n">47.4%</td><td class="n">34.0%</td></tr>
+<tr><td class="n">2 h — old setting</td><td class="n">91.1%</td><td class="n">76.1%</td><td class="n">41.9%</td><td class="n">3.3%</td><td class="n">54.1%</td><td class="n">37.2%</td></tr>
+<tr><td class="n">3 h</td><td class="n">94.0%</td><td class="n">80.4%</td><td class="n">46.8%</td><td class="n">3.9%</td><td class="n">57.1%</td><td class="n">38.9%</td></tr>
+<tr><td class="n">4 h</td><td class="n">96.1%</td><td class="n">84.6%</td><td class="n">49.6%</td><td class="n">4.4%</td><td class="n">59.2%</td><td class="n">39.9%</td></tr>
+<tr><td class="n">5 h</td><td class="n">98.8%</td><td class="n">86.6%</td><td class="n">52.5%</td><td class="n">4.8%</td><td class="n">61.0%</td><td class="n">41.0%</td></tr>
 <tr class="hi"><td class="n">6 h — current</td><td class="n">100%</td><td class="n">89.9%</td><td class="n">54.6%</td><td class="n">5.1%</td><td class="n">62.6%</td><td class="n">41.8%</td></tr>
-<tr><td class="n"><b>Gain per hour, 2h → 6h</b></td><td class="n"><b>+2.1 points</b></td><td class="n"><b>+3.5 points</b></td>
-    <td class="n"><b>+3.2 points</b></td><td class="n"><b>+0.5 points</b></td><td class="n"><b>+2.1 points</b></td><td class="n"><b>+1.2 points</b></td></tr>
+<tr><td class="n"><b>Gain per hour, 2h → 6h</b></td><td class="n"><b>+2.2 points</b></td><td class="n"><b>+3.5 points</b></td>
+    <td class="n"><b>+3.2 points</b></td><td class="n"><b>+0.4 points</b></td><td class="n"><b>+2.1 points</b></td><td class="n"><b>+1.2 points</b></td></tr>
 </tbody>
 </table>
 </div>
@@ -287,8 +312,8 @@ steep one; from hour 2 onward each additional hour adds roughly the same amount 
 bottom row shows the same steady climb inside every quarter. There is no point in the range where the curve
 flattens out and the next hour stops paying.</p>
 
-<p><b>The shape is the same in every quarter; the size is not.</b> Q1, Q2 and Q3 all gain 2–3.5 points per hour.
-Q4 gains <b>0.5 points per hour</b> — a seventh of Q2's rate. Waiting buys real response from CSPs who engage at all,
+<p><b>The shape is the same in every quarter; the size is not.</b> The best three groups gain 2.2–3.5 points per hour.
+The weakest gains <b>0.4 points per hour</b> — a ninth of the second group's rate. Waiting buys real response from CSPs who engage at all,
 and almost nothing from those who do not.</p>
 
 <div class="note-box">
@@ -596,9 +621,9 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
 
   var QH=[1,2,3,4,5,6];
   var QU=[
-    {k:'Q1 best', c:'--s1', v:[84.5,91.8,94.2,96.3,98.8,100.0]},
-    {k:'Q2',      c:'--s2', v:[61.5,75.8,80.4,84.6,86.8, 89.9]},
-    {k:'Q3',      c:'--s3', v:[35.9,41.7,46.7,49.5,52.3, 54.6]},
+    {k:'Q1 best', c:'--s1', v:[82.3,91.1,94.0,96.1,98.8,100.0]},
+    {k:'Q2',      c:'--s2', v:[63.3,76.1,80.4,84.6,86.6, 89.9]},
+    {k:'Q3',      c:'--s3', v:[36.1,41.9,46.8,49.6,52.5, 54.6]},
     {k:'Q4 worst',c:'--s4', v:[ 2.9, 3.3, 3.9, 4.4, 4.8,  5.1]}
   ];
 
