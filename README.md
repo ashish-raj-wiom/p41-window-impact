@@ -55,8 +55,6 @@ period.
 - **Like-for-like the gap is 2.3 points, not 12.2.** At a common 2-hour cut-off the two weeks are 46.9% against
   49.2%. The other ten points are responses arriving in hours 2 to 6 — hours the old window did not have.
 - **The two weeks measure different actions** — proposing a slot then, assigning a technician now.
-- **The old window truncates its own data.** Its response rate is identical at 2 hours and at 6 — 46.9% either
-  way — because nothing could arrive later.
 
 ---
 
