@@ -143,6 +143,18 @@ Re-cut against the customer's **promised slot date** it becomes obvious what the
 **69% of cancellations happen after the promised slot has passed**, biggest single day immediately after. The
 customer is waiting for the day he was promised. **That is the guardrail.**
 
+And it holds **regardless of how far ahead the slot was** — a customer promised a slot three days out waits the
+three days rather than giving up at a fixed number of hours:
+
+| Slot promised | Connections | Cancelled | Before slot | On slot day | Day after | **On or after** |
+|---|---:|---:|---:|---:|---:|---:|
+| Same day | 494 | 91 | 0% | 29.7% | 27.5% | **100%** |
+| Next day | 1,985 | 370 | 14.1% | 16.8% | 21.9% | **85.9%** |
+| 2+ days out | 301 | 57 | 12.3% | 19.3% | 19.3% | **87.7%** |
+
+86–100% land on or after the slot day in every bucket. Elapsed time since booking is not the trigger; the slot
+passing is.
+
 ### 5. Calibrating against that guardrail
 
 | Input | Value | How measured |

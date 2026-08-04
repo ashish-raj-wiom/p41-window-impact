@@ -299,6 +299,24 @@ day is the one immediately after. The customer is not counting hours since booki
 was promised, and giving up once it goes by. <b>That is the guardrail: the allocation must finish before the end
 of the slot day.</b></p>
 
+<p>And it holds <b>regardless of how far ahead the slot was</b> — a customer promised a slot three days out waits
+the three days, rather than giving up at some fixed number of hours:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Slot promised</th><th class="n">Connections</th><th class="n">Cancelled</th>
+<th class="n">Before the slot</th><th class="n">On the slot day</th><th class="n">Day after</th><th class="n">On or after the slot</th></tr></thead>
+<tbody>
+<tr><td>Same day</td><td class="n">494</td><td class="n">91</td><td class="n">0%</td><td class="n">29.7%</td><td class="n">27.5%</td><td class="n"><b>100%</b></td></tr>
+<tr><td>Next day</td><td class="n">1,985</td><td class="n">370</td><td class="n">14.1%</td><td class="n">16.8%</td><td class="n">21.9%</td><td class="n"><b>85.9%</b></td></tr>
+<tr><td>2+ days out</td><td class="n">301</td><td class="n">57</td><td class="n">12.3%</td><td class="n">19.3%</td><td class="n">19.3%</td><td class="n"><b>87.7%</b></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13.5px;color:var(--ink2)">Between <b>86% and 100%</b> of cancellations land on or after the
+slot day in every lead-time bucket, and the day-after share is 19–28% throughout. Elapsed time since booking is not
+what triggers it; the slot passing is. (Same-day slots show 0% "before" by construction — there is no before.)</p>
+
 <h3>6. Calibrating against that guardrail</h3>
 <p>If the slot day is the deadline, the parameter follows from three measurements:</p>
 
