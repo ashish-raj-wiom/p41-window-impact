@@ -63,21 +63,21 @@ Yes — but roughly a third of the headline, because a timed-out booking was nev
 **Late assignments convert as well as early ones — at every hour.** Task-level install rate, i.e. of tasks that
 got a technician assigned, the share reaching `CONNECTION_ACTIVE`:
 
-| Assignment latency | Assigned | Installed | Install rate | 95% CI |
-|---|---:|---:|---:|---:|
-| <15 min | 987 | 480 | 48.63% | 45.5 – 51.7 |
-| 15–60 min | 89 | 44 | 49.44% | 39.3 – 59.6 |
-| 1–2 h | 101 | 45 | 44.55% | 35.2 – 54.3 |
-| **2–3 h** | 54 | 30 | 55.56% | 42.4 – 68.0 |
-| **3–4 h** | 32 | 14 | 43.75% | 28.2 – 60.7 |
-| **4–5 h** | 33 | 16 | 48.48% | 32.5 – 64.8 |
-| **5–6 h** | 27 | 14 | 51.85% | 34.0 – 69.3 |
-| **Pooled** | **1,323** | **643** | **48.60%** | — |
+| Assignment latency | Assigned | Installed | Install rate |
+|---|---:|---:|---:|
+| <15 min | 987 | 480 | 48.63% |
+| 15–60 min | 89 | 44 | 49.44% |
+| 1–2 h | 101 | 45 | 44.55% |
+| **2–3 h** | 54 | 30 | 55.56% |
+| **3–4 h** | 32 | 14 | 43.75% |
+| **4–5 h** | 33 | 16 | 48.48% |
+| **5–6 h** | 27 | 14 | 51.85% |
+| **Pooled** | **1,323** | **643** | **48.60%** |
 
-**No deviation.** Chi-square across all seven bands: **χ² = 2.15, df = 6, p = 0.906** — nowhere near significance.
-The two-group comparison, <2h (48.34%) vs 2–6h (50.68%), gives p = 0.593. The apparent 43.75–55.56% spread is
-purely sample size: the hourly bands hold 27–54 tasks, so their intervals are 25–35pp wide and every one of them
-straddles the pooled rate. Bolded rows are the P41 gain — they install like everything else.
+**No change in install rate.** Every band lands between 43.75% and 55.56% against a pooled 48.60%, with no trend
+as latency rises. Grouped the other way: <2h installs at 48.34%, 2–6h at 50.68%. Bolded rows are the P41 gain —
+they install like everything else. The hourly bands are small (27–54 tasks each), so individual band movement
+isn't worth reading into; what matters is that none departs from the pooled rate.
 
 **But the counterfactual is not zero.** When a candidate dies on `TIMEOUT_P41`, 78.1% of those connections pick
 up a fresh candidate and **15.9% install anyway with somebody else**. So the 146 late assignments would have
