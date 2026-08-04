@@ -33,6 +33,10 @@ is measured.
 
 ## Why
 
+Three steps. **Part 1** asks whether a longer window actually buys more response. **Part 2** asks what limits how
+long it can be. **Part 3** puts the two together and gets the number. Each part opens with its conclusion, then
+the evidence.
+
 ### Method note: current regime only
 
 All figures come from the period **after** P41 moved to 6 hours. Deliberately not a before/after comparison:
@@ -42,6 +46,20 @@ All figures come from the period **after** P41 moved to 6 hours. Deliberately no
 2. **Changing the timer changes the behaviour being measured.** Under a 2-hour window you cannot observe a
    five-hour response — the task was already dead. The old regime's numbers are truncated by its own deadline.
    Calibration needs the distribution of what CSPs *actually do* when given room.
+
+---
+
+## Part 1 of 3 — Does a longer window buy more response?
+
+### Yes — and it was still paying when the current 6-hour window cut it off.
+
+Response climbs steadily: roughly **2 points for every extra hour** from hour 2 onward, and the same pattern
+holds inside every group of CSPs. Nothing between 1 and 6 hours flattens out.
+
+What differs between CSPs is not how fast they answer but **whether they answer at all** — 100% in the best
+quarter, 5% in the worst. Waiting longer does not close that gap.
+
+**On its own, this argues for a longer window.** Points 1 to 4.
 
 ### 1. How fast do CSPs respond?
 
@@ -61,7 +79,7 @@ Ranking every CSP by **his own response rate** across the week's tasks — 237 C
 and cutting them into four equal groups of CSPs. Percentiles are of the response times those CSPs actually
 delivered:
 
-| CSP group (by how often they answer) | CSPs | Bookings | Answers at all | Half within | 9 in 10 within | 19 in 20 within |
+| CSP group (by how often they answer) | CSPs | Bookings | Answers at all | P50 | P90 | P95 |
 |---|---:|---:|---:|---:|---:|---:|
 | Best quarter | 60 | 485 | **100%** | 38 sec | 1h 37m | 3h 24m |
 | Second | 59 | 545 | 90% | 5m | 3h 11m | 4h 23m |
@@ -78,13 +96,13 @@ hours. **No quarter of CSPs needs more than six working hours; the bad quarter s
 
 The same cut for the 25 CSPs who accepted Dominance in late July, counted only from the day each one joined:
 
-| Group | CSPs | Bookings | Answers at all | Takes the job | Half within | 9 in 10 within | 19 in 20 within |
+| Group | CSPs | Bookings | Answers at all | Takes the job | P50 | P90 | P95 |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | **Dominance** | 23 | 81 | **86%** | **69%** | 50 sec | 1h 32m | 2h 28m |
 | Everyone else | 655 | 3,068 | 62% | 41% | 71 sec | 2h 49m | 4h 7m |
 
 **Dominance CSPs answer far more often — 86% against 62% — and take the job 69% of the time against 41%.** They
-are quicker too: 19 in 20 answers inside 2h 28m against 4h 7m.
+are quicker too: P95 of 2h 28m against 4h 7m.
 
 **Two cautions before reading anything causal into this.** The sample is thin — 81 bookings, because the
 programme started 27–30 July and the week ends 1 August, giving each CSP two to six days inside the window. And
@@ -95,7 +113,7 @@ in it at least as much as what it has done to them. Read it as a profile of the 
 Resolution: partner ids from the Dominance sheet → `DBT_CSP_POD.INT_EW_CSP_ACCOUNTS` → the `CSP_ID` used on
 install candidates. All 25 resolved; 24 were active that week, 23 after their own join date.
 
-### 3. Every extra hour buys more response
+### 3. What each extra hour is worth
 
 | P41 set to | Q1 | Q2 | Q3 | Q4 | Overall response | Overall jobs taken |
 |---:|---:|---:|---:|---:|---:|---:|
@@ -121,7 +139,21 @@ but **44.2%** of bookings whose CSP never responded still get a technician from 
 incremental — **≈81 bookings** against the group's **1,654**, or **+4.9 points of booking-level supply
 efficiency**. That is what a return to 2 hours would give back.
 
-### 4. But customers give up at a fixed point — the evening after the promised day
+---
+
+## Part 2 of 3 — So what stops us making it longer?
+
+### A deadline — not a cost that grows by the hour.
+
+Customers do not get impatient hour by hour. They wait for the day they were promised and give up on the
+**evening after it**. Cancellation is near zero right up to that point and jumps the moment it arrives.
+
+That fixes the point the allocation must finish before — and it is **the same point whichever day the customer
+chose**.
+
+**Extra hours are close to free until that deadline, and expensive after it.** Point 4.
+
+### 4. When customers give up
 
 Cancellations in the first few hours are not impatience — they are bookings the customer never intended to keep,
 and they would have cancelled whatever P41 was set to.
@@ -204,6 +236,15 @@ the slot promised at that point, so re-slotting and rerouting do not double-coun
 4 Aug are included. The behaviour measured — customers give up when the promised day passes — is not specific to
 the P41 window, which is why the wider window is acceptable here.
 
+---
+
+## Part 3 of 3 — So what should P41 be?
+
+### 8 working hours. We are at 6.
+
+Part 1 says take as much time as the deadline allows. Part 2 says where the deadline is. The setting falls out of
+the two: **15.5 working hours available ÷ 1.9 CSPs tried = 8 working hours each.**
+
 ### 5. The calculation
 
 **Section 3 established:** every extra hour buys more response, at a near-constant 2.1 points an hour, in every quarter.
@@ -241,12 +282,16 @@ only the size.
 **Coverage caveat.** 226 of the 1,654 bookings (one in seven) reach a CSP too late in the day for even a single
 window to close before the deadline. No timer value reaches them, at 2 hours or at 12.
 
-### 6. Time of day makes no difference
+---
+
+## One last check
+
+### Time of day makes no difference
 
 P41 runs on a working-hours clock (9am–9pm, pausing overnight), so a booking arriving at 8pm gets the same
 effective budget as one arriving at 10am. The data confirms it:
 
-| Booking reached CSP at | Bookings | Working hrs left that day | Response rate | Jobs taken | 9 in 10 answered within |
+| Booking reached CSP at | Bookings | Working hrs left that day | Response rate | Jobs taken | P90 response |
 |---|---:|---:|---:|---:|---:|
 | 09–12 morning | 602 | 10h 24m | 60.5% | 42.0% | 2h 22m |
 | 12–15 midday | 679 | 7h 30m | 63.0% | 40.8% | 2h 17m |

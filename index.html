@@ -53,6 +53,13 @@ p{max-width:78ch}
 .tile .val{font-size:30px;line-height:1.05;font-weight:660;letter-spacing:-.02em}
 .tile .note{font-size:13px;color:var(--ink2);margin-top:7px}
 .up{color:var(--good-text);font-weight:640}
+.part{margin:60px 0 10px;padding:24px 28px;background:var(--surface);border:1px solid var(--ring);
+  border-left:4px solid var(--s1);border-radius:0 14px 14px 0}
+.part .lbl{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.part h2{font-size:23px;margin:9px 0 14px;letter-spacing:-.01em}
+.part .ans{font-size:17px;font-weight:640;color:var(--ink);margin:0 0 10px;max-width:none}
+.part p{margin:0 0 9px;font-size:15.5px;color:var(--ink2);max-width:none}
+.part p:last-child{margin-bottom:0}
 .note-box{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:16px 20px;margin:18px 0}
 .note-box p{margin:0 0 8px;font-size:15px;color:var(--ink2)}
 .note-box p:last-child{margin-bottom:0}
@@ -132,6 +139,9 @@ the work.</p>
 </div>
 
 <h2>Why</h2>
+<p class="lede">Three steps. <b>Part 1</b> asks whether a longer window actually buys more response.
+<b>Part 2</b> asks what limits how long it can be. <b>Part 3</b> puts the two together and gets the number.
+Each part opens with its conclusion, then the evidence behind it.</p>
 
 <h3>A note on method</h3>
 <div class="note-box">
@@ -142,6 +152,18 @@ the work.</p>
   <p><b>And the timer changes what we can see.</b> Under a 2-hour window you never observe a five-hour response —
   the booking was already gone. The old numbers are cut off by their own deadline. To set the parameter we need
   to see what CSPs do when given room, and only the current setting shows that.</p>
+</div>
+
+<div class="part">
+  <div class="lbl">Part 1 of 3</div>
+  <h2>Does a longer window buy more response?</h2>
+  <p class="ans">Yes — and it was still paying when the current 6-hour window cut it off.</p>
+  <p>Response climbs steadily: roughly <b>2 points for every extra hour</b> from hour 2 onward, and the same
+  pattern holds inside every group of CSPs. Nothing between 1 and 6 hours flattens out — there is no point where
+  the next hour stops earning.</p>
+  <p>What differs between CSPs is not how fast they answer but <b>whether they answer at all</b>: from 100% in
+  the best quarter to 5% in the worst. Waiting longer does not close that gap.</p>
+  <p><b>On its own, this argues for a longer window.</b> Points 1 to 4 below.</p>
 </div>
 
 <h3>1. How fast do CSPs respond?</h3>
@@ -174,7 +196,7 @@ least 5 bookings that week. The times are how long the answers took, when they c
 <table>
 <thead><tr><th>CSP group <span style="font-weight:400;color:var(--ink2)">(by how often they answer)</span></th>
 <th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Answers at all</th>
-<th class="n">Half within</th><th class="n">9 in 10 within</th><th class="n">19 in 20 within</th></tr></thead>
+<th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
 <tbody>
 <tr><td>Best quarter</td><td class="n">60</td><td class="n">485</td><td class="n"><b>100%</b></td>
     <td class="n">38 sec</td><td class="n">1h 37m</td><td class="n">3h 24m</td></tr>
@@ -191,7 +213,7 @@ least 5 bookings that week. The times are how long the answers took, when they c
 <p><b>How often they answer varies twentyfold — 100% down to 5%.</b> That is the real difference between CSPs.</p>
 
 <p><b>How fast they answer barely varies at all.</b> Every group answers in minutes at the median, and even the
-slowest group has 19 in 20 answers in under 5 hours. <b>No group of CSPs needs more than 6 hours. The weak group
+slowest group has a P95 under 5 hours. <b>No group of CSPs needs more than 6 hours. The weak group
 simply does not answer.</b></p>
 
 <h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">CSPs on the Dominance programme</h4>
@@ -202,7 +224,7 @@ counted only from the day each one joined:</p>
 <div class="tblscroll">
 <table>
 <thead><tr><th>Group</th><th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Answers at all</th>
-<th class="n">Takes the job</th><th class="n">Half within</th><th class="n">9 in 10 within</th><th class="n">19 in 20 within</th></tr></thead>
+<th class="n">Takes the job</th><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
 <tbody>
 <tr class="hi"><td><b>Dominance</b></td><td class="n">23</td><td class="n">81</td>
     <td class="n"><b>86%</b></td><td class="n"><b>69%</b></td>
@@ -215,7 +237,7 @@ counted only from the day each one joined:</p>
 </div>
 
 <p><b>Dominance CSPs answer far more often — 86% against 62% — and take the job 69% of the time against 41%.</b>
-They are also quicker: 19 in 20 of their answers land inside 2h 28m, against 4h 7m for everyone else.</p>
+They are also quicker: their P95 is 2h 28m, against 4h 7m for everyone else.</p>
 
 <p style="font-size:13.5px;color:var(--ink2)"><b>Two cautions before reading anything causal into this.</b>
 The sample is thin — <b>81 bookings</b>, because the programme started on 27–30 July and the week ends on 1
@@ -237,7 +259,7 @@ Dominance CSP before he joined are excluded from both rows.)</p>
 to one booking in twenty however long it is given. Waiting six hours on a weak CSP is close to pure delay.</figcaption>
 </figure>
 
-<h3>4. Every extra hour buys more response</h3>
+<h3>4. What each extra hour is worth</h3>
 <p>Reading the response curve as a policy dial — what the response rate would have been had P41 been set to each
 value, for each CSP quarter:</p>
 
@@ -279,7 +301,19 @@ CSP. So only 55.8% of those 146 are genuinely incremental: <b>≈81 bookings</b>
 back.</p>
 </div>
 
-<h3>5. But customers give up at a fixed point — the evening after the promised day</h3>
+<div class="part" style="border-left-color:var(--s2)">
+  <div class="lbl">Part 2 of 3</div>
+  <h2>So what stops us making it longer?</h2>
+  <p class="ans">A deadline — not a cost that grows by the hour.</p>
+  <p>Customers do not get impatient hour by hour. They wait for the day they were promised, and give up on the
+  <b>evening after it</b>. Cancellation is near zero right up to that point and jumps the moment it arrives.</p>
+  <p>That fixes the point the allocation has to finish before. And it is <b>the same point whichever day the
+  customer chose</b> — same-day and next-day bookings behave identically once each is lined up against its own
+  promised date.</p>
+  <p><b>Extra hours are close to free until that deadline, and expensive after it.</b> Point 5 below.</p>
+</div>
+
+<h3>5. When customers give up</h3>
 <p>If waiting only ever bought response, the answer would be to set P41 very long. It does not: the customer is
 running a clock of his own. The question is what that clock is measuring, because it is <em>not</em> hours since
 booking.</p>
@@ -408,6 +442,16 @@ promised at that point, so re-slotting and rerouting do not double-count. Only s
 4 Aug are included. The behaviour being measured — customers give up when the promised day passes — is not
 specific to the window, which is why the wider window is acceptable here.</p>
 
+<div class="part" style="border-left-color:var(--good-text)">
+  <div class="lbl">Part 3 of 3</div>
+  <h2>So what should P41 be?</h2>
+  <p class="ans">8 working hours. We are at 6.</p>
+  <p>Part 1 says take as much time as the deadline allows. Part 2 says where the deadline is. The setting falls
+  out of the two: <b>15.5 working hours available ÷ 1.9 CSPs tried = 8 working hours each.</b></p>
+  <p>Point 6 below sets out the measurement, what the extra two hours should be worth, and why that last figure
+  is an estimate rather than something we can read off the data.</p>
+</div>
+
 <h3>6. The calculation</h3>
 
 <div class="note-box">
@@ -463,13 +507,14 @@ reach a CSP too late in the day</b> for even a single window to close before the
 them, at 2 hours or at 12. Their problem is when they enter the queue relative to the day they were promised,
 not the length of the window.</p>
 
-<h3>7. Time of day makes no difference</h3>
+<h2 style="font-size:19px;margin-top:56px">One last check</h2>
+<h3>Time of day makes no difference</h3>
 <p>Because P41 runs on a working-hours clock (9am–9pm, pausing overnight), a booking arriving at 8pm gets the
 same effective budget as one arriving at 10am. The data confirms the clock is doing its job:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Booking reached CSP at</th><th class="n">Bookings</th><th class="n">Working hrs left that day</th><th class="n">Response rate</th><th class="n">Jobs taken</th><th class="n">9 in 10 answered within</th></tr></thead>
+<thead><tr><th>Booking reached CSP at</th><th class="n">Bookings</th><th class="n">Working hrs left that day</th><th class="n">Response rate</th><th class="n">Jobs taken</th><th class="n">P90 response</th></tr></thead>
 <tbody>
 <tr><td>09–12 morning</td><td class="n">602</td><td class="n">10h 24m</td><td class="n">60.5%</td><td class="n">42.0%</td><td class="n">2h 22m</td></tr>
 <tr><td>12–15 midday</td><td class="n">679</td><td class="n">7h 30m</td><td class="n">63.0%</td><td class="n">40.8%</td><td class="n">2h 17m</td></tr>
@@ -480,7 +525,7 @@ same effective budget as one arriving at 10am. The data confirms the clock is do
 </tbody>
 </table>
 </div>
-<p>Response rate sits in a 60–68% band regardless of arrival time, and the time to get 9 answers in 10 varies by about 20
+<p>Response rate sits in a 60–68% band regardless of arrival time, and P90 response time varies by about 20
 minutes across the whole day. A booking arriving at 8pm with <b>1h 24m</b> of working time left performs the same
 as one arriving mid-morning with over ten hours. <b>No time-of-day-specific parameter is needed.</b></p>
 
