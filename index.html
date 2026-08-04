@@ -119,9 +119,9 @@ the work.</p>
 
 <div class="rec">
   <p class="big">Keep P41 at 6 working hours as the default.</p>
-  <p>The binding constraint is not customer impatience by the clock — it is the <b>promised slot day</b>. 69% of
-  customer cancellations happen only after that day has passed, peaking the day after. So the allocation chain has
-  to finish before the slot day ends.</p>
+  <p>The binding constraint is not customer impatience by the clock — it is the <b>promised slot day</b>. 90% of
+  customer cancellations happen on or after that day, peaking the day after. So the allocation chain has to finish
+  before the slot day ends.</p>
   <p>The median booking has <b>12.8 working hours</b> of runway to that deadline and passes through <b>2 CSPs</b>.
   That implies <b>12.8 ÷ 2 ≈ 6.4 working hours</b> per CSP — the median booking can be offered, time out, be
   re-offered, and still be installed on the day it was promised. Six hours sits just inside that.</p>
@@ -279,52 +279,66 @@ is anchored to something specific. By day 7 it reaches 17.9%.</figcaption>
 </figure>
 
 <p>Re-cutting the same cancellations against the customer's <b>promised slot date</b> rather than the booking time
-shows what they are actually waiting for:</p>
+shows what they are actually waiting for. Across <b>980 customer-proposed connections</b> whose slot is now at
+least five days past, 172 were cancelled by the customer — and <b>90% of those cancellations landed on or after
+the promised day. Only 10% came before it.</b></p>
 
-<div class="tblscroll">
-<table>
-<thead><tr><th>Customer cancelled…</th><th class="n">Connections</th><th class="n">Share of cancellations</th></tr></thead>
-<tbody>
-<tr><td>1 day before the slot</td><td class="n">59</td><td class="n">11%</td></tr>
-<tr><td>On the slot day</td><td class="n">100</td><td class="n">19%</td></tr>
-<tr class="hi"><td><b>1 day after the slot passed</b></td><td class="n"><b>117</b></td><td class="n"><b>23%</b></td></tr>
-<tr><td>2 days after</td><td class="n">64</td><td class="n">12%</td></tr>
-<tr><td>3 days after</td><td class="n">45</td><td class="n">9%</td></tr>
-<tr><td>4+ days after</td><td class="n">133</td><td class="n">26%</td></tr>
-</tbody>
-</table>
-</div>
-<p><b>69% of customer cancellations happen after the promised slot has already passed</b>, and the single biggest
-day is the one immediately after. The customer is not counting hours since booking — he is waiting for the day he
-was promised, and giving up once it goes by. <b>That is the guardrail: the allocation must finish before the end
-of the slot day.</b></p>
+<p>The customer is not counting hours since booking. He is waiting for the day he was promised, and giving up
+once it goes by. <b>That is the guardrail: the allocation must finish before the end of the slot day.</b></p>
 
 <p>And it holds <b>regardless of how far ahead the slot was</b>. Lining every booking up on <em>its own</em> slot
-date — so day 0 is the promised day whether that was today, tomorrow or three days out — the curves land on top of
-each other:</p>
+date — so day 0 is the promised day whether that was today or tomorrow — the peak moves with the promise:</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">Cancellation aligned on the promised slot date</div>
-  <div class="chartsub">Each line is a different slot lead time · day 0 = the promised day · y = % of that cohort cancelling that day</div>
+  <div class="chartsub">Customer-proposed slots, one row per connection, slot ≥5 days past · day 0 = the promised day · y = % of that cohort cancelling that day</div>
   <svg id="c6" viewBox="0 0 720 380" role="img" aria-label="Customer cancellation by day relative to the promised slot, one line per slot lead time"></svg>
   <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>Slot = same day (n=977)</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>Next day (n=2,911)</span>
-    <span><i class="swatch" style="background:var(--s3)"></i>2 days out (n=400)</span>
+    <span><i class="swatch" style="background:var(--s1)"></i>Slot = next day (n=528)</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>Slot = same day (n=408)</span>
   </div>
 </div>
-<figcaption>Whatever day was promised, cancellation peaks <b>on that day or the one after</b> and decays from
-there — next-day slots peak at <b>+1 (3.74%)</b>, 2-day slots at 0 and +1 (3.50% each). Nothing at all happens two
-or three days <em>before</em> the slot, however long the customer has already been waiting by then. <b>The clock
-the customer is running is the slot date, not the booking date.</b></figcaption>
+<figcaption>Next-day slots peak at <b>+1 — the day after the promise (4.17%)</b> — not at any fixed age of the
+booking. Same-day slots peak at day 0, which for them <em>is</em> the booking day, so that point also carries the
+mistake-booking spike and is not directly comparable. Nothing much happens <em>before</em> the slot, however long
+the customer has already been waiting by then. <b>The clock the customer is running is the slot date, not the
+booking date.</b></figcaption>
 </figure>
 
-<p style="font-size:13.5px;color:var(--ink2)">Two notes. <b>Same-day slots peak at day 0 rather than +1</b> —
-but for them day 0 is also the booking day, so that point carries the mistake-booking spike and is not directly
-comparable to the others. And <b>3-days-out slots are left off the chart</b>: at 51 connections it is one or two
-cancellations per point, which draws as noise rather than evidence. Its peak also falls at +1 (3.9%), consistent
-with the rest, but the sample cannot carry the claim on its own.</p>
+<p>Customer-proposed slots two or more days out are only 44 connections — too thin to plot. Widening to
+<b>all slot sources</b> (3,624 connections, same dedupe and maturity rule) gives that lead time enough volume,
+and reproduces the same shape:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Population</th><th>Slot lead time</th><th class="n">Connections</th>
+<th class="n">−1</th><th class="n">day 0</th><th class="n">+1</th><th class="n">+2</th><th class="n">+3</th></tr></thead>
+<tbody>
+<tr><td rowspan="2">Customer-proposed</td><td>Next day</td><td class="n">528</td>
+  <td class="n">2.84%</td><td class="n">2.46%</td><td class="n hi"><b>4.17%</b></td><td class="n">3.41%</td><td class="n">2.46%</td></tr>
+<tr><td>Same day</td><td class="n">408</td>
+  <td class="n">—</td><td class="n hi"><b>3.92%</b></td><td class="n">1.96%</td><td class="n">2.45%</td><td class="n">2.21%</td></tr>
+<tr><td rowspan="3">All slot sources</td><td>Next day</td><td class="n">2,574</td>
+  <td class="n">2.64%</td><td class="n">3.30%</td><td class="n hi"><b>3.46%</b></td><td class="n">2.06%</td><td class="n">1.48%</td></tr>
+<tr><td>2 days out</td><td class="n">379</td>
+  <td class="n">3.17%</td><td class="n hi"><b>3.96%</b></td><td class="n">3.43%</td><td class="n">3.17%</td><td class="n">1.58%</td></tr>
+<tr><td>Same day</td><td class="n">671</td>
+  <td class="n">—</td><td class="n hi"><b>5.51%</b></td><td class="n">4.47%</td><td class="n">2.98%</td><td class="n">1.64%</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13.5px;color:var(--ink2)">Every row peaks on the promised day or the one after it, whoever
+proposed the slot and however far out it was. Read down the <b>−1</b> column: nothing is elevated before the
+promise falls due.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
+above (26 Jul – 1 Aug), the cancellation cohort runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
+and needs the slot to be several days in the past before it can be counted, so the POST-only window is too recent
+to supply it. One row per connection: its <em>first</em> candidate and the slot promised at that point, so
+re-slotting and rerouting do not double-count. Only slots at least five days past as of 4 Aug are included.
+The behaviour being measured — customers give up when the promised day passes — is not specific to the P41
+window, which is why the wider window is acceptable here.</p>
 
 <div class="tblscroll">
 <table>
@@ -721,9 +735,8 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   /* ---------- event study: cancellation aligned on the slot date ---------- */
   var EVX=[-1,0,1,2,3,4,5];
   var EV=[
-    {k:'Same day',   n:'977',   c:'--s1', v:[0,    3.889,3.071,2.354,1.842,0.921,0.307]},
-    {k:'Next day',   n:'2,911', c:'--s2', v:[2.576,3.195,3.744,2.130,1.718,0.996,1.065]},
-    {k:'2 days out', n:'400',   c:'--s3', v:[3.000,3.500,3.500,2.750,2.250,1.000,1.250]}
+    {k:'Next day', n:'528', c:'--s1', v:[2.841,2.462,4.167,3.409,2.462,1.515,2.083]},
+    {k:'Same day', n:'408', c:'--s2', v:[0,    3.922,1.961,2.451,2.206,0.980,0.735]}
   ];
 
   function c6(){
@@ -758,12 +771,11 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     EV.forEach(function(g){
       var col=cv(g.c), d='';
       g.v.forEach(function(y,i){ d+=(i?'L':'M')+X(EVX[i])+' '+Y(y); });
-      s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':(g.n==='51'?1.5:2),
-        'stroke-linejoin':'round','stroke-linecap':'round',opacity:(g.n==='51'?0.55:1)}));
+      s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,
+        'stroke-linejoin':'round','stroke-linecap':'round'}));
       g.v.forEach(function(y,i){ s.appendChild(el('circle',{cx:X(EVX[i]),cy:Y(y),r:3,fill:col,
-        stroke:surf,'stroke-width':2,opacity:(g.n==='51'?0.55:1)})); });
-      var lt=el('text',{x:X(5)+9,y:Y(g.v[6])+4,fill:col,'font-size':11.5,'font-weight':620,
-        opacity:(g.n==='51'?0.7:1)});
+        stroke:surf,'stroke-width':2})); });
+      var lt=el('text',{x:X(5)+9,y:Y(g.v[6])+4,fill:col,'font-size':11.5,'font-weight':620});
       lt.textContent=g.k; s.appendChild(lt);
     });
 

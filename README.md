@@ -20,8 +20,8 @@ The parameter sits on one trade-off:
 
 ### Keep P41 at 6 working hours as the default
 
-The binding constraint is not customer impatience by the clock — it is the **promised slot day**. 69% of customer
-cancellations happen only after that day has passed, peaking the day after. So the allocation chain has to finish
+The binding constraint is not customer impatience by the clock — it is the **promised slot day**. 90% of customer
+cancellations happen on or after that day, peaking the day after. So the allocation chain has to finish
 before the slot day ends.
 
 The median booking has **12.8 working hours** of runway to that deadline and passes through **2 CSPs**. That
@@ -131,37 +131,35 @@ It then **steepens again across days 1–3**, climbing 3.8% → 10.9%.
 
 Re-cut against the customer's **promised slot date** it becomes obvious what they are waiting for:
 
-| Customer cancelled… | Connections | Share |
-|---|---:|---:|
-| 1 day before the slot | 59 | 11% |
-| On the slot day | 100 | 19% |
-| **1 day after the slot passed** | **117** | **23%** |
-| 2 days after | 64 | 12% |
-| 3 days after | 45 | 9% |
-| 4+ days after | 133 | 26% |
+Across **980 customer-proposed connections** whose slot is now at least five days past, 172 were cancelled by the
+customer, and **90% of those landed on or after the promised day. Only 10% came before it.** The customer is
+waiting for the day he was promised. **That is the guardrail.**
 
-**69% of cancellations happen after the promised slot has passed**, biggest single day immediately after. The
-customer is waiting for the day he was promised. **That is the guardrail.**
+And the peak moves with the promise, not with the age of the booking. Lining every booking up on **its own** slot
+date — day 0 = the promised day:
 
-And it holds **regardless of how far ahead the slot was** — a customer promised a slot three days out waits the
-three days rather than giving up at a fixed number of hours:
+| Population | Slot lead time | Connections | −1 | **0** | **+1** | +2 | +3 |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Customer-proposed | Next day | 528 | 2.84% | 2.46% | **4.17%** | 3.41% | 2.46% |
+| Customer-proposed | Same day | 408 | — | **3.92%** | 1.96% | 2.45% | 2.21% |
+| All slot sources | Next day | 2,574 | 2.64% | 3.30% | **3.46%** | 2.06% | 1.48% |
+| All slot sources | 2 days out | 379 | 3.17% | **3.96%** | 3.43% | 3.17% | 1.58% |
+| All slot sources | Same day | 671 | — | **5.51%** | 4.47% | 2.98% | 1.64% |
 
-Lining every booking up on **its own** slot date — day 0 = the promised day, whether that was today, tomorrow or
-two days out — the curves land on top of each other:
+Every row peaks on the promised day or the one after, whoever proposed the slot and however far out it was.
+Nothing is elevated in the **−1** column, however long the customer has already been waiting by then. **The clock
+the customer runs is the slot date, not the booking date.**
 
-| Days relative to promised slot | −1 | **0** | **+1** | +2 | +3 | +4 | +5 |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Same day (n=977) | 0% | **3.89%** | 3.07% | 2.35% | 1.84% | 0.92% | 0.31% |
-| Next day (n=2,911) | 2.58% | 3.20% | **3.74%** | 2.13% | 1.72% | 1.00% | 1.07% |
-| 2 days out (n=400) | 3.00% | **3.50%** | **3.50%** | 2.75% | 2.25% | 1.00% | 1.25% |
+Same-day slots peak at day 0 because for them day 0 is also the booking day, so it carries the mistake-booking
+spike and is not directly comparable. Customer-proposed slots 2+ days out are only 44 connections — too thin to
+plot, which is why the wider all-sources population is shown alongside.
 
-Whatever day was promised, cancellation peaks **on that day or the one after** and decays. Nothing at all happens
-two or three days *before* the slot, however long the customer has already been waiting. **The clock the customer
-runs is the slot date, not the booking date.**
-
-Two notes: same-day slots peak at day 0 because for them day 0 is also the booking day, so it carries the
-mistake-booking spike. 3-days-out slots (n=51) also peak at +1 but are one or two cancellations per point — too
-thin to plot.
+**Population for this section.** Unlike the response analysis (26 Jul – 1 Aug), the cancellation cohort runs
+**25 Jun – 30 Jul 2026** — cancellation is a slow signal and needs the slot to be several days past before it can
+be counted, so the POST-only window is too recent to supply it. One row per connection: its *first* candidate and
+the slot promised at that point, so re-slotting and rerouting do not double-count. Only slots ≥5 days past as of
+4 Aug are included. The behaviour measured — customers give up when the promised day passes — is not specific to
+the P41 window, which is why the wider window is acceptable here.
 
 | Slot promised | Connections | Cancelled | Before slot | On slot day | Day after | **On or after** |
 |---|---:|---:|---:|---:|---:|---:|
