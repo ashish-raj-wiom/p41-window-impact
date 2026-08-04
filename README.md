@@ -12,34 +12,56 @@ candidates created 26 July – 1 August 2026, after P41 was set to 6 hours.
 
 ## Cohorts
 
-Both anchored on **task creation date**, both **full and unsubset**. Each measures the CSP's *first required
-action* under the flow in force that week, because the flow changed between them:
+Both anchored on **task creation date**. Each measures the CSP's *first required action* under the flow in
+force that week, because the flow changed between them. POST is scoped to **customer-proposed-slot bookings**
+(where technician assignment genuinely is the CSP's first step); PRE has no equivalent subset because that flow
+launched ~21 Jul.
 
 | | PRE 14–20 Jul | POST 26 Jul – 1 Aug |
 |---|---|---|
 | P41 | 2h | 6h |
 | CSP's first action | **slot proposal** | **technician assignment** |
-| n created | 4,985 | 3,850 |
-| n actioned | 1,649 (33.1%) | 1,502 (39.0%) |
+| n created | 4,985 | 3,165 |
+| n actioned | 1,649 (33.1%) | 1,323 (41.8%) |
 
 ## Headline
 
-**The P41 effect is +4.96pp** — the within-cohort accrual between working-hour 2 and working-hour 6, i.e. the
+**The P41 effect is +4.61pp** — the within-cohort accrual between working-hour 2 and working-hour 6, i.e. the
 window the old config used to discard.
 
 | Within (working h) | PRE | POST |
 |---|---|---|
-| 0.25 | 25.94% | 26.75% |
-| 1.0 | 29.89% | 29.64% |
-| **2.0 — old P41** | **33.08%** | **32.75%** |
-| **6.0 — new P41** | **33.08%** | **37.71%** |
-| **Accrual, hour 2 → 6** | **+0.00pp** | **+4.96pp** |
+| 0.25 | 25.94% | 31.18% |
+| 1.0 | 29.89% | 34.00% |
+| **2.0 — old P41** | **33.08%** | **37.19%** |
+| **6.0 — new P41** | **33.08%** | **41.80%** |
+| **Accrual, hour 2 → 6** | **+0.00pp** | **+4.61pp** |
 
-`TIMEOUT_P41` deaths fell 52.5% → 37.4%.
+`TIMEOUT_P41` deaths fell 52.5% → 35.5%.
 
-The two weeks are **within ~1pp of each other through hour 2** — POST is marginally *behind* at hours 1 and 2.
-They diverge only after the old cutoff, which is what isolates the P41 effect from everything else that
-changed. CSPs did not get faster; more of their work survived long enough to count.
+### But only half the gain is progress
+
+A CSP can respond two ways — act, or decline. Both are responses; only one is progress. Splitting the
+accrual between working-hour 2 and working-hour 6:
+
+| Accrual, hour 2 → 6 | Response | Positive action | Decline |
+|---|---|---|---|
+| PRE (P41 = 2h) | +0.02pp | +0.00pp | +0.02pp |
+| **POST (P41 = 6h)** | **+8.50pp** | +4.61pp | +3.89pp |
+| Share of POST gain | 100% | 54% | **46%** |
+
+**46% of what the longer window surfaces is a refusal, not progress** — and it isn't free. Under the 2-hour
+window a CSP who was going to refuse simply timed out at hour 2 and the booking was released for reroute.
+Under six hours that same CSP holds the booking and declines at hour 3, 4 or 5, so the customer waits up to
+four extra working hours before the task starts looking for anyone else. The same applies to the 35.5% who
+still time out: they now hold for six hours instead of two.
+
+Whether the trade is worth it depends on how fast a rerouted booking finds a second CSP — not measured here.
+
+Read the **shape of each curve, never the gap between them**. The cohorts are scoped differently by design, so
+POST sits above PRE from the first quarter-hour — before either deadline can bind — and that vertical offset is
+cohort composition, not P41. Only the accrual *within* each curve after hour 2 is attributable to the change.
+CSPs did not get faster; more of their work survived long enough to count.
 
 ### Percentiles
 
@@ -48,8 +70,7 @@ All figures in **working hours** (9 AM – 9 PM IST) — the same clock P41 itse
 | Cohort | P50 | P90 | P95 |
 |---|---|---|---|
 | PRE — slot proposal (n=1,649) | 0.02 | 0.99 | 1.44 |
-| POST — tech assigned (n=1,502) | 0.02 | 3.44 | **5.35** |
-| ↳ customer-proposed subset (n=1,323) | 0.01 | 2.25 | 3.60 |
+| POST — tech assigned (n=1,323) | 0.01 | 2.25 | **3.60** |
 
 PRE's flattering percentiles are **right-truncated by its own 2h deadline** — you cannot observe a 5-hour slot
 proposal when the task is killed at hour 2, so POST's higher P95 is a *fuller* measurement, not a worse one.

@@ -10,7 +10,7 @@
   --page:#f9f9f7; --surface:#fcfcfb;
   --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
   --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,0.10);
-  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s8:#e34948;
   --warning:#fab219; --critical:#d03b3b; --good-text:#006300;
 }
 @media (prefers-color-scheme: dark){
@@ -19,7 +19,7 @@
     --page:#0d0d0d; --surface:#1a1a19;
     --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
     --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
-    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --good-text:#0ca30c;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s8:#e66767; --good-text:#0ca30c;
   }
 }
 :root[data-theme="dark"]{
@@ -27,7 +27,7 @@
   --page:#0d0d0d; --surface:#1a1a19;
   --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
   --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --good-text:#0ca30c;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s8:#e66767; --good-text:#0ca30c;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);
@@ -94,7 +94,8 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
   <div class="eyebrow">Installation Flow · Demand Allocation OS</div>
   <h1>P41 extended 2h → 6h: what actually changed</h1>
   <p class="sub">Time from task notification to the CSP's first required action, for install candidates created
-  26 Jul – 1 Aug 2026 versus the pre-change week. The extra four hours did not make CSPs faster — it stopped
+  26 Jul – 1 Aug 2026 versus the pre-change week. The post-change cohort is <b>customer-proposed-slot bookings</b>;
+  the action measured on them is technician assignment. The extra four hours did not make CSPs faster — it stopped
   killing the tasks they were always going to get to.</p>
   <div class="meta">
     <span class="chip">Change live 22 Jul 2026</span>
@@ -108,46 +109,49 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
 <div class="tiles">
   <div class="tile">
     <div class="lbl">P41 gain — accrual between hour 2 and hour 6</div>
-    <div class="val up">+4.96pp</div>
+    <div class="val up">+4.61pp</div>
     <div class="note">Within-cohort, so denominator-independent. This is the actual P41 effect.</div>
   </div>
   <div class="tile">
     <div class="lbl">Died on TIMEOUT_P41</div>
-    <div class="val">52.5% <span style="color:var(--muted);font-weight:400">→</span> 37.4%</div>
-    <div class="note"><span class="up">−15.1pp</span> · still the #1 failure mode</div>
+    <div class="val">52.5% <span style="color:var(--muted);font-weight:400">→</span> 35.5%</div>
+    <div class="note"><span class="up">−17.0pp</span> · still the #1 failure mode</div>
   </div>
   <div class="tile">
-    <div class="lbl">Actioned in first 2 working hours</div>
-    <div class="val">33.1% <span style="color:var(--muted);font-weight:400">→</span> 32.8%</div>
-    <div class="note">Unchanged — CSP speed is not what moved</div>
+    <div class="lbl">P95, working hours</div>
+    <div class="val">3.60</div>
+    <div class="note">Post-change · comfortably inside the 6h budget</div>
   </div>
   <div class="tile">
-    <div class="lbl">Tasks actioned overall</div>
-    <div class="val">33.1% <span style="color:var(--muted);font-weight:400">→</span> 39.0%</div>
-    <div class="note">Full cohorts, no subsetting on either side</div>
+    <div class="lbl">Assignments beyond 6 working hours</div>
+    <div class="val">0</div>
+    <div class="note">P41 is a hard binding ceiling — no tail at all</div>
   </div>
 </div>
 
 <div class="callout">
   <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--s1)" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M8 5v.5M8 7.5v3.5" stroke-linecap="round"/></svg>The one-line answer</h4>
-  <p>Both weeks behave <b>identically</b> for the first two working hours — 33.08% vs 32.75% actioned. Then PRE
-  stops dead, because its 2h P41 kills everything still outstanding, while POST keeps accruing for another four
-  hours. That incremental <b>+4.96pp</b> is the P41 effect. CSP responsiveness didn't improve; what improved is
-  how much of their work survived long enough to count.</p>
+  <p>Under the 2-hour window PRE stopped dead at hour 2 with tasks still arriving. Under 6 hours POST keeps
+  accruing for another four — <b>+4.61pp</b> — then flattens absolutely at hour 6, with nothing whatsoever beyond
+  it. That within-cohort accrual is the P41 effect, and it doesn't depend on who is in which cohort. CSP
+  responsiveness didn't improve; what improved is how much of their work survived long enough to count.</p>
+  <p><b>But only just over half of what the extra hours surface is progress.</b> Total CSP response rises
+  <b>+8.50pp</b> between hour 2 and hour 6 — of which +4.61pp is a technician assignment and <b>+3.89pp is a
+  decline</b>. See <a href="#response">the response split</a>.</p>
 </div>
 
-<div class="callout crit">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--critical)" stroke-width="1.6"><path d="M2.4 8h11.2M8 2.4v11.2" stroke-linecap="round" transform="rotate(45 8 8)"/></svg>Correction — 4 Aug</h4>
-  <p>An earlier version of this page scoped the POST cohort to bookings with
-  <code>slot_details:proposedBy = 'CUSTOMER'</code> while leaving PRE whole, and plotted both on shared axes. That
-  made POST appear higher at <em>every</em> elapsed time, including 15 minutes in — before either deadline could
-  possibly bind. That gap was an artifact of mismatched denominators, not a finding. Both cohorts are now full and
-  unsubset. Details in <a href="#pitfall">the filter pitfall</a> below.</p>
+<div class="callout warn">
+  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--warning)" stroke-width="1.6"><path d="M8 2.2 14.4 13.4H1.6z" stroke-linejoin="round"/><path d="M8 6.4v3M8 11.3v.4" stroke-linecap="round"/></svg>Read the shape of each curve, never the gap between them</h4>
+  <p>The two cohorts are deliberately scoped differently: POST is <b>customer-proposed-slot bookings</b>, PRE is the
+  whole pre-change week, because that flow did not exist before ~21 Jul and so has no equivalent subset. POST
+  therefore sits above PRE from the very first quarter-hour — before either deadline can bind — and that vertical
+  gap is <b>cohort composition, not P41</b>. Only the accrual <em>within</em> each curve after hour 2 is
+  attributable to the change. See <a href="#pitfall">the scoping notes</a> below.</p>
 </div>
 
 <h2>The cumulative action curve</h2>
-<p class="lede">Symmetric cohorts — every candidate created in each week, no subsetting on either side. Each curve
-flattens at its own P41 deadline; that flat line <em>is</em> the guillotine.</p>
+<p class="lede">Each curve flattens at its own P41 deadline; that flat line <em>is</em> the guillotine. PRE holds
+from hour 2 onward, POST from hour 6.</p>
 
 <figure>
 <div class="chartcard">
@@ -155,13 +159,14 @@ flattens at its own P41 deadline; that flat line <em>is</em> the guillotine.</p>
   <div class="chartsub">Working hours = 9 AM – 9 PM IST, counted every day · PRE action = slot proposal · POST action = technician assignment</div>
   <svg id="c1" viewBox="0 0 760 410" role="img" aria-label="Cumulative percentage of tasks actioned against elapsed working hours, pre versus post P41 change"></svg>
   <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>PRE 14–20 Jul · P41 = 2h · slot proposal · n=4,985</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>POST 26 Jul–1 Aug · P41 = 6h · technician assignment · n=3,850</span>
+    <span><i class="swatch" style="background:var(--s1)"></i>PRE 14–20 Jul · P41 = 2h · all candidates · n=4,985</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>POST 26 Jul–1 Aug · P41 = 6h · customer-proposed slot · n=3,165</span>
   </div>
 </div>
-<figcaption>The curves are within ~1pp of each other through hour 2 — POST is marginally <em>behind</em> at hours 1
-and 2. PRE then holds at 33.08% forever; POST accrues a further <b>+4.96pp</b> to 37.71% by hour 6. That divergence
-after the old cutoff, and only after it, is what isolates the P41 effect from everything else that changed.</figcaption>
+<figcaption>PRE holds at 33.08% from hour 2 forever. POST is still climbing at hour 2 (37.19%) and accrues a
+further <b>+4.61pp</b> to 41.80% by hour 6 — then stops absolutely: 41.80% at hour 6, hour 8 and at the end alike.
+The divergence <em>after</em> each cohort's own cutoff is the P41 effect; the vertical offset between the curves is
+cohort scoping and carries no meaning.</figcaption>
 </figure>
 
 <details>
@@ -169,24 +174,117 @@ after the old cutoff, and only after it, is what isolates the P41 effect from ev
 <div class="dwrap">
 <div class="tblscroll">
 <table>
-<thead><tr><th class="n">Within (working h)</th><th class="n">PRE (n=4,985)</th><th class="n">POST (n=3,850)</th><th class="n">Difference</th></tr></thead>
+<thead><tr><th class="n">Within (working h)</th><th class="n">PRE (n=4,985)</th><th class="n">POST (n=3,165)</th></tr></thead>
 <tbody>
-<tr><td class="n">0.25</td><td class="n">25.94%</td><td class="n">26.75%</td><td class="n">+0.81pp</td></tr>
-<tr><td class="n">0.50</td><td class="n">27.44%</td><td class="n">28.00%</td><td class="n">+0.56pp</td></tr>
-<tr><td class="n">1.0</td><td class="n">29.89%</td><td class="n">29.64%</td><td class="n">−0.25pp</td></tr>
-<tr><td class="n">1.5</td><td class="n">31.72%</td><td class="n">31.92%</td><td class="n">+0.20pp</td></tr>
-<tr class="hi"><td class="n">2.0 — old P41</td><td class="n">33.08%</td><td class="n">32.75%</td><td class="n">−0.33pp</td></tr>
-<tr><td class="n">2.5</td><td class="n">33.08%</td><td class="n">33.61%</td><td class="n">+0.53pp</td></tr>
-<tr><td class="n">3.0</td><td class="n">33.08%</td><td class="n">34.52%</td><td class="n">+1.44pp</td></tr>
-<tr><td class="n">4.0</td><td class="n">33.08%</td><td class="n">35.64%</td><td class="n">+2.56pp</td></tr>
-<tr><td class="n">5.0</td><td class="n">33.08%</td><td class="n">36.70%</td><td class="n">+3.62pp</td></tr>
-<tr class="hi"><td class="n">6.0 — new P41</td><td class="n">33.08%</td><td class="n">37.71%</td><td class="n">+4.63pp</td></tr>
-<tr><td class="n">8.0</td><td class="n">33.08%</td><td class="n">38.00%</td><td class="n">+4.92pp</td></tr>
-<tr><td class="n">final</td><td class="n">33.08%</td><td class="n">39.01%</td><td class="n">+5.93pp</td></tr>
+<tr><td class="n">0.25</td><td class="n">25.94%</td><td class="n">31.18%</td></tr>
+<tr><td class="n">0.50</td><td class="n">27.44%</td><td class="n">32.48%</td></tr>
+<tr><td class="n">1.0</td><td class="n">29.89%</td><td class="n">34.00%</td></tr>
+<tr><td class="n">1.5</td><td class="n">31.72%</td><td class="n">36.37%</td></tr>
+<tr class="hi"><td class="n">2.0 — old P41</td><td class="n">33.08%</td><td class="n">37.19%</td></tr>
+<tr><td class="n">2.5</td><td class="n">33.08%</td><td class="n">37.98%</td></tr>
+<tr><td class="n">3.0</td><td class="n">33.08%</td><td class="n">38.89%</td></tr>
+<tr><td class="n">4.0</td><td class="n">33.08%</td><td class="n">39.91%</td></tr>
+<tr><td class="n">5.0</td><td class="n">33.08%</td><td class="n">40.95%</td></tr>
+<tr class="hi"><td class="n">6.0 — new P41</td><td class="n">33.08%</td><td class="n">41.80%</td></tr>
+<tr><td class="n">8.0</td><td class="n">33.08%</td><td class="n">41.80%</td></tr>
+<tr><td class="n">final</td><td class="n">33.08%</td><td class="n">41.80%</td></tr>
 </tbody>
-<tbody><tr><td><b>Accrual, hour 2 → hour 6</b></td><td class="n"><b>+0.00pp</b></td><td class="n"><b>+4.96pp</b></td><td class="n">—</td></tr></tbody>
+<tbody><tr><td><b>Accrual, hour 2 → hour 6</b></td><td class="n"><b>+0.00pp</b></td><td class="n"><b>+4.61pp</b></td></tr></tbody>
 </table>
 </div>
+<p style="font-size:13.5px;color:var(--ink2)">No difference column: the two cohorts are scoped differently by
+design, so a per-row subtraction would not mean anything. Compare each column against itself.</p>
+</div>
+</details>
+
+<h2 id="response">Response rate — and what the extra hours actually surface</h2>
+<p class="lede">A CSP can respond two ways: act on the task, or decline it. Both are responses; only one is progress.
+Looking at the combined response rate first, then splitting it, changes the reading of the gain.</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Response rate — any CSP response, positive or decline</div>
+  <div class="chartsub">% of created tasks where the CSP either acted or declined, by elapsed working hours</div>
+  <svg id="c4" viewBox="0 0 760 400" role="img" aria-label="Cumulative CSP response rate against elapsed working hours, pre versus post"></svg>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · n=4,985</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · n=3,165</span>
+  </div>
+</div>
+<figcaption>Same shape as before: PRE freezes at 47.02% the moment its 2-hour window closes, POST keeps climbing to
+62.59% by hour 6. The extra four hours buy <b>+8.50pp of additional response</b> — nearly double the +4.61pp of
+positive action alone.</figcaption>
+</figure>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">POST cohort — that response split into positive action and decline</div>
+  <div class="chartsub">Customer-proposed-slot bookings, 26 Jul – 1 Aug 2026 · n=3,165</div>
+  <svg id="c5" viewBox="0 0 760 400" role="img" aria-label="Post-change cohort split into positive action and decline by elapsed working hours"></svg>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--s1)"></i>Positive action — technician assigned</span>
+    <span><i class="swatch" style="background:var(--s8)"></i>Decline</span>
+  </div>
+</div>
+<figcaption>Both lines keep climbing after hour 2, and roughly in step. Of the <b>+8.50pp</b> extra response the
+longer window buys, <b>+4.61pp is a technician assignment and +3.89pp is a decline</b> — <b>46% of the gain is a
+refusal</b>, not progress.</figcaption>
+</figure>
+
+<div class="tblscroll">
+<table>
+<thead><tr>
+  <th>Accrual, working-hour 2 → 6</th>
+  <th class="n">Response</th><th class="n">Positive action</th><th class="n">Decline</th>
+</tr></thead>
+<tbody>
+  <tr><td>PRE (P41 = 2h)</td><td class="n">+0.02pp</td><td class="n">+0.00pp</td><td class="n">+0.02pp</td></tr>
+  <tr class="hi"><td>POST (P41 = 6h)</td><td class="n"><b>+8.50pp</b></td><td class="n">+4.61pp</td><td class="n">+3.89pp</td></tr>
+  <tr><td style="color:var(--ink2)">Share of the POST gain</td><td class="n">100%</td><td class="n">54%</td><td class="n">46%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--warning)" stroke-width="1.6"><path d="M8 2.2 14.4 13.4H1.6z" stroke-linejoin="round"/><path d="M8 6.4v3M8 11.3v.4" stroke-linecap="round"/></svg>The decline half is not free — it delays rerouting</h4>
+  <p>Under the 2-hour window, a CSP who was going to refuse simply timed out at hour 2 and the booking was released
+  for reroute. Under six hours, that same CSP now holds the booking and declines at hour 3, 4 or 5 — so the customer
+  waits <b>up to four extra working hours</b> before the task even starts looking for someone else. The same applies
+  to the 35.5% who still time out: they now hold the booking for six hours instead of two.</p>
+  <p>So the honest ledger is <b>+4.61pp genuinely converted to progress</b>, bought at the cost of delayed release
+  on the +3.89pp who decline late plus the whole timeout population. Whether that trade is worth it depends on how
+  quickly a rerouted booking finds a second CSP — which this analysis does not measure.</p>
+</div>
+
+<details>
+<summary>Table view — response rate and split</summary>
+<div class="dwrap">
+<div class="tblscroll">
+<table>
+<thead><tr>
+  <th class="n">Within (working h)</th>
+  <th class="n">PRE resp</th><th class="n">PRE pos</th><th class="n">PRE dec</th>
+  <th class="n">POST resp</th><th class="n">POST pos</th><th class="n">POST dec</th>
+</tr></thead>
+<tbody>
+<tr><td class="n">0.25</td><td class="n">34.18%</td><td class="n">25.94%</td><td class="n">8.24%</td><td class="n">41.42%</td><td class="n">31.18%</td><td class="n">10.24%</td></tr>
+<tr><td class="n">0.50</td><td class="n">36.95%</td><td class="n">27.44%</td><td class="n">9.51%</td><td class="n">44.08%</td><td class="n">32.48%</td><td class="n">11.60%</td></tr>
+<tr><td class="n">1.0</td><td class="n">41.10%</td><td class="n">29.89%</td><td class="n">11.21%</td><td class="n">47.42%</td><td class="n">34.00%</td><td class="n">13.43%</td></tr>
+<tr><td class="n">1.5</td><td class="n">44.47%</td><td class="n">31.72%</td><td class="n">12.76%</td><td class="n">52.20%</td><td class="n">36.37%</td><td class="n">15.83%</td></tr>
+<tr class="hi"><td class="n">2.0 — old P41</td><td class="n">47.00%</td><td class="n">33.08%</td><td class="n">13.92%</td><td class="n">54.09%</td><td class="n">37.19%</td><td class="n">16.90%</td></tr>
+<tr><td class="n">2.5</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">55.70%</td><td class="n">37.98%</td><td class="n">17.73%</td></tr>
+<tr><td class="n">3.0</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">57.12%</td><td class="n">38.89%</td><td class="n">18.23%</td></tr>
+<tr><td class="n">4.0</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">59.18%</td><td class="n">39.91%</td><td class="n">19.27%</td></tr>
+<tr><td class="n">5.0</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">60.95%</td><td class="n">40.95%</td><td class="n">20.00%</td></tr>
+<tr class="hi"><td class="n">6.0 — new P41</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">62.59%</td><td class="n">41.80%</td><td class="n">20.79%</td></tr>
+<tr><td class="n">final</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">62.62%</td><td class="n">41.80%</td><td class="n">20.82%</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13.5px;color:var(--ink2)">Each candidate is classified by whichever response came
+<b>first</b>, so positive and decline are mutually exclusive and sum to the response rate. Non-response is the
+remainder — 52.98% for PRE, 37.38% for POST, closely matching the <code>TIMEOUT_P41</code> shares of 52.5% and
+35.5%.</p>
 </div>
 </details>
 
@@ -251,23 +349,24 @@ time, which is what most of the apparent tail was.</p>
 <div class="tblscroll">
 <table>
 <thead><tr>
-  <th>Cohort / action</th><th class="n">n created</th><th class="n">n actioned</th>
+  <th>Cohort</th><th>Action measured</th><th class="n">n created</th><th class="n">n actioned</th>
   <th class="n">P50</th><th class="n">P90</th><th class="n">P95</th>
 </tr></thead>
 <tbody>
-  <tr><td>PRE — slot proposal</td><td class="n">4,985</td><td class="n">1,649</td>
+  <tr><td>PRE 14–20 Jul — all candidates</td><td style="color:var(--ink2)">slot proposal</td>
+      <td class="n">4,985</td><td class="n">1,649</td>
       <td class="n">0.02</td><td class="n">0.99</td><td class="n">1.44</td></tr>
-  <tr class="hi"><td>POST — technician assigned</td><td class="n">3,850</td><td class="n">1,502</td>
-      <td class="n">0.02</td><td class="n">3.44</td><td class="n">5.35</td></tr>
-  <tr><td style="padding-left:14px;color:var(--ink2)">↳ of which customer-proposed slot</td><td class="n">3,165</td><td class="n">1,323</td>
+  <tr class="hi"><td>POST 26 Jul–1 Aug — customer-proposed slot</td><td style="color:var(--ink2)">technician assignment</td>
+      <td class="n">3,165</td><td class="n">1,323</td>
       <td class="n">0.01</td><td class="n">2.25</td><td class="n">3.60</td></tr>
 </tbody>
 </table>
 </div>
 <p style="font-size:13.5px;color:var(--ink2)">Working hours, over every candidate that reached the action. The
-indented row is a <b>subpopulation of the POST cohort</b>, shown for characterisation only — it must not be compared
-against PRE, which has no equivalent subset. Medians sit near zero because in the customer-proposed flow the slot is
-already confirmed when the candidate is created, so nothing stands between notification and assignment.</p>
+cohort is defined by the <b>booking type</b> (customer-proposed slot); the action measured on it is technician
+assignment — the two are separate things and the second does not define the first. Medians sit near zero because in
+this flow the slot is already confirmed when the candidate is created, so nothing stands between notification and
+assignment.</p>
 
 <div class="callout warn">
   <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--warning)" stroke-width="1.6"><path d="M8 2.2 14.4 13.4H1.6z" stroke-linejoin="round"/><path d="M8 6.4v3M8 11.3v.4" stroke-linecap="round"/></svg>POST's higher percentiles are not "CSPs got slower"</h4>
@@ -279,50 +378,46 @@ already confirmed when the candidate is created, so nothing stands between notif
 </div>
 
 <h2>Where the post-change tasks land</h2>
-<p class="lede">Splitting the POST cohort by flow, because the two behave completely differently — and the split
-explains where the long tail lives.</p>
+<p class="lede">The whole POST cohort — customer-proposed-slot bookings created 26 Jul – 1 Aug — by how long the
+CSP took to assign a technician.</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">POST cohort — technician assignment by elapsed working hours</div>
-  <div class="chartsub">Created 26 Jul – 1 Aug 2026 · customer-proposed n=3,165 (1,323 assigned) · other flow n=685 (179 assigned)</div>
-  <svg id="c3" viewBox="0 0 760 330" role="img" aria-label="Distribution of technician assignment latency in working hours, split by flow"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>Customer-proposed slot</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>Other flow (CSP proposes slot)</span>
-  </div>
+  <div class="chartsub">Customer-proposed-slot bookings created 26 Jul – 1 Aug 2026 · 3,165 candidates · 1,323 assigned</div>
+  <svg id="c3" viewBox="0 0 760 330" role="img" aria-label="Distribution of technician assignment latency in working hours"></svg>
 </div>
-<figcaption>In the customer-proposed flow, technician assignment <b>is</b> the P41-gated action — and it shows: the
-<code>6–12</code>, <code>12–24</code> and <code>&gt;24</code> buckets are all <b>empty</b>, a hard ceiling at six
-working hours with nothing leaking past. The entire long tail (50 assignments beyond hour 6) sits in the other flow,
-where the CSP proposes a slot first and technician assignment comes <em>after</em> customer confirmation — well
-outside P41's scope, so nothing bounds it.</figcaption>
+<figcaption>Technician assignment <b>is</b> the P41-gated action in this flow — and it shows: the <code>6–12</code>,
+<code>12–24</code> and <code>&gt;24</code> buckets are all <b>empty</b>, a hard ceiling at six working hours with
+nothing leaking past. (For contrast, the non-customer-proposed candidates excluded from this cohort <em>do</em> have
+a long tail — 50 assignments beyond hour 6 — because there the CSP proposes a slot first and technician assignment
+comes after customer confirmation, outside P41's scope entirely.) A further 1,842 candidates, 58.2% of the cohort,
+never reached technician assignment at all.</figcaption>
 </figure>
 
 <details>
-<summary>Table view — post-change distribution by flow</summary>
+<summary>Table view — post-change distribution</summary>
 <div class="dwrap">
 <div class="tblscroll">
 <table>
-<thead><tr><th>Elapsed working hours</th><th class="n">Customer-proposed</th><th class="n">Other flow</th><th class="n">Total</th></tr></thead>
+<thead><tr><th>Elapsed working hours</th><th class="n">Candidates</th><th class="n">% of 1,323 assigned</th><th class="n">% of 3,165 created</th></tr></thead>
 <tbody>
-<tr><td>&lt;15 work-min</td><td class="n">987</td><td class="n">43</td><td class="n">1,030</td></tr>
-<tr><td>15–30 work-min</td><td class="n">41</td><td class="n">7</td><td class="n">48</td></tr>
-<tr><td>30–60 work-min</td><td class="n">48</td><td class="n">15</td><td class="n">63</td></tr>
-<tr><td>1–2 work-h</td><td class="n">101</td><td class="n">19</td><td class="n">120</td></tr>
-<tr><td>2–6 work-h</td><td class="n">146</td><td class="n">45</td><td class="n">191</td></tr>
-<tr><td>6–12 work-h</td><td class="n">0</td><td class="n">25</td><td class="n">25</td></tr>
-<tr><td>12–24 work-h</td><td class="n">0</td><td class="n">17</td><td class="n">17</td></tr>
-<tr><td>&gt;24 work-h</td><td class="n">0</td><td class="n">8</td><td class="n">8</td></tr>
-<tr><td>Never assigned</td><td class="n">1,842</td><td class="n">506</td><td class="n">2,348</td></tr>
-<tr><td><b>Total created</b></td><td class="n"><b>3,165</b></td><td class="n"><b>685</b></td><td class="n"><b>3,850</b></td></tr>
+<tr><td>&lt;15 work-min</td><td class="n">987</td><td class="n">74.6%</td><td class="n">31.2%</td></tr>
+<tr><td>15–30 work-min</td><td class="n">41</td><td class="n">3.1%</td><td class="n">1.3%</td></tr>
+<tr><td>30–60 work-min</td><td class="n">48</td><td class="n">3.6%</td><td class="n">1.5%</td></tr>
+<tr><td>1–2 work-h</td><td class="n">101</td><td class="n">7.6%</td><td class="n">3.2%</td></tr>
+<tr><td>2–6 work-h</td><td class="n">146</td><td class="n">11.0%</td><td class="n">4.6%</td></tr>
+<tr><td>6–12 work-h</td><td class="n">0</td><td class="n">0.0%</td><td class="n">0.0%</td></tr>
+<tr><td>12–24 work-h</td><td class="n">0</td><td class="n">0.0%</td><td class="n">0.0%</td></tr>
+<tr><td>&gt;24 work-h</td><td class="n">0</td><td class="n">0.0%</td><td class="n">0.0%</td></tr>
+<tr><td>Never assigned</td><td class="n">1,842</td><td class="n">—</td><td class="n">58.2%</td></tr>
 </tbody>
 </table>
 </div>
 </div>
 </details>
 
-<h2 id="pitfall">The filter pitfall — worth knowing before reusing this</h2>
+<h2 id="pitfall">Scoping notes — worth knowing before reusing this</h2>
 
 <div class="callout crit">
   <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--critical)" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M5.8 5.8l4.4 4.4M10.2 5.8l-4.4 4.4" stroke-linecap="round"/></svg>1 · <code>proposedBy</code> is a flow marker, not a customer attribute</h4>
@@ -361,21 +456,21 @@ outside P41's scope, so nothing bounds it.</figcaption>
 <h2>What happens to the tasks that are never actioned</h2>
 <div class="tblscroll">
 <table>
-<thead><tr><th>Terminal state</th><th>Reason</th><th class="n">Candidates</th><th class="n">% of 3,850</th></tr></thead>
+<thead><tr><th>Terminal state</th><th>Reason</th><th class="n">Candidates</th><th class="n">% of 3,165</th></tr></thead>
 <tbody>
-  <tr class="hi"><td>CANCELLED_BY_UPSTREAM</td><td>TIMEOUT_P41</td><td class="n">1,441</td><td class="n">37.4%</td></tr>
-  <tr><td>DECLINED</td><td>Service not available at this location</td><td class="n">489</td><td class="n">12.7%</td></tr>
-  <tr><td>DECLINED</td><td>Network setup is currently not possible</td><td class="n">106</td><td class="n">2.8%</td></tr>
-  <tr><td>CANCELLED_BY_CUSTOMER</td><td>USER_CANCELLATION</td><td class="n">71</td><td class="n">1.8%</td></tr>
-  <tr><td>DECLINED</td><td>Customer is not interested anymore</td><td class="n">62</td><td class="n">1.6%</td></tr>
-  <tr><td>DECLINED</td><td>Installation could not be scheduled</td><td class="n">48</td><td class="n">1.2%</td></tr>
-  <tr><td>DECLINED</td><td>Required device is currently unavailable</td><td class="n">43</td><td class="n">1.1%</td></tr>
-  <tr><td>DECLINED</td><td>Customer did not agree with the plan price</td><td class="n">23</td><td class="n">0.6%</td></tr>
-  <tr><td colspan="2" style="color:var(--ink2)">Other / still in flight</td><td class="n">65</td><td class="n">1.7%</td></tr>
+  <tr class="hi"><td>CANCELLED_BY_UPSTREAM</td><td>TIMEOUT_P41</td><td class="n">1,124</td><td class="n">35.5%</td></tr>
+  <tr><td>DECLINED</td><td>Service not available at this location</td><td class="n">408</td><td class="n">12.9%</td></tr>
+  <tr><td>DECLINED</td><td>Network setup is currently not possible</td><td class="n">91</td><td class="n">2.9%</td></tr>
+  <tr><td>DECLINED</td><td>Customer is not interested anymore</td><td class="n">62</td><td class="n">2.0%</td></tr>
+  <tr><td>CANCELLED_BY_CUSTOMER</td><td>USER_CANCELLATION</td><td class="n">53</td><td class="n">1.7%</td></tr>
+  <tr><td>DECLINED</td><td>Installation could not be scheduled</td><td class="n">43</td><td class="n">1.4%</td></tr>
+  <tr><td>DECLINED</td><td>Required device is currently unavailable</td><td class="n">35</td><td class="n">1.1%</td></tr>
+  <tr><td>DECLINED</td><td>Customer did not agree with the plan price</td><td class="n">20</td><td class="n">0.6%</td></tr>
+  <tr><td>CANCELLED_BY_UPSTREAM</td><td>ALLOCATION_ASSIGNED</td><td class="n">6</td><td class="n">0.2%</td></tr>
 </tbody>
 </table>
 </div>
-<p>Even at six hours, <code>TIMEOUT_P41</code> remains the single largest failure mode — 1,441 candidates, and
+<p>Even at six hours, <code>TIMEOUT_P41</code> remains the single largest failure mode — 1,124 candidates, and
 61% of everything that never reached a technician. But the curve is flat from hour 6 onward, so these are not CSPs
 who were about to act and ran out of time. A further extension looks low-yield: the remaining loss is no longer a
 timing problem.</p>
@@ -389,7 +484,7 @@ timing problem.</p>
   <li><b>Cohort anchor</b> — task/candidate <b>creation</b> date (<code>CREATED_AT</code>, IST), tracked forward to
   whenever the action occurred. Not event-date. One row per <code>EXECUTION_CANDIDATE_ID</code>.</li>
   <li><b>PRE</b> = all candidates created 14–20 Jul 2026 → <b>4,985</b>. <b>POST</b> = all candidates created
-  26 Jul – 1 Aug 2026 → <b>3,850</b>. Neither side is subset.</li>
+  26 Jul – 1 Aug 2026 whose booking has a <b>customer-proposed slot</b> → <b>3,165</b> (of 3,850 created that week). PRE is not subset: the customer-scheduling flow launched ~21 Jul, so it has no equivalent population.</li>
   <li><b>Clock start ("notif")</b> — <code>CREATED_AT</code>, the moment the task is pushed to the CSP, and the exact
   anchor P41 is measured from.</li>
   <li><b>Clock end, PRE</b> — first CSP-actor transition to <code>SLOT_SELECTED</code> /
@@ -504,7 +599,7 @@ candidates in the POST window under each). The resulting IST creation distributi
   /* ---------- data ---------- */
   var TH   =[0.25,0.5,1,1.5,2,2.5,3,4,5,6,8];
   var PRE  =[25.94,27.44,29.89,31.72,33.08,33.08,33.08,33.08,33.08,33.08,33.08];
-  var POST =[26.75,28.00,29.64,31.92,32.75,33.61,34.52,35.64,36.70,37.71,38.00];
+  var POST =[31.18,32.48,34.00,36.37,37.19,37.98,38.89,39.91,40.95,41.80,41.80];
 
   var DAYS=['14 Jul','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','1 Aug','2 Aug'];
   /* P41 window in WORKING hours — median (min and max identical to within rounding) */
@@ -512,16 +607,15 @@ candidates in the POST window under each). The resulting IST creation distributi
   var WMIN=[2.00,2.00,2.00,2.00,2.00,2.00,1.99,2.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00];
   var WMAX=[2.02,2.02,2.02,2.02,2.02,2.02,2.02,6.00,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02];
 
-  /* bucket, customer-proposed, other-flow */
   var BK=[
-    ['<15 work-min',987,43],
-    ['15–30 work-min',41,7],
-    ['30–60 work-min',48,15],
-    ['1–2 work-h',101,19],
-    ['2–6 work-h',146,45],
-    ['6–12 work-h',0,25],
-    ['12–24 work-h',0,17],
-    ['>24 work-h',0,8]
+    ['<15 work-min',987,''],
+    ['15–30 work-min',41,''],
+    ['30–60 work-min',48,''],
+    ['1–2 work-h',101,''],
+    ['2–6 work-h',146,'inside the new P41 budget'],
+    ['6–12 work-h',0,'empty — P41 ceiling'],
+    ['12–24 work-h',0,'empty — P41 ceiling'],
+    ['>24 work-h',0,'empty — P41 ceiling']
   ];
 
   /* ---------- chart 1 ---------- */
@@ -557,7 +651,7 @@ candidates in the POST window under each). The resulting IST creation distributi
     s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(POST[i2]),y2:Y(POST[i2]),stroke:s2,'stroke-width':1.5}));
     s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(POST[i6]),y2:Y(POST[i6]),stroke:s2,'stroke-width':1.5}));
     var at=el('text',{x:bx+9,y:(Y(POST[i2])+Y(POST[i6]))/2+4,fill:s2,'font-size':12,'font-weight':650});
-    at.textContent='+4.96pp'; s.appendChild(at);
+    at.textContent='+4.61pp'; s.appendChild(at);
 
     function path(vals,col){
       var d='';
@@ -569,7 +663,7 @@ candidates in the POST window under each). The resulting IST creation distributi
     var lt1=el('text',{x:X(8)+8,y:Y(PRE[TH.length-1])+14,fill:s1,'font-size':12,'font-weight':620});
     lt1.textContent='PRE 33.1%'; s.appendChild(lt1);
     var lt2=el('text',{x:X(8)+8,y:Y(POST[TH.length-1])+4,fill:s2,'font-size':12,'font-weight':620});
-    lt2.textContent='POST 38.0%'; s.appendChild(lt2);
+    lt2.textContent='POST 41.8%'; s.appendChild(lt2);
 
     for(var i=0;i<TH.length;i++){
       if(TH[i]>xmax) break;
@@ -643,13 +737,12 @@ candidates in the POST window under each). The resulting IST creation distributi
     });
   }
 
-  /* ---------- chart 3: grouped bars ---------- */
+  /* ---------- chart 3: distribution bars ---------- */
   function c3(){
     var s=document.getElementById('c3'); s.innerHTML='';
-    var W=760,H=330,L=136,R=92,T=12,B=54, pw=W-L-R, ph=H-T-B;
-    var max=1000, grp=(ph-(BK.length-1)*10)/BK.length, bh=(grp-2)/2;
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
-        s1=cv('--s1'), s2=cv('--s2'), ink2=cv('--ink2');
+    var W=760,H=330,L=136,R=96,T=12,B=54, pw=W-L-R, ph=H-T-B;
+    var max=1000, bh=Math.min(24,(ph-(BK.length-1)*8)/BK.length), gap=(ph-BK.length*bh)/(BK.length-1);
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), s1=cv('--s1'), ink2=cv('--ink2');
     var X=function(v){ return (v/max)*pw; };
 
     for(var v=0; v<=1000; v+=250){
@@ -660,23 +753,19 @@ candidates in the POST window under each). The resulting IST creation distributi
     s.appendChild(el('line',{x1:L,x2:L,y1:T,y2:T+ph,stroke:axis,'stroke-width':1}));
 
     BK.forEach(function(b,i){
-      var gy=T+i*(grp+10);
-      var lb=el('text',{x:L-12,y:gy+grp/2+4,fill:ink2,'font-size':12.5,'text-anchor':'end'});
+      var y=T+i*(bh+gap), w=b[1]>0?Math.max(X(b[1]),2.5):0;
+      if(w>0) s.appendChild(el('rect',{x:L,y:y,width:w,height:bh,rx:4,fill:s1}));
+      var lb=el('text',{x:L-12,y:y+bh/2+4,fill:ink2,'font-size':12.5,'text-anchor':'end'});
       lb.textContent=b[0]; s.appendChild(lb);
+      var vt=el('text',{x:L+w+9,y:y+bh/2+4,fill:(b[1]===0?muted:ink2),'font-size':12.5,'font-variant-numeric':'tabular-nums'});
+      vt.textContent=(b[1]===0?'0 — none':b[1]); s.appendChild(vt);
 
-      [[b[1],s1,0],[b[2],s2,bh+2]].forEach(function(p){
-        var w=p[0]>0?Math.max(X(p[0]),2):0, y=gy+p[2];
-        if(w>0) s.appendChild(el('rect',{x:L,y:y,width:w,height:bh,rx:3,fill:p[1]}));
-        var vt=el('text',{x:L+w+7,y:y+bh/2+3.5,fill:(p[0]===0?muted:ink2),'font-size':11.5,'font-variant-numeric':'tabular-nums'});
-        vt.textContent=(p[0]===0?'0':p[0]); s.appendChild(vt);
-      });
-
-      var hit=el('rect',{x:L,y:gy-3,width:pw,height:grp+6,fill:'transparent',style:'cursor:pointer'});
+      var hit=el('rect',{x:L,y:y-3,width:pw,height:bh+6,fill:'transparent',style:'cursor:pointer'});
       hit.addEventListener('mousemove',function(e){
         showTT(e,'<b>'+b[0]+'</b>'+
-          '<div class="row"><span>Customer-proposed</span><span>'+b[1]+'</span></div>'+
-          '<div class="row"><span>Other flow</span><span>'+b[2]+'</span></div>'+
-          (b[1]===0?'<div class="row" style="margin-top:5px"><span>empty — P41 ceiling</span></div>':''));
+          '<div class="row"><span>Candidates</span><span>'+b[1]+'</span></div>'+
+          '<div class="row"><span>% of 1,323 assigned</span><span>'+(b[1]/1323*100).toFixed(1)+'%</span></div>'+
+          (b[2]?'<div class="row" style="margin-top:5px"><span>'+b[2]+'</span></div>':''));
       });
       hit.addEventListener('mouseleave',hideTT);
       s.appendChild(hit);
@@ -686,7 +775,94 @@ candidates in the POST window under each). The resulting IST creation distributi
     xl.textContent='Candidates assigned'; s.appendChild(xl);
   }
 
-  function draw(){ c1(); c2(); c3(); }
+  /* ---------- charts 4 & 5: response rate and its split ---------- */
+  var PRE_RESP =[34.18,36.95,41.10,44.47,47.00,47.02,47.02,47.02,47.02,47.02,47.02];
+  var POST_RESP=[41.42,44.08,47.42,52.20,54.09,55.70,57.12,59.18,60.95,62.59,62.62];
+  var POST_POS =[31.18,32.48,34.00,36.37,37.19,37.98,38.89,39.91,40.95,41.80,41.80];
+  var POST_DEC =[10.24,11.60,13.43,15.83,16.90,17.73,18.23,19.27,20.00,20.79,20.82];
+
+  function lineChart(id, series, ymin, ymax, ystep, marks, brackets){
+    var s=document.getElementById(id); if(!s) return; s.innerHTML='';
+    var W=760,H=400,L=58,R=108,T=18,B=52, pw=W-L-R, ph=H-T-B, xmax=8;
+    var X=function(v){ return L + (v/xmax)*pw; };
+    var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), surf=cv('--surface');
+
+    for(var v=ymin; v<=ymax; v+=ystep){
+      s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
+      var tx=el('text',{x:L-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
+      tx.textContent=v+'%'; s.appendChild(tx);
+    }
+    [0,1,2,3,4,5,6,7,8].forEach(function(v){
+      var tx=el('text',{x:X(v),y:T+ph+22,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
+      tx.textContent=v; s.appendChild(tx);
+    });
+    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Elapsed working hours since task notification'; s.appendChild(xl);
+    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
+
+    marks.forEach(function(m){
+      var col=cv(m[2]);
+      s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:col,'stroke-width':1,opacity:.34}));
+      var t=el('text',{x:X(m[0])+7,y:T+13,fill:col,'font-size':11.5,'font-weight':600});
+      t.textContent=m[1]; s.appendChild(t);
+    });
+
+    series.forEach(function(g){
+      var col=cv(g.c), d='';
+      for(var i=0;i<TH.length;i++){ if(TH[i]>xmax) break; d+=(i?'L':'M')+X(TH[i])+' '+Y(g.v[i]); }
+      s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+      for(var j=0;j<TH.length;j++){ if(TH[j]>xmax) break;
+        s.appendChild(el('circle',{cx:X(TH[j]),cy:Y(g.v[j]),r:3.4,fill:col,stroke:surf,'stroke-width':2})); }
+      var lt=el('text',{x:X(8)+8,y:Y(g.v[TH.length-1])+(g.dy||4),fill:col,'font-size':12,'font-weight':620});
+      lt.textContent=g.label; s.appendChild(lt);
+    });
+
+    (brackets||[]).forEach(function(b){
+      var col=cv(b.c), i2=TH.indexOf(2), i6=TH.indexOf(6), bx=X(6)+b.off;
+      s.appendChild(el('line',{x1:bx,x2:bx,y1:Y(b.v[i2]),y2:Y(b.v[i6]),stroke:col,'stroke-width':1.5}));
+      s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(b.v[i2]),y2:Y(b.v[i2]),stroke:col,'stroke-width':1.5}));
+      s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(b.v[i6]),y2:Y(b.v[i6]),stroke:col,'stroke-width':1.5}));
+      var t=el('text',{x:bx+8,y:(Y(b.v[i2])+Y(b.v[i6]))/2+4,fill:col,'font-size':12,'font-weight':650});
+      t.textContent=b.label; s.appendChild(t);
+    });
+
+    for(var k=0;k<TH.length;k++){
+      if(TH[k]>xmax) break;
+      (function(idx){
+        var hit=el('rect',{x:X(TH[idx])-14,y:T,width:28,height:ph,fill:'transparent',style:'cursor:crosshair'});
+        hit.addEventListener('mousemove',function(e){
+          var html='<b>Within '+TH[idx]+' working hour'+(TH[idx]===1?'':'s')+'</b>';
+          series.forEach(function(g){
+            html+='<div class="row"><span>'+g.label+'</span><span>'+g.v[idx].toFixed(2)+'%</span></div>';
+          });
+          showTT(e,html);
+        });
+        hit.addEventListener('mouseleave',hideTT);
+        s.appendChild(hit);
+      })(k);
+    }
+  }
+
+  function c4(){
+    lineChart('c4',
+      [{v:PRE_RESP, c:'--s1', label:'PRE 47.0%', dy:14},
+       {v:POST_RESP,c:'--s2', label:'POST 62.6%', dy:4}],
+      32, 64, 4,
+      [[2,'Old P41 · 2h','--s1'],[6,'New P41 · 6h','--s2']],
+      [{v:POST_RESP, c:'--s2', label:'+8.50pp', off:3}]);
+  }
+  function c5(){
+    lineChart('c5',
+      [{v:POST_POS, c:'--s1', label:'Assigned 41.8%', dy:4},
+       {v:POST_DEC, c:'--s8', label:'Declined 20.8%', dy:4}],
+      8, 44, 4,
+      [[2,'Old P41 · 2h','--muted'],[6,'New P41 · 6h','--muted']],
+      [{v:POST_POS, c:'--s1', label:'+4.61pp', off:3},
+       {v:POST_DEC, c:'--s8', label:'+3.89pp', off:3}]);
+  }
+
+  function draw(){ c1(); c2(); c3(); c4(); c5(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();
