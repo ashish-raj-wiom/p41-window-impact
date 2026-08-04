@@ -99,6 +99,7 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
     <span class="chip">Currently 6 working hours</span>
     <span class="chip">Response data 26 Jul – 1 Aug 2026</span>
     <span class="chip">Cancellation data 25 Jun – 30 Jul 2026</span>
+    <span class="chip">Runway measured to the PM pivot</span>
     <span class="chip">All times IST</span>
   </div>
 </header>
@@ -311,10 +312,13 @@ days past, pooled — no split yet — in <b>12-hour buckets</b>:</p>
   <svg id="c6" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation rate per twelve-hour bucket relative to the promised slot date"></svg>
 </div>
 <figcaption>Nothing happens before the promised day beyond a small booking-day spike. The single largest bucket is
-the <b>afternoon and evening of the day after the slot — 2.45%</b>, more than double the morning bucket that
+the <b>afternoon and evening of the day after the slot — 2.45%</b>, four times the morning bucket that
 precedes it. Cancellation then decays, but with a persistent <b>PM-heavy sawtooth</b>: across the whole window
 <b>80 cancellations fall in a 12:00–24:00 bucket against 43 in a 00:00–12:00 one</b>. Customers wait out the
-working day and give up in the evening.</figcaption>
+working day and give up in the evening.<br><span style="opacity:.85">The window is cut at +4 days:
+<b>139 of the cohort's 172 customer cancellations fall inside it</b>, the remaining 33 arriving later and
+tailing off. The bars are rates per bucket, so they do not sum to the cohort's 17.5% overall cancellation
+rate.</span></figcaption>
 </figure>
 
 <p>So the customer is not counting hours since booking. He is waiting for the day he was promised, and gives up in
@@ -324,7 +328,7 @@ bucket anywhere in the window — and that is the point the allocation has to fi
 <p style="font-size:13.5px;color:var(--ink2)">Stated precisely, because the 12-hour view makes it visible:
 summed to whole days, the slot day and the day after are <em>level</em> pooled (3.06% each). What separates them
 is concentration — the day after puts 80% of its mass in one evening bucket, while the slot day spreads its
-evenly. And for next-day slots, which are the majority, the day after is decisively larger (4.17% against 2.46%).</p>
+evenly. And for the next-day-or-later group plotted below, the day after is decisively larger (3.85% against 2.45%).</p>
 
 <h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5b. And it does not depend on which slot he chose</h4>
 
@@ -374,10 +378,24 @@ the booking has before that pivot arrives — and almost every customer picks on
 same denominator — connections in that row's group</b>, never cancellations. So the table's 3.9% and 4.2% are the
 same numbers the charts plot, just summed to whole days.</p>
 
-<p><b>95.5% of customers propose today or tomorrow</b>, and nobody at all proposes four days out. That matters for
-calibration as much as the cancellation shape does: the runway P41 has to fit inside is short for essentially the
-entire base, not just a tail. It also caps how much this section can say about long lead times — 2- and 3-day
-slots are 44 connections and 5 cancellations between them, which is a count, not a rate.</p>
+<p><b>95.5% of customers propose today or tomorrow.</b> That matters for calibration as much as the cancellation
+shape does: the runway P41 has to fit inside is short for essentially the entire base, not just a tail. It also
+caps how much this section can say about long lead times — 2- and 3-day slots are 44 connections and 5
+cancellations between them, which is a count, not a rate.</p>
+
+<div class="note-box">
+<p><b>Two cohorts, two slot mixes — read them separately.</b> This section runs on the <b>cancellation cohort</b>
+(981 connections, 25 Jun – 30 Jul, matured), because cancellation needs the slot to be several days past before
+it can be counted. Sections 6 and 7 run on the <b>response cohort</b> (1,654 connections, 26 Jul – 1 Aug), the
+same population as sections 1–4.</p>
+<p>The slot mix differs between them, and the numbers should not be cross-read:</p>
+<p style="margin-left:2px"><b>Cancellation cohort</b> — same day 41.7%, next day 53.8%, 2 days 2.9%, 3 days 1.6%,
+4+ days 0%.<br>
+<b>Response cohort</b> — same day 37.5%, next day 54.8%, 2 days 4.1%, 3+ days 3.7%.</p>
+<p>Later slots are somewhat more common in the more recent window. The behavioural finding — cancellation pivots
+on the promised slot, whatever slot was chosen — holds in both, which is why the pivot travels safely from this
+section into the calibration. The <em>shares</em> do not travel; sections 6 and 7 use their own.</p>
+</div>
 <p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
 above (26 Jul – 1 Aug), the cancellation cohort runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
 and needs the slot to be several days in the past before it can be counted, so the POST-only window is too recent
@@ -547,8 +565,11 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   <li><b>Population</b> — install candidates on customer-proposed-slot bookings created 26 Jul – 1 Aug 2026
   (n=3,165 across 1,654 connections). Quartile analysis restricted to CSPs with ≥5 bookings in the week
   (237 CSPs, 2,142 bookings).</li>
-  <li><b>Cancellation</b> — distinct mobiles with a customer-initiated <code>cancelled</code> event, measured from
-  booking confirmation. Bookings confirmed 21 Jul – 2 Aug so every one has ≥24h of observation.</li>
+  <li><b>Cancellation</b> — a customer-initiated <code>cancelled</code> event. Two cuts are used, on different
+  cohorts. <em>By age of booking</em> (section 5): distinct mobiles, bookings confirmed 1–20 Jul 2026 observed to
+  4 Aug, n=4,193. <em>Aligned on the promised slot</em> (5a/5b): one row per connection, customer-proposed slots
+  only, first candidate and the slot promised at that point, slot at least 5 days past as of 4 Aug — 25 Jun –
+  30 Jul 2026, n=981.</li>
 </ul>
 </div>
 </details>

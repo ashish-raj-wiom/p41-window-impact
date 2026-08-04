@@ -153,6 +153,9 @@ Nothing before the promised day beyond a small booking-day spike. The largest si
 then decays with a persistent **PM-heavy sawtooth**: **80 cancellations in 12:00–24:00 buckets against 43 in
 00:00–12:00**. Customers wait out the working day and give up in the evening.
 
+The window is cut at +4 days: **139 of the cohort's 172 cancellations fall inside it**, the remaining 33 arriving
+later and tailing off. These are rates per bucket, so they do not sum to the cohort's 17.5% overall rate.
+
 **The pivot is the evening of the day after the slot.** Stated precisely: summed to whole days the slot day and
 the day after are *level* pooled (3.06% each) — what separates them is concentration, the day after putting 80% of
 its mass in one evening bucket. For next-day slots, the majority, the day after is decisively larger (4.17% vs
@@ -184,10 +187,24 @@ chosen — only the position of the booking spike, and that moves because the bo
 **Every percentage in this section uses the same denominator — connections in that row's group**, never
 cancellations. So the table's 3.9% and 4.2% are the same numbers the buckets above plot, summed to whole days.
 
-**95.5% of customers propose today or tomorrow**, and nobody at all proposes four days out. That matters for
+**95.5% of customers propose today or tomorrow.** That matters for
 calibration as much as the cancellation shape: the runway P41 must fit inside is short for essentially the entire
 base, not just a tail. It also caps what this section can say about long lead times — 2- and 3-day slots are 44
 connections and 5 cancellations between them, a count rather than a rate.
+
+**Two cohorts, two slot mixes — read them separately.** This section runs on the **cancellation cohort** (981
+connections, 25 Jun – 30 Jul, matured), because cancellation needs the slot several days past before it can be
+counted. Sections 5 and 6 run on the **response cohort** (1,654 connections, 26 Jul – 1 Aug), the same population
+as sections 1–3.
+
+| Cohort | Same day | Next day | 2 days | 3+ days |
+|---|---:|---:|---:|---:|
+| Cancellation (n=981) | 41.7% | 53.8% | 2.9% | 1.6% |
+| Response (n=1,654) | 37.5% | 54.8% | 4.1% | 3.7% |
+
+Later slots are somewhat more common in the more recent window. The behavioural finding — cancellation pivots on
+the promised slot, whatever slot was chosen — holds in both, which is why the pivot travels into the calibration.
+The *shares* do not travel; sections 5 and 6 use their own.
 
 **Population for this section.** Unlike the response analysis (26 Jul – 1 Aug), the cancellation cohort runs
 **25 Jun – 30 Jul 2026** — cancellation is a slow signal and needs the slot to be several days past before it can
@@ -284,7 +301,9 @@ Response rate sits in a 60–68% band regardless of arrival time. **No time-of-d
 - **Population** — install candidates on customer-proposed-slot bookings created 26 Jul – 1 Aug 2026 (n=3,165
   across 1,654 connections). Quartiles restricted to CSPs with ≥5 bookings that week (237 CSPs, 2,142 bookings).
 - **Cancellation** — distinct mobiles with a customer-initiated `cancelled` event, from booking confirmation.
-  Bookings confirmed 21 Jul – 2 Aug so each has ≥24h observation.
+  Two cuts on different cohorts. *By age of booking:* distinct mobiles, confirmed 1–20 Jul 2026 observed to
+  4 Aug, n=4,193. *Aligned on the promised slot:* one row per connection, customer-proposed only, first candidate
+  and the slot promised then, slot ≥5 days past as of 4 Aug — 25 Jun – 30 Jul 2026, n=981.
 
 Data as of 4 August 2026. All times IST. Sources: `csp-tas-service`, `csp-demand-allocation-service`,
 `booking_logs` via Snowflake (DB 113).
