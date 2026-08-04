@@ -62,23 +62,33 @@ Whether the trade is worth it depends on how fast a rerouted booking finds a sec
 
 The obvious place that longer wait would show is **customer-initiated cancellation**. It does not.
 
-Cohorts anchored on booking confirmation; cancellation measured at fixed horizons from that moment, because
-cancellation takes ~80 hours on average and a "has cancelled by now" measure right-truncates recent weeks.
+Measured at **hourly** resolution, because P41 only changed what happens between hour 2 and hour 6 — day-level
+buckets cannot see that. Cohorts split at the **true cutover, 21 Jul 23:17 IST** (last 2.00-working-hour window
+issued 23:14:39; first 6.00-hour window 23:20:58), not the 22 Jul day boundary.
 
-| Cohort | n | ≤6h | ≤24h | ≤72h |
-|---|---:|---:|---:|---:|
-| PRE — confirmed before 22 Jul | 7,329 | 3.33% | 5.40% | 10.79% |
-| **POST — confirmed 22 Jul onward** | 1,337 | **2.77%** | 5.91% | 11.67% |
-| Change | | **−0.56pp** | +0.51pp | +0.88pp |
+| Hours since confirmation | PRE (n=4,389) | POST (n=2,107) |
+|---|---:|---:|
+| 1 | 2.19% | 1.61% |
+| **2 — old P41 closes** | **2.55%** | **2.09%** |
+| 4 | 3.01% | 2.66% |
+| **6 — new P41 closes** | **3.30%** | **2.94%** |
+| 12 | 3.78% | 3.42% |
+| 24 | 5.33% | 5.32% |
+| **Accrual, hour 2 → 6** | **+0.75pp** | **+0.85pp** |
 
-**Inside the six-hour window P41 now holds — exactly where the task used to die at hour 2 and go looking for
-someone else — cancellation went down, not up.** The 24h and 72h figures rise slightly, but PRE weeks swing
-between 3.45% and 8.04% at 24 hours on their own, so that sits inside week-to-week noise. The 7-day rate has been
-falling all year (27% in May → 14% by late July) and the post-change weeks stay on that line.
+POST sits below PRE at every hour out to 12 — but those levels are not comparable (different weeks, and
+cancellation has been falling all year). Applying the same within-cohort logic used everywhere else: between
+hour 2 and hour 6, PRE accrues +0.75pp and POST +0.85pp, so POST loses about **0.10pp more** customers in exactly
+the span P41 newly occupies. On 2,107 bookings that is **roughly two customers** — not distinguishable from noise,
+and not to be reported as a detected cost.
 
-Three caveats: only **one uncensored POST week** exists (n=1,337); the customer-proposed-slot flow launched ~21 Jul
-so it is confounded with the P41 change; and a small P41 penalty could hide inside the secular decline at this
-sample size. A second full week is the cheapest way to strengthen or overturn this.
+**By hour 24 the two converge exactly** (5.33% vs 5.32%). POST cancels markedly less early then catches up
+completely — the signature of cancellation being *deferred* rather than avoided, which is what you would expect
+if the booking is simply held longer before anything visible happens.
+
+Caveats: the customer-proposed-slot flow launched ~21 Jul so it is confounded with the P41 change; and a small
+P41 penalty could hide inside the secular decline at this sample size. More POST weeks are the cheapest way to
+strengthen or overturn this.
 
 > ⚠️ **`BOOKING_LOGS` duplicates `cancelled` events since 10 July 2026** — 43,985 rows on 13 July across 63
 > distinct mobiles, ~700 writes per real cancellation. Counted raw, the series shows a cancellation explosion

@@ -331,29 +331,60 @@ by now" is right-truncated and looks artificially clean.</p>
 <p>Nothing breaks at 22 July. The 7-day rate has been falling all year — 27% in May, 14% by late July — and the
 post-change weeks sit on that same downward line rather than departing from it.</p>
 
-<h3>The window P41 actually holds</h3>
-<p>The sharpest test is the first six hours, because that is exactly the span a CSP now occupies where previously
-the task died at hour 2 and went looking for someone else.</p>
+<h3>The window P41 actually holds — hour by hour</h3>
+<p>Day-level buckets are too coarse to answer this: P41 only changed what happens between <b>hour 2 and hour 6</b>,
+so the test has to be at hourly resolution. Cohorts are split at the <b>true cutover — 21 Jul 23:17 IST</b>, the
+moment the window flips from 2.00 to 6.00 working hours, rather than at the 22 Jul day boundary.</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Customer-initiated cancellation, by hours since booking confirmation</div>
+  <div class="chartsub">Deduped to distinct mobiles · PRE n=4,389 · POST n=2,107 · shaded band = the hours P41 newly holds</div>
+  <svg id="c6" viewBox="0 0 760 400" role="img" aria-label="Cumulative customer cancellation rate by hours since booking confirmation, pre versus post"></svg>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · confirmed 1–21 Jul</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · confirmed 21 Jul – 2 Aug</span>
+  </div>
+</div>
+<figcaption>POST sits <em>below</em> PRE at every hour out to 12 — but the levels are not comparable (different
+weeks, and cancellation has been falling all year). The comparable measure is the accrual <b>within</b> the shaded
+2–6 hour band, and there POST is marginally higher.</figcaption>
+</figure>
 
 <div class="tblscroll">
 <table>
 <thead>
-<tr><th>Cohort</th><th class="n">Confirmed</th><th class="n">Cancelled ≤6h</th><th class="n">≤24h</th><th class="n">≤72h</th></tr>
+<tr><th>Hours since confirmation</th><th class="n">PRE (n=4,389)</th><th class="n">POST (n=2,107)</th></tr>
 </thead>
 <tbody>
-<tr><td>PRE — confirmed before 22 Jul</td><td class="n">7,329</td><td class="n">3.33%</td><td class="n">5.40%</td><td class="n">10.79%</td></tr>
-<tr class="hi"><td>POST — confirmed 22 Jul onward</td><td class="n">1,337</td><td class="n"><b>2.77%</b></td><td class="n">5.91%</td><td class="n">11.67%</td></tr>
-<tr><td>Change</td><td class="n">—</td><td class="n"><b>−0.56pp</b></td><td class="n">+0.51pp</td><td class="n">+0.88pp</td></tr>
+<tr><td class="n">1</td><td class="n">2.19%</td><td class="n">1.61%</td></tr>
+<tr class="hi"><td class="n">2 — old P41 closes</td><td class="n">2.55%</td><td class="n">2.09%</td></tr>
+<tr><td class="n">3</td><td class="n">2.76%</td><td class="n">2.33%</td></tr>
+<tr><td class="n">4</td><td class="n">3.01%</td><td class="n">2.66%</td></tr>
+<tr><td class="n">5</td><td class="n">3.14%</td><td class="n">2.85%</td></tr>
+<tr class="hi"><td class="n">6 — new P41 closes</td><td class="n">3.30%</td><td class="n">2.94%</td></tr>
+<tr><td class="n">8</td><td class="n">3.49%</td><td class="n">3.13%</td></tr>
+<tr><td class="n">12</td><td class="n">3.78%</td><td class="n">3.42%</td></tr>
+<tr><td class="n">24</td><td class="n">5.33%</td><td class="n">5.32%</td></tr>
+</tbody>
+<tbody>
+<tr><td><b>Accrual, hour 2 → 6</b></td><td class="n"><b>+0.75pp</b></td><td class="n"><b>+0.85pp</b></td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>Cancellation inside the six-hour window went down, not up.</b> The 24h and 72h figures rise by half a point
-and just under a point, but PRE weeks swing between 3.45% and 8.04% at 24 hours on their own, so a 0.5pp move sits
-comfortably inside week-to-week noise.</p>
+<p>Applying the same within-cohort logic used everywhere else on this page: between hour 2 and hour 6, PRE accrues
+<b>+0.75pp</b> of cancellation and POST accrues <b>+0.85pp</b> — so POST loses about <b>0.10pp more</b> customers
+in exactly the span P41 newly occupies. On 2,107 POST bookings that difference is roughly <b>two customers</b>.
+It is not distinguishable from noise, and it should not be reported as a detected cost.</p>
+
+<p><b>The more interesting shape is what happens by hour 24: the two converge exactly</b> — 5.33% and 5.32%. POST
+cancels markedly less early and then catches up completely. That is the signature of cancellation being
+<em>deferred</em> rather than avoided, which is what you would expect if the booking is simply held longer before
+anything visible happens to it.</p>
 
 <p class="lede">On the evidence available, the +4.61pp of positive action is <b>not</b> being paid for in customer
-cancellations.</p>
+cancellations — but the honest statement is "no detectable cost at this sample size", not "no cost".</p>
 
 <h3>What would change this conclusion</h3>
 <ul>
@@ -380,6 +411,12 @@ the customer's patience in some other form — remains unmeasured, as noted in t
 <li>Both sides deduped to one row per mobile, which is what neutralises the duplication bug above.</li>
 <li>Only cancellations at or after the booking's own confirmation are counted.</li>
 <li>Weeks are IST (<code>ADDED_TIME</code> is UTC; +330 minutes). The partial week from 3 August is excluded.</li>
+<li><b>The hourly comparison splits at the true cutover, 21 Jul 23:17 IST</b> — the last candidate issued a
+2.00-working-hour window was created 23:14:39, the first issued 6.00 working hours at 23:20:58. Splitting on the
+22 Jul day boundary instead would misclassify the late-evening bookings of 21 Jul, which already had the new
+window, as PRE.</li>
+<li>Hourly cohorts: PRE = confirmed 1 Jul → cutover (n=4,389); POST = cutover → 2 Aug (n=2,107). POST stops at
+2 Aug so every booking in it has at least 24 hours of observation as of 4 Aug.</li>
 </ul>
 
 <h2>The change is real in the config</h2>
@@ -958,7 +995,68 @@ candidates in the POST window under each). The resulting IST creation distributi
        {v:POST_DEC, c:'--s8', label:'+3.89pp', off:3}]);
   }
 
-  function draw(){ c1(); c2(); c3(); c4(); c5(); }
+  /* ---------- chart 6: hourly cancellation ---------- */
+  var TH_C  =[0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,7,8,10,12];
+  var PRE_C =[1.98,2.19,2.37,2.55,2.60,2.76,2.89,3.01,3.14,3.14,3.28,3.30,3.35,3.49,3.67,3.78];
+  var POST_C=[1.23,1.61,1.90,2.09,2.18,2.33,2.47,2.66,2.75,2.85,2.85,2.94,3.04,3.13,3.27,3.42];
+
+  function c6(){
+    var s=document.getElementById('c6'); if(!s) return; s.innerHTML='';
+    var W=760,H=400,L=58,R=108,T=18,B=52, pw=W-L-R, ph=H-T-B;
+    var xmax=12, ymin=1, ymax=4;
+    var X=function(v){ return L + (v/xmax)*pw; };
+    var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
+        s1=cv('--s1'), s2=cv('--s2'), surf=cv('--surface');
+
+    /* shaded band = the 2-6h span P41 newly holds */
+    s.appendChild(el('rect',{x:X(2),y:T,width:X(6)-X(2),height:ph,
+      fill:s2,opacity:0.07}));
+
+    for(var v=1; v<=4; v+=0.5){
+      s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
+      var tx=el('text',{x:L-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
+      tx.textContent=v.toFixed(1)+'%'; s.appendChild(tx);
+    }
+    [0,2,4,6,8,10,12].forEach(function(v){
+      var tx=el('text',{x:X(v),y:T+ph+22,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
+      tx.textContent=v; s.appendChild(tx);
+    });
+    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Hours since booking confirmation'; s.appendChild(xl);
+    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
+
+    [[2,'Old P41'],[6,'New P41']].forEach(function(m){
+      s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.45}));
+      var t=el('text',{x:X(m[0])+6,y:T+ph-8,fill:muted,'font-size':11.5,'font-weight':600});
+      t.textContent=m[1]; s.appendChild(t);
+    });
+
+    [{v:PRE_C,c:s1,l:'PRE 3.78%'},{v:POST_C,c:s2,l:'POST 3.42%'}].forEach(function(g){
+      var d='';
+      for(var i=0;i<TH_C.length;i++){ d+=(i?'L':'M')+X(TH_C[i])+' '+Y(g.v[i]); }
+      s.appendChild(el('path',{d:d,fill:'none',stroke:g.c,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+      for(var j=0;j<TH_C.length;j++){
+        s.appendChild(el('circle',{cx:X(TH_C[j]),cy:Y(g.v[j]),r:3.2,fill:g.c,stroke:surf,'stroke-width':2})); }
+      var lt=el('text',{x:X(12)+8,y:Y(g.v[TH_C.length-1])+4,fill:g.c,'font-size':12,'font-weight':620});
+      lt.textContent=g.l; s.appendChild(lt);
+    });
+
+    for(var k=0;k<TH_C.length;k++){
+      (function(idx){
+        var hit=el('rect',{x:X(TH_C[idx])-12,y:T,width:24,height:ph,fill:'transparent',style:'cursor:crosshair'});
+        hit.addEventListener('mousemove',function(e){
+          showTT(e,'<b>Within '+TH_C[idx]+'h of confirmation</b>'+
+            '<div class="row"><span>PRE</span><span>'+PRE_C[idx].toFixed(2)+'%</span></div>'+
+            '<div class="row"><span>POST</span><span>'+POST_C[idx].toFixed(2)+'%</span></div>');
+        });
+        hit.addEventListener('mouseleave',hideTT);
+        s.appendChild(hit);
+      })(k);
+    }
+  }
+
+  function draw(){ c1(); c2(); c3(); c4(); c5(); c6(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();
