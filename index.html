@@ -97,7 +97,8 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
   <p class="sub">What the parameter should be set to, and why.</p>
   <div class="meta">
     <span class="chip">Currently 6 working hours</span>
-    <span class="chip">Data 26 Jul – 3 Aug 2026</span>
+    <span class="chip">Response data 26 Jul – 1 Aug 2026</span>
+    <span class="chip">Cancellation data 25 Jun – 30 Jul 2026</span>
     <span class="chip">All times IST</span>
   </div>
 </header>
@@ -164,31 +165,24 @@ the work.</p>
 
 <h3>1. How fast do CSPs respond?</h3>
 <p>Cumulative share of bookings where the CSP has responded, by elapsed working hours since the booking reached
-him.</p>
+him — with the response split into the two things it can be.</p>
 
 <figure>
 <div class="chartcard">
-  <div class="charttitle">Response rate by elapsed working hours</div>
-  <div class="chartsub">Customer-proposed-slot bookings, 26 Jul – 1 Aug 2026 · n=3,165 · response = took the job or declined it</div>
-  <svg id="c1" viewBox="0 0 720 380" role="img" aria-label="Cumulative CSP response rate against elapsed working hours"></svg>
-</div>
-<figcaption>Response is heavily front-loaded — 41% inside the first quarter-hour — then a long, slowly decaying
-tail that is still climbing when the 6-hour deadline cuts it off at 62.6%.</figcaption>
-</figure>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Split into taking the job and declining it</div>
-  <div class="chartsub">The two components of the response curve above</div>
-  <svg id="c2" viewBox="0 0 720 380" role="img" aria-label="Positive action and decline rates against elapsed working hours"></svg>
+  <div class="charttitle">Response rate by elapsed working hours, split into taking the job and declining it</div>
+  <div class="chartsub">Customer-proposed-slot bookings, 26 Jul – 1 Aug 2026 · n=3,165 · the two bands stack to the response rate</div>
+  <svg id="c1" viewBox="0 0 720 400" role="img" aria-label="Cumulative CSP response rate against elapsed working hours, stacked into jobs taken and declines"></svg>
   <div class="legend">
     <span><i class="swatch" style="background:var(--s1)"></i>Took the job</span>
     <span><i class="swatch" style="background:var(--s2)"></i>Declined</span>
+    <span><i class="swatch" style="background:var(--ink);border-radius:1px;height:3px"></i>Response = the two together</span>
   </div>
 </div>
-<figcaption>Both climb throughout. Between hour 2 and hour 6 the window buys <b>+4.61pp</b> of jobs taken and
-<b>+3.89pp</b> of declines — so <b>46% of what the later hours surface is a refusal</b>. A decline is still useful
-(it releases the booking with a reason attached, faster than waiting for the timeout) but it is not progress.</figcaption>
+<figcaption>Response is heavily front-loaded — <b>41% inside the first quarter-hour</b> — then a long, slowly
+decaying tail still climbing when the 6-hour deadline cuts it off at <b>62.6%</b>. The shaded stretch is what
+hours 2→6 add: <b>+4.61pp</b> of jobs taken and <b>+3.89pp</b> of declines, so <b>46% of what the later hours
+surface is a refusal</b>. A decline is still useful — it releases the booking with a reason attached, faster than
+waiting for the timeout — but it is not progress.</figcaption>
 </figure>
 
 <h3>2. How long the responders actually take</h3>
@@ -521,13 +515,17 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
             9.540,10.899,11.638,13.046,14.858,16.599,17.935,18.650,18.984,19.747];
 
   /* ---------- generic line chart on the TH grid ---------- */
-  function lineChart(id, series, ymin, ymax, ystep, mark){
-    var s=document.getElementById(id); if(!s) return; s.innerHTML='';
-    var W=720,H=380,L=56,R=112,T=18,B=52, pw=W-L-R, ph=H-T-B, xmax=8;
-    var X=function(v){ return L+(v/xmax)*pw; }, Y=function(v){ return T+ph-((v-ymin)/(ymax-ymin))*ph; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), surf=cv('--surface');
 
-    for(var v=ymin; v<=ymax; v+=ystep){
+  /* ---------- c1: stacked area — response, split into taken vs declined ----------
+     POS + DEC == RESP exactly, so the top of the stack IS the response rate.     */
+  function c1(){
+    var s=document.getElementById('c1'); if(!s) return; s.innerHTML='';
+    var W=720,H=400,L=56,R=142,T=24,B=56, pw=W-L-R, ph=H-T-B, xmax=8, ymax=70;
+    var X=function(v){ return L+(v/xmax)*pw; }, Y=function(v){ return T+ph-(v/ymax)*ph; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), ink=cv('--ink'), surf=cv('--surface');
+    var c1c=cv('--s1'), c2c=cv('--s2');
+
+    for(var v=0; v<=ymax; v+=10){
       s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
       var tx=el('text',{x:L-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
       tx.textContent=v+'%'; s.appendChild(tx);
@@ -538,40 +536,58 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     });
     var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
     xl.textContent='Elapsed working hours since the booking reached the CSP'; s.appendChild(xl);
-    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
 
-    if(mark){
-      s.appendChild(el('line',{x1:X(6),x2:X(6),y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.5}));
-      var mt=el('text',{x:X(6)+6,y:T+ph-8,fill:muted,'font-size':11.5,'font-weight':600});
-      mt.textContent='P41 = 6h'; s.appendChild(mt);
+    /* what hours 2 to 6 add */
+    s.appendChild(el('rect',{x:X(2),y:T,width:X(6)-X(2),height:ph,fill:ink,opacity:0.04}));
+
+    /* stacked bands */
+    var pTop='', pMid='', back='';
+    for(var i=0;i<TH.length;i++){
+      pTop+=(i?'L':'M')+X(TH[i])+' '+Y(RESP[i]);
+      pMid+=(i?'L':'M')+X(TH[i])+' '+Y(POS[i]);
     }
-    series.forEach(function(g){
-      var col=cv(g.c), d='';
-      for(var i=0;i<TH.length;i++){ if(TH[i]>xmax) break; d+=(i?'L':'M')+X(TH[i])+' '+Y(g.v[i]); }
-      s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
-      for(var j=0;j<TH.length;j++){ if(TH[j]>xmax) break;
-        s.appendChild(el('circle',{cx:X(TH[j]),cy:Y(g.v[j]),r:3.3,fill:col,stroke:surf,'stroke-width':2})); }
-      var lt=el('text',{x:X(8)+9,y:Y(g.v[TH.length-1])+4,fill:col,'font-size':12,'font-weight':620});
-      lt.textContent=g.label; s.appendChild(lt);
-    });
+    for(var j=TH.length-1;j>=0;j--){ back+='L'+X(TH[j])+' '+Y(POS[j]); }
+    s.appendChild(el('path',{d:pMid+'L'+X(TH[TH.length-1])+' '+Y(0)+'L'+X(TH[0])+' '+Y(0)+'Z',
+      fill:c1c,opacity:0.30,stroke:'none'}));
+    s.appendChild(el('path',{d:pTop+back+'Z', fill:c2c,opacity:0.30,stroke:'none'}));
+
+    /* 2px surface gap between the two fills, then the boundary line itself */
+    s.appendChild(el('path',{d:pMid,fill:'none',stroke:surf,'stroke-width':5,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    s.appendChild(el('path',{d:pMid,fill:'none',stroke:c1c,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    s.appendChild(el('path',{d:pTop,fill:'none',stroke:ink,'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'}));
+
     for(var k=0;k<TH.length;k++){
-      if(TH[k]>xmax) break;
+      s.appendChild(el('circle',{cx:X(TH[k]),cy:Y(POS[k]),r:3.3,fill:c1c,stroke:surf,'stroke-width':2}));
+      s.appendChild(el('circle',{cx:X(TH[k]),cy:Y(RESP[k]),r:3.3,fill:ink,stroke:surf,'stroke-width':2}));
+    }
+
+    /* the P41 deadline */
+    s.appendChild(el('line',{x1:X(6),x2:X(6),y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.55}));
+    var mt=el('text',{x:X(6),y:T-8,fill:muted,'font-size':11.5,'font-weight':600,'text-anchor':'middle'});
+    mt.textContent='P41 = 6h'; s.appendChild(mt);
+
+    /* right-hand labels */
+    function lab(y,txt,col,w){ var t=el('text',{x:X(8)+10,y:Y(y)+4,fill:col,'font-size':12,'font-weight':w||620});
+      t.textContent=txt; s.appendChild(t); }
+    lab(RESP[TH.length-1],       'Response 62.6%',   ink);
+    lab((POS[TH.length-1]+RESP[TH.length-1])/2, 'Declined 20.8%', c2c);
+    lab(POS[TH.length-1],        'Took the job 41.8%', c1c);
+
+    for(var m=0;m<TH.length;m++){
       (function(idx){
         var hit=el('rect',{x:X(TH[idx])-14,y:T,width:28,height:ph,fill:'transparent',style:'cursor:crosshair'});
         hit.addEventListener('mousemove',function(e){
-          var html='<b>Within '+TH[idx]+' working hour'+(TH[idx]===1?'':'s')+'</b>';
-          series.forEach(function(g){ html+='<div class="row"><span>'+g.label+'</span><span>'+g.v[idx].toFixed(2)+'%</span></div>'; });
-          showTT(e,html);
+          showTT(e,'<b>Within '+TH[idx]+' working hour'+(TH[idx]===1?'':'s')+'</b>'
+            +'<div class="row"><span>Response</span><span>'+RESP[idx].toFixed(2)+'%</span></div>'
+            +'<div class="row"><span>Took the job</span><span>'+POS[idx].toFixed(2)+'%</span></div>'
+            +'<div class="row"><span>Declined</span><span>'+DEC[idx].toFixed(2)+'%</span></div>');
         });
         hit.addEventListener('mouseleave',hideTT);
         s.appendChild(hit);
-      })(k);
+      })(m);
     }
+    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
   }
-
-  function c1(){ lineChart('c1',[{v:RESP,c:'--s1',label:'62.6%'}],30,66,4,true); }
-  function c2(){ lineChart('c2',[{v:POS,c:'--s1',label:'Took job 41.8%'},
-                                 {v:DEC,c:'--s2',label:'Declined 20.8%'}],8,46,4,true); }
 
   /* ---------- quartile chart, own x grid ---------- */
   function c3(){
@@ -801,7 +817,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     });
   }
 
-  function draw(){ c1(); c2(); c3(); c4(); c5(); c6(); }
+  function draw(){ c1(); c3(); c4(); c5(); c6(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();

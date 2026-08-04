@@ -68,7 +68,10 @@ All figures come from the period **after** P41 moved to 6 hours. Deliberately no
    five-hour response — the task was already dead. The old regime's numbers are truncated by its own deadline.
    Calibration needs the distribution of what CSPs *actually do* when given room.
 
-### 1. How fast CSPs respond
+### 1. How fast CSPs respond, and what the response is
+
+One stacked-area chart: the two bands are jobs taken and declines, and because they sum exactly to the response
+rate at every point, the top of the stack **is** the response curve.
 
 Response is heavily front-loaded — 41% inside the first quarter-hour — then a long, slowly decaying tail still
 climbing when the 6-hour deadline cuts it off at 62.6%.
