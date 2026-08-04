@@ -367,24 +367,30 @@ evenly. And for the next-day-or-later group plotted below, the day after is deci
 
 <h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5b. It does not matter which day they chose</h4>
 
-<p>Splitting the same 981 bookings by the slot they proposed — everything else identical:</p>
+<p>Splitting the same 981 bookings by the slot they proposed, with the two combined shown alongside — everything
+else identical:</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">The same alignment, split by the slot the customer chose</div>
-  <div class="chartsub">Same 12-hour buckets, one pair of columns per bucket · y = % of <em>that group's</em> bookings</div>
+  <div class="chartsub">Same 12-hour buckets · each group plus the two combined · y = % of <em>that series'</em> bookings</div>
   <svg id="c7" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation per twelve-hour bucket, split by whether the customer chose a same-day or a later slot"></svg>
   <div class="legend">
     <span><i class="swatch" style="background:var(--s1)"></i>Next day or later (n=572)</span>
     <span><i class="swatch" style="background:var(--s2)"></i>Same day (n=409)</span>
+    <span><i class="swatch" style="background:var(--ink)"></i>All bookings (n=981)</span>
   </div>
 </div>
 <figcaption>Both groups do the same two things. Each spikes once at <b>its own booking moment</b> — slot-day
 morning for same-day slots, the evening before for later ones — which is the mistake-booking effect, not
-impatience. Each then clusters again <b>after the promised day, in the afternoon and evening</b>. The post-slot peak for
-later slots is <b>the afternoon after the promised day (3.15%)</b>; for same-day slots the post-slot buckets run 6, 8 and 7 cancellations, too
-close to separate. <b>The shape does not change with the slot chosen — only the position of the booking
-spike does, and that moves because the booking moment moves.</b></figcaption>
+impatience. Each then clusters again <b>after the promised day, in the afternoon and evening</b>. The post-slot
+peak for later slots is <b>the afternoon after the promised day (3.15%)</b>; for same-day slots the post-slot
+buckets run 6, 8 and 7 cancellations, too close to separate.
+<br><br>
+<b>Taken together — the dark columns — the largest bucket anywhere in the window is the afternoon after the
+promised day, at 2.45%.</b> That is the point the calculation in Part 3 works back from. <b>The shape does not
+change with the slot chosen; only the position of the booking spike moves, and it moves because the booking
+moment moves.</b></figcaption>
 </figure>
 
 <p><b>That is the whole purpose of this split.</b> It rules out the objection that the deadline is an artefact of
@@ -849,24 +855,29 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     });
   }
 
-  /* 5b — split, as paired columns so the two groups can be compared bucket by bucket */
+  /* 5b — the two groups plus their combined total, as columns per bucket.
+     The total is the two groups pooled (their counts sum to POOL exactly),
+     drawn in ink so it reads as the aggregate rather than a third category. */
   function c7(){
     var s=document.getElementById('c7'); if(!s) return; s.innerHTML='';
-    var ymax=3.5, f=bucketFrame(s,ymax), surf=cv('--surface'), ink=cv('--ink');
-    var slot=f.pw/B12.length, bw=slot*0.38, gap=2;
+    var ymax=3.5, f=bucketFrame(s,ymax), ink=cv('--ink');
+    var slot=f.pw/B12.length, bw=slot*0.26, gap=2, trio=3*bw+2*gap;
+    var series=[
+      {k:'Next day or later', v:SPLIT[0].v, ct:SPLIT[0].ct, n:SPLIT[0].n, col:cv(SPLIT[0].c), op:0.85},
+      {k:'Same day',          v:SPLIT[1].v, ct:SPLIT[1].ct, n:SPLIT[1].n, col:cv(SPLIT[1].c), op:0.85},
+      {k:'All bookings',      v:POOL.v,     ct:POOL.c,      n:POOL.n,     col:ink,            op:0.9}
+    ];
 
-    SPLIT.forEach(function(g,gi){
-      var col=cv(g.c);
-      var dx = gi===0 ? -(gap/2+bw) : (gap/2);
+    series.forEach(function(g,gi){
+      var x0 = -trio/2 + gi*(bw+gap);
       g.v.forEach(function(y,i){
         if(y<=0) return;
-        s.appendChild(el('rect',{x:f.X(i)+dx, y:f.Y(y), width:bw, height:f.T+f.ph-f.Y(y),
-          rx:4, fill:col, opacity:0.85}));
+        s.appendChild(el('rect',{x:f.X(i)+x0, y:f.Y(y), width:bw, height:f.T+f.ph-f.Y(y),
+          rx:3, fill:g.col, opacity:g.op}));
       });
-      /* each group's own peak, labelled */
       var pk=g.v.indexOf(Math.max.apply(null,g.v));
-      var lt=el('text',{x:f.X(pk)+dx+bw/2, y:f.Y(g.v[pk])-7, fill:col,
-        'font-size':11.5,'font-weight':660,'text-anchor':'middle'});
+      var lt=el('text',{x:f.X(pk)+x0+bw/2, y:f.Y(g.v[pk])-7, fill:g.col,
+        'font-size':11,'font-weight':660,'text-anchor':'middle'});
       lt.textContent=g.v[pk].toFixed(2)+'%'; s.appendChild(lt);
     });
 
@@ -875,7 +886,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
         fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
         var html='<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='morning'?'00:00–12:00':'12:00–24:00')+'</b>';
-        SPLIT.forEach(function(g){
+        series.forEach(function(g){
           html+='<div class="row"><span>'+g.k+'</span><span>'+g.ct[i]+'/'+g.n+' · '+g.v[i].toFixed(2)+'%</span></div>';
         });
         showTT(e,html);

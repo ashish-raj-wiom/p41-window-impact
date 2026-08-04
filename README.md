@@ -196,6 +196,7 @@ Same 981 bookings, same buckets, split by the slot proposed:
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Next day or later (n=572) | 2.80% | 0.52% | 1.92% | 0.70% | **3.15%** | 1.22% | 1.92% |
 | Same day (n=409) | 0% | **3.18%** | 0.73% | 0.49% | 1.47% | 0.49% | 1.96% |
+| **All bookings (n=981)** | 1.63% | 1.63% | 1.43% | 0.61% | **2.45%** | 0.92% | 1.94% |
 
 Both groups do the same two things: spike once at **their own booking moment** — slot-day morning for same-day
 slots, the evening before for later ones, which is the mistake-booking effect — then cluster again **after the
