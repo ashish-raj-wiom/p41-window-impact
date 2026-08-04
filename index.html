@@ -105,7 +105,7 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
   <div class="meta">
     <span class="chip">Currently 6 working hours</span>
     <span class="chip">Response data 26 Jul – 1 Aug 2026</span>
-    <span class="chip">Cancellation data 25 Jun – 30 Jul 2026</span>
+    <span class="chip">Cancellation data 22 Jul – 4 Aug 2026</span>
     <span class="chip">Deadline: evening after the promised day</span>
     <span class="chip">All times IST</span>
   </div>
@@ -365,19 +365,19 @@ running a clock of his own. The question is what that clock is measuring, becaus
 booking.</p>
 
 <p>Cancellations in the first few hours are not impatience — they are bookings the customer never intended to
-keep. <b>3.3% cancel inside the first six hours</b>, then the curve almost stops: only <b>+0.5 points more</b> across
-the whole of hours 6 to 12. Those early ones would have cancelled whatever P41 was set to, so they should not be
-priced as a cost of waiting.</p>
+keep. <b>2.8% cancel inside the first six hours</b>, then the curve almost stops: only <b>+0.5 points more</b>
+across the whole of hours 6 to 12. Those early ones would have cancelled whatever P41 was set to, so they should
+not be priced as a cost of waiting.</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">Cumulative customer cancellation, by age of booking</div>
-  <div class="chartsub">Matured group: bookings confirmed 1–20 Jul 2026, observed to 4 Aug · n=4,193 · deduped to distinct mobiles</div>
+  <div class="chartsub">Customer-proposed bookings offered 22–28 Jul 2026, each observed a full 7 days · n=642</div>
   <svg id="c4" viewBox="0 0 720 360" role="img" aria-label="Cumulative percentage of bookings cancelled by the customer against days since booking"></svg>
 </div>
-<figcaption>After the early spike the curve flattens through hour 12, then <b>steepens again across days 1 to 3</b> —
-climbing from 3.8% to 10.9%, with the sharpest stretch around day 2. That second climb is real impatience, and it
-is anchored to something specific. By day 7 it reaches 17.9%.</figcaption>
+<figcaption>After the early spike the curve flattens through hour 12, then <b>steepens again across days 1 to
+3</b> — climbing from 3.3% to 12.2%, with the sharpest stretch around day 2. That second climb is real
+impatience, and it is anchored to something specific. By day 7 it reaches 20.7%.</figcaption>
 </figure>
 
 <h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5a. When customers actually cancel</h4>
@@ -452,7 +452,7 @@ into "next day or later" — on their own they carry 5 cancellations between the
 
 <div class="note-box">
 <p><b>Two groups — read them separately.</b> This section runs on the <b>cancellation group</b> (981
-bookings, 25 Jun – 30 Jul, matured), because cancellation needs the slot to be several days past before it can
+bookings offered 22–30 Jul, matured), because cancellation needs the slot to be several days past before it can
 be counted. Section 6 runs on the <b>response group</b> (1,654 bookings, 26 Jul – 1 Aug), the same population
 as sections 1–4.</p>
 <p>What carries across between them is the behaviour, not the numbers: cancellation turns on the promised slot
@@ -460,7 +460,7 @@ whatever slot was chosen, and that holds in both. <b>Section 6 takes only the de
 its own time-available on its own population.</b></p>
 </div>
 <p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
-above (26 Jul – 1 Aug), the cancellation group runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
+above (26 Jul – 1 Aug), the cancellation group runs <b>22–30 Jul 2026</b> — cancellation is a slow signal
 and needs the slot to be several days in the past before it can be counted, so the POST-only window is too recent
 to supply it. Customer-proposed slots only, one row per booking: its <em>first</em> candidate and the slot
 promised at that point, so re-slotting and rerouting do not double-count. Only slots at least five days past as of
@@ -568,10 +568,9 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   (n=3,165 across 1,654 bookings). Quartile analysis restricted to CSPs with ≥5 bookings in the week
   (237 CSPs, 2,142 bookings).</li>
   <li><b>Cancellation</b> — a customer-initiated <code>cancelled</code> event. Two cuts are used, on different
-  groups. <em>By age of booking</em> (section 5): distinct mobiles, bookings confirmed 1–20 Jul 2026 observed to
-  4 Aug, n=4,193. <em>Aligned on the promised slot</em> (5a/5b): one row per booking, customer-proposed slots
-  only, first candidate and the slot promised at that point, slot at least 5 days past as of 4 Aug — 25 Jun –
-  30 Jul 2026, n=981.</li>
+  groups. <em>By age of booking</em> (section 5): customer-proposed bookings offered 22–28 Jul 2026, each
+  observed a full 7 days, n=642. <em>Aligned on the promised slot</em> (5a/5b): one row per booking, customer-proposed slots
+  only, first candidate and the slot promised at that point, slot at least 5 days past as of 4 Aug — offered 22–30 Jul 2026, n=981.</li>
 </ul>
 </div>
 </details>
@@ -622,9 +621,10 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   ];
 
   /* cumulative % of bookings cancelled by the customer, by hours since booking */
-  var CUMH=[0,3,6,9,12,18,24,30,36,42,48,54,60,72,84,96,120,144,168,216,264,336];
-  var CUMV=[0,2.743,3.315,3.530,3.792,4.317,5.318,6.082,6.487,6.916,7.990,9.015,
-            9.540,10.899,11.638,13.046,14.858,16.599,17.935,18.650,18.984,19.747];
+  /* post-change, customer-proposed only, so it matches every other series here */
+  var CUMH=[0,3,6,9,12,18,24,30,36,42,48,54,60,72,84,96,120,144,168];
+  var CUMV=[1.56,2.34,2.80,3.12,3.27,4.21,4.98,6.07,6.39,7.01,9.19,10.12,
+            10.59,12.15,14.17,15.26,17.13,18.54,20.72];
 
   /* ---------- generic line chart on the TH grid ---------- */
 
@@ -744,7 +744,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   function c4(){
     var s=document.getElementById('c4'); if(!s) return; s.innerHTML='';
     var W=720,H=360,L=58,R=56,T=22,B=56, pw=W-L-R, ph=H-T-B;
-    var xmax=168, ymax=20;            /* 7 days, 20% */
+    var xmax=168, ymax=24;            /* 7 days, 24% */
     var X=function(v){ return L+(Math.min(v,xmax)/xmax)*pw; };
     var Y=function(v){ return T+ph-(v/ymax)*ph; };
     var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
@@ -779,8 +779,8 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     for(var j=0;j<CUMH.length;j++){ if(CUMH[j]>xmax) break;
       s.appendChild(el('circle',{cx:X(CUMH[j]),cy:Y(CUMV[j]),r:3,fill:s1,stroke:surf,'stroke-width':2})); }
 
-    var endLbl=el('text',{x:X(168)+8,y:Y(17.935)+4,fill:s1,'font-size':12,'font-weight':620});
-    endLbl.textContent='17.9%'; s.appendChild(endLbl);
+    var endLbl=el('text',{x:X(168)+8,y:Y(CUMV[CUMV.length-1])+4,fill:s1,'font-size':12,'font-weight':620});
+    endLbl.textContent=CUMV[CUMV.length-1].toFixed(1)+'%'; s.appendChild(endLbl);
 
     for(var k=0;k<CUMH.length;k++){
       if(CUMH[k]>xmax) break;

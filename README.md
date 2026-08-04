@@ -174,10 +174,10 @@ and they would have cancelled whatever P41 was set to.
 
 | Days since booking | 0.25d | 0.5d | 1d | 1.5d | **2d** | 3d | 4d | 5d | 7d |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Cumulative % cancelled | 3.3% | 3.8% | 5.3% | 6.5% | **8.0%** | 10.9% | 13.0% | 14.9% | 17.9% |
+| Cumulative % cancelled | 2.8% | 3.3% | 5.0% | 6.4% | **9.2%** | 12.2% | 15.3% | 17.1% | 20.7% |
 
-3.3% cancel inside the first six hours, then the curve almost stops — only +0.5 points across the whole of hours 6–12.
-It then **steepens again across days 1–3**, climbing 3.8% → 10.9%.
+2.8% cancel inside the first six hours, then the curve almost stops — only +0.5 points across the whole of hours 6–12.
+It then **steepens again across days 1–3**, climbing 3.3% → 12.2%.
 
 #### 4a. When customers actually cancel
 
@@ -223,13 +223,13 @@ mix — that the peak sits where it does only because most customers choose the 
 turns on *its own* promised slot. With that established, **the split has done its job and the calibration does
 not need it** — section 5 works on the whole group and a single median.
 
-**Two groups — read them separately.** This section runs on the **cancellation group** (981 bookings,
-25 Jun – 30 Jul, matured), because cancellation needs the slot several days past before it can be counted.
+**Two groups — read them separately.** This section runs on the **cancellation group** (981 bookings offered
+22–30 Jul, matured), because cancellation needs the slot several days past before it can be counted.
 Section 5 runs on the **response group** (1,654 bookings, 26 Jul – 1 Aug), the same population as sections
 1–3. The slot mix differs a little; what carries across is the deadline, not the shares.
 
 **Population for this section.** Unlike the response analysis (26 Jul – 1 Aug), the cancellation group runs
-**25 Jun – 30 Jul 2026** — cancellation is a slow signal and needs the slot to be several days past before it can
+**22–30 Jul 2026** — cancellation is a slow signal and needs the slot to be several days past before it can
 be counted, so the POST-only window is too recent to supply it. One row per booking: its *first* candidate and
 the slot promised at that point, so re-slotting and rerouting do not double-count. Only slots ≥5 days past as of
 4 Aug are included. The behaviour measured — customers give up when the promised day passes — is not specific to
@@ -311,9 +311,9 @@ Response rate sits in a 60–68% band regardless of arrival time. **No time-of-d
 - **Population** — bookings offered to a CSP on customer-proposed-slot bookings created 26 Jul – 1 Aug 2026 (n=3,165
   across 1,654 bookings). Quartiles restricted to CSPs with ≥5 bookings that week (237 CSPs, 2,142 bookings).
 - **Cancellation** — distinct mobiles with a customer-initiated `cancelled` event, from booking confirmation.
-  Two cuts on different groups. *By age of booking:* distinct mobiles, confirmed 1–20 Jul 2026 observed to
-  4 Aug, n=4,193. *Aligned on the promised slot:* one row per booking, customer-proposed only, first candidate
-  and the slot promised then, slot ≥5 days past as of 4 Aug — 25 Jun – 30 Jul 2026, n=981.
+  Two cuts on different groups. *By age of booking:* customer-proposed bookings offered 22–28 Jul 2026, each observed a full
+  7 days, n=642. *Aligned on the promised slot:* one row per booking, customer-proposed only, first candidate
+  and the slot promised then, slot ≥5 days past as of 4 Aug — bookings offered 22–30 Jul 2026, n=981.
 
 Data as of 4 August 2026. All times IST. Sources: `csp-tas-service`, `csp-demand-allocation-service`,
 `booking_logs` via Snowflake (DB 113).
