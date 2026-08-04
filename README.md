@@ -37,17 +37,35 @@ Three steps. **Part 1** asks whether a longer window actually buys more response
 long it can be. **Part 3** puts the two together and gets the number. Each part opens with its conclusion, then
 the evidence.
 
-### Method note: current regime only
+### A note on method
 
-All figures come from the period **after** P41 moved to 6 hours. Deliberately not a before/after comparison:
+**The change did move the numbers.**
 
-1. **Several changes shipped at once.** The customer-scheduling flow went live ~21 July, one day before the P41
-   change. Any pre/post difference mixes the two.
-2. **Changing the timer changes the behaviour being measured.** Under a 2-hour window you cannot observe a
-   five-hour response — the task was already dead. The old regime's numbers are truncated by its own deadline.
-   Calibration needs the distribution of what CSPs *actually do* when given room.
+| Week | Bookings offered | Responded | Took the job | Responded within 2h |
+|---|---:|---:|---:|---:|
+| 12–19 Jul — P41 was 2 hours | 5,737 | 46.9% | 33.2% | 46.9% |
+| **26 Jul – 1 Aug — P41 is 6 hours** | 3,850 | **59.1%** | **39.0%** | 49.2% |
+| **Difference** | — | **+12.2 pts** | **+5.8 pts** | +2.3 pts |
 
----
+**But that +12.2 cannot be read as the effect of P41, and the rest of this document does not use it.** Everything
+below comes from the current period only. Four reasons:
+
+**1. Two changes shipped a day apart.** The customer-scheduling flow went live around 21 July, P41 changed on
+22 July. Any before/after difference contains both.
+
+**2. Like-for-like, most of the gap disappears.** Held to a common 2-hour cut-off the two weeks are **46.9%
+against 49.2% — just 2.3 points apart**. The other ten points are responses arriving in hours 2 to 6, which the
+old window could not have collected. And even those 2.3 points contain the scheduling change as well.
+
+**3. The two weeks measure different actions.** Under the old flow the CSP's first step was proposing a slot;
+under the new one the slot is already confirmed and his first step is assigning a technician.
+
+**4. The old window truncates its own data.** Under a 2-hour timer you never observe a five-hour response. Note
+that the old week's response rate is **identical at 2 hours and at 6** — 46.9% either way, because nothing could
+arrive later. A cut-off distribution being compared to a complete one.
+
+To set the parameter we need the distribution of what CSPs actually do when given room, and only the current
+setting shows that.
 
 ## Part 1 of 3 — Does a longer window buy more response?
 

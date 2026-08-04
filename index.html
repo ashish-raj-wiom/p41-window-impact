@@ -144,14 +144,47 @@ the work.</p>
 Each part opens with its conclusion, then the evidence behind it.</p>
 
 <h3>A note on method</h3>
+
 <div class="note-box">
-  <p>Everything below comes from the period <b>after</b> P41 moved to 6 hours. It is deliberately not a
-  before/after comparison, for two reasons.</p>
-  <p><b>Several changes shipped at once.</b> The customer-scheduling flow went live around 21 July, a day before
-  the P41 change. Any before/after difference mixes the two.</p>
-  <p><b>And the timer changes what we can see.</b> Under a 2-hour window you never observe a five-hour response —
-  the booking was already gone. The old numbers are cut off by their own deadline. To set the parameter we need
-  to see what CSPs do when given room, and only the current setting shows that.</p>
+  <p><b>The change did move the numbers.</b> Comparing the week before against the week after:</p>
+
+  <div class="tblscroll" style="margin:14px 0">
+  <table>
+  <thead><tr><th>Week</th><th class="n">Bookings offered</th><th class="n">Responded</th>
+  <th class="n">Took the job</th><th class="n">Responded within 2h</th></tr></thead>
+  <tbody>
+  <tr><td>12–19 Jul — P41 was 2 hours</td><td class="n">5,737</td><td class="n">46.9%</td>
+      <td class="n">33.2%</td><td class="n">46.9%</td></tr>
+  <tr class="hi"><td><b>26 Jul – 1 Aug — P41 is 6 hours</b></td><td class="n">3,850</td><td class="n"><b>59.1%</b></td>
+      <td class="n"><b>39.0%</b></td><td class="n">49.2%</td></tr>
+  <tr><td><b>Difference</b></td><td class="n">—</td><td class="n"><b>+12.2 pts</b></td>
+      <td class="n"><b>+5.8 pts</b></td><td class="n">+2.3 pts</td></tr>
+  </tbody>
+  </table>
+  </div>
+
+  <p><b>But that +12.2 cannot be read as the effect of P41, and the rest of this document does not use it.</b>
+  Everything below comes from the current period only. Four reasons:</p>
+
+  <p><b>1. Two changes shipped a day apart.</b> The customer-scheduling flow went live around 21 July, P41 changed
+  on 22 July. Any before/after difference contains both.</p>
+
+  <p><b>2. Like-for-like, most of the gap disappears.</b> Held to a common 2-hour cut-off the two weeks are
+  <b>46.9% against 49.2% — just 2.3 points apart</b>. The other ten points are responses arriving in hours 2 to 6,
+  which the old window could not have collected. So the headline mostly measures the window being longer, not
+  CSPs behaving differently — and even those 2.3 points contain the scheduling change as well.</p>
+
+  <p><b>3. The two weeks measure different actions.</b> Under the old flow the CSP's first step was proposing a
+  slot; under the new one the slot is already confirmed and his first step is assigning a technician. The word
+  "responded" covers a different task in each week.</p>
+
+  <p><b>4. The old window truncates its own data.</b> Under a 2-hour timer you never observe a five-hour
+  response — the booking was already gone. Note that the old week's response rate is <b>identical at 2 hours and
+  at 6</b>: 46.9% either way, because nothing could arrive later. It is a cut-off distribution being compared to a
+  complete one.</p>
+
+  <p>To set the parameter we need the distribution of what CSPs actually do when given room, and only the current
+  setting shows that.</p>
 </div>
 
 <div class="part">
