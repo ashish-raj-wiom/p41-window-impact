@@ -137,36 +137,51 @@ and they would have cancelled whatever P41 was set to.
 3.3% cancel inside the first six hours, then the curve almost stops — only +0.5pp across the whole of hours 6–12.
 It then **steepens again across days 1–3**, climbing 3.8% → 10.9%.
 
-Re-cut against the customer's **promised slot date** it becomes obvious what they are waiting for:
+#### 4a. When it happens, relative to the promised slot
 
-Across **980 customer-proposed connections** whose slot is now at least five days past, 172 were cancelled by the
-customer, and **90% of those landed on or after the promised day. Only 10% came before it.** The customer is
-waiting for the day he was promised. **The pivot is the day after the slot day** — that is where cancellation
-peaks, and that is the point the allocation has to finish before.
+Re-cut against the customer's **promised slot date**, all **981** customer-proposed connections pooled, in
+**12-hour buckets** (denominator = the 981 connections):
 
-And the peak moves with the promise, not with the age of the booking. Lining every booking up on **its own** slot
-date — day 0 = the promised day:
+| Bucket | day −1 PM | slot day AM | slot day PM | +1 AM | **+1 PM** | +2 AM | +2 PM | +3 AM | +3 PM |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| % cancelling | 1.63% | 1.63% | 1.43% | 0.61% | **2.45%** | 0.92% | 1.94% | 0.51% | 1.84% |
+| cancellations | 16 | 16 | 14 | 6 | **24** | 9 | 19 | 5 | 18 |
 
-| Slot lead time | Connections | −1 | **0** | **+1** | +2 | +3 |
-|---|---:|---:|---:|---:|---:|---:|
-| Next day | 528 | 2.84% | 2.46% | **4.17%** | 3.41% | 2.46% |
-| Same day | 409 | — | **3.91%** | 1.96% | 2.45% | 2.20% |
+Nothing before the promised day beyond a small booking-day spike. The largest single bucket anywhere is the
+**afternoon and evening of the day after the slot — 2.45%**, four times the morning bucket before it. Cancellation
+then decays with a persistent **PM-heavy sawtooth**: **80 cancellations in 12:00–24:00 buckets against 43 in
+00:00–12:00**. Customers wait out the working day and give up in the evening.
 
-Both peak on the promised day or the one after. Nothing is elevated in the **−1** column, however long the
-customer has already been waiting by then. **The clock the customer runs is the slot date, not the booking date.**
-Same-day slots peak at day 0 because for them day 0 is also the booking day, so it carries the mistake-booking
-spike and is not directly comparable.
+**The pivot is the evening of the day after the slot.** Stated precisely: summed to whole days the slot day and
+the day after are *level* pooled (3.06% each) — what separates them is concentration, the day after putting 80% of
+its mass in one evening bucket. For next-day slots, the majority, the day after is decisively larger (4.17% vs
+2.46%).
 
-Only two lines because **almost every customer picks today or tomorrow**. The full distribution of what customers
-propose, and how each bucket cancels:
+#### 4b. And it does not depend on which slot he chose
 
-| Slot the customer proposed | Connections | Share of cohort | Cancelled | Before the slot | On the slot day | Day after | On or after |
+Same 981 connections, same buckets, split by the slot proposed:
+
+| Bucket | day −1 PM | slot day AM | slot day PM | +1 AM | +1 PM | +2 AM | +2 PM |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Same day | 409 | 41.7% | 61 (14.9%) | 0% | 26.2% | 13.1% | **100%** |
-| **Next day** | **528** | **53.8%** | **106 (20.1%)** | 14.2% | 12.3% | **20.8%** | **85.8%** |
-| 2 days out | 28 | 2.9% | 4 | *4 cancellations — too few to rate* | | | |
-| 3 days out | 16 | 1.6% | 1 | *1 cancellation — too few to rate* | | | |
-| 4+ days out | 0 | 0% | — | *nobody proposes a slot this far out* | | | |
+| Next day or later (n=572) | 2.80% | 0.52% | 1.92% | 0.70% | **3.15%** | 1.22% | 1.92% |
+| Same day (n=409) | 0% | **3.18%** | 0.73% | 0.49% | 1.47% | 0.49% | 1.96% |
+
+Both groups do the same two things: spike once at **their own booking moment** — slot-day morning for same-day
+slots, the evening before for later ones, which is the mistake-booking effect — then cluster again **after the
+promised day, in the PM buckets**. The post-slot peak for later slots is +1 PM (3.15%); for same-day slots the
+post-slot buckets run 6, 8 and 7 cancellations, too close to separate. **The shape does not change with the slot
+chosen — only the position of the booking spike, and that moves because the booking moment moves.**
+
+| Slot the customer proposed | Connections | Share of cohort | Cancelled | Before the slot | On the slot day | Day after |
+|---|---:|---:|---:|---:|---:|---:|
+| Same day | 409 | 41.7% | 14.9% | 0% | **3.9%** | 2.0% |
+| **Next day** | **528** | **53.8%** | **20.1%** | 2.8% | 2.5% | **4.2%** |
+| 2 days out | 28 | 2.9% | 14.3% | *4 cancellations — too few to rate* | | |
+| 3 days out | 16 | 1.6% | 6.3% | *1 cancellation — too few to rate* | | |
+| 4+ days out | 0 | 0% | — | *nobody proposes a slot this far out* | | |
+
+**Every percentage in this section uses the same denominator — connections in that row's group**, never
+cancellations. So the table's 3.9% and 4.2% are the same numbers the buckets above plot, summed to whole days.
 
 **95.5% of customers propose today or tomorrow**, and nobody at all proposes four days out. That matters for
 calibration as much as the cancellation shape: the runway P41 must fit inside is short for essentially the entire

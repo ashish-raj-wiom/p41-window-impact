@@ -297,67 +297,86 @@ climbing from 3.8% to 10.9%, with the sharpest stretch around day 2. That second
 is anchored to something specific. By day 7 it reaches 17.9%.</figcaption>
 </figure>
 
+<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5a. When cancellation actually happens, relative to the promised slot</h4>
+
 <p>Re-cutting the same cancellations against the customer's <b>promised slot date</b> rather than the booking time
-shows what they are actually waiting for. Across <b>980 customer-proposed connections</b> whose slot is now at
-least five days past, 172 were cancelled by the customer — and <b>90% of those cancellations landed on or after
-the promised day. Only 10% came before it.</b></p>
-
-<p>The customer is not counting hours since booking. He is waiting for the day he was promised, and giving up
-once it goes by. <b>The pivot is the day after the slot day</b> — that is where cancellation peaks, and that is
-the point the allocation has to finish before.</p>
-
-<p>And it holds <b>regardless of how far ahead the slot was</b>. Lining every booking up on <em>its own</em> slot
-date — so day 0 is the promised day whether that was today or tomorrow — the peak moves with the promise:</p>
+shows what he is really waiting for. All <b>981 customer-proposed connections</b> whose slot is now at least five
+days past, pooled — no split yet — in <b>12-hour buckets</b>:</p>
 
 <figure>
 <div class="chartcard">
-  <div class="charttitle">Cancellation aligned on the promised slot date</div>
-  <div class="chartsub">Customer-proposed slots, one row per connection, slot ≥5 days past · day 0 = the promised day · y = % of that cohort cancelling that day</div>
-  <svg id="c6" viewBox="0 0 720 380" role="img" aria-label="Customer cancellation by day relative to the promised slot, one line per slot lead time"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>Slot = next day (n=528)</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>Slot = same day (n=409)</span>
-  </div>
+  <div class="charttitle">Customer cancellation aligned on the promised slot date</div>
+  <div class="chartsub">All customer-proposed connections, n=981 · 12-hour buckets · y = % of the 981 cancelling in that half-day</div>
+  <svg id="c6" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation rate per twelve-hour bucket relative to the promised slot date"></svg>
 </div>
-<figcaption>Next-day slots peak at <b>+1 — the day after the promise (4.17%)</b> — not at any fixed age of the
-booking. Same-day slots peak at day 0, which for them <em>is</em> the booking day, so that point also carries the
-mistake-booking spike and is not directly comparable. Nothing much happens <em>before</em> the slot, however long
-the customer has already been waiting by then. <b>The clock the customer is running is the slot date, not the
-booking date.</b></figcaption>
+<figcaption>Nothing happens before the promised day beyond a small booking-day spike. The single largest bucket is
+the <b>afternoon and evening of the day after the slot — 2.45%</b>, more than double the morning bucket that
+precedes it. Cancellation then decays, but with a persistent <b>PM-heavy sawtooth</b>: across the whole window
+<b>80 cancellations fall in a 12:00–24:00 bucket against 43 in a 00:00–12:00 one</b>. Customers wait out the
+working day and give up in the evening.</figcaption>
 </figure>
 
-<p>Only two lines are drawn because <b>almost every customer picks today or tomorrow</b>. The full distribution of
-what customers actually propose, and how each bucket cancels:</p>
+<p>So the customer is not counting hours since booking. He is waiting for the day he was promised, and gives up in
+the evening once it has gone by. <b>The pivot is the evening of the day after the slot</b> — the largest single
+bucket anywhere in the window — and that is the point the allocation has to finish before.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)">Stated precisely, because the 12-hour view makes it visible:
+summed to whole days, the slot day and the day after are <em>level</em> pooled (3.06% each). What separates them
+is concentration — the day after puts 80% of its mass in one evening bucket, while the slot day spreads its
+evenly. And for next-day slots, which are the majority, the day after is decisively larger (4.17% against 2.46%).</p>
+
+<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5b. And it does not depend on which slot he chose</h4>
+
+<p>Splitting the same 981 connections by the slot they proposed — everything else identical:</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">The same alignment, split by the slot the customer chose</div>
+  <div class="chartsub">Same 12-hour buckets and the same denominator convention · y = % of <em>that group's</em> connections</div>
+  <svg id="c7" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation per twelve-hour bucket, split by whether the customer chose a same-day or a later slot"></svg>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--s1)"></i>Next day or later (n=572)</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>Same day (n=409)</span>
+  </div>
+</div>
+<figcaption>Both groups do the same two things. Each spikes once at <b>its own booking moment</b> — slot-day
+morning for same-day slots, the evening before for later ones — which is the mistake-booking effect, not
+impatience. Each then clusters again <b>after the promised day, in the PM buckets</b>. The post-slot peak for
+later slots is <b>+1 PM (3.15%)</b>; for same-day slots the post-slot buckets run 6, 8 and 7 cancellations, too
+close to separate. <b>The shape does not change with the slot chosen — only the position of the booking
+spike does, and that moves because the booking moment moves.</b></figcaption>
+</figure>
+
+<p>Which slot the customer picks therefore does not change the calibration. What changes is only how much runway
+the booking has before that pivot arrives — and almost every customer picks one of the two shortest options:</p>
 
 <div class="tblscroll">
 <table>
 <thead><tr><th>Slot the customer proposed</th><th class="n">Connections</th><th class="n">Share of cohort</th>
 <th class="n">Cancelled</th><th class="n">Before the slot</th><th class="n">On the slot day</th>
-<th class="n">Day after</th><th class="n">On or after the slot</th></tr></thead>
+<th class="n">Day after</th></tr></thead>
 <tbody>
-<tr><td>Same day</td><td class="n">409</td><td class="n">41.7%</td><td class="n">61 (14.9%)</td>
-    <td class="n">0%</td><td class="n">26.2%</td><td class="n">13.1%</td><td class="n"><b>100%</b></td></tr>
-<tr class="hi"><td><b>Next day</b></td><td class="n"><b>528</b></td><td class="n"><b>53.8%</b></td><td class="n"><b>106 (20.1%)</b></td>
-    <td class="n">14.2%</td><td class="n">12.3%</td><td class="n"><b>20.8%</b></td><td class="n"><b>85.8%</b></td></tr>
-<tr><td>2 days out</td><td class="n">28</td><td class="n">2.9%</td><td class="n">4</td>
-    <td class="n" colspan="4" style="color:var(--muted);text-align:center">4 cancellations — too few to rate</td></tr>
-<tr><td>3 days out</td><td class="n">16</td><td class="n">1.6%</td><td class="n">1</td>
-    <td class="n" colspan="4" style="color:var(--muted);text-align:center">1 cancellation — too few to rate</td></tr>
+<tr><td>Same day</td><td class="n">409</td><td class="n">41.7%</td><td class="n">14.9%</td>
+    <td class="n">0%</td><td class="n"><b>3.9%</b></td><td class="n">2.0%</td></tr>
+<tr class="hi"><td><b>Next day</b></td><td class="n"><b>528</b></td><td class="n"><b>53.8%</b></td><td class="n"><b>20.1%</b></td>
+    <td class="n">2.8%</td><td class="n">2.5%</td><td class="n"><b>4.2%</b></td></tr>
+<tr><td>2 days out</td><td class="n">28</td><td class="n">2.9%</td><td class="n">14.3%</td>
+    <td class="n" colspan="3" style="color:var(--muted);text-align:center">4 cancellations — too few to rate</td></tr>
+<tr><td>3 days out</td><td class="n">16</td><td class="n">1.6%</td><td class="n">6.3%</td>
+    <td class="n" colspan="3" style="color:var(--muted);text-align:center">1 cancellation — too few to rate</td></tr>
 <tr><td>4+ days out</td><td class="n">0</td><td class="n">0%</td><td class="n">—</td>
-    <td class="n" colspan="4" style="color:var(--muted);text-align:center">nobody proposes a slot this far out</td></tr>
+    <td class="n" colspan="3" style="color:var(--muted);text-align:center">nobody proposes a slot this far out</td></tr>
 </tbody>
 </table>
 </div>
+<p style="font-size:13.5px;color:var(--ink2)"><b>Every percentage in this table and both charts above uses the
+same denominator — connections in that row's group</b>, never cancellations. So the table's 3.9% and 4.2% are the
+same numbers the charts plot, just summed to whole days.</p>
 
 <p><b>95.5% of customers propose today or tomorrow</b>, and nobody at all proposes four days out. That matters for
 calibration as much as the cancellation shape does: the runway P41 has to fit inside is short for essentially the
 entire base, not just a tail. It also caps how much this section can say about long lead times — 2- and 3-day
 slots are 44 connections and 5 cancellations between them, which is a count, not a rate.</p>
-
-<p style="font-size:13.5px;color:var(--ink2)">Within the two buckets that carry the volume, the pattern is the
-one the chart shows. Same-day slots cancel <b>100% on or after</b> the promised day — by construction, there is no
-before. Next-day slots cancel <b>85.8% on or after</b>, with the single largest day being <b>the day after</b>
-(20.8%). Elapsed time since booking is not what triggers it; the slot passing is.</p>
 
 <p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
 above (26 Jul – 1 Aug), the cancellation cohort runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
@@ -779,59 +798,104 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     var cap=el('text',{x:L,y:T-10,fill:muted,'font-size':11,'font-weight':600});
     cap.textContent='vertical line = end of the promised slot day'; s.appendChild(cap);
   }
-
-  /* ---------- event study: cancellation aligned on the slot date ---------- */
-  var EVX=[-1,0,1,2,3,4,5];
-  var EV=[
-    {k:'Next day', n:'528', c:'--s1', v:[2.841,2.462,4.167,3.409,2.462,1.515,2.083]},
-    {k:'Same day', n:'409', c:'--s2', v:[0,    3.912,1.956,2.445,2.200,0.978,0.733]}
+  /* ---------- cancellation aligned on the promised slot, 12-hour buckets ----------
+     Anchor = midnight starting the promised slot date. Every series is a hazard:
+     denominator is always connections in that group, never cancellations.      */
+  var B12  =[-24,-12,0,12,24,36,48,60,72,84,96,108];
+  var BLAB =[['day −1','AM'],['day −1','PM'],['slot day','AM'],['slot day','PM'],
+             ['+1','AM'],['+1','PM'],['+2','AM'],['+2','PM'],
+             ['+3','AM'],['+3','PM'],['+4','AM'],['+4','PM']];
+  var POOL ={n:981, v:[0,1.631,1.631,1.427,0.612,2.446,0.917,1.937,0.510,1.835,0.714,0.510],
+                   c:[0,   16,   16,   14,    6,   24,    9,   19,    5,   18,    7,    5]};
+  var SPLIT=[
+    {k:'Next day or later', n:572, c:'--s1',
+     v:[0,2.797,0.524,1.923,0.699,3.147,1.224,1.923,0.524,1.923,0.699,0.699],
+     ct:[0,  16,    3,   11,    4,   18,    7,   11,    3,   11,    4,    4]},
+    {k:'Same day', n:409, c:'--s2',
+     v:[0,0,3.178,0.733,0.489,1.467,0.489,1.956,0.489,1.711,0.733,0.244],
+     ct:[0,0,  13,    3,    2,    6,    2,    8,    2,    7,    3,    1]}
   ];
 
-  function c6(){
-    var s=document.getElementById('c6'); if(!s) return; s.innerHTML='';
-    var W=720,H=380,L=58,R=96,T=26,B=54, pw=W-L-R, ph=H-T-B;
-    var ymax=4.5;
-    var X=function(v){ return L+((v+1)/6)*pw; };
-    var Y=function(v){ return T+ph-(v/ymax)*ph; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), ink=cv('--ink'), surf=cv('--surface');
-
+  /* shared frame for both 12h charts */
+  function bucketFrame(s, ymax){
+    var W=720,H=400,L=54,R=118,T=30,B=64, pw=W-L-R, ph=H-T-B;
+    var X=function(i){ return L+(i+0.5)/B12.length*pw; }, Y=function(v){ return T+ph-(v/ymax)*ph; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), ink=cv('--ink');
     for(var v=0; v<=ymax; v+=1){
       s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
       var tx=el('text',{x:L-10,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
       tx.textContent=v+'%'; s.appendChild(tx);
     }
-    EVX.forEach(function(v){
-      var tx=el('text',{x:X(v),y:T+ph+20,fill:muted,'font-size':11.5,'text-anchor':'middle'});
-      tx.textContent=(v>0?'+':'')+v; s.appendChild(tx);
+    /* everything at or after the promised day */
+    var x0=L+(2/B12.length)*pw;
+    s.appendChild(el('rect',{x:x0,y:T,width:L+pw-x0,height:ph,fill:ink,opacity:0.035}));
+    s.appendChild(el('line',{x1:x0,x2:x0,y1:T,y2:T+ph,stroke:ink,'stroke-width':1.5,opacity:.5}));
+    var t0=el('text',{x:x0+6,y:T-12,fill:ink,'font-size':11.5,'font-weight':620});
+    t0.textContent='the promised day starts here'; s.appendChild(t0);
+    /* the pivot */
+    var xp=L+(5/B12.length)*pw;
+    var tp=el('text',{x:X(5),y:T-12,fill:muted,'font-size':11.5,'font-weight':620,'text-anchor':'middle'});
+    tp.textContent='pivot'; s.appendChild(tp);
+    BLAB.forEach(function(lb,i){
+      var a=el('text',{x:X(i),y:T+ph+20,fill:muted,'font-size':11,'text-anchor':'middle'});
+      a.textContent=lb[0]; s.appendChild(a);
+      var b=el('text',{x:X(i),y:T+ph+34,fill:muted,'font-size':10.5,'text-anchor':'middle',opacity:.8});
+      b.textContent=lb[1]; s.appendChild(b);
     });
-    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Days relative to the promised slot date'; s.appendChild(xl);
+    var xl=el('text',{x:L+pw/2,y:T+ph+56,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='12-hour bucket, relative to the promised slot date'; s.appendChild(xl);
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
+    return {L:L,R:R,T:T,pw:pw,ph:ph,X:X,Y:Y,bw:(pw/B12.length)*0.62};
+  }
 
-    /* the promised day, and the day after */
-    s.appendChild(el('rect',{x:X(0),y:T,width:X(1)-X(0),height:ph,fill:ink,opacity:0.045}));
-    s.appendChild(el('line',{x1:X(0),x2:X(0),y1:T,y2:T+ph,stroke:ink,'stroke-width':1.5,opacity:.55}));
-    var t0=el('text',{x:X(0),y:T-10,fill:ink,'font-size':11.5,'font-weight':620,'text-anchor':'middle'});
-    t0.textContent='promised slot day'; s.appendChild(t0);
-    var t1=el('text',{x:X(1),y:T-10,fill:muted,'font-size':11.5,'font-weight':600,'text-anchor':'middle'});
-    t1.textContent='day after'; s.appendChild(t1);
+  /* 5a — pooled, as columns */
+  function c6(){
+    var s=document.getElementById('c6'); if(!s) return; s.innerHTML='';
+    var ymax=3.5, f=bucketFrame(s,ymax);
+    var col=cv('--s1'), ink=cv('--ink'), surf=cv('--surface');
+    POOL.v.forEach(function(v,i){
+      if(v<=0) return;
+      var peak=(i===5);
+      s.appendChild(el('rect',{x:f.X(i)-f.bw/2,y:f.Y(v),width:f.bw,height:f.T+f.ph-f.Y(v),
+        rx:4,fill:peak?ink:col,opacity:peak?0.92:0.72}));
+    });
+    var lt=el('text',{x:f.X(5),y:f.Y(POOL.v[5])-9,fill:ink,'font-size':12,'font-weight':660,'text-anchor':'middle'});
+    lt.textContent='2.45%'; s.appendChild(lt);
+    B12.forEach(function(b,i){
+      var hit=el('rect',{x:f.X(i)-f.pw/B12.length/2,y:f.T,width:f.pw/B12.length,height:f.ph,
+        fill:'transparent',style:'cursor:crosshair'});
+      hit.addEventListener('mousemove',function(e){
+        showTT(e,'<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='AM'?'00:00–12:00':'12:00–24:00')+'</b>'
+          +'<div class="row"><span>Cancelled</span><span>'+POOL.c[i]+' of 981</span></div>'
+          +'<div class="row"><span>Rate</span><span>'+POOL.v[i].toFixed(2)+'%</span></div>');
+      });
+      hit.addEventListener('mouseleave',hideTT);
+      s.appendChild(hit);
+    });
+  }
 
-    EV.forEach(function(g){
+  /* 5b — split, as lines so the shapes can be compared */
+  function c7(){
+    var s=document.getElementById('c7'); if(!s) return; s.innerHTML='';
+    var ymax=3.5, f=bucketFrame(s,ymax), surf=cv('--surface');
+    SPLIT.forEach(function(g){
       var col=cv(g.c), d='';
-      g.v.forEach(function(y,i){ d+=(i?'L':'M')+X(EVX[i])+' '+Y(y); });
+      g.v.forEach(function(y,i){ d+=(i?'L':'M')+f.X(i)+' '+f.Y(y); });
       s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,
         'stroke-linejoin':'round','stroke-linecap':'round'}));
-      g.v.forEach(function(y,i){ s.appendChild(el('circle',{cx:X(EVX[i]),cy:Y(y),r:3,fill:col,
+      g.v.forEach(function(y,i){ s.appendChild(el('circle',{cx:f.X(i),cy:f.Y(y),r:3.2,fill:col,
         stroke:surf,'stroke-width':2})); });
-      var lt=el('text',{x:X(5)+9,y:Y(g.v[6])+4,fill:col,'font-size':11.5,'font-weight':620});
+      var lt=el('text',{x:f.X(11)+10,y:f.Y(g.v[11])+4,fill:col,'font-size':11.5,'font-weight':620});
       lt.textContent=g.k; s.appendChild(lt);
     });
-
-    EVX.forEach(function(rv,idx){
-      var hit=el('rect',{x:X(rv)-16,y:T,width:32,height:ph,fill:'transparent',style:'cursor:crosshair'});
+    B12.forEach(function(b,i){
+      var hit=el('rect',{x:f.X(i)-f.pw/B12.length/2,y:f.T,width:f.pw/B12.length,height:f.ph,
+        fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
-        var html='<b>'+(rv===0?'On the promised slot day':(rv>0? rv+' day'+(rv>1?'s':'')+' after the slot' : Math.abs(rv)+' day before'))+'</b>';
-        EV.forEach(function(g){ html+='<div class="row"><span>'+g.k+'</span><span>'+g.v[idx].toFixed(2)+'%</span></div>'; });
+        var html='<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='AM'?'00:00–12:00':'12:00–24:00')+'</b>';
+        SPLIT.forEach(function(g){
+          html+='<div class="row"><span>'+g.k+'</span><span>'+g.ct[i]+'/'+g.n+' · '+g.v[i].toFixed(2)+'%</span></div>';
+        });
         showTT(e,html);
       });
       hit.addEventListener('mouseleave',hideTT);
@@ -839,7 +903,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     });
   }
 
-  function draw(){ c1(); c3(); c4(); c5(); c6(); }
+  function draw(){ c1(); c3(); c4(); c5(); c6(); c7(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();
