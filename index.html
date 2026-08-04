@@ -139,6 +139,47 @@ week, since that flow did not exist before ~21 Jul. POST therefore sits above PR
 before either deadline can bind; that vertical gap is cohort composition, not P41. Only the accrual <em>within</em>
 each curve after hour 2 is attributable to the change.</p>
 
+<h2>Percentiles</h2>
+<p class="lede">How long the CSP took, in working hours — the same clock P41 itself runs on. Shown for
+<b>any response</b> (the CSP acted or declined) and for <b>positive action</b> alone.</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr>
+  <th>Measure</th><th>Cohort</th><th class="n">n created</th><th class="n">n reaching it</th>
+  <th class="n">P50</th><th class="n">P90</th><th class="n">P95</th>
+</tr></thead>
+<tbody>
+  <tr><td rowspan="2"><b>Response</b><br><span style="color:var(--ink2);font-size:13px">acted or declined</span></td>
+      <td>PRE · P41 = 2h</td><td class="n">4,985</td><td class="n">2,344</td>
+      <td class="n">0.02</td><td class="n">1.11</td><td class="n">1.57</td></tr>
+  <tr class="hi"><td>POST · P41 = 6h</td><td class="n">3,165</td><td class="n">1,982</td>
+      <td class="n">0.02</td><td class="n">2.72</td><td class="n">4.10</td></tr>
+</tbody>
+<tbody>
+  <tr><td rowspan="2"><b>Positive action</b><br><span style="color:var(--ink2);font-size:13px">PRE = slot proposal<br>POST = technician assignment</span></td>
+      <td>PRE · P41 = 2h</td><td class="n">4,985</td><td class="n">1,649</td>
+      <td class="n">0.02</td><td class="n">0.99</td><td class="n">1.44</td></tr>
+  <tr class="hi"><td>POST · P41 = 6h</td><td class="n">3,165</td><td class="n">1,323</td>
+      <td class="n">0.01</td><td class="n">2.25</td><td class="n">3.60</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13.5px;color:var(--ink2)">Working hours, over every candidate that reached the measure. Response
+counts whichever came first, so it is always the larger population. Medians sit near zero because in the
+customer-proposed flow the slot is already confirmed when the candidate is created — nothing stands between
+notification and the CSP's first move.</p>
+
+<p><b>Read the P90 and P95 as a measurement artifact, not as CSPs slowing down.</b> PRE's distribution is
+right-truncated by its own deadline: under a 2-hour window a five-hour slot proposal cannot be observed, because
+the task was already dead. Its P95 of 1.44 working hours is a consequence of that cutoff. POST's 3.60 is a
+<em>fuller</em> measurement of the same behaviour, not a worse one — which is exactly why the rest of this page
+leans on the curve shape and the action rate rather than on these conditional percentiles.</p>
+
+<p>The gap between the two measures is the decline population. Response P95 sits about half a working hour above
+positive-action P95 in both cohorts (1.57 vs 1.44 pre, 4.10 vs 3.60 post) — refusals arrive slightly later than
+assignments, but they follow the same shape and are cut off by the same deadline.</p>
+
 <h2>The change is real in the config</h2>
 <p class="lede">Verified rather than assumed — and it confirms P41 is natively a <b>working-hours</b> timer. Measured
 on that clock, <code>P41_DEADLINE_AT − CREATED_AT</code> is exactly <b>2.00 working hours</b> before the change and
@@ -639,78 +680,6 @@ window, as PRE.</li>
 2 Aug so every booking in it has at least 24 hours of observation as of 4 Aug.</li>
 </ul>
 
-<h2>Percentiles</h2>
-<p class="lede">In working hours throughout — the same clock P41 itself runs on. It also strips out overnight dead
-time, which is what most of the apparent tail was.</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr>
-  <th>Cohort</th><th>Action measured</th><th class="n">n created</th><th class="n">n actioned</th>
-  <th class="n">P50</th><th class="n">P90</th><th class="n">P95</th>
-</tr></thead>
-<tbody>
-  <tr><td>PRE 14–20 Jul — all candidates</td><td style="color:var(--ink2)">slot proposal</td>
-      <td class="n">4,985</td><td class="n">1,649</td>
-      <td class="n">0.02</td><td class="n">0.99</td><td class="n">1.44</td></tr>
-  <tr class="hi"><td>POST 26 Jul–1 Aug — customer-proposed slot</td><td style="color:var(--ink2)">technician assignment</td>
-      <td class="n">3,165</td><td class="n">1,323</td>
-      <td class="n">0.01</td><td class="n">2.25</td><td class="n">3.60</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">Working hours, over every candidate that reached the action. The
-cohort is defined by the <b>booking type</b> (customer-proposed slot); the action measured on it is technician
-assignment — the two are separate things and the second does not define the first. Medians sit near zero because in
-this flow the slot is already confirmed when the candidate is created, so nothing stands between notification and
-assignment.</p>
-
-<p>PRE's distribution is <b>right-truncated by its own deadline</b>: under a 2h window a five-hour slot proposal
-cannot be observed, because the task was already dead. Its P95 of 1.44 working hours is therefore largely an
-artifact of that cutoff rather than evidence of faster CSPs, and POST's higher P95 is a fuller measurement, not a
-worse one. The censoring-consistent comparisons are the curve shape and the action rate, not the conditional
-percentiles.</p>
-
-<h2>Where the post-change tasks land</h2>
-<p class="lede">The whole POST cohort — customer-proposed-slot bookings created 26 Jul – 1 Aug — by how long the
-CSP took to assign a technician.</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">POST cohort — technician assignment by elapsed working hours</div>
-  <div class="chartsub">Customer-proposed-slot bookings created 26 Jul – 1 Aug 2026 · 3,165 candidates · 1,323 assigned</div>
-  <svg id="c3" viewBox="0 0 760 330" role="img" aria-label="Distribution of technician assignment latency in working hours"></svg>
-</div>
-<figcaption>Technician assignment <b>is</b> the P41-gated action in this flow — and it shows: the <code>6–12</code>,
-<code>12–24</code> and <code>&gt;24</code> buckets are all <b>empty</b>, a hard ceiling at six working hours with
-nothing leaking past. (For contrast, the non-customer-proposed candidates excluded from this cohort <em>do</em> have
-a long tail — 50 assignments beyond hour 6 — because there the CSP proposes a slot first and technician assignment
-comes after customer confirmation, outside P41's scope entirely.) A further 1,842 candidates, 58.2% of the cohort,
-never reached technician assignment at all.</figcaption>
-</figure>
-
-<details>
-<summary>Table view — post-change distribution</summary>
-<div class="dwrap">
-<div class="tblscroll">
-<table>
-<thead><tr><th>Elapsed working hours</th><th class="n">Candidates</th><th class="n">% of 1,323 assigned</th><th class="n">% of 3,165 created</th></tr></thead>
-<tbody>
-<tr><td>&lt;15 work-min</td><td class="n">987</td><td class="n">74.6%</td><td class="n">31.2%</td></tr>
-<tr><td>15–30 work-min</td><td class="n">41</td><td class="n">3.1%</td><td class="n">1.3%</td></tr>
-<tr><td>30–60 work-min</td><td class="n">48</td><td class="n">3.6%</td><td class="n">1.5%</td></tr>
-<tr><td>1–2 work-h</td><td class="n">101</td><td class="n">7.6%</td><td class="n">3.2%</td></tr>
-<tr><td>2–6 work-h</td><td class="n">146</td><td class="n">11.0%</td><td class="n">4.6%</td></tr>
-<tr><td>6–12 work-h</td><td class="n">0</td><td class="n">0.0%</td><td class="n">0.0%</td></tr>
-<tr><td>12–24 work-h</td><td class="n">0</td><td class="n">0.0%</td><td class="n">0.0%</td></tr>
-<tr><td>&gt;24 work-h</td><td class="n">0</td><td class="n">0.0%</td><td class="n">0.0%</td></tr>
-<tr><td>Never assigned</td><td class="n">1,842</td><td class="n">—</td><td class="n">58.2%</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</details>
-
 <footer>
   Install candidates created 14 Jul – 1 Aug 2026 · data as of 4 Aug 2026 · all times IST ·
   sources <code>csp-tas-service</code>, <code>csp-demand-allocation-service</code> via Snowflake.
@@ -754,16 +723,6 @@ never reached technician assignment at all.</figcaption>
   var WMIN=[2.00,2.00,2.00,2.00,2.00,2.00,1.99,2.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00];
   var WMAX=[2.02,2.02,2.02,2.02,2.02,2.02,2.02,6.00,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02];
 
-  var BK=[
-    ['<15 work-min',987,''],
-    ['15–30 work-min',41,''],
-    ['30–60 work-min',48,''],
-    ['1–2 work-h',101,''],
-    ['2–6 work-h',146,'inside the new P41 budget'],
-    ['6–12 work-h',0,'empty — P41 ceiling'],
-    ['12–24 work-h',0,'empty — P41 ceiling'],
-    ['>24 work-h',0,'empty — P41 ceiling']
-  ];
 
   /* ---------- chart 1 ---------- */
   function c1(){
@@ -886,43 +845,6 @@ never reached technician assignment at all.</figcaption>
     });
   }
 
-  /* ---------- chart 3: distribution bars ---------- */
-  function c3(){
-    var s=document.getElementById('c3'); s.innerHTML='';
-    var W=760,H=330,L=136,R=96,T=12,B=54, pw=W-L-R, ph=H-T-B;
-    var max=1000, bh=Math.min(24,(ph-(BK.length-1)*8)/BK.length), gap=(ph-BK.length*bh)/(BK.length-1);
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), s1=cv('--s1'), ink2=cv('--ink2');
-    var X=function(v){ return (v/max)*pw; };
-
-    for(var v=0; v<=1000; v+=250){
-      s.appendChild(el('line',{x1:L+X(v),x2:L+X(v),y1:T,y2:T+ph,stroke:grid,'stroke-width':1}));
-      var tx=el('text',{x:L+X(v),y:T+ph+20,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v; s.appendChild(tx);
-    }
-    s.appendChild(el('line',{x1:L,x2:L,y1:T,y2:T+ph,stroke:axis,'stroke-width':1}));
-
-    BK.forEach(function(b,i){
-      var y=T+i*(bh+gap), w=b[1]>0?Math.max(X(b[1]),2.5):0;
-      if(w>0) s.appendChild(el('rect',{x:L,y:y,width:w,height:bh,rx:4,fill:s1}));
-      var lb=el('text',{x:L-12,y:y+bh/2+4,fill:ink2,'font-size':12.5,'text-anchor':'end'});
-      lb.textContent=b[0]; s.appendChild(lb);
-      var vt=el('text',{x:L+w+9,y:y+bh/2+4,fill:(b[1]===0?muted:ink2),'font-size':12.5,'font-variant-numeric':'tabular-nums'});
-      vt.textContent=(b[1]===0?'0 — none':b[1]); s.appendChild(vt);
-
-      var hit=el('rect',{x:L,y:y-3,width:pw,height:bh+6,fill:'transparent',style:'cursor:pointer'});
-      hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>'+b[0]+'</b>'+
-          '<div class="row"><span>Candidates</span><span>'+b[1]+'</span></div>'+
-          '<div class="row"><span>% of 1,323 assigned</span><span>'+(b[1]/1323*100).toFixed(1)+'%</span></div>'+
-          (b[2]?'<div class="row" style="margin-top:5px"><span>'+b[2]+'</span></div>':''));
-      });
-      hit.addEventListener('mouseleave',hideTT);
-      s.appendChild(hit);
-    });
-
-    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Candidates assigned'; s.appendChild(xl);
-  }
 
   /* ---------- charts 4 & 5: response rate and its split ---------- */
   var PRE_RESP =[34.18,36.95,41.10,44.47,47.00,47.02,47.02,47.02,47.02,47.02,47.02];
@@ -1144,7 +1066,7 @@ never reached technician assignment at all.</figcaption>
     xl.textContent='Install rate (reached CONNECTION_ACTIVE)'; s.appendChild(xl);
   }
 
-  function draw(){ c1(); c2(); c3(); c4(); c5(); c6(); c7(); c8(); }
+  function draw(){ c1(); c2(); c4(); c5(); c6(); c7(); c8(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();
