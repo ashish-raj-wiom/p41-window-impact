@@ -52,8 +52,8 @@ divided by expected chain length — rather than a constant.
 
 ### And shorten it for CSPs who never respond
 
-The bottom quartile responds to just **5.2%** of bookings even given six hours, and 3.1% of that arrives within
-two. Cutting **their** window to 2h would cost ~**11 tasks** a week while releasing ~**520 bookings four working
+The bottom quartile responds to just **5.1%** of bookings even given six hours, and 3.3% of that arrives within
+two. Cutting **their** window to 2h would cost ~**10 tasks** a week while releasing ~**526 bookings four working
 hours sooner**, buying back runway for the reroute.
 
 ## Why
@@ -79,41 +79,45 @@ faster than a timeout) but it is not progress.
 
 ### 2. The variation is in *whether* CSPs respond, not how fast
 
-Taking only the bookings that **did** get a response, sorted by how long it took, cut into four equal groups:
+Ranking every CSP by **his own response rate** across the week's tasks — 237 CSPs with ≥5 bookings, 2,142 tasks —
+and cutting them into four equal groups of CSPs. Percentiles are of the response times those CSPs actually
+delivered:
 
-| Response quartile | Responses | CSPs involved | Response arrived in |
-|---|---:|---:|---|
-| Q1 — fastest quarter | 496 | 253 | under **28 sec** |
-| Q2 | 496 | 291 | 28 sec – 69 sec |
-| Q3 | 495 | 281 | 69 sec – **55 min** |
-| **Q4 — slowest quarter** | 495 | 236 | **55 min – 6h** · P90 2h 43m · P95 4h 6m |
+| CSP quartile (by response rate) | CSPs | Tasks | Response rate | P25 | P50 | P90 | P95 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Q1 — best responders (100%) | 60 | 485 | **100%** | 24 sec | 38 sec | 1h 37m | 3h 24m |
+| Q2 (80–100%) | 59 | 545 | 89.9% | 31 sec | 5m 18s | 3h 11m | 4h 23m |
+| Q3 (20–80%) | 59 | 568 | 54.6% | 34 sec | 5m 31s | 3h 48m | 4h 42m |
+| **Q4 — worst responders (0–20%)** | 59 | 544 | **5.1%** | 1m 11s | 33m 26s | 4h 12m | **4h 52m** |
 
-**Three quarters of responses arrive inside 55 minutes.** The entire case for a multi-hour window rests on the
-slowest quarter alone — and even there P95 is **4h 6m**.
+**Response rate collapses 100% → 5.1%, a 20× spread.** That is the real difference between CSPs.
 
-The CSP counts matter as much as the times: **236–291 distinct CSPs appear in every quartile**, out of ~650 active
-that week. The same CSPs show up fast on one booking and slow on another. **Speed is a property of the booking,
-not of the CSP.**
+**Response speed barely moves in comparison.** The worst quartile's P95 is 4h 52m against the best quartile's
+3h 24m — under 90 minutes of spread at P95, against a 6-hour window. Every quartile's median is minutes, not
+hours. **No quartile of CSPs needs more than six working hours; the bad quartile simply does not answer.**
 
-| Positive action only | Assignments | CSPs involved | Arrived in |
-|---|---:|---:|---|
-| Q1 — fastest quarter | 331 | 189 | under 25 sec |
-| Q2 | 331 | 215 | 25 sec – 44 sec |
-| Q3 | 331 | 227 | 44 sec – **17 min** |
-| **Q4 — slowest quarter** | 330 | 194 | **17 min – 5h 57m** · P95 3h 36m |
+| Positive action only (technician assigned) | CSPs | Tasks | P50 | P90 | P95 |
+|---|---:|---:|---:|---:|---:|
+| Q1 — best responders | 60 | 485 | 32 sec | 1h 18m | 3h 24m |
+| Q2 | 59 | 545 | 57 sec | 2h 1m | 3h 33m |
+| Q3 | 59 | 568 | 2m 19s | 3h 25m | 4h 11m |
+| **Q4 — worst responders** | 59 | 544 | 22m 39s | 3h 32m | 4h 52m |
 
-Tighter than response overall — three quarters inside **17 minutes** — because declines skew later than jobs taken.
+Same shape, slightly tighter throughout — declines skew later than jobs taken, so removing them pulls the tail in.
 
 ### 3. What each extra hour buys
 
 | P41 set to | Q1 | Q2 | Q3 | Q4 | Overall response | Overall jobs taken |
 |---:|---:|---:|---:|---:|---:|---:|
-| 1 h | 84.3% | 61.5% | 36.3% | 2.8% | 47.4% | 34.0% |
-| 2 h | 92.0% | 75.4% | 42.1% | 3.1% | 54.1% | 37.2% |
-| 3 h | 94.4% | 80.0% | 46.8% | 3.9% | 57.1% | 38.9% |
-| 4 h | 96.3% | 84.4% | 49.7% | 4.4% | 59.2% | 39.9% |
-| 5 h | 98.8% | 86.6% | 52.5% | 4.8% | 61.0% | 41.0% |
-| **6 h — current** | **100%** | **89.9%** | **54.6%** | **5.2%** | **62.6%** | **41.8%** |
+| 1 h | 84.5% | 61.5% | 35.9% | 2.9% | 47.4% | 34.0% |
+| 2 h | 91.8% | 75.8% | 41.7% | 3.3% | 54.1% | 37.2% |
+| 3 h | 94.2% | 80.4% | 46.7% | 3.9% | 57.1% | 38.9% |
+| 4 h | 96.3% | 84.6% | 49.5% | 4.4% | 59.2% | 39.9% |
+| 5 h | 98.8% | 86.8% | 52.3% | 4.8% | 61.0% | 41.0% |
+| **6 h — current** | **100%** | **89.9%** | **54.6%** | **5.1%** | **62.6%** | **41.8%** |
+
+Q1–Q4 are the same CSP quartiles as above (237 CSPs with ≥5 tasks). The two **Overall** columns cover every POST
+task including CSPs below that threshold, which is why they sit outside the quartile range.
 
 4h → 6h adds **+3.4pp of response** and **+1.9pp of jobs taken**, worth ~1.8pp of booking-level supply efficiency.
 
@@ -138,21 +142,31 @@ waiting for the day he was promised. **That is the guardrail.**
 And the peak moves with the promise, not with the age of the booking. Lining every booking up on **its own** slot
 date — day 0 = the promised day:
 
-| Population | Slot lead time | Connections | −1 | **0** | **+1** | +2 | +3 |
-|---|---|---:|---:|---:|---:|---:|---:|
-| Customer-proposed | Next day | 528 | 2.84% | 2.46% | **4.17%** | 3.41% | 2.46% |
-| Customer-proposed | Same day | 408 | — | **3.92%** | 1.96% | 2.45% | 2.21% |
-| All slot sources | Next day | 2,574 | 2.64% | 3.30% | **3.46%** | 2.06% | 1.48% |
-| All slot sources | 2 days out | 379 | 3.17% | **3.96%** | 3.43% | 3.17% | 1.58% |
-| All slot sources | Same day | 671 | — | **5.51%** | 4.47% | 2.98% | 1.64% |
+| Slot lead time | Connections | −1 | **0** | **+1** | +2 | +3 |
+|---|---:|---:|---:|---:|---:|---:|
+| Next day | 528 | 2.84% | 2.46% | **4.17%** | 3.41% | 2.46% |
+| Same day | 409 | — | **3.91%** | 1.96% | 2.45% | 2.20% |
 
-Every row peaks on the promised day or the one after, whoever proposed the slot and however far out it was.
-Nothing is elevated in the **−1** column, however long the customer has already been waiting by then. **The clock
-the customer runs is the slot date, not the booking date.**
-
+Both peak on the promised day or the one after. Nothing is elevated in the **−1** column, however long the
+customer has already been waiting by then. **The clock the customer runs is the slot date, not the booking date.**
 Same-day slots peak at day 0 because for them day 0 is also the booking day, so it carries the mistake-booking
-spike and is not directly comparable. Customer-proposed slots 2+ days out are only 44 connections — too thin to
-plot, which is why the wider all-sources population is shown alongside.
+spike and is not directly comparable.
+
+Only two lines because **almost every customer picks today or tomorrow**. The full distribution of what customers
+propose, and how each bucket cancels:
+
+| Slot the customer proposed | Connections | Share of cohort | Cancelled | Before the slot | On the slot day | Day after | On or after |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Same day | 409 | 41.7% | 61 (14.9%) | 0% | 26.2% | 13.1% | **100%** |
+| **Next day** | **528** | **53.8%** | **106 (20.1%)** | 14.2% | 12.3% | **20.8%** | **85.8%** |
+| 2 days out | 28 | 2.9% | 4 | *4 cancellations — too few to rate* | | | |
+| 3 days out | 16 | 1.6% | 1 | *1 cancellation — too few to rate* | | | |
+| 4+ days out | 0 | 0% | — | *nobody proposes a slot this far out* | | | |
+
+**95.5% of customers propose today or tomorrow**, and nobody at all proposes four days out. That matters for
+calibration as much as the cancellation shape: the runway P41 must fit inside is short for essentially the entire
+base, not just a tail. It also caps what this section can say about long lead times — 2- and 3-day slots are 44
+connections and 5 cancellations between them, a count rather than a rate.
 
 **Population for this section.** Unlike the response analysis (26 Jul – 1 Aug), the cancellation cohort runs
 **25 Jun – 30 Jul 2026** — cancellation is a slow signal and needs the slot to be several days past before it can

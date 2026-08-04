@@ -125,8 +125,9 @@ the work.</p>
   <p>The median booking has <b>12.8 working hours</b> of runway to that deadline and passes through <b>2 CSPs</b>.
   That implies <b>12.8 ÷ 2 ≈ 6.4 working hours</b> per CSP — the median booking can be offered, time out, be
   re-offered, and still be installed on the day it was promised. Six hours sits just inside that.</p>
-  <p>It also comfortably covers CSP behaviour: <b>three quarters of all responses arrive inside 55 minutes</b> and
-  P95 is <b>4h 6m</b>, so six hours captures essentially everyone who was ever going to respond.</p>
+  <p>It also comfortably covers CSP behaviour: ranked into quartiles by their own response rate, <b>every quartile
+  of CSPs has a P95 response inside 5 hours</b> — 3h 24m for the best, 4h 52m for the worst. Six hours captures
+  essentially everyone who was ever going to respond.</p>
 </div>
 
 <div class="rec" style="border-left-color:var(--s2)">
@@ -142,9 +143,9 @@ the work.</p>
 
 <div class="rec" style="border-left-color:var(--s1)">
   <p class="big" style="font-size:20px">And shorten it for CSPs who never respond.</p>
-  <p>The bottom quartile responds to just <b>5.2%</b> of bookings even given the full six hours — and 3.1% of that
-  arrives within two. Cutting <b>their</b> window to 2h would cost about <b>11 tasks</b> a week while releasing
-  roughly <b>520 bookings four working hours sooner</b>, buying back runway for the reroute.</p>
+  <p>The bottom quartile responds to just <b>5.1%</b> of bookings even given the full six hours — and 3.3% of that
+  arrives within two. Cutting <b>their</b> window to 2h would cost about <b>10 tasks</b> a week while releasing
+  roughly <b>526 bookings four working hours sooner</b>, buying back runway for the reroute.</p>
 </div>
 
 <h2>Why</h2>
@@ -192,51 +193,65 @@ tail that is still climbing when the 6-hour deadline cuts it off at 62.6%.</figc
 
 <h3>2. How long the responders actually take</h3>
 
-<p>Taking only the bookings that <b>did</b> get a response, sorted by how long it took and cut into four equal
-groups:</p>
+<p>Ranking every CSP by <b>his own response rate</b> across the week's tasks — CSPs with at least 5 bookings, 237
+of them carrying 2,142 tasks — and cutting them into four equal groups of CSPs. The percentiles below are of the
+response times of the tasks those CSPs actually answered:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Response quartile</th><th class="n">Responses</th><th class="n">CSPs involved</th><th>Response arrived in</th></tr></thead>
+<thead><tr><th>CSP quartile <span style="font-weight:400;color:var(--ink2)">(by response rate)</span></th>
+<th class="n">CSPs</th><th class="n">Tasks</th><th class="n">Response rate</th>
+<th class="n">P25</th><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
 <tbody>
-<tr><td>Q1 — fastest quarter</td><td class="n">496</td><td class="n">253</td><td>under <b>28 sec</b></td></tr>
-<tr><td>Q2</td><td class="n">496</td><td class="n">291</td><td>28 sec – 69 sec</td></tr>
-<tr><td>Q3</td><td class="n">495</td><td class="n">281</td><td>69 sec – <b>55 min</b></td></tr>
-<tr class="hi"><td><b>Q4 — slowest quarter</b></td><td class="n">495</td><td class="n">236</td><td><b>55 min – 6h</b> · P90 2h 43m · P95 4h 6m</td></tr>
+<tr><td>Q1 — best responders <span style="color:var(--ink2)">(100%)</span></td><td class="n">60</td><td class="n">485</td><td class="n"><b>100%</b></td>
+    <td class="n">24 sec</td><td class="n">38 sec</td><td class="n">1h 37m</td><td class="n">3h 24m</td></tr>
+<tr><td>Q2 <span style="color:var(--ink2)">(80–100%)</span></td><td class="n">59</td><td class="n">545</td><td class="n">89.9%</td>
+    <td class="n">31 sec</td><td class="n">5m 18s</td><td class="n">3h 11m</td><td class="n">4h 23m</td></tr>
+<tr><td>Q3 <span style="color:var(--ink2)">(20–80%)</span></td><td class="n">59</td><td class="n">568</td><td class="n">54.6%</td>
+    <td class="n">34 sec</td><td class="n">5m 31s</td><td class="n">3h 48m</td><td class="n">4h 42m</td></tr>
+<tr class="hi"><td><b>Q4 — worst responders</b> <span style="color:var(--ink2)">(0–20%)</span></td><td class="n">59</td><td class="n">544</td><td class="n"><b>5.1%</b></td>
+    <td class="n">1m 11s</td><td class="n">33m 26s</td><td class="n">4h 12m</td><td class="n"><b>4h 52m</b></td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>Three quarters of responses arrive inside 55 minutes.</b> The entire case for a multi-hour window rests on
-the slowest quarter alone — and even there, P95 is <b>4h 6m</b>.</p>
+<p>Two things fall out of this, and they point in opposite directions.</p>
 
-<p>The CSP counts matter as much as the times: <b>236 to 291 distinct CSPs appear in every quartile</b>, out of
-roughly 650 active in the week. The same CSPs show up fast on one booking and slow on another — this is not a
-population of fast CSPs and a separate population of slow ones. <b>Speed is a property of the booking, not of the
-CSP.</b></p>
+<p><b>Response rate collapses across the quartiles — 100% to 5.1%, a 20× spread.</b> That is the real difference
+between CSPs, and it is what section 3 is about.</p>
+
+<p><b>Response speed barely moves in comparison.</b> Even the worst quartile's P95 is <b>4h 52m</b>, and the best
+quartile's is 3h 24m — the whole spread at P95 is under an hour and a half, against a 6-hour window. Every
+quartile's median response is minutes, not hours. <b>No quartile of CSPs needs more than six working hours; the
+bad quartile simply does not answer at all.</b></p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Positive action only</th><th class="n">Assignments</th><th class="n">CSPs involved</th><th>Arrived in</th></tr></thead>
+<thead><tr><th>Positive action only <span style="font-weight:400;color:var(--ink2)">(technician assigned)</span></th>
+<th class="n">CSPs</th><th class="n">Tasks</th><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
 <tbody>
-<tr><td>Q1 — fastest quarter</td><td class="n">331</td><td class="n">189</td><td>under 25 sec</td></tr>
-<tr><td>Q2</td><td class="n">331</td><td class="n">215</td><td>25 sec – 44 sec</td></tr>
-<tr><td>Q3</td><td class="n">331</td><td class="n">227</td><td>44 sec – <b>17 min</b></td></tr>
-<tr class="hi"><td><b>Q4 — slowest quarter</b></td><td class="n">330</td><td class="n">194</td><td><b>17 min – 5h 57m</b> · P95 3h 36m</td></tr>
+<tr><td>Q1 — best responders</td><td class="n">60</td><td class="n">485</td>
+    <td class="n">32 sec</td><td class="n">1h 18m</td><td class="n">3h 24m</td></tr>
+<tr><td>Q2</td><td class="n">59</td><td class="n">545</td>
+    <td class="n">57 sec</td><td class="n">2h 1m</td><td class="n">3h 33m</td></tr>
+<tr><td>Q3</td><td class="n">59</td><td class="n">568</td>
+    <td class="n">2m 19s</td><td class="n">3h 25m</td><td class="n">4h 11m</td></tr>
+<tr class="hi"><td><b>Q4 — worst responders</b></td><td class="n">59</td><td class="n">544</td>
+    <td class="n">22m 39s</td><td class="n">3h 32m</td><td class="n">4h 52m</td></tr>
 </tbody>
 </table>
 </div>
-<p style="font-size:13.5px;color:var(--ink2)">Restricted to technician assignments. Tighter than response overall —
-three quarters land inside <b>17 minutes</b> — because declines skew later than jobs taken.</p>
+<p style="font-size:13.5px;color:var(--ink2)">Restricted to technician assignments. Same shape, slightly tighter
+throughout — declines skew later than jobs taken, so removing them pulls the tail in.</p>
 
-<h3>3. Separately: CSPs differ enormously in <em>whether</em> they respond</h3>
-<p>Speed is not the differentiator between CSPs — but whether they engage at all very much is. Ranking CSPs by
-their own response rate (those with at least 5 bookings in the week):</p>
+<h3>3. The same quartiles, read by <em>whether</em> they respond</h3>
+<p>The 20× spread in response rate from the table above, drawn against the clock — so it is clear that the gap
+between a good CSP and a bad one is not a gap that more waiting closes:</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">Cumulative response rate by CSP, ranked into quartiles by response rate</div>
-  <div class="chartsub">237 CSPs, 2,142 bookings · a different cut from the tables above — by rate, not by speed</div>
+  <div class="chartsub">The same 237 CSPs and 2,142 bookings as the tables above, same quartiles — read by rate, not by speed</div>
   <svg id="c3" viewBox="0 0 720 380" role="img" aria-label="Cumulative response rate by CSP quartile against working hours"></svg>
 </div>
 <figcaption>These are separated almost entirely by <em>level</em>, not slope. Q1 responds to everything; Q4 responds
@@ -249,15 +264,18 @@ what drives the third recommendation.</figcaption>
 <table>
 <thead><tr><th class="n">P41 set to</th><th class="n">Q1</th><th class="n">Q2</th><th class="n">Q3</th><th class="n">Q4</th><th class="n">Overall response</th><th class="n">Overall jobs taken</th></tr></thead>
 <tbody>
-<tr><td class="n">1 h</td><td class="n">84.3%</td><td class="n">61.5%</td><td class="n">36.3%</td><td class="n">2.8%</td><td class="n">47.4%</td><td class="n">34.0%</td></tr>
-<tr><td class="n">2 h</td><td class="n">92.0%</td><td class="n">75.4%</td><td class="n">42.1%</td><td class="n">3.1%</td><td class="n">54.1%</td><td class="n">37.2%</td></tr>
-<tr><td class="n">3 h</td><td class="n">94.4%</td><td class="n">80.0%</td><td class="n">46.8%</td><td class="n">3.9%</td><td class="n">57.1%</td><td class="n">38.9%</td></tr>
-<tr><td class="n">4 h</td><td class="n">96.3%</td><td class="n">84.4%</td><td class="n">49.7%</td><td class="n">4.4%</td><td class="n">59.2%</td><td class="n">39.9%</td></tr>
-<tr><td class="n">5 h</td><td class="n">98.8%</td><td class="n">86.6%</td><td class="n">52.5%</td><td class="n">4.8%</td><td class="n">61.0%</td><td class="n">41.0%</td></tr>
-<tr class="hi"><td class="n">6 h — current</td><td class="n">100%</td><td class="n">89.9%</td><td class="n">54.6%</td><td class="n">5.2%</td><td class="n">62.6%</td><td class="n">41.8%</td></tr>
+<tr><td class="n">1 h</td><td class="n">84.5%</td><td class="n">61.5%</td><td class="n">35.9%</td><td class="n">2.9%</td><td class="n">47.4%</td><td class="n">34.0%</td></tr>
+<tr><td class="n">2 h</td><td class="n">91.8%</td><td class="n">75.8%</td><td class="n">41.7%</td><td class="n">3.3%</td><td class="n">54.1%</td><td class="n">37.2%</td></tr>
+<tr><td class="n">3 h</td><td class="n">94.2%</td><td class="n">80.4%</td><td class="n">46.7%</td><td class="n">3.9%</td><td class="n">57.1%</td><td class="n">38.9%</td></tr>
+<tr><td class="n">4 h</td><td class="n">96.3%</td><td class="n">84.6%</td><td class="n">49.5%</td><td class="n">4.4%</td><td class="n">59.2%</td><td class="n">39.9%</td></tr>
+<tr><td class="n">5 h</td><td class="n">98.8%</td><td class="n">86.8%</td><td class="n">52.3%</td><td class="n">4.8%</td><td class="n">61.0%</td><td class="n">41.0%</td></tr>
+<tr class="hi"><td class="n">6 h — current</td><td class="n">100%</td><td class="n">89.9%</td><td class="n">54.6%</td><td class="n">5.1%</td><td class="n">62.6%</td><td class="n">41.8%</td></tr>
 </tbody>
 </table>
 </div>
+<p style="font-size:13.5px;color:var(--ink2)">Q1–Q4 are the same CSP quartiles as sections 2 and 3 — the 237 CSPs
+with at least 5 tasks in the week. The two <b>Overall</b> columns cover every POST task, including CSPs below that
+threshold, which is why they do not sit inside the quartile range.</p>
 <p>Going from 4h to 6h adds <b>+3.4pp of response</b> and <b>+1.9pp of jobs taken</b> — worth roughly
 <b>1.8pp of booking-level supply efficiency</b>. That is the gain a shorter window would give up.</p>
 
@@ -296,7 +314,7 @@ date — so day 0 is the promised day whether that was today or tomorrow — the
   <svg id="c6" viewBox="0 0 720 380" role="img" aria-label="Customer cancellation by day relative to the promised slot, one line per slot lead time"></svg>
   <div class="legend">
     <span><i class="swatch" style="background:var(--s1)"></i>Slot = next day (n=528)</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>Slot = same day (n=408)</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>Slot = same day (n=409)</span>
   </div>
 </div>
 <figcaption>Next-day slots peak at <b>+1 — the day after the promise (4.17%)</b> — not at any fixed age of the
@@ -306,54 +324,46 @@ the customer has already been waiting by then. <b>The clock the customer is runn
 booking date.</b></figcaption>
 </figure>
 
-<p>Customer-proposed slots two or more days out are only 44 connections — too thin to plot. Widening to
-<b>all slot sources</b> (3,624 connections, same dedupe and maturity rule) gives that lead time enough volume,
-and reproduces the same shape:</p>
+<p>Only two lines are drawn because <b>almost every customer picks today or tomorrow</b>. The full distribution of
+what customers actually propose, and how each bucket cancels:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Population</th><th>Slot lead time</th><th class="n">Connections</th>
-<th class="n">−1</th><th class="n">day 0</th><th class="n">+1</th><th class="n">+2</th><th class="n">+3</th></tr></thead>
+<thead><tr><th>Slot the customer proposed</th><th class="n">Connections</th><th class="n">Share of cohort</th>
+<th class="n">Cancelled</th><th class="n">Before the slot</th><th class="n">On the slot day</th>
+<th class="n">Day after</th><th class="n">On or after the slot</th></tr></thead>
 <tbody>
-<tr><td rowspan="2">Customer-proposed</td><td>Next day</td><td class="n">528</td>
-  <td class="n">2.84%</td><td class="n">2.46%</td><td class="n hi"><b>4.17%</b></td><td class="n">3.41%</td><td class="n">2.46%</td></tr>
-<tr><td>Same day</td><td class="n">408</td>
-  <td class="n">—</td><td class="n hi"><b>3.92%</b></td><td class="n">1.96%</td><td class="n">2.45%</td><td class="n">2.21%</td></tr>
-<tr><td rowspan="3">All slot sources</td><td>Next day</td><td class="n">2,574</td>
-  <td class="n">2.64%</td><td class="n">3.30%</td><td class="n hi"><b>3.46%</b></td><td class="n">2.06%</td><td class="n">1.48%</td></tr>
-<tr><td>2 days out</td><td class="n">379</td>
-  <td class="n">3.17%</td><td class="n hi"><b>3.96%</b></td><td class="n">3.43%</td><td class="n">3.17%</td><td class="n">1.58%</td></tr>
-<tr><td>Same day</td><td class="n">671</td>
-  <td class="n">—</td><td class="n hi"><b>5.51%</b></td><td class="n">4.47%</td><td class="n">2.98%</td><td class="n">1.64%</td></tr>
+<tr><td>Same day</td><td class="n">409</td><td class="n">41.7%</td><td class="n">61 (14.9%)</td>
+    <td class="n">0%</td><td class="n">26.2%</td><td class="n">13.1%</td><td class="n"><b>100%</b></td></tr>
+<tr class="hi"><td><b>Next day</b></td><td class="n"><b>528</b></td><td class="n"><b>53.8%</b></td><td class="n"><b>106 (20.1%)</b></td>
+    <td class="n">14.2%</td><td class="n">12.3%</td><td class="n"><b>20.8%</b></td><td class="n"><b>85.8%</b></td></tr>
+<tr><td>2 days out</td><td class="n">28</td><td class="n">2.9%</td><td class="n">4</td>
+    <td class="n" colspan="4" style="color:var(--muted);text-align:center">4 cancellations — too few to rate</td></tr>
+<tr><td>3 days out</td><td class="n">16</td><td class="n">1.6%</td><td class="n">1</td>
+    <td class="n" colspan="4" style="color:var(--muted);text-align:center">1 cancellation — too few to rate</td></tr>
+<tr><td>4+ days out</td><td class="n">0</td><td class="n">0%</td><td class="n">—</td>
+    <td class="n" colspan="4" style="color:var(--muted);text-align:center">nobody proposes a slot this far out</td></tr>
 </tbody>
 </table>
 </div>
-<p style="font-size:13.5px;color:var(--ink2)">Every row peaks on the promised day or the one after it, whoever
-proposed the slot and however far out it was. Read down the <b>−1</b> column: nothing is elevated before the
-promise falls due.</p>
+
+<p><b>95.5% of customers propose today or tomorrow</b>, and nobody at all proposes four days out. That matters for
+calibration as much as the cancellation shape does: the runway P41 has to fit inside is short for essentially the
+entire base, not just a tail. It also caps how much this section can say about long lead times — 2- and 3-day
+slots are 44 connections and 5 cancellations between them, which is a count, not a rate.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)">Within the two buckets that carry the volume, the pattern is the
+one the chart shows. Same-day slots cancel <b>100% on or after</b> the promised day — by construction, there is no
+before. Next-day slots cancel <b>85.8% on or after</b>, with the single largest day being <b>the day after</b>
+(20.8%). Elapsed time since booking is not what triggers it; the slot passing is.</p>
 
 <p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
 above (26 Jul – 1 Aug), the cancellation cohort runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
 and needs the slot to be several days in the past before it can be counted, so the POST-only window is too recent
-to supply it. One row per connection: its <em>first</em> candidate and the slot promised at that point, so
-re-slotting and rerouting do not double-count. Only slots at least five days past as of 4 Aug are included.
-The behaviour being measured — customers give up when the promised day passes — is not specific to the P41
-window, which is why the wider window is acceptable here.</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr><th>Slot promised</th><th class="n">Connections</th><th class="n">Cancelled</th>
-<th class="n">Before the slot</th><th class="n">On the slot day</th><th class="n">Day after</th><th class="n">On or after the slot</th></tr></thead>
-<tbody>
-<tr><td>Same day</td><td class="n">494</td><td class="n">91</td><td class="n">0%</td><td class="n">29.7%</td><td class="n">27.5%</td><td class="n"><b>100%</b></td></tr>
-<tr><td>Next day</td><td class="n">1,985</td><td class="n">370</td><td class="n">14.1%</td><td class="n">16.8%</td><td class="n">21.9%</td><td class="n"><b>85.9%</b></td></tr>
-<tr><td>2+ days out</td><td class="n">301</td><td class="n">57</td><td class="n">12.3%</td><td class="n">19.3%</td><td class="n">19.3%</td><td class="n"><b>87.7%</b></td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">Between <b>86% and 100%</b> of cancellations land on or after the
-slot day in every lead-time bucket, and the day-after share is 19–28% throughout. Elapsed time since booking is not
-what triggers it; the slot passing is. (Same-day slots show 0% "before" by construction — there is no before.)</p>
+to supply it. Customer-proposed slots only, one row per connection: its <em>first</em> candidate and the slot
+promised at that point, so re-slotting and rerouting do not double-count. Only slots at least five days past as of
+4 Aug are included. The behaviour being measured — customers give up when the promised day passes — is not
+specific to the P41 window, which is why the wider window is acceptable here.</p>
 
 <h3>6. Calibrating against that guardrail</h3>
 <p>If the slot day is the deadline, the parameter follows from three measurements:</p>
@@ -499,10 +509,10 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
 
   var QH=[1,2,3,4,5,6];
   var QU=[
-    {k:'Q1 best', c:'--s1', v:[84.33,91.96,94.43,96.29,98.76,100.00]},
-    {k:'Q2',      c:'--s2', v:[61.47,75.41,80.00,84.40,86.61,89.91]},
-    {k:'Q3',      c:'--s3', v:[36.27,42.08,46.83,49.65,52.46,54.58]},
-    {k:'Q4 worst',c:'--s4', v:[ 2.76, 3.13, 3.86, 4.41, 4.78, 5.15]}
+    {k:'Q1 best', c:'--s1', v:[84.5,91.8,94.2,96.3,98.8,100.0]},
+    {k:'Q2',      c:'--s2', v:[61.5,75.8,80.4,84.6,86.8, 89.9]},
+    {k:'Q3',      c:'--s3', v:[35.9,41.7,46.7,49.5,52.3, 54.6]},
+    {k:'Q4 worst',c:'--s4', v:[ 2.9, 3.3, 3.9, 4.4, 4.8,  5.1]}
   ];
 
   /* cumulative % of bookings cancelled by the customer, by hours since booking */
@@ -736,7 +746,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   var EVX=[-1,0,1,2,3,4,5];
   var EV=[
     {k:'Next day', n:'528', c:'--s1', v:[2.841,2.462,4.167,3.409,2.462,1.515,2.083]},
-    {k:'Same day', n:'408', c:'--s2', v:[0,    3.922,1.961,2.451,2.206,0.980,0.735]}
+    {k:'Same day', n:'409', c:'--s2', v:[0,    3.912,1.956,2.445,2.200,0.978,0.733]}
   ];
 
   function c6(){
