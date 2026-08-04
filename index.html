@@ -98,7 +98,7 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
   the action measured on them is technician assignment. The extra four hours did not make CSPs faster — it stopped
   killing the tasks they were always going to get to.</p>
   <div class="meta">
-    <span class="chip">Change live 22 Jul 2026</span>
+    <span class="chip">Change live 21 Jul 23:17 IST</span>
     <span class="chip">Data as of 4 Aug 2026</span>
     <span class="chip">All times IST</span>
     <span class="chip">Cohort = task creation date</span>
@@ -148,6 +148,60 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
   gap is <b>cohort composition, not P41</b>. Only the accrual <em>within</em> each curve after hour 2 is
   attributable to the change. See <a href="#pitfall">the scoping notes</a> below.</p>
 </div>
+
+<h2>The change is real in the config</h2>
+<p class="lede">Verified rather than assumed — and it confirms P41 is natively a <b>working-hours</b> timer. Measured
+on that clock, <code>P41_DEADLINE_AT − CREATED_AT</code> is exactly <b>2.00 working hours</b> before the change and
+exactly <b>6.00 working hours</b> after, with minimum, median and maximum all identical to within rounding. There is
+no spread at all.</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">P41 window per day, in working hours</div>
+  <div class="chartsub">Working hours between candidate creation and its P41 deadline, 14 Jul – 2 Aug 2026</div>
+  <svg id="c2" viewBox="0 0 760 340" role="img" aria-label="P41 window in working hours per day showing a clean step from 2 to 6 on 22 July"></svg>
+</div>
+<figcaption>A clean step, zero variance either side. This is why the working-hours frame is the correct one: the
+deadline defers past the 9 PM cutoff to the next morning, so on a wall clock the same budget stretches or shrinks
+depending on what time the task was created, and looks like variance that isn't there. On its own clock it is
+simply a constant — and it is exactly where the action curve above stops.</figcaption>
+</figure>
+
+<details>
+<summary>Table view — P41 window per day</summary>
+<div class="dwrap">
+<div class="tblscroll">
+<table>
+<thead><tr><th>Creation date (IST)</th><th class="n">Candidates</th><th class="n">Min</th><th class="n">Median</th><th class="n">Max</th></tr></thead>
+<tbody>
+<tr><td>14 Jul</td><td class="n">830</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
+<tr><td>15 Jul</td><td class="n">759</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
+<tr><td>16 Jul</td><td class="n">567</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
+<tr><td>17 Jul</td><td class="n">542</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
+<tr><td>18 Jul</td><td class="n">631</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
+<tr><td>19 Jul</td><td class="n">775</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
+<tr><td>20 Jul</td><td class="n">881</td><td class="n">1.99</td><td class="n">2.00</td><td class="n">2.02</td></tr>
+<tr><td>21 Jul</td><td class="n">561</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">6.00</td></tr>
+<tr class="hi"><td>22 Jul — change live</td><td class="n">495</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>23 Jul</td><td class="n">576</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>24 Jul</td><td class="n">565</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>25 Jul</td><td class="n">508</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>26 Jul</td><td class="n">633</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>27 Jul</td><td class="n">493</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>28 Jul</td><td class="n">554</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>29 Jul</td><td class="n">506</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>30 Jul</td><td class="n">489</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>31 Jul</td><td class="n">579</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>1 Aug</td><td class="n">596</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+<tr><td>2 Aug</td><td class="n">674</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13.5px;color:var(--ink2)">Working hours. The 0.02 spread is rounding on the deadline stamp, not
+real variance. Note 21 Jul already shows a maximum of 6.00 — the first 6-hour deadlines appear late that day, so the
+rollout began on 21 Jul and was complete by 22 Jul.</p>
+</div>
+</details>
 
 <h2>The cumulative action curve</h2>
 <p class="lede">Each curve flattens at its own P41 deadline; that flat line <em>is</em> the guillotine. PRE holds
@@ -529,60 +583,6 @@ window, as PRE.</li>
 2 Aug so every booking in it has at least 24 hours of observation as of 4 Aug.</li>
 </ul>
 
-<h2>The change is real in the config</h2>
-<p class="lede">Verified rather than assumed — and it confirms P41 is natively a <b>working-hours</b> timer. Measured
-on that clock, <code>P41_DEADLINE_AT − CREATED_AT</code> is exactly <b>2.00 working hours</b> before the change and
-exactly <b>6.00 working hours</b> after, with minimum, median and maximum all identical to within rounding. There is
-no spread at all.</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">P41 window per day, in working hours</div>
-  <div class="chartsub">Working hours between candidate creation and its P41 deadline, 14 Jul – 2 Aug 2026</div>
-  <svg id="c2" viewBox="0 0 760 340" role="img" aria-label="P41 window in working hours per day showing a clean step from 2 to 6 on 22 July"></svg>
-</div>
-<figcaption>A clean step, zero variance either side. This is why the working-hours frame is the correct one: the
-deadline defers past the 9 PM cutoff to the next morning, so on a wall clock the same budget stretches or shrinks
-depending on what time the task was created, and looks like variance that isn't there. On its own clock it is
-simply a constant — and it is exactly where the action curve above stops.</figcaption>
-</figure>
-
-<details>
-<summary>Table view — P41 window per day</summary>
-<div class="dwrap">
-<div class="tblscroll">
-<table>
-<thead><tr><th>Creation date (IST)</th><th class="n">Candidates</th><th class="n">Min</th><th class="n">Median</th><th class="n">Max</th></tr></thead>
-<tbody>
-<tr><td>14 Jul</td><td class="n">830</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>15 Jul</td><td class="n">759</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>16 Jul</td><td class="n">567</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>17 Jul</td><td class="n">542</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>18 Jul</td><td class="n">631</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>19 Jul</td><td class="n">775</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>20 Jul</td><td class="n">881</td><td class="n">1.99</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>21 Jul</td><td class="n">561</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">6.00</td></tr>
-<tr class="hi"><td>22 Jul — change live</td><td class="n">495</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>23 Jul</td><td class="n">576</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>24 Jul</td><td class="n">565</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>25 Jul</td><td class="n">508</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>26 Jul</td><td class="n">633</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>27 Jul</td><td class="n">493</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>28 Jul</td><td class="n">554</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>29 Jul</td><td class="n">506</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>30 Jul</td><td class="n">489</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>31 Jul</td><td class="n">579</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>1 Aug</td><td class="n">596</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>2 Aug</td><td class="n">674</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">Working hours. The 0.02 spread is rounding on the deadline stamp, not
-real variance. Note 21 Jul already shows a maximum of 6.00 — the first 6-hour deadlines appear late that day, so the
-rollout began on 21 Jul and was complete by 22 Jul.</p>
-</div>
-</details>
-
 <h2>Percentiles</h2>
 <p class="lede">In working hours throughout — the same clock P41 itself runs on. It also strips out overnight dead
 time, which is what most of the apparent tail was.</p>
@@ -955,7 +955,7 @@ candidates in the POST window under each). The resulting IST creation distributi
     var cx=(X(7)+X(8))/2;
     s.appendChild(el('line',{x1:cx,x2:cx,y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.5}));
     var ct=el('text',{x:cx+7,y:T+13,fill:muted,'font-size':11.5,'font-weight':600});
-    ct.textContent='22 Jul — change live'; s.appendChild(ct);
+    ct.textContent='cutover 21 Jul 23:17'; s.appendChild(ct);
 
     var d='';
     WMED.forEach(function(v,i){ d+=(i?'L':'M')+X(i)+' '+Y(v); });
