@@ -1,201 +1,135 @@
-# P41 2h → 6h — Notif to First CSP Action
+# P41 — calibrating the CSP acceptance window
 
-Analysis of what changed when the D&A OS acceptance window **P41** was extended from 2 hours to 6 hours
-on **22 July 2026**.
+What the parameter should be set to, and why.
 
 **📊 [Read the analysis →](https://ashish-raj-wiom.github.io/p41-window-impact/)**
 
-## Question
+## What P41 is for
 
-Distribution and P50 / P90 / P95 of time from task notification to technician assignment, for install
-candidates created 26 July – 1 August 2026, after P41 was set to 6 hours.
+When a booking is allocated to a CSP, P41 is the window he has to respond — either take the job or decline it.
+If he does neither, P41 fires, the booking is released, and the system goes looking for another CSP.
 
-## Cohorts
+The parameter sits on one trade-off:
 
-Both anchored on **task creation date**. Each measures the CSP's *first required action* under the flow in
-force that week, because the flow changed between them. POST is scoped to **customer-proposed-slot bookings**
-(where technician assignment genuinely is the CSP's first step); PRE has no equivalent subset because that flow
-launched ~21 Jul.
+- **How much time is enough for the CSP to act?** Too short and we pull away bookings the CSP was about to take,
+  and reroute work that never needed rerouting.
+- **How long can the customer be kept waiting?** Too long and the booking sits with someone who was never going
+  to act, while the customer waits and the search for a replacement is delayed.
 
-| | PRE 14–20 Jul | POST 26 Jul – 1 Aug |
-|---|---|---|
-| P41 | 2h | 6h |
-| CSP's first action | **slot proposal** | **technician assignment** |
-| n created | 4,985 | 3,165 |
-| n actioned | 1,649 (33.1%) | 1,323 (41.8%) |
+## Recommendation
 
-## Headline
+### Keep P41 at 6 working hours
 
-**The P41 effect is +4.61pp** — the within-cohort accrual between working-hour 2 and working-hour 6, i.e. the
-window the old config used to discard.
+It is close to correctly calibrated. Six working hours captures **95%+ of every CSP quartile's responses**, and
+those hours are cheap in customer patience: the cancellation hazard is **1.56%/hour in the first hour but
+0.09%/hour by hour six**. Cutting to 4h would forfeit ~1.9pp of positive action — roughly **1.8pp of
+booking-level supply efficiency** — to save about 0.28pp of cancellation.
 
-| Within (working h) | PRE | POST |
-|---|---|---|
-| 0.25 | 25.94% | 31.18% |
-| 1.0 | 29.89% | 34.00% |
-| **2.0 — old P41** | **33.08%** | **37.19%** |
-| **6.0 — new P41** | **33.08%** | **41.80%** |
-| **Accrual, hour 2 → 6** | **+0.00pp** | **+4.61pp** |
+**Do not extend beyond 6h on current evidence.** The window is binding, so what CSPs would do at hour 7+ is
+unobservable. The marginal return is also decaying: +1.82pp/h of positive action at hour 2–3, +0.85pp/h by 5–6.
 
-`TIMEOUT_P41` deaths fell 52.5% → 35.5%.
+### Then: make it depend on the CSP, not one number for everyone
 
-### Response split: positive action vs decline
+The bottom quartile responds to just **5.15%** of bookings even given the full six hours — and 3.13% of that
+arrives within two hours. Cutting **their** window to 2h would cost about **11 tasks** across the week while
+releasing roughly **520 bookings four working hours sooner**.
 
-A CSP can respond two ways — act, or decline. Both are responses; only one is progress. Splitting the
-accrual between working-hour 2 and working-hour 6:
+The top quartile already responds to 92% within two hours, so the window rarely binds for them either.
+**The 6-hour window earns its keep almost entirely in the middle two quartiles.**
 
-| Accrual, hour 2 → 6 | Response | Positive action | Decline |
-|---|---|---|---|
-| PRE (P41 = 2h) | +0.02pp | +0.00pp | +0.02pp |
-| **POST (P41 = 6h)** | **+8.50pp** | +4.61pp | +3.89pp |
-| Share of POST gain | 100% | 54% | **46%** |
+## Why
 
-**46% of what the longer window surfaces is a refusal, not progress** — and it isn't free. Under the 2-hour
-window a CSP who was going to refuse simply timed out at hour 2 and the booking was released for reroute.
-Under six hours that same CSP holds the booking and declines at hour 3, 4 or 5, so the customer waits up to
-four extra working hours before the task starts looking for anyone else. The same applies to the 35.5% who
-still time out: they now hold for six hours instead of two.
+### Method note: current regime only
 
-### Conversion to installs
+All figures come from the period **after** P41 moved to 6 hours. Deliberately not a before/after comparison:
 
-Yes — but roughly a third of the headline, because a timed-out booking was never a lost booking.
+1. **Several changes shipped at once.** The customer-scheduling flow went live ~21 July, one day before the P41
+   change. Any pre/post difference mixes the two.
+2. **Changing the timer changes the behaviour being measured.** Under a 2-hour window you cannot observe a
+   five-hour response — the task was already dead. The old regime's numbers are truncated by its own deadline.
+   Calibration needs the distribution of what CSPs *actually do* when given room.
 
-**Late assignments convert as well as early ones — at every hour.** Task-level install rate, i.e. of tasks that
-got a technician assigned, the share reaching `CONNECTION_ACTIVE`:
+### 1. How fast CSPs respond
 
-| Assignment latency | Assigned | Installed | Install rate |
-|---|---:|---:|---:|
-| <15 min | 987 | 481 | 48.73% |
-| 15–60 min | 89 | 44 | 49.44% |
-| 1–2 h | 101 | 45 | 44.55% |
-| **2–3 h** | 54 | 30 | 55.56% |
-| **3–4 h** | 32 | 14 | 43.75% |
-| **4–5 h** | 33 | 16 | 48.48% |
-| **5–6 h** | 27 | 14 | 51.85% |
-| **Pooled** | **1,323** | **644** | **48.68%** |
+Response is heavily front-loaded — 41% inside the first quarter-hour — then a long, slowly decaying tail still
+climbing when the 6-hour deadline cuts it off at 62.6%.
 
-**No change in install rate.** Every band lands between 43.75% and 55.56% against a pooled 48.68%, with no trend
-as latency rises. Grouped the other way: <2h installs at 48.43%, 2–6h at 50.68%. Bolded rows are the P41 gain —
-they install like everything else. The hourly bands are small (27–54 tasks each), so individual band movement
-isn't worth reading into; what matters is that none departs from the pooled rate.
+Between hour 2 and hour 6 the window buys **+4.61pp** of jobs taken and **+3.89pp** of declines — so **46% of
+what the later hours surface is a refusal**. A decline is still useful (it releases the booking with a reason,
+faster than a timeout) but it is not progress.
 
-Collapsed into the two groups that matter for the P41 decision — everything the old 2-hour window would have
-kept, against everything it would have thrown away:
+### 2. The variation is in *whether* CSPs respond, not how fast
 
-| Assignment latency | Assigned | Installed | Install rate | Old 2h window |
-|---|---:|---:|---:|---|
-| Within 2 working hours | 1,177 | 570 | 48.43% | Kept |
-| **2–6 working hours** | **146** | **74** | **50.68%** | Killed at hour 2, rerouted |
-| **Total assigned** | **1,323** | **644** | **48.68%** | |
+| CSP quartile | CSPs | Bookings | Response rate | P25 | P50 | P90 | P95 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Q1 — best | 60 | 485 | 100% | 0.01 | 0.01 | 1.68 | 3.44 |
+| Q2 | 59 | 545 | 89.9% | 0.01 | 0.09 | 3.05 | 4.23 |
+| Q3 | 59 | 568 | 54.6% | 0.01 | 0.09 | 3.86 | 4.70 |
+| **Q4 — worst** | 59 | 544 | **5.2%** | 0.02 | 0.46 | 4.21 | 4.87 |
 
-**That is where 146 comes from** — the tasks a CSP only got to between working-hour 2 and 6, which exist as
-assignments solely because P41 was extended. They are 11.0% of all assignments, and 74 of them reached an install.
+Working hours, among bookings that got a response. Median response is under 30 minutes in every quartile —
+**when a CSP responds at all, he is usually fast.** P95 never exceeds 4.87 working hours, which is what makes 6h
+a sufficient ceiling.
 
-**But the counterfactual is not zero.** When a candidate dies on `TIMEOUT_P41`, 78.1% of those connections pick
-up a fresh candidate and **15.9% install anyway with somebody else**. So those 146 late assignments would have
-produced ~23 installs regardless.
+### 3. What each extra hour buys
 
-### Supply-efficiency uplift — does raising P41 lift SE? Yes
+| P41 set to | Q1 | Q2 | Q3 | Q4 | Overall response | Overall jobs taken |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 h | 84.3% | 61.5% | 36.3% | 2.8% | 47.4% | 34.0% |
+| 2 h | 92.0% | 75.4% | 42.1% | 3.1% | 54.1% | 37.2% |
+| 3 h | 94.4% | 80.0% | 46.8% | 3.9% | 57.1% | 38.9% |
+| 4 h | 96.3% | 84.4% | 49.7% | 4.4% | 59.2% | 39.9% |
+| 5 h | 98.8% | 86.6% | 52.5% | 4.8% | 61.0% | 41.0% |
+| **6 h — current** | **100%** | **89.9%** | **54.6%** | **5.2%** | **62.6%** | **41.8%** |
 
-Stated at both denominators. The 3,165 tasks sit on only **1,654 distinct connections** (~1.9 candidates each,
-because a rerouted booking generates a fresh candidate), so the booking-level figure is roughly double.
+4h → 6h adds **+3.4pp of response** and **+1.9pp of jobs taken**, worth ~1.8pp of booking-level supply efficiency.
 
-| Supply efficiency | Denominator | SE at P41 = 2h | SE at P41 = 6h | Raw uplift |
-|---|---:|---:|---:|---:|
-| **Task level** — per install candidate | 3,165 tasks | 18.01% | 20.35% | **+2.34pp** |
-| **Connection / booking level** | 1,654 connections | 36.22% | 40.69% | **+4.47pp** |
+### 4. What each extra hour costs
 
-Net of the reroute counterfactual (~23 of the 146 would have installed anyway, leaving ≈51 genuinely new):
+Customer cancellation hazard — of bookings still live at the start of each hour, the share cancelled during it:
 
-| Supply efficiency | Raw uplift | Less reroute | **Net uplift** |
-|---|---:|---:|---:|
-| **Task level** | +2.34pp | −0.73pp | **+1.60pp** |
-| **Connection / booking level** | +4.47pp | −1.40pp | **+3.07pp** |
+| Hour of waiting | 0–1 | 1–2 | 2–3 | 3–4 | 4–5 | 5–6 | 6–12 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Cancelled that hour | **1.56%** | 0.46% | 0.23% | 0.33% | 0.19% | **0.09%** | ~0.08% |
 
-**So: raising P41 lifts supply efficiency by about +3pp per booking (36.22% → 39.29%), +1.6pp per task** — a
-relative lift of ~8.5% on booking SE. Not the +4.61pp of extra positive action, and not the +4.47pp of raw
-installs; the difference in each case is the reroute path, which was already recovering one in six timed-out
-bookings without any change to P41.
+Impatience is almost entirely spent in the first hour. The hours P41 is actually deciding about are the cheap ones.
 
-**Treat these as a ceiling.** Reroute recovery rises the *younger* the cohort — 7.9% (mid-Jun), 9.0% (early Jul),
-11.1% (mid-Jul), 15.1% (late Jul) — which is the opposite of a censoring artifact, so the 15.9% subtracted here
-will likely grow and shrink the net gain further.
+### 5. The trade at the margin
 
-Still unmeasured: reroute *latency* — how long the second attempt takes.
+At the hour 5→6 margin, per additional hour: **+0.85pp** jobs taken against **−0.09pp** customers cancelling —
+roughly **9 : 1 in favour of waiting**.
 
-### Customer cancellation
+Not priced here: **reroute delay.** Every booking that eventually times out now waits six hours instead of two
+before the search for a second CSP begins. How much that costs depends on how quickly a released booking finds
+someone else — not measured, and the main open question.
 
-The obvious place that longer wait would show is **customer-initiated cancellation**. It does not.
+### 6. Time of day makes no difference
 
-Measured at **hourly** resolution, because P41 only changed what happens between hour 2 and hour 6 — day-level
-buckets cannot see that. Cohorts split at the **true cutover, 21 Jul 23:17 IST** (last 2.00-working-hour window
-issued 23:14:39; first 6.00-hour window 23:20:58), not the 22 Jul day boundary.
+P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), so a booking arriving at 8 PM gets the same
+effective budget as one arriving at 10 AM. The data confirms it:
 
-| Hours since confirmation | PRE (n=4,389) | POST (n=2,107) |
-|---|---:|---:|
-| 1 | 2.19% | 1.61% |
-| **2 — old P41 closes** | **2.55%** | **2.09%** |
-| 4 | 3.01% | 2.66% |
-| **6 — new P41 closes** | **3.30%** | **2.94%** |
-| 12 | 3.78% | 3.42% |
-| 24 | 5.33% | 5.32% |
-| **Accrual, hour 2 → 6** | **+0.75pp** | **+0.85pp** |
+| Booking reached CSP at | Bookings | Working hrs left that day | Response rate | Jobs taken | P90 response |
+|---|---:|---:|---:|---:|---:|
+| 09–12 morning | 602 | 10.4 | 60.5% | 42.0% | 2.36 |
+| 12–15 midday | 679 | 7.5 | 63.0% | 40.8% | 2.28 |
+| 15–18 afternoon | 790 | 4.7 | 62.9% | 39.8% | 2.16 |
+| 18–21 late day | 647 | 1.4 | 61.4% | 41.1% | 2.35 |
+| 21–24 after close | 267 | 0.0 | 67.8% | 49.8% | 2.07 |
+| 00–09 before open | 180 | 12.0 | 63.9% | 44.4% | 1.71 |
 
-POST sits below PRE at every hour out to 12 — but those levels are not comparable (different weeks, and
-cancellation has been falling all year). Applying the same within-cohort logic used everywhere else: between
-hour 2 and hour 6, PRE accrues +0.75pp and POST +0.85pp, so POST loses about **0.10pp more** customers in exactly
-the span P41 newly occupies. On 2,107 bookings that is **roughly two customers** — not distinguishable from noise,
-and not to be reported as a detected cost.
+Response rate sits in a 60–68% band regardless of arrival time. **No time-of-day-specific parameter is needed.**
 
-**By hour 24 the two converge exactly** (5.33% vs 5.32%). POST cancels markedly less early then catches up
-completely — the signature of cancellation being *deferred* rather than avoided, which is what you would expect
-if the booking is simply held longer before anything visible happens.
+## Definitions
 
-Caveats: the customer-proposed-slot flow launched ~21 Jul so it is confounded with the P41 change; and a small
-P41 penalty could hide inside the secular decline at this sample size. More POST weeks are the cheapest way to
-strengthen or overturn this.
+- **Working hours** — 9 AM – 9 PM IST, every day. This is P41's native unit: measured on that clock the window
+  is exactly 6.00 hours, with minimum, median and maximum identical.
+- **Response** — first of a positive action or a decline; the two are mutually exclusive and sum to the response rate.
+- **Positive action** — technician assignment. In the customer-proposed-slot flow the slot is already confirmed
+  when the booking reaches the CSP, so assigning a technician is his first required step.
+- **Population** — install candidates on customer-proposed-slot bookings created 26 Jul – 1 Aug 2026 (n=3,165
+  across 1,654 connections). Quartiles restricted to CSPs with ≥5 bookings that week (237 CSPs, 2,142 bookings).
+- **Cancellation** — distinct mobiles with a customer-initiated `cancelled` event, from booking confirmation.
+  Bookings confirmed 21 Jul – 2 Aug so each has ≥24h observation.
 
-> ⚠️ **`BOOKING_LOGS` duplicates `cancelled` events since 10 July 2026** — 43,985 rows on 13 July across 63
-> distinct mobiles, ~700 writes per real cancellation. Counted raw, the series shows a cancellation explosion
-> starting twelve days before the P41 change, which reads exactly like a P41 effect. **Always dedupe to distinct
-> `MOBILE`.** This will corrupt any other analysis touching the table.
-
-Read the **shape of each curve, never the gap between them**. The cohorts are scoped differently by design, so
-POST sits above PRE from the first quarter-hour — before either deadline can bind — and that vertical offset is
-cohort composition, not P41. Only the accrual *within* each curve after hour 2 is attributable to the change.
-CSPs did not get faster; more of their work survived long enough to count.
-
-### Percentiles
-
-All figures in **working hours** (9 AM – 9 PM IST) — the same clock P41 itself runs on.
-
-| Cohort | P50 | P90 | P95 |
-|---|---|---|---|
-| PRE — slot proposal (n=1,649) | 0.02 | 0.99 | 1.44 |
-| POST — tech assigned (n=1,323) | 0.01 | 2.25 | **3.60** |
-
-PRE's flattering percentiles are **right-truncated by its own 2h deadline** — you cannot observe a 5-hour slot
-proposal when the task is killed at hour 2, so POST's higher P95 is a *fuller* measurement, not a worse one.
-
-### P41 is natively a working-hours timer
-
-Measured on a working-hours clock, `P41_DEADLINE_AT − CREATED_AT` is exactly **2.00** before the change and
-exactly **6.00** after — minimum, median and maximum all identical to within rounding, zero variance either
-side. On a wall clock the same constant budget appears to vary wildly, because the deadline defers past the
-9 PM cutoff to the next morning. That is why every figure here is reported in working hours.
-
-In the **customer-proposed flow**, technician assignment *is* the P41-gated action, and there is a hard ceiling
-at six working hours — the 6–12, 12–24 and >24h buckets are all empty. The entire long tail (50 assignments)
-sits in the other flow, where the CSP proposes a slot first and technician assignment comes after customer
-confirmation, outside P41's scope.
-
-## Sources
-
-Snowflake (Metabase DB 113):
-
-- `CSP_TAS_SERVICE…INSTALL_EXECUTION_CANDIDATES`
-- `CSP_TAS_SERVICE…INSTALL_STATE_TRANSITION_LOG`
-- `CSP_DEMAND_ALLOCATION_SERVICE…CONNECTION_ALLOCATIONS`
-- `PROD_DB.DYNAMODB_READ.BOOKING` — cross-check only, see pitfall 2
-
-Core table set matches the Health 2.0 Metabase card (#11646). Data as of 4 August 2026. All times IST.
+Data as of 4 August 2026. All times IST. Sources: `csp-tas-service`, `csp-demand-allocation-service`,
+`booking_logs` via Snowflake (DB 113).

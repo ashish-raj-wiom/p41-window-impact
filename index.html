@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>P41 2h → 6h — Notif to First CSP Action</title>
+<title>P41 — calibrating the CSP acceptance window</title>
 <style>
 :root{
   color-scheme: light;
   --page:#f9f9f7; --surface:#fcfcfb;
   --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
   --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,0.10);
-  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s8:#e34948;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
   --warning:#fab219; --critical:#d03b3b; --good-text:#006300;
 }
 @media (prefers-color-scheme: dark){
@@ -19,7 +19,7 @@
     --page:#0d0d0d; --surface:#1a1a19;
     --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
     --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
-    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s8:#e66767; --good-text:#0ca30c;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --good-text:#0ca30c;
   }
 }
 :root[data-theme="dark"]{
@@ -27,34 +27,36 @@
   --page:#0d0d0d; --surface:#1a1a19;
   --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
   --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s8:#e66767; --good-text:#0ca30c;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --good-text:#0ca30c;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);
   font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1060px;margin:0 auto;padding:40px 24px 96px}
+.wrap{max-width:1000px;margin:0 auto;padding:40px 24px 96px}
 .eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
-h1{font-size:clamp(26px,4vw,38px);line-height:1.16;margin:12px 0 10px;letter-spacing:-.02em;font-weight:650}
+h1{font-size:clamp(26px,4vw,36px);line-height:1.16;margin:12px 0 10px;letter-spacing:-.02em;font-weight:650}
 .sub{color:var(--ink2);font-size:17px;max-width:74ch;margin:0}
 .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
 .chip{font-size:12.5px;color:var(--ink2);background:var(--surface);border:1px solid var(--ring);border-radius:999px;padding:5px 12px}
-h2{font-size:21px;margin:52px 0 6px;letter-spacing:-.01em;font-weight:640}
+h2{font-size:22px;margin:54px 0 8px;letter-spacing:-.01em;font-weight:640}
+h3{font-size:16px;margin:34px 0 6px;font-weight:620}
 .lede{color:var(--ink2);margin:0 0 18px;max-width:78ch}
 p{max-width:78ch}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:22px 0 6px}
+.rec{background:var(--surface);border:1px solid var(--ring);border-left:4px solid var(--good-text);
+  border-radius:0 14px 14px 0;padding:22px 26px;margin:20px 0}
+.rec .big{font-size:26px;font-weight:660;letter-spacing:-.01em;margin:0 0 10px}
+.rec p{margin:0 0 10px;font-size:15.5px;color:var(--ink2)}
+.rec p:last-child{margin-bottom:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:22px 0 6px}
 .tile{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:18px}
 .tile .lbl{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px;min-height:2.6em}
-.tile .val{font-size:32px;line-height:1.05;font-weight:660;letter-spacing:-.02em}
+.tile .val{font-size:30px;line-height:1.05;font-weight:660;letter-spacing:-.02em}
 .tile .note{font-size:13px;color:var(--ink2);margin-top:7px}
 .up{color:var(--good-text);font-weight:640}
-.callout{border-left:3px solid var(--s1);background:var(--surface);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0}
-.callout.warn{border-left-color:var(--warning)}
-.callout.crit{border-left-color:var(--critical)}
-.callout h4{margin:0 0 8px;font-size:15px;font-weight:640;display:flex;align-items:center;gap:8px}
-.callout p{margin:0 0 8px;font-size:15px;color:var(--ink2)}
-.callout p:last-child{margin-bottom:0}
-.ico{width:16px;height:16px;flex:none}
-figure{margin:20px 0 8px}
+.note-box{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:16px 20px;margin:18px 0}
+.note-box p{margin:0 0 8px;font-size:15px;color:var(--ink2)}
+.note-box p:last-child{margin-bottom:0}
+figure{margin:22px 0 8px}
 figcaption{font-size:13.5px;color:var(--ink2);margin-top:12px;max-width:80ch}
 .chartcard{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:20px 20px 12px}
 .charttitle{font-size:15px;font-weight:620;margin-bottom:2px}
@@ -64,21 +66,20 @@ svg{display:block;width:100%;height:auto;overflow:visible}
 .legend span{display:inline-flex;align-items:center;gap:7px}
 .swatch{width:11px;height:11px;border-radius:3px;flex:none}
 .tblscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
-table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:540px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
 th,td{text-align:left;padding:9px 14px 9px 0;border-bottom:1px solid var(--grid)}
 th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:18px}
 tbody tr:last-child td{border-bottom:none}
 .hi{background:color-mix(in srgb, var(--s1) 7%, transparent)}
 code{font:13px/1.5 ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:color-mix(in srgb,var(--ink) 6%,transparent);padding:1.5px 5px;border-radius:4px}
-pre{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:14px 16px;overflow-x:auto;font:12.5px/1.65 ui-monospace,Menlo,Consolas,monospace;color:var(--ink2)}
 details{margin:14px 0;border:1px solid var(--ring);border-radius:12px;background:var(--surface);padding:0 18px}
 summary{cursor:pointer;padding:14px 0;font-weight:600;font-size:14.5px}
 details[open] summary{border-bottom:1px solid var(--grid)}
 .dwrap{padding:6px 0 16px}
-ul{padding-left:22px;max-width:78ch} li{margin:6px 0}
+ul{padding-left:22px;max-width:78ch} li{margin:7px 0}
 .tt{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--surface);border:1px solid var(--ring);
-   border-radius:9px;padding:9px 12px;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.13);z-index:50;max-width:250px}
+   border-radius:9px;padding:9px 12px;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.13);z-index:50;max-width:260px}
 .tt b{display:block;margin-bottom:5px;font-size:12.5px;color:var(--ink)}
 .tt .row{display:flex;justify-content:space-between;gap:16px;color:var(--ink2);font-variant-numeric:tabular-nums}
 footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-size:13.5px;color:var(--muted)}
@@ -92,597 +93,219 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
 
 <header>
   <div class="eyebrow">Installation Flow · Demand Allocation OS</div>
-  <h1>P41 extended 2h → 6h: what actually changed</h1>
-  <p class="sub">Time from task notification to the CSP's first required action, for install candidates created
-  26 Jul – 1 Aug 2026 versus the pre-change week. The post-change cohort is <b>customer-proposed-slot bookings</b>;
-  the action measured on them is technician assignment. The extra four hours did not make CSPs faster — it stopped
-  killing the tasks they were always going to get to.</p>
+  <h1>P41 — calibrating the CSP acceptance window</h1>
+  <p class="sub">What the parameter should be set to, and why.</p>
   <div class="meta">
-    <span class="chip">Change live 21 Jul 23:17 IST</span>
-    <span class="chip">Data as of 4 Aug 2026</span>
+    <span class="chip">Currently 6 working hours</span>
+    <span class="chip">Data 26 Jul – 3 Aug 2026</span>
     <span class="chip">All times IST</span>
-    <span class="chip">Cohort = task creation date</span>
   </div>
 </header>
 
-<h2>Headline</h2>
-<div class="tiles">
-  <div class="tile">
-    <div class="lbl">P41 gain — accrual between hour 2 and hour 6</div>
-    <div class="val up">+4.61pp</div>
-    <div class="note">Within-cohort, so denominator-independent. This is the actual P41 effect.</div>
-  </div>
-  <div class="tile">
-    <div class="lbl">Died on TIMEOUT_P41</div>
-    <div class="val">52.5% <span style="color:var(--muted);font-weight:400">→</span> 35.5%</div>
-    <div class="note"><span class="up">−17.0pp</span> · still the #1 failure mode</div>
-  </div>
-  <div class="tile">
-    <div class="lbl">P95, working hours</div>
-    <div class="val">3.60</div>
-    <div class="note">Post-change · comfortably inside the 6h budget</div>
-  </div>
-  <div class="tile">
-    <div class="lbl">Assignments beyond 6 working hours</div>
-    <div class="val">0</div>
-    <div class="note">The deadline is binding, so demand past hour 6 is unobservable — not absent</div>
-  </div>
-</div>
+<h2>What P41 is for</h2>
+<p>When a booking is allocated to a CSP, P41 is the window he has to respond — either take the job or decline it.
+If he does neither, P41 fires, the booking is released, and the system goes looking for another CSP who might do
+the work.</p>
 
-<p>Between working-hour 2 and working-hour 6, total CSP response rises <b>+8.50pp</b> — <b>+4.61pp</b> of it a
-technician assignment and <b>+3.89pp</b> a decline (<a href="#response">response split</a>). Of the extra
-assignments, <b>≈+1.6pp</b> survives as incremental installs once the reroute path's own recovery rate is netted
-off (<a href="#installs">install section</a>).</p>
-
-<p>The two cohorts are scoped differently: POST is customer-proposed-slot bookings, PRE is the whole pre-change
-week, since that flow did not exist before ~21 Jul. POST therefore sits above PRE from the first quarter-hour,
-before either deadline can bind; that vertical gap is cohort composition, not P41. Only the accrual <em>within</em>
-each curve after hour 2 is attributable to the change.</p>
-
-<h2>Percentiles</h2>
-<p class="lede">How long the CSP took, in working hours — the same clock P41 itself runs on. Shown for
-<b>any response</b> (the CSP acted or declined) and for <b>positive action</b> alone.</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr>
-  <th>Measure</th><th>Cohort</th><th class="n">n created</th><th class="n">n reaching it</th>
-  <th class="n">P50</th><th class="n">P90</th><th class="n">P95</th>
-</tr></thead>
-<tbody>
-  <tr><td rowspan="2"><b>Response</b><br><span style="color:var(--ink2);font-size:13px">acted or declined</span></td>
-      <td>PRE · P41 = 2h</td><td class="n">4,985</td><td class="n">2,344</td>
-      <td class="n">0.02</td><td class="n">1.11</td><td class="n">1.57</td></tr>
-  <tr class="hi"><td>POST · P41 = 6h</td><td class="n">3,165</td><td class="n">1,982</td>
-      <td class="n">0.02</td><td class="n">2.72</td><td class="n">4.10</td></tr>
-</tbody>
-<tbody>
-  <tr><td rowspan="2"><b>Positive action</b><br><span style="color:var(--ink2);font-size:13px">PRE = slot proposal<br>POST = technician assignment</span></td>
-      <td>PRE · P41 = 2h</td><td class="n">4,985</td><td class="n">1,649</td>
-      <td class="n">0.02</td><td class="n">0.99</td><td class="n">1.44</td></tr>
-  <tr class="hi"><td>POST · P41 = 6h</td><td class="n">3,165</td><td class="n">1,323</td>
-      <td class="n">0.01</td><td class="n">2.25</td><td class="n">3.60</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">Working hours, over every candidate that reached the measure. Response
-counts whichever came first, so it is always the larger population. Medians sit near zero because in the
-customer-proposed flow the slot is already confirmed when the candidate is created — nothing stands between
-notification and the CSP's first move.</p>
-
-<p><b>Read the P90 and P95 as a measurement artifact, not as CSPs slowing down.</b> PRE's distribution is
-right-truncated by its own deadline: under a 2-hour window a five-hour slot proposal cannot be observed, because
-the task was already dead. Its P95 of 1.44 working hours is a consequence of that cutoff. POST's 3.60 is a
-<em>fuller</em> measurement of the same behaviour, not a worse one — which is exactly why the rest of this page
-leans on the curve shape and the action rate rather than on these conditional percentiles.</p>
-
-<p>The gap between the two measures is the decline population. Response P95 sits about half a working hour above
-positive-action P95 in both cohorts (1.57 vs 1.44 pre, 4.10 vs 3.60 post) — refusals arrive slightly later than
-assignments, but they follow the same shape and are cut off by the same deadline.</p>
-
-<h2>The change is real in the config</h2>
-<p class="lede">Verified rather than assumed — and it confirms P41 is natively a <b>working-hours</b> timer. Measured
-on that clock, <code>P41_DEADLINE_AT − CREATED_AT</code> is exactly <b>2.00 working hours</b> before the change and
-exactly <b>6.00 working hours</b> after, with minimum, median and maximum all identical to within rounding. There is
-no spread at all.</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">P41 window per day, in working hours</div>
-  <div class="chartsub">Working hours between candidate creation and its P41 deadline, 14 Jul – 2 Aug 2026</div>
-  <svg id="c2" viewBox="0 0 760 340" role="img" aria-label="P41 window in working hours per day showing a clean step from 2 to 6 on 22 July"></svg>
-</div>
-<figcaption>A clean step, zero variance either side. This is why the working-hours frame is the correct one: the
-deadline defers past the 9 PM cutoff to the next morning, so on a wall clock the same budget stretches or shrinks
-depending on what time the task was created, and looks like variance that isn't there. On its own clock it is
-simply a constant — and it is exactly where the action curve above stops.</figcaption>
-</figure>
-
-<details>
-<summary>Table view — P41 window per day</summary>
-<div class="dwrap">
-<div class="tblscroll">
-<table>
-<thead><tr><th>Creation date (IST)</th><th class="n">Candidates</th><th class="n">Min</th><th class="n">Median</th><th class="n">Max</th></tr></thead>
-<tbody>
-<tr><td>14 Jul</td><td class="n">830</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>15 Jul</td><td class="n">759</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>16 Jul</td><td class="n">567</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>17 Jul</td><td class="n">542</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>18 Jul</td><td class="n">631</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>19 Jul</td><td class="n">775</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>20 Jul</td><td class="n">881</td><td class="n">1.99</td><td class="n">2.00</td><td class="n">2.02</td></tr>
-<tr><td>21 Jul</td><td class="n">561</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">6.00</td></tr>
-<tr class="hi"><td>22 Jul — change live</td><td class="n">495</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>23 Jul</td><td class="n">576</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>24 Jul</td><td class="n">565</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>25 Jul</td><td class="n">508</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>26 Jul</td><td class="n">633</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>27 Jul</td><td class="n">493</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>28 Jul</td><td class="n">554</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>29 Jul</td><td class="n">506</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>30 Jul</td><td class="n">489</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>31 Jul</td><td class="n">579</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>1 Aug</td><td class="n">596</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-<tr><td>2 Aug</td><td class="n">674</td><td class="n">6.00</td><td class="n">6.00</td><td class="n">6.02</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">Working hours. The 0.02 spread is rounding on the deadline stamp, not
-real variance. Note 21 Jul already shows a maximum of 6.00 — the first 6-hour deadlines appear late that day, so the
-rollout began on 21 Jul and was complete by 22 Jul.</p>
-</div>
-</details>
-
-<h2>The cumulative action curve</h2>
-<p class="lede">Each curve flattens at its own P41 deadline; that flat line <em>is</em> the guillotine. PRE holds
-from hour 2 onward, POST from hour 6.</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">% of created tasks with first CSP action completed, by elapsed working hours</div>
-  <div class="chartsub">Working hours = 9 AM – 9 PM IST, counted every day · PRE action = slot proposal · POST action = technician assignment</div>
-  <svg id="c1" viewBox="0 0 760 410" role="img" aria-label="Cumulative percentage of tasks actioned against elapsed working hours, pre versus post P41 change"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>PRE 14–20 Jul · P41 = 2h · all candidates · n=4,985</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>POST 26 Jul–1 Aug · P41 = 6h · customer-proposed slot · n=3,165</span>
-  </div>
-</div>
-<figcaption>PRE holds at 33.08% from hour 2 forever. POST is still climbing at hour 2 (37.19%) and accrues a
-further <b>+4.61pp</b> to 41.80% by hour 6 — then stops absolutely: 41.80% at hour 6, hour 8 and at the end alike.
-The divergence <em>after</em> each cohort's own cutoff is the P41 effect; the vertical offset between the curves is
-cohort scoping and carries no meaning.</figcaption>
-</figure>
-
-<details>
-<summary>Table view — cumulative action curve</summary>
-<div class="dwrap">
-<div class="tblscroll">
-<table>
-<thead><tr><th class="n">Within (working h)</th><th class="n">PRE (n=4,985)</th><th class="n">POST (n=3,165)</th></tr></thead>
-<tbody>
-<tr><td class="n">0.25</td><td class="n">25.94%</td><td class="n">31.18%</td></tr>
-<tr><td class="n">0.50</td><td class="n">27.44%</td><td class="n">32.48%</td></tr>
-<tr><td class="n">1.0</td><td class="n">29.89%</td><td class="n">34.00%</td></tr>
-<tr><td class="n">1.5</td><td class="n">31.72%</td><td class="n">36.37%</td></tr>
-<tr class="hi"><td class="n">2.0 — old P41</td><td class="n">33.08%</td><td class="n">37.19%</td></tr>
-<tr><td class="n">2.5</td><td class="n">33.08%</td><td class="n">37.98%</td></tr>
-<tr><td class="n">3.0</td><td class="n">33.08%</td><td class="n">38.89%</td></tr>
-<tr><td class="n">4.0</td><td class="n">33.08%</td><td class="n">39.91%</td></tr>
-<tr><td class="n">5.0</td><td class="n">33.08%</td><td class="n">40.95%</td></tr>
-<tr class="hi"><td class="n">6.0 — new P41</td><td class="n">33.08%</td><td class="n">41.80%</td></tr>
-<tr><td class="n">8.0</td><td class="n">33.08%</td><td class="n">41.80%</td></tr>
-<tr><td class="n">final</td><td class="n">33.08%</td><td class="n">41.80%</td></tr>
-</tbody>
-<tbody><tr><td><b>Accrual, hour 2 → hour 6</b></td><td class="n"><b>+0.00pp</b></td><td class="n"><b>+4.61pp</b></td></tr></tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">No difference column: the two cohorts are scoped differently by
-design, so a per-row subtraction would not mean anything. Compare each column against itself.</p>
-</div>
-</details>
-
-<h2 id="response">Response rate — and what the extra hours actually surface</h2>
-<p class="lede">A CSP can respond two ways: act on the task, or decline it. Both are responses; only one is progress.
-Looking at the combined response rate first, then splitting it, changes the reading of the gain.</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Response rate — any CSP response, positive or decline</div>
-  <div class="chartsub">% of created tasks where the CSP either acted or declined, by elapsed working hours</div>
-  <svg id="c4" viewBox="0 0 760 400" role="img" aria-label="Cumulative CSP response rate against elapsed working hours, pre versus post"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · n=4,985</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · n=3,165</span>
-  </div>
-</div>
-<figcaption>Same shape as before: PRE freezes at 47.02% the moment its 2-hour window closes, POST keeps climbing to
-62.59% by hour 6. The extra four hours buy <b>+8.50pp of additional response</b> — nearly double the +4.61pp of
-positive action alone.</figcaption>
-</figure>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Positive action rate — the CSP acted on the task</div>
-  <div class="chartsub">PRE action = slot proposal · POST action = technician assignment</div>
-  <svg id="c5" viewBox="0 0 760 400" role="img" aria-label="Cumulative positive action rate by elapsed working hours, pre versus post"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · n=4,985</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · n=3,165</span>
-  </div>
-</div>
-<figcaption>PRE freezes at 33.08%; POST carries on to 41.80%. The extra four hours add
-<b>+4.61pp of positive action</b>.</figcaption>
-</figure>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Decline rate — the CSP refused the task</div>
-  <div class="chartsub">Same cohorts, same clock · a decline is a response, but not progress</div>
-  <svg id="c8" viewBox="0 0 760 400" role="img" aria-label="Cumulative decline rate by elapsed working hours, pre versus post"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · n=4,985</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · n=3,165</span>
-  </div>
-</div>
-<figcaption>The same shape again. PRE freezes at 13.94%; POST carries on to 20.79%, adding <b>+3.89pp of
-declines</b>. The longer window truncates refusals exactly as it truncates progress — which is why 46% of what it
-surfaces is a refusal.</figcaption>
-</figure>
-
-<div class="tblscroll">
-<table>
-<thead><tr>
-  <th>Accrual, working-hour 2 → 6</th>
-  <th class="n">Response</th><th class="n">Positive action</th><th class="n">Decline</th>
-</tr></thead>
-<tbody>
-  <tr><td>PRE (P41 = 2h)</td><td class="n">+0.02pp</td><td class="n">+0.00pp</td><td class="n">+0.02pp</td></tr>
-  <tr class="hi"><td>POST (P41 = 6h)</td><td class="n"><b>+8.50pp</b></td><td class="n">+4.61pp</td><td class="n">+3.89pp</td></tr>
-  <tr><td style="color:var(--ink2)">Share of the POST gain</td><td class="n">100%</td><td class="n">54%</td><td class="n">46%</td></tr>
-</tbody>
-</table>
-</div>
-
-<p>The decline half carries a timing cost. Under the 2-hour window a CSP who was going to refuse timed out at hour 2
-and the booking was released for reroute; under six hours the same CSP holds it and declines at hour 3, 4 or 5, so
-the booking waits up to four extra working hours before it starts looking for anyone else. The same applies to the
-35.5% who still time out — they now hold for six hours instead of two. What that costs depends on what the reroute
-path would have delivered instead, measured in <a href="#installs">the install section</a>.</p>
-
-<details>
-<summary>Table view — response rate and split</summary>
-<div class="dwrap">
-<div class="tblscroll">
-<table>
-<thead><tr>
-  <th class="n">Within (working h)</th>
-  <th class="n">PRE resp</th><th class="n">PRE pos</th><th class="n">PRE dec</th>
-  <th class="n">POST resp</th><th class="n">POST pos</th><th class="n">POST dec</th>
-</tr></thead>
-<tbody>
-<tr><td class="n">0.25</td><td class="n">34.18%</td><td class="n">25.94%</td><td class="n">8.24%</td><td class="n">41.42%</td><td class="n">31.18%</td><td class="n">10.24%</td></tr>
-<tr><td class="n">0.50</td><td class="n">36.95%</td><td class="n">27.44%</td><td class="n">9.51%</td><td class="n">44.08%</td><td class="n">32.48%</td><td class="n">11.60%</td></tr>
-<tr><td class="n">1.0</td><td class="n">41.10%</td><td class="n">29.89%</td><td class="n">11.21%</td><td class="n">47.42%</td><td class="n">34.00%</td><td class="n">13.43%</td></tr>
-<tr><td class="n">1.5</td><td class="n">44.47%</td><td class="n">31.72%</td><td class="n">12.76%</td><td class="n">52.20%</td><td class="n">36.37%</td><td class="n">15.83%</td></tr>
-<tr class="hi"><td class="n">2.0 — old P41</td><td class="n">47.00%</td><td class="n">33.08%</td><td class="n">13.92%</td><td class="n">54.09%</td><td class="n">37.19%</td><td class="n">16.90%</td></tr>
-<tr><td class="n">2.5</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">55.70%</td><td class="n">37.98%</td><td class="n">17.73%</td></tr>
-<tr><td class="n">3.0</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">57.12%</td><td class="n">38.89%</td><td class="n">18.23%</td></tr>
-<tr><td class="n">4.0</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">59.18%</td><td class="n">39.91%</td><td class="n">19.27%</td></tr>
-<tr><td class="n">5.0</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">60.95%</td><td class="n">40.95%</td><td class="n">20.00%</td></tr>
-<tr class="hi"><td class="n">6.0 — new P41</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">62.59%</td><td class="n">41.80%</td><td class="n">20.79%</td></tr>
-<tr><td class="n">final</td><td class="n">47.02%</td><td class="n">33.08%</td><td class="n">13.94%</td><td class="n">62.62%</td><td class="n">41.80%</td><td class="n">20.82%</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">Each candidate is classified by whichever response came
-<b>first</b>, so positive and decline are mutually exclusive and sum to the response rate. Non-response is the
-remainder — 52.98% for PRE, 37.38% for POST, closely matching the <code>TIMEOUT_P41</code> shares of 52.5% and
-35.5%.</p>
-</div>
-</details>
-
-<h2 id="installs">Does the extra response become installs?</h2>
-<p class="lede">The +4.61pp is only worth something if those late assignments finish the job. Two things decide
-that: whether a CSP who acts in hour 2–6 installs as reliably as one who acts immediately, and what would have
-happened to those bookings under the old window instead.</p>
-
-<h3>1. Late assignments convert just as well — at every hour</h3>
-<p>Task-level install rate: of the tasks that got a technician assigned, the share that reached
-<code>CONNECTION_ACTIVE</code>, broken out by how long the assignment took.</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Install rate by assignment latency</div>
-  <div class="chartsub">POST cohort · 1,323 assigned tasks · dashed line = pooled rate 48.68%</div>
-  <svg id="c7" viewBox="0 0 760 330" role="img" aria-label="Install rate by assignment latency band"></svg>
-</div>
-<figcaption>Every band sits on the pooled rate. Whether the CSP assigned in fifteen minutes or in five hours, the
-task installs about half the time.</figcaption>
-</figure>
-
-<div class="tblscroll">
-<table>
-<thead><tr><th>Assignment latency</th><th class="n">Assigned</th><th class="n">Installed</th><th class="n">Install rate</th><th class="n">Failed</th><th class="n">Cx cancelled</th><th class="n">In flight</th></tr></thead>
-<tbody>
-<tr><td>&lt;15 min</td><td class="n">987</td><td class="n">481</td><td class="n">48.73%</td><td class="n">196</td><td class="n">94</td><td class="n">74</td></tr>
-<tr><td>15–60 min</td><td class="n">89</td><td class="n">44</td><td class="n">49.44%</td><td class="n">19</td><td class="n">7</td><td class="n">6</td></tr>
-<tr><td>1–2 h</td><td class="n">101</td><td class="n">45</td><td class="n">44.55%</td><td class="n">28</td><td class="n">11</td><td class="n">6</td></tr>
-<tr class="hi"><td>2–3 h</td><td class="n">54</td><td class="n">30</td><td class="n">55.56%</td><td class="n">7</td><td class="n">4</td><td class="n">5</td></tr>
-<tr class="hi"><td>3–4 h</td><td class="n">32</td><td class="n">14</td><td class="n">43.75%</td><td class="n">7</td><td class="n">3</td><td class="n">3</td></tr>
-<tr class="hi"><td>4–5 h</td><td class="n">33</td><td class="n">16</td><td class="n">48.48%</td><td class="n">8</td><td class="n">0</td><td class="n">2</td></tr>
-<tr class="hi"><td>5–6 h</td><td class="n">27</td><td class="n">14</td><td class="n">51.85%</td><td class="n">8</td><td class="n">3</td><td class="n">1</td></tr>
-</tbody>
-<tbody>
-<tr><td><b>Pooled</b></td><td class="n"><b>1,323</b></td><td class="n"><b>644</b></td><td class="n"><b>48.68%</b></td><td class="n">273</td><td class="n">122</td><td class="n">97</td></tr>
-</tbody>
-</table>
-</div>
-
-<p>Install rate is flat across the whole window — every band lands between 43.75% and 55.56% against a pooled
-48.68%, with no trend as latency rises. Highlighted rows are the tasks that exist only because the window was
-extended; they install at the same rate as everything else. The hourly bands are small (27–54 tasks each), so their
-individual movement is not worth reading into — what matters is that none of them departs from the pooled rate.</p>
-
-<p>Collapsed into the two groups that matter for the P41 decision — everything the old 2-hour window would have
-kept, against everything it would have thrown away:</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr><th>Assignment latency</th><th class="n">Assigned</th><th class="n">Installed</th><th class="n">Install rate</th><th>What the old 2h window would have done</th></tr></thead>
-<tbody>
-<tr><td>Within 2 working hours</td><td class="n">1,177</td><td class="n">570</td><td class="n">48.43%</td><td style="color:var(--ink2)">Kept — unaffected by the change</td></tr>
-<tr class="hi"><td><b>2–6 working hours</b></td><td class="n"><b>146</b></td><td class="n"><b>74</b></td><td class="n"><b>50.68%</b></td><td style="color:var(--ink2)">Killed at hour 2 and rerouted</td></tr>
-<tr><td><b>Total assigned</b></td><td class="n"><b>1,323</b></td><td class="n"><b>644</b></td><td class="n"><b>48.68%</b></td><td></td></tr>
-</tbody>
-</table>
-</div>
-
-<p><b>That is where 146 comes from</b>: the tasks a CSP only got to between working-hour 2 and working-hour 6, which
-exist as assignments solely because P41 was extended. They are 11.0% of all assignments in the cohort, and 74 of
-them reached an install.</p>
-
-<h3>So does the longer window lift supply efficiency? Yes.</h3>
-<p>Those 74 installs are the whole point. Because they convert at the normal rate, they land straight on top of
-the existing install base. Stated at both denominators — per task, and per connection/booking, which is the level
-supply efficiency is usually read at:</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr>
-  <th>Supply efficiency</th><th class="n">Denominator</th>
-  <th class="n">SE at P41 = 2h</th><th class="n">SE at P41 = 6h</th><th class="n">Uplift</th>
-</tr></thead>
-<tbody>
-<tr><td><b>Task level</b> — installs per install candidate</td><td class="n">3,165 tasks</td>
-    <td class="n">18.01%</td><td class="n">20.35%</td><td class="n"><b class="up">+2.34pp</b></td></tr>
-<tr class="hi"><td><b>Connection / booking level</b> — installs per connection</td><td class="n">1,654 connections</td>
-    <td class="n">36.22%</td><td class="n">40.69%</td><td class="n"><b class="up">+4.47pp</b></td></tr>
-</tbody>
-</table>
-</div>
-
-<p>The connection-level figure is roughly double the task-level one for a mechanical reason: the 3,165 tasks sit
-on only <b>1,654 distinct connections</b> — about 1.9 candidates per connection, because a rerouted booking
-generates a fresh candidate each time. Installs are counted once either way, so the smaller denominator makes the
-same 74 installs worth more. <b>Per booking, extending P41 lifts supply efficiency from 36.22% to 40.69%.</b></p>
-
-<p>Both figures above credit P41 with the full 74 installs. Section 2 nets off what the old path would have
-recovered on its own, which is the number to actually plan against.</p>
-
-<h3>2. A timed-out booking is not a lost booking</h3>
-<p>When a candidate dies on <code>TIMEOUT_P41</code> the connection is released and rerouted — <b>78.1%</b> of them
-pick up a fresh candidate, and <b>15.9%</b> of the timed-out connections go on to install anyway with somebody else.
-So the counterfactual for those 146 late assignments is not zero installs; it is roughly 23.</p>
-
-<p>Of the 146 tasks the extension bought, roughly <b>23 would have installed anyway</b> under the old window, via a
-different CSP after reroute. Only the remaining <b>≈51</b> are genuinely new. Restating the same two levels net of
-that:</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr>
-  <th>Supply efficiency</th><th class="n">Denominator</th>
-  <th class="n">Raw uplift</th><th class="n">Less reroute</th><th class="n">Net uplift</th>
-</tr></thead>
-<tbody>
-<tr><td><b>Task level</b> — per install candidate</td><td class="n">3,165 tasks</td>
-    <td class="n">+2.34pp</td><td class="n">−0.73pp</td><td class="n"><b class="up">+1.60pp</b></td></tr>
-<tr class="hi"><td><b>Connection / booking level</b> — per connection</td><td class="n">1,654 connections</td>
-    <td class="n">+4.47pp</td><td class="n">−1.40pp</td><td class="n"><b class="up">+3.07pp</b></td></tr>
-</tbody>
-</table>
-</div>
-
-<div class="tiles">
-  <div class="tile">
-    <div class="lbl">Net SE uplift — per booking</div>
-    <div class="val up">+3.07pp</div>
-    <div class="note">36.22% → 39.29% at connection level, after netting off reroute</div>
-  </div>
-  <div class="tile">
-    <div class="lbl">Net SE uplift — per task</div>
-    <div class="val up">+1.60pp</div>
-    <div class="note">18.01% → 19.61% at candidate level</div>
-  </div>
-  <div class="tile">
-    <div class="lbl">Genuinely new installs</div>
-    <div class="val">≈ 51</div>
-    <div class="note">74 from the 2–6h band, less ~23 reroute would have recovered</div>
-  </div>
-  <div class="tile">
-    <div class="lbl">Relative lift on booking SE</div>
-    <div class="val">≈ 8.5%</div>
-    <div class="note">+3.07pp against a 36.22% base</div>
-  </div>
-</div>
-
-<p><b>The answer to "does raising P41 increase supply efficiency" is yes — about +3pp per booking, +1.6pp per
-task.</b> Not the +4.61pp of extra positive action, and not the +4.47pp of raw installs; the difference in each
-case is the reroute path, which was already recovering about one in six timed-out bookings without any change
-to P41.</p>
-
-<p><b>Treat these as a ceiling, not a point estimate.</b> Reroute recovery rises the younger the cohort — 7.9% for
-mid-June, 9.0% for early July, 15.1% for late July — so the 15.9% subtracted here will likely grow, shrinking the
-net gain further.</p>
-
-<details>
-<summary>Reroute recovery by cohort age — why 15.9% is not a censoring artifact</summary>
-<div class="dwrap">
-<div class="tblscroll">
-<table>
-<thead><tr><th>P41-timeout cohort</th><th class="n">Timed out</th><th class="n">Connection installed anyway</th><th class="n">Recovery</th></tr></thead>
-<tbody>
-<tr><td>15–30 Jun (35+ days old)</td><td class="n">1,956</td><td class="n">154</td><td class="n">7.87%</td></tr>
-<tr><td>1–15 Jul (20+ days old)</td><td class="n">5,327</td><td class="n">480</td><td class="n">9.01%</td></tr>
-<tr><td>16–25 Jul (10+ days old)</td><td class="n">2,822</td><td class="n">312</td><td class="n">11.06%</td></tr>
-<tr class="hi"><td>26 Jul – 1 Aug (3–9 days old)</td><td class="n">1,441</td><td class="n">217</td><td class="n">15.06%</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:14.5px;color:var(--ink2)">Recovery is <em>highest</em> in the youngest cohort, which is the
-opposite of what censoring produces — if the recent figure were simply immature it would be the lowest. Reroute
-has genuinely been getting better (or the customer-scheduling flow reroutes better). Either way the recent ~15–16%
-is a floor, not an inflated number, so subtracting it gives an upper bound on the net gain.</p>
-</div>
-</details>
-
-<h2 id="cancellations">The cost side — did customers cancel?</h2>
-<p class="lede">The longer window buys +4.61pp of positive action, but 46% of what it surfaces is a decline and
-the 35.5% who still time out now hold for six working hours instead of two. Either way the customer waits longer
-before their booking looks for anyone else. The obvious place that cost would show is <b>customer-initiated
-cancellation</b>. It does not.</p>
-
-<div class="callout warn">
-<p><b>Read this table on distinct customers, never on event rows.</b> <code>BOOKING_LOGS</code> has been writing
-duplicate <code>cancelled</code> events since <b>10 July 2026</b> — 43,985 rows on 13 July across just 63 distinct
-mobiles, roughly 700 writes per real cancellation. Counted raw, the series shows a cancellation explosion beginning
-twelve days before the P41 change, which would read exactly like a P41 effect. Every figure here is deduped to one
-row per mobile.</p>
-</div>
-
-<p>Cohorts are anchored on <b>booking confirmation</b>, and cancellation is measured at fixed horizons from that
-moment. Fixed horizons matter: cancellation takes ~80 hours on average, so a recent week measured on "has cancelled
-by now" is right-truncated and looks artificially clean.</p>
-
-<div class="tblscroll">
-<table>
-<thead>
-<tr><th>Week booking confirmed</th><th class="n">Confirmed</th><th class="n">Cancelled ≤24h</th><th class="n">≤72h</th><th class="n">≤7d</th></tr>
-</thead>
-<tbody>
-<tr><td>11 May</td><td class="n">270</td><td class="n">7.78%</td><td class="n">15.93%</td><td class="n">27.04%</td></tr>
-<tr><td>18 May</td><td class="n">540</td><td class="n">5.19%</td><td class="n">14.26%</td><td class="n">27.22%</td></tr>
-<tr><td>25 May</td><td class="n">467</td><td class="n">6.85%</td><td class="n">18.84%</td><td class="n">31.05%</td></tr>
-<tr><td>1 Jun</td><td class="n">724</td><td class="n">3.45%</td><td class="n">11.46%</td><td class="n">20.99%</td></tr>
-<tr><td>8 Jun</td><td class="n">858</td><td class="n">8.04%</td><td class="n">14.69%</td><td class="n">24.71%</td></tr>
-<tr><td>15 Jun</td><td class="n">796</td><td class="n">3.77%</td><td class="n">10.80%</td><td class="n">20.48%</td></tr>
-<tr><td>22 Jun</td><td class="n">1,194</td><td class="n">7.12%</td><td class="n">10.64%</td><td class="n">17.09%</td></tr>
-<tr><td>29 Jun</td><td class="n">962</td><td class="n">4.68%</td><td class="n">10.40%</td><td class="n">18.19%</td></tr>
-<tr><td>6 Jul</td><td class="n">1,704</td><td class="n">6.81%</td><td class="n">11.74%</td><td class="n">17.25%</td></tr>
-<tr><td>13 Jul</td><td class="n">1,536</td><td class="n">4.17%</td><td class="n">10.55%</td><td class="n">18.88%</td></tr>
-<tr class="hi"><td>20 Jul — P41 changes on the 22nd</td><td class="n">1,137</td><td class="n">4.93%</td><td class="n">10.20%</td><td class="n">16.09%</td></tr>
-<tr class="hi"><td>27 Jul — first full week at 6h</td><td class="n">1,337</td><td class="n">5.91%</td><td class="n">11.67%</td><td class="n">14.14%</td></tr>
-</tbody>
-</table>
-</div>
-
-<p>Nothing breaks at 22 July. The 7-day rate has been falling all year — 27% in May, 14% by late July — and the
-post-change weeks sit on that same downward line rather than departing from it.</p>
-
-<h3>The window P41 actually holds — hour by hour</h3>
-<p>Day-level buckets are too coarse to answer this: P41 only changed what happens between <b>hour 2 and hour 6</b>,
-so the test has to be at hourly resolution. Cohorts are split at the <b>true cutover — 21 Jul 23:17 IST</b>, the
-moment the window flips from 2.00 to 6.00 working hours, rather than at the 22 Jul day boundary.</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Customer-initiated cancellation, by hours since booking confirmation</div>
-  <div class="chartsub">Deduped to distinct mobiles · PRE n=4,389 · POST n=2,107 · shaded band = the hours P41 newly holds</div>
-  <svg id="c6" viewBox="0 0 760 400" role="img" aria-label="Cumulative customer cancellation rate by hours since booking confirmation, pre versus post"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · confirmed 1–21 Jul</span>
-    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · confirmed 21 Jul – 2 Aug</span>
-  </div>
-</div>
-<figcaption>POST sits <em>below</em> PRE at every hour out to 12 — but the levels are not comparable (different
-weeks, and cancellation has been falling all year). The comparable measure is the accrual <b>within</b> the shaded
-2–6 hour band, and there POST is marginally higher.</figcaption>
-</figure>
-
-<div class="tblscroll">
-<table>
-<thead>
-<tr><th>Hours since confirmation</th><th class="n">PRE (n=4,389)</th><th class="n">POST (n=2,107)</th></tr>
-</thead>
-<tbody>
-<tr><td class="n">1</td><td class="n">2.19%</td><td class="n">1.61%</td></tr>
-<tr class="hi"><td class="n">2 — old P41 closes</td><td class="n">2.55%</td><td class="n">2.09%</td></tr>
-<tr><td class="n">3</td><td class="n">2.76%</td><td class="n">2.33%</td></tr>
-<tr><td class="n">4</td><td class="n">3.01%</td><td class="n">2.66%</td></tr>
-<tr><td class="n">5</td><td class="n">3.14%</td><td class="n">2.85%</td></tr>
-<tr class="hi"><td class="n">6 — new P41 closes</td><td class="n">3.30%</td><td class="n">2.94%</td></tr>
-<tr><td class="n">8</td><td class="n">3.49%</td><td class="n">3.13%</td></tr>
-<tr><td class="n">12</td><td class="n">3.78%</td><td class="n">3.42%</td></tr>
-<tr><td class="n">24</td><td class="n">5.33%</td><td class="n">5.32%</td></tr>
-</tbody>
-<tbody>
-<tr><td><b>Accrual, hour 2 → 6</b></td><td class="n"><b>+0.75pp</b></td><td class="n"><b>+0.85pp</b></td></tr>
-</tbody>
-</table>
-</div>
-
-<p>Applying the same within-cohort logic used everywhere else on this page: between hour 2 and hour 6, PRE accrues
-<b>+0.75pp</b> of cancellation and POST accrues <b>+0.85pp</b> — so POST loses about <b>0.10pp more</b> customers
-in exactly the span P41 newly occupies. On 2,107 POST bookings that difference is roughly <b>two customers</b>.
-It is not distinguishable from noise, and it should not be reported as a detected cost.</p>
-
-<p><b>The more interesting shape is what happens by hour 24: the two converge exactly</b> — 5.33% and 5.32%. POST
-cancels markedly less early and then catches up completely. That is the signature of cancellation being
-<em>deferred</em> rather than avoided, which is what you would expect if the booking is simply held longer before
-anything visible happens to it.</p>
-
-<p class="lede">On the evidence available, the +4.61pp of positive action is <b>not</b> being paid for in customer
-cancellations — but the honest statement is "no detectable cost at this sample size", not "no cost".</p>
-
-<h3>What would change this conclusion</h3>
+<p>So the parameter sits on a single trade-off, and calibrating it means answering two questions:</p>
 <ul>
-<li><b>Only one uncensored POST week exists</b> (n=1,337). Cancellation averages ~80 hours, so later weeks have not
-had time to happen yet. A second full week would firm this up materially — it is the single cheapest way to
-strengthen or overturn the finding.</li>
-<li><b>Cancellation is booking-level, not P41-attributable.</b> The customer-proposed-slot flow launched around
-21 July, one day before the P41 change, so the two are confounded in the POST cohort. This measures what happened,
-not what P41 alone caused.</li>
-<li><b>The secular decline could be masking a small penalty.</b> The 7-day rate has fallen steadily since May for
-reasons unrelated to P41. A modest P41 cost could be hidden inside that improvement and would not be visible at
-this sample size.</li>
-<li><b>Reroute <em>latency</em> is still unmeasured.</b> Reroute <em>recovery</em> now is — see
-<a href="#installs">the install section</a>, where 78.1% of timed-out bookings pick up a fresh candidate and 15.9%
-eventually install. What is still missing is how <em>long</em> that second attempt takes, and whether four extra
-working hours of holding pushes the total wait past the customer's patience in some form other than an outright
-cancellation.</li>
+  <li><b>How much time is enough for the CSP to act?</b> Too short and we pull away bookings the CSP was about to
+  take, and reroute work that never needed rerouting.</li>
+  <li><b>How long can the customer be kept waiting?</b> Too long and the booking sits with someone who was never
+  going to act, while the customer waits and the search for a replacement is delayed.</li>
 </ul>
 
-<h3>Method</h3>
+<h2>Recommendation</h2>
+
+<div class="rec">
+  <p class="big">Keep P41 at 6 working hours.</p>
+  <p>It is close to correctly calibrated. Six working hours captures <b>95%+ of every CSP quartile's responses</b>,
+  and the hours it buys are cheap in customer patience: the cancellation hazard is <b>1.56%/hour in the first
+  hour but 0.09%/hour by hour six</b>. Cutting to 4h would forfeit ~1.9pp of positive action — roughly 1.8pp of
+  booking-level supply efficiency — to save about 0.28pp of cancellation. That is a bad trade.</p>
+  <p><b>Do not extend beyond 6h on current evidence.</b> The window is binding, so what CSPs would do at hour 7+
+  is unobservable — the data cannot support the case either way, and the marginal return is already decaying
+  (+1.82pp/h of positive action at hour 2–3, +0.85pp/h by hour 5–6).</p>
+</div>
+
+<div class="rec" style="border-left-color:var(--s1)">
+  <p class="big" style="font-size:20px">Then: make it depend on the CSP, not one number for everyone.</p>
+  <p>A single global value is the wrong shape for this. The bottom quartile of CSPs responds to just
+  <b>5.15%</b> of bookings even when given the full six hours — and 3.13% of that arrives within two hours.
+  Cutting <b>their</b> window to 2h would cost about <b>11 tasks</b> across the week while releasing roughly
+  <b>520 bookings four working hours sooner</b>.</p>
+  <p>The top quartile already responds to 92% of bookings within two hours, so the window rarely binds for them
+  either. <b>The 6-hour window is earning its keep almost entirely in the middle two quartiles.</b></p>
+</div>
+
+<h2>Why</h2>
+
+<h3>A note on method: this looks only at the current regime</h3>
+<div class="note-box">
+  <p>All figures below are drawn from the period <b>after</b> P41 moved to 6 hours. This is deliberately not a
+  before/after comparison, for two reasons:</p>
+  <p><b>1. Several changes shipped at once.</b> The customer-scheduling flow went live ~21 July, one day before
+  the P41 change. Any pre/post difference mixes the two, and neither can be isolated cleanly.</p>
+  <p><b>2. Changing the timer changes the behaviour being measured.</b> Under a 2-hour window you cannot observe a
+  five-hour response — the task was already dead. The old regime's numbers are truncated by its own deadline, so
+  comparing them to the new regime's is not like-for-like. Calibration needs the distribution of what CSPs
+  <em>actually do</em> when given room, which only the current regime shows.</p>
+</div>
+
+<h3>1. How fast do CSPs respond?</h3>
+<p>Cumulative share of bookings where the CSP has responded, by elapsed working hours since the booking reached
+him.</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Response rate by elapsed working hours</div>
+  <div class="chartsub">Customer-proposed-slot bookings, 26 Jul – 1 Aug 2026 · n=3,165 · response = took the job or declined it</div>
+  <svg id="c1" viewBox="0 0 720 380" role="img" aria-label="Cumulative CSP response rate against elapsed working hours"></svg>
+</div>
+<figcaption>Response is heavily front-loaded — 41% inside the first quarter-hour — then a long, slowly decaying
+tail that is still climbing when the 6-hour deadline cuts it off at 62.6%.</figcaption>
+</figure>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Split into taking the job and declining it</div>
+  <div class="chartsub">The two components of the response curve above</div>
+  <svg id="c2" viewBox="0 0 720 380" role="img" aria-label="Positive action and decline rates against elapsed working hours"></svg>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--s1)"></i>Took the job</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>Declined</span>
+  </div>
+</div>
+<figcaption>Both climb throughout. Between hour 2 and hour 6 the window buys <b>+4.61pp</b> of jobs taken and
+<b>+3.89pp</b> of declines — so <b>46% of what the later hours surface is a refusal</b>. A decline is still useful
+(it releases the booking with a reason attached, faster than waiting for the timeout) but it is not progress.</figcaption>
+</figure>
+
+<h3>2. The variation is in <em>whether</em> CSPs respond, not how fast</h3>
+<p>Splitting CSPs into quartiles by their own response rate (CSPs with at least 5 bookings in the week):</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Cumulative response rate by CSP quartile</div>
+  <div class="chartsub">237 CSPs, 2,142 bookings · quartiles ranked by each CSP's own response rate</div>
+  <svg id="c3" viewBox="0 0 720 380" role="img" aria-label="Cumulative response rate by CSP quartile against working hours"></svg>
+</div>
+<figcaption>The quartiles are separated almost entirely by <em>level</em>, not slope. Q1 responds to everything;
+Q4 responds to one booking in twenty however long it is given. Waiting six hours on a Q4 CSP is close to pure
+delay.</figcaption>
+</figure>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>CSP quartile</th><th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Response rate</th>
+<th class="n">P25</th><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
+<tbody>
+<tr><td>Q1 — best</td><td class="n">60</td><td class="n">485</td><td class="n">100%</td>
+    <td class="n">0.01</td><td class="n">0.01</td><td class="n">1.68</td><td class="n">3.44</td></tr>
+<tr><td>Q2</td><td class="n">59</td><td class="n">545</td><td class="n">89.9%</td>
+    <td class="n">0.01</td><td class="n">0.09</td><td class="n">3.05</td><td class="n">4.23</td></tr>
+<tr><td>Q3</td><td class="n">59</td><td class="n">568</td><td class="n">54.6%</td>
+    <td class="n">0.01</td><td class="n">0.09</td><td class="n">3.86</td><td class="n">4.70</td></tr>
+<tr class="hi"><td>Q4 — worst</td><td class="n">59</td><td class="n">544</td><td class="n">5.2%</td>
+    <td class="n">0.02</td><td class="n">0.46</td><td class="n">4.21</td><td class="n">4.87</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13.5px;color:var(--ink2)">Percentiles in working hours, among bookings that got a response.
+Median response is under 30 minutes in every quartile — <b>when a CSP responds at all, he is usually fast.</b>
+P95 never exceeds 4.87 working hours, which is what makes 6h a sufficient ceiling.</p>
+
+<h3>3. What each extra hour buys</h3>
+<div class="tblscroll">
+<table>
+<thead><tr><th class="n">P41 set to</th><th class="n">Q1</th><th class="n">Q2</th><th class="n">Q3</th><th class="n">Q4</th><th class="n">Overall response</th><th class="n">Overall jobs taken</th></tr></thead>
+<tbody>
+<tr><td class="n">1 h</td><td class="n">84.3%</td><td class="n">61.5%</td><td class="n">36.3%</td><td class="n">2.8%</td><td class="n">47.4%</td><td class="n">34.0%</td></tr>
+<tr><td class="n">2 h</td><td class="n">92.0%</td><td class="n">75.4%</td><td class="n">42.1%</td><td class="n">3.1%</td><td class="n">54.1%</td><td class="n">37.2%</td></tr>
+<tr><td class="n">3 h</td><td class="n">94.4%</td><td class="n">80.0%</td><td class="n">46.8%</td><td class="n">3.9%</td><td class="n">57.1%</td><td class="n">38.9%</td></tr>
+<tr><td class="n">4 h</td><td class="n">96.3%</td><td class="n">84.4%</td><td class="n">49.7%</td><td class="n">4.4%</td><td class="n">59.2%</td><td class="n">39.9%</td></tr>
+<tr><td class="n">5 h</td><td class="n">98.8%</td><td class="n">86.6%</td><td class="n">52.5%</td><td class="n">4.8%</td><td class="n">61.0%</td><td class="n">41.0%</td></tr>
+<tr class="hi"><td class="n">6 h — current</td><td class="n">100%</td><td class="n">89.9%</td><td class="n">54.6%</td><td class="n">5.2%</td><td class="n">62.6%</td><td class="n">41.8%</td></tr>
+</tbody>
+</table>
+</div>
+<p>Going from 4h to 6h adds <b>+3.4pp of response</b> and <b>+1.9pp of jobs taken</b> — worth roughly
+<b>1.8pp of booking-level supply efficiency</b>. That is the gain a shorter window would give up.</p>
+
+<h3>4. What each extra hour costs</h3>
+<p>The customer-side cost is cancellation while waiting. Measured as a hazard — of the bookings still live at the
+start of each hour, the share the customer cancels during that hour.</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Customer cancellation hazard, per hour of waiting</div>
+  <div class="chartsub">Bookings confirmed 21 Jul – 2 Aug 2026 · n=2,187 · deduped to distinct mobiles</div>
+  <svg id="c4" viewBox="0 0 720 340" role="img" aria-label="Customer cancellation hazard per hour of waiting"></svg>
+</div>
+<figcaption>Impatience is almost entirely spent in the first hour — <b>1.56%</b> of waiting customers cancel in
+hour one, against <b>0.09%</b> in hour six. The hours P41 is actually deciding about are the cheap ones.</figcaption>
+</figure>
+
+<h3>5. The trade at the margin</h3>
+<div class="tblscroll">
+<table>
+<thead><tr><th>At the hour 5→6 margin</th><th class="n">Per additional hour</th></tr></thead>
+<tbody>
+<tr><td>Jobs taken (gain)</td><td class="n up">+0.85pp</td></tr>
+<tr><td>Customers cancelling while waiting (cost)</td><td class="n">−0.09pp</td></tr>
+<tr class="hi"><td><b>Ratio</b></td><td class="n"><b>≈ 9 : 1 in favour of waiting</b></td></tr>
+</tbody>
+</table>
+</div>
+<p>Even at the sixth hour, the supply gained still outweighs the customers lost by roughly nine to one on this
+comparison. That is why the recommendation is to hold at 6h rather than cut back.</p>
+<p>What this comparison does <b>not</b> price is <b>reroute delay</b> — every booking that eventually times out
+now waits six hours instead of two before the search for a second CSP begins. How much that costs depends on how
+quickly a released booking finds someone else, which is not measured here and is the main open question.</p>
+
+<h3>6. Time of day makes no difference</h3>
+<p>Because P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), a booking arriving at 8 PM gets the
+same effective budget as one arriving at 10 AM. The data confirms the clock is doing its job:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Booking reached CSP at</th><th class="n">Bookings</th><th class="n">Working hrs left that day</th><th class="n">Response rate</th><th class="n">Jobs taken</th><th class="n">P90 response</th></tr></thead>
+<tbody>
+<tr><td>09–12 morning</td><td class="n">602</td><td class="n">10.4</td><td class="n">60.5%</td><td class="n">42.0%</td><td class="n">2.36</td></tr>
+<tr><td>12–15 midday</td><td class="n">679</td><td class="n">7.5</td><td class="n">63.0%</td><td class="n">40.8%</td><td class="n">2.28</td></tr>
+<tr><td>15–18 afternoon</td><td class="n">790</td><td class="n">4.7</td><td class="n">62.9%</td><td class="n">39.8%</td><td class="n">2.16</td></tr>
+<tr><td>18–21 late day</td><td class="n">647</td><td class="n">1.4</td><td class="n">61.4%</td><td class="n">41.1%</td><td class="n">2.35</td></tr>
+<tr><td>21–24 after close</td><td class="n">267</td><td class="n">0.0</td><td class="n">67.8%</td><td class="n">49.8%</td><td class="n">2.07</td></tr>
+<tr><td>00–09 before open</td><td class="n">180</td><td class="n">12.0</td><td class="n">63.9%</td><td class="n">44.4%</td><td class="n">1.71</td></tr>
+</tbody>
+</table>
+</div>
+<p>Response rate sits in a 60–68% band regardless of arrival time, and P90 response time varies by well under an
+hour. A booking arriving at 8 PM with 1.4 working hours left in the day performs the same as one arriving mid-morning.
+<b>No time-of-day-specific parameter is needed.</b></p>
+
+<details>
+<summary>Definitions</summary>
+<div class="dwrap">
 <ul>
-<li>Numerator: distinct <code>MOBILE</code> with <code>EVENT_NAME='cancelled'</code> and
-<code>DATA:initiated_by='customer'</code> in <code>PROD_DB.PUBLIC.BOOKING_LOGS</code>. The other value,
-<code>cops_unserviceable</code>, is excluded — it is not a customer decision.</li>
-<li>Denominator: distinct <code>MOBILE</code> with <code>EVENT_NAME='booking_confirmed'</code>, first occurrence.</li>
-<li>Both sides deduped to one row per mobile, which is what neutralises the duplication bug above.</li>
-<li>Only cancellations at or after the booking's own confirmation are counted.</li>
-<li>Weeks are IST (<code>ADDED_TIME</code> is UTC; +330 minutes). The partial week from 3 August is excluded.</li>
-<li><b>The hourly comparison splits at the true cutover, 21 Jul 23:17 IST</b> — the last candidate issued a
-2.00-working-hour window was created 23:14:39, the first issued 6.00 working hours at 23:20:58. Splitting on the
-22 Jul day boundary instead would misclassify the late-evening bookings of 21 Jul, which already had the new
-window, as PRE.</li>
-<li>Hourly cohorts: PRE = confirmed 1 Jul → cutover (n=4,389); POST = cutover → 2 Aug (n=2,107). POST stops at
-2 Aug so every booking in it has at least 24 hours of observation as of 4 Aug.</li>
+  <li><b>Working hours</b> — 9 AM – 9 PM IST, counted every day of the week. This is P41's native unit: measured on
+  that clock the window is exactly 6.00 hours, with minimum, median and maximum identical.</li>
+  <li><b>Response</b> — the first of either a positive action or a decline by the CSP. The two are mutually
+  exclusive and sum to the response rate.</li>
+  <li><b>Positive action</b> — technician assignment. In the customer-proposed-slot flow the slot is already
+  confirmed when the booking reaches the CSP, so assigning a technician is his first required step.</li>
+  <li><b>Population</b> — install candidates on customer-proposed-slot bookings created 26 Jul – 1 Aug 2026
+  (n=3,165 across 1,654 connections). Quartile analysis restricted to CSPs with ≥5 bookings in the week
+  (237 CSPs, 2,142 bookings).</li>
+  <li><b>Cancellation</b> — distinct mobiles with a customer-initiated <code>cancelled</code> event, measured from
+  booking confirmation. Bookings confirmed 21 Jul – 2 Aug so every one has ≥24h of observation.</li>
 </ul>
+</div>
+</details>
 
 <footer>
-  Install candidates created 14 Jul – 1 Aug 2026 · data as of 4 Aug 2026 · all times IST ·
-  sources <code>csp-tas-service</code>, <code>csp-demand-allocation-service</code> via Snowflake.
+  Data as of 4 Aug 2026 · all times IST · sources <code>csp-tas-service</code>,
+  <code>csp-demand-allocation-service</code>, <code>booking_logs</code> via Snowflake.
 </footer>
 </div>
 
@@ -697,7 +320,6 @@ window, as PRE.</li>
     root.setAttribute('data-theme', cur==='dark'?'light':'dark');
     setTimeout(draw,30);
   });
-
   var tt=document.getElementById('tt');
   function showTT(e,html){
     tt.innerHTML=html; tt.style.opacity=1;
@@ -713,150 +335,26 @@ window, as PRE.</li>
     for(var k in a) e.setAttribute(k,a[k]); return e; }
 
   /* ---------- data ---------- */
-  var TH   =[0.25,0.5,1,1.5,2,2.5,3,4,5,6,8];
-  var PRE  =[25.94,27.44,29.89,31.72,33.08,33.08,33.08,33.08,33.08,33.08,33.08];
-  var POST =[31.18,32.48,34.00,36.37,37.19,37.98,38.89,39.91,40.95,41.80,41.80];
+  var TH  =[0.25,0.5,1,1.5,2,2.5,3,4,5,6,8];
+  var RESP=[41.42,44.08,47.42,52.20,54.09,55.70,57.12,59.18,60.95,62.59,62.62];
+  var POS =[31.18,32.48,34.00,36.37,37.19,37.98,38.89,39.91,40.95,41.80,41.80];
+  var DEC =[10.24,11.60,13.43,15.83,16.90,17.73,18.23,19.27,20.00,20.79,20.82];
 
-  var DAYS=['14 Jul','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','1 Aug','2 Aug'];
-  /* P41 window in WORKING hours — median (min and max identical to within rounding) */
-  var WMED=[2,2,2,2,2,2,2,2,6,6,6,6,6,6,6,6,6,6,6,6];
-  var WMIN=[2.00,2.00,2.00,2.00,2.00,2.00,1.99,2.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00,6.00];
-  var WMAX=[2.02,2.02,2.02,2.02,2.02,2.02,2.02,6.00,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02,6.02];
+  var QH=[1,2,3,4,5,6];
+  var QU=[
+    {k:'Q1 best', c:'--s1', v:[84.33,91.96,94.43,96.29,98.76,100.00]},
+    {k:'Q2',      c:'--s2', v:[61.47,75.41,80.00,84.40,86.61,89.91]},
+    {k:'Q3',      c:'--s3', v:[36.27,42.08,46.83,49.65,52.46,54.58]},
+    {k:'Q4 worst',c:'--s4', v:[ 2.76, 3.13, 3.86, 4.41, 4.78, 5.15]}
+  ];
 
+  var HAZ=[1.555,0.464,0.233,0.327,0.188,0.094,0.094,0.094,0.094,0.047,0.094,0.047];
 
-  /* ---------- chart 1 ---------- */
-  function c1(){
-    var s=document.getElementById('c1'); s.innerHTML='';
-    var W=760,H=410,L=58,R=104,T=18,B=52, pw=W-L-R, ph=H-T-B;
-    var xmax=8, ymin=24, ymax=44;
-    var X=function(v){ return L + (v/xmax)*pw; };
-    var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), s1=cv('--s1'), s2=cv('--s2'), surf=cv('--surface');
-
-    for(var v=24; v<=44; v+=4){
-      s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
-      var tx=el('text',{x:L-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v+'%'; s.appendChild(tx);
-    }
-    [0,1,2,3,4,5,6,7,8].forEach(function(v){
-      var tx=el('text',{x:X(v),y:T+ph+22,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v; s.appendChild(tx);
-    });
-    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Elapsed working hours since task notification'; s.appendChild(xl);
-    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
-
-    /* rule labels sit at the BOTTOM here — the curves occupy the upper half,
-       and the hour-6 bracket needs the top-right clear */
-    [[2,'Old P41 · 2h',s1],[6,'New P41 · 6h',s2]].forEach(function(m){
-      s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:m[2],'stroke-width':1,opacity:.34}));
-      var t=el('text',{x:X(m[0])+7,y:T+ph-8,fill:m[2],'font-size':11.5,'font-weight':600});
-      t.textContent=m[1]; s.appendChild(t);
-    });
-
-    var i2=TH.indexOf(2), i6=TH.indexOf(6), bx=X(6)+3;
-    s.appendChild(el('line',{x1:bx,x2:bx,y1:Y(POST[i2]),y2:Y(POST[i6]),stroke:s2,'stroke-width':1.5}));
-    s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(POST[i2]),y2:Y(POST[i2]),stroke:s2,'stroke-width':1.5}));
-    s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(POST[i6]),y2:Y(POST[i6]),stroke:s2,'stroke-width':1.5}));
-    var at=el('text',{x:bx+9,y:(Y(POST[i2])+Y(POST[i6]))/2+4,fill:s2,'font-size':12,'font-weight':650});
-    at.textContent='+4.61pp'; s.appendChild(at);
-
-    function path(vals,col){
-      var d='';
-      for(var i=0;i<TH.length;i++){ if(TH[i]>xmax) break; d+=(i?'L':'M')+X(TH[i])+' '+Y(vals[i]); }
-      s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
-    }
-    path(PRE,s1); path(POST,s2);
-
-    var lt1=el('text',{x:X(8)+8,y:Y(PRE[TH.length-1])+14,fill:s1,'font-size':12,'font-weight':620});
-    lt1.textContent='PRE 33.1%'; s.appendChild(lt1);
-    var lt2=el('text',{x:X(8)+8,y:Y(POST[TH.length-1])+4,fill:s2,'font-size':12,'font-weight':620});
-    lt2.textContent='POST 41.8%'; s.appendChild(lt2);
-
-    for(var i=0;i<TH.length;i++){
-      if(TH[i]>xmax) break;
-      [[PRE,s1],[POST,s2]].forEach(function(g){
-        s.appendChild(el('circle',{cx:X(TH[i]),cy:Y(g[0][i]),r:3.4,fill:g[1],stroke:surf,'stroke-width':2}));
-      });
-      (function(idx){
-        var hit=el('rect',{x:X(TH[idx])-14,y:T,width:28,height:ph,fill:'transparent',style:'cursor:crosshair'});
-        hit.addEventListener('mousemove',function(e){
-          var d=POST[idx]-PRE[idx];
-          showTT(e,'<b>Within '+TH[idx]+' working hour'+(TH[idx]===1?'':'s')+'</b>'+
-            '<div class="row"><span>PRE · slot proposed</span><span>'+PRE[idx].toFixed(2)+'%</span></div>'+
-            '<div class="row"><span>POST · tech assigned</span><span>'+POST[idx].toFixed(2)+'%</span></div>'+
-            '<div class="row"><span>Difference</span><span>'+(d>=0?'+':'')+d.toFixed(2)+'pp</span></div>');
-        });
-        hit.addEventListener('mouseleave',hideTT);
-        s.appendChild(hit);
-      })(i);
-    }
-  }
-
-  /* ---------- chart 2 ---------- */
-  function c2(){
-    var s=document.getElementById('c2'); s.innerHTML='';
-    var W=760,H=340,L=52,R=30,T=18,B=56, pw=W-L-R, ph=H-T-B;
-    var ymax=8;
-    var X=function(i){ return L + (i/(DAYS.length-1))*pw; };
-    var Y=function(v){ return T + ph - (v/ymax)*ph; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), s1=cv('--s1'), surf=cv('--surface');
-
-    for(var v=0; v<=8; v+=2){
-      s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
-      var tx=el('text',{x:L-10,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v; s.appendChild(tx);
-    }
-    var yl=el('text',{x:L-10,y:T-13,fill:muted,'font-size':11.5,'text-anchor':'end'});
-    yl.textContent='working hrs'; s.appendChild(yl);
-
-    DAYS.forEach(function(d,i){
-      if(i%2!==0 && i!==DAYS.length-1) return;
-      var tx=el('text',{x:X(i),y:T+ph+21,fill:muted,'font-size':11,'text-anchor':'middle'});
-      tx.textContent=d; s.appendChild(tx);
-    });
-    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
-
-    var cx=(X(7)+X(8))/2;
-    s.appendChild(el('line',{x1:cx,x2:cx,y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.5}));
-    var ct=el('text',{x:cx+7,y:T+13,fill:muted,'font-size':11.5,'font-weight':600});
-    ct.textContent='cutover 21 Jul 23:17'; s.appendChild(ct);
-
-    var d='';
-    WMED.forEach(function(v,i){ d+=(i?'L':'M')+X(i)+' '+Y(v); });
-    s.appendChild(el('path',{d:d,fill:'none',stroke:s1,'stroke-width':2,'stroke-linejoin':'round'}));
-    WMED.forEach(function(v,i){ s.appendChild(el('circle',{cx:X(i),cy:Y(v),r:3.1,fill:s1,stroke:surf,'stroke-width':2})); });
-
-    var t1=el('text',{x:X(3),y:Y(2)-13,fill:s1,'font-size':12,'font-weight':620,'text-anchor':'middle'});
-    t1.textContent='2.00 working hours'; s.appendChild(t1);
-    var t2=el('text',{x:X(14),y:Y(6)-13,fill:s1,'font-size':12,'font-weight':620,'text-anchor':'middle'});
-    t2.textContent='6.00 working hours'; s.appendChild(t2);
-
-    DAYS.forEach(function(d2,i){
-      var hit=el('rect',{x:X(i)-(pw/(DAYS.length-1))/2,y:T,width:pw/(DAYS.length-1),height:ph,fill:'transparent',style:'cursor:crosshair'});
-      hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>'+d2+'</b>'+
-          '<div class="row"><span>Min</span><span>'+WMIN[i].toFixed(2)+'</span></div>'+
-          '<div class="row"><span>Median</span><span>'+WMED[i].toFixed(2)+'</span></div>'+
-          '<div class="row"><span>Max</span><span>'+WMAX[i].toFixed(2)+'</span></div>');
-      });
-      hit.addEventListener('mouseleave',hideTT);
-      s.appendChild(hit);
-    });
-  }
-
-
-  /* ---------- charts 4 & 5: response rate and its split ---------- */
-  var PRE_RESP =[34.18,36.95,41.10,44.47,47.00,47.02,47.02,47.02,47.02,47.02,47.02];
-  var POST_RESP=[41.42,44.08,47.42,52.20,54.09,55.70,57.12,59.18,60.95,62.59,62.62];
-  var POST_POS =[31.18,32.48,34.00,36.37,37.19,37.98,38.89,39.91,40.95,41.80,41.80];
-  var POST_DEC =[10.24,11.60,13.43,15.83,16.90,17.73,18.23,19.27,20.00,20.79,20.82];
-
-  function lineChart(id, series, ymin, ymax, ystep, marks, brackets){
+  /* ---------- generic line chart on the TH grid ---------- */
+  function lineChart(id, series, ymin, ymax, ystep, mark){
     var s=document.getElementById(id); if(!s) return; s.innerHTML='';
-    var W=760,H=400,L=58,R=108,T=18,B=52, pw=W-L-R, ph=H-T-B, xmax=8;
-    var X=function(v){ return L + (v/xmax)*pw; };
-    var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
+    var W=720,H=380,L=56,R=112,T=18,B=52, pw=W-L-R, ph=H-T-B, xmax=8;
+    var X=function(v){ return L+(v/xmax)*pw; }, Y=function(v){ return T+ph-((v-ymin)/(ymax-ymin))*ph; };
     var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), surf=cv('--surface');
 
     for(var v=ymin; v<=ymax; v+=ystep){
@@ -869,44 +367,30 @@ window, as PRE.</li>
       tx.textContent=v; s.appendChild(tx);
     });
     var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Elapsed working hours since task notification'; s.appendChild(xl);
+    xl.textContent='Elapsed working hours since the booking reached the CSP'; s.appendChild(xl);
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
 
-    marks.forEach(function(m){
-      var col=cv(m[2]);
-      s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:col,'stroke-width':1,opacity:.34}));
-      var t=el('text',{x:X(m[0])+7,y:T+13,fill:col,'font-size':11.5,'font-weight':600});
-      t.textContent=m[1]; s.appendChild(t);
-    });
-
+    if(mark){
+      s.appendChild(el('line',{x1:X(6),x2:X(6),y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.5}));
+      var mt=el('text',{x:X(6)+6,y:T+ph-8,fill:muted,'font-size':11.5,'font-weight':600});
+      mt.textContent='P41 = 6h'; s.appendChild(mt);
+    }
     series.forEach(function(g){
       var col=cv(g.c), d='';
       for(var i=0;i<TH.length;i++){ if(TH[i]>xmax) break; d+=(i?'L':'M')+X(TH[i])+' '+Y(g.v[i]); }
       s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
       for(var j=0;j<TH.length;j++){ if(TH[j]>xmax) break;
-        s.appendChild(el('circle',{cx:X(TH[j]),cy:Y(g.v[j]),r:3.4,fill:col,stroke:surf,'stroke-width':2})); }
-      var lt=el('text',{x:X(8)+8,y:Y(g.v[TH.length-1])+(g.dy||4),fill:col,'font-size':12,'font-weight':620});
+        s.appendChild(el('circle',{cx:X(TH[j]),cy:Y(g.v[j]),r:3.3,fill:col,stroke:surf,'stroke-width':2})); }
+      var lt=el('text',{x:X(8)+9,y:Y(g.v[TH.length-1])+4,fill:col,'font-size':12,'font-weight':620});
       lt.textContent=g.label; s.appendChild(lt);
     });
-
-    (brackets||[]).forEach(function(b){
-      var col=cv(b.c), i2=TH.indexOf(2), i6=TH.indexOf(6), bx=X(6)+b.off;
-      s.appendChild(el('line',{x1:bx,x2:bx,y1:Y(b.v[i2]),y2:Y(b.v[i6]),stroke:col,'stroke-width':1.5}));
-      s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(b.v[i2]),y2:Y(b.v[i2]),stroke:col,'stroke-width':1.5}));
-      s.appendChild(el('line',{x1:bx-4,x2:bx+4,y1:Y(b.v[i6]),y2:Y(b.v[i6]),stroke:col,'stroke-width':1.5}));
-      var t=el('text',{x:bx+8,y:(Y(b.v[i2])+Y(b.v[i6]))/2+4,fill:col,'font-size':12,'font-weight':650});
-      t.textContent=b.label; s.appendChild(t);
-    });
-
     for(var k=0;k<TH.length;k++){
       if(TH[k]>xmax) break;
       (function(idx){
         var hit=el('rect',{x:X(TH[idx])-14,y:T,width:28,height:ph,fill:'transparent',style:'cursor:crosshair'});
         hit.addEventListener('mousemove',function(e){
           var html='<b>Within '+TH[idx]+' working hour'+(TH[idx]===1?'':'s')+'</b>';
-          series.forEach(function(g){
-            html+='<div class="row"><span>'+g.label+'</span><span>'+g.v[idx].toFixed(2)+'%</span></div>';
-          });
+          series.forEach(function(g){ html+='<div class="row"><span>'+g.label+'</span><span>'+g.v[idx].toFixed(2)+'%</span></div>'; });
           showTT(e,html);
         });
         hit.addEventListener('mouseleave',hideTT);
@@ -915,158 +399,84 @@ window, as PRE.</li>
     }
   }
 
-  function c4(){
-    lineChart('c4',
-      [{v:PRE_RESP, c:'--s1', label:'PRE 47.0%', dy:14},
-       {v:POST_RESP,c:'--s2', label:'POST 62.6%', dy:4}],
-      32, 64, 4,
-      [[2,'Old P41 · 2h','--s1'],[6,'New P41 · 6h','--s2']],
-      [{v:POST_RESP, c:'--s2', label:'+8.50pp', off:3}]);
-  }
-  /* PRE equivalents — same first-response classification */
-  var PRE_POS=[25.94,27.44,29.89,31.72,33.08,33.08,33.08,33.08,33.08,33.08,33.08];
-  var PRE_DEC=[ 8.24, 9.51,11.21,12.76,13.92,13.94,13.94,13.94,13.94,13.94,13.94];
+  function c1(){ lineChart('c1',[{v:RESP,c:'--s1',label:'62.6%'}],30,66,4,true); }
+  function c2(){ lineChart('c2',[{v:POS,c:'--s1',label:'Took job 41.8%'},
+                                 {v:DEC,c:'--s2',label:'Declined 20.8%'}],8,46,4,true); }
 
-  /* 2 · positive action, PRE vs POST */
-  function c5(){
-    lineChart('c5',
-      [{v:PRE_POS, c:'--s1', label:'PRE 33.1%', dy:14},
-       {v:POST_POS,c:'--s2', label:'POST 41.8%', dy:4}],
-      24, 44, 4,
-      [[2,'Old P41 · 2h','--s1'],[6,'New P41 · 6h','--s2']],
-      [{v:POST_POS, c:'--s2', label:'+4.61pp', off:3}]);
-  }
-
-  /* 3 · decline, PRE vs POST */
-  function c8(){
-    lineChart('c8',
-      [{v:PRE_DEC, c:'--s1', label:'PRE 13.9%', dy:14},
-       {v:POST_DEC,c:'--s2', label:'POST 20.8%', dy:4}],
-      6, 22, 2,
-      [[2,'Old P41 · 2h','--s1'],[6,'New P41 · 6h','--s2']],
-      [{v:POST_DEC, c:'--s2', label:'+3.89pp', off:3}]);
-  }
-
-  /* ---------- chart 6: hourly cancellation ---------- */
-  var TH_C  =[0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,7,8,10,12];
-  var PRE_C =[1.98,2.19,2.37,2.55,2.60,2.76,2.89,3.01,3.14,3.14,3.28,3.30,3.35,3.49,3.67,3.78];
-  var POST_C=[1.23,1.61,1.90,2.09,2.18,2.33,2.47,2.66,2.75,2.85,2.85,2.94,3.04,3.13,3.27,3.42];
-
-  function c6(){
-    var s=document.getElementById('c6'); if(!s) return; s.innerHTML='';
-    var W=760,H=400,L=58,R=108,T=18,B=52, pw=W-L-R, ph=H-T-B;
-    var xmax=12, ymin=1, ymax=4;
-    var X=function(v){ return L + (v/xmax)*pw; };
-    var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
-        s1=cv('--s1'), s2=cv('--s2'), surf=cv('--surface');
-
-    /* shaded band = the 2-6h span P41 newly holds */
-    s.appendChild(el('rect',{x:X(2),y:T,width:X(6)-X(2),height:ph,
-      fill:s2,opacity:0.07}));
-
-    for(var v=1; v<=4; v+=0.5){
+  /* ---------- quartile chart, own x grid ---------- */
+  function c3(){
+    var s=document.getElementById('c3'); if(!s) return; s.innerHTML='';
+    var W=720,H=380,L=56,R=118,T=18,B=52, pw=W-L-R, ph=H-T-B;
+    var X=function(v){ return L+((v-1)/5)*pw; }, Y=function(v){ return T+ph-(v/100)*ph; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), surf=cv('--surface');
+    for(var v=0; v<=100; v+=20){
       s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
       var tx=el('text',{x:L-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v.toFixed(1)+'%'; s.appendChild(tx);
+      tx.textContent=v+'%'; s.appendChild(tx);
     }
-    [0,2,4,6,8,10,12].forEach(function(v){
+    QH.forEach(function(v){
       var tx=el('text',{x:X(v),y:T+ph+22,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
       tx.textContent=v; s.appendChild(tx);
     });
     var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Hours since booking confirmation'; s.appendChild(xl);
+    xl.textContent='P41 window, working hours'; s.appendChild(xl);
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
 
-    [[2,'Old P41'],[6,'New P41']].forEach(function(m){
-      s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.45}));
-      var t=el('text',{x:X(m[0])+6,y:T+ph-8,fill:muted,'font-size':11.5,'font-weight':600});
-      t.textContent=m[1]; s.appendChild(t);
+    QU.forEach(function(g){
+      var col=cv(g.c), d='';
+      g.v.forEach(function(y,i){ d+=(i?'L':'M')+X(QH[i])+' '+Y(y); });
+      s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+      g.v.forEach(function(y,i){ s.appendChild(el('circle',{cx:X(QH[i]),cy:Y(y),r:3.3,fill:col,stroke:surf,'stroke-width':2})); });
+      var lt=el('text',{x:X(6)+9,y:Y(g.v[5])+4,fill:col,'font-size':12,'font-weight':620});
+      lt.textContent=g.k+'  '+g.v[5].toFixed(0)+'%'; s.appendChild(lt);
     });
-
-    [{v:PRE_C,c:s1,l:'PRE 3.78%'},{v:POST_C,c:s2,l:'POST 3.42%'}].forEach(function(g){
-      var d='';
-      for(var i=0;i<TH_C.length;i++){ d+=(i?'L':'M')+X(TH_C[i])+' '+Y(g.v[i]); }
-      s.appendChild(el('path',{d:d,fill:'none',stroke:g.c,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
-      for(var j=0;j<TH_C.length;j++){
-        s.appendChild(el('circle',{cx:X(TH_C[j]),cy:Y(g.v[j]),r:3.2,fill:g.c,stroke:surf,'stroke-width':2})); }
-      var lt=el('text',{x:X(12)+8,y:Y(g.v[TH_C.length-1])+4,fill:g.c,'font-size':12,'font-weight':620});
-      lt.textContent=g.l; s.appendChild(lt);
-    });
-
-    for(var k=0;k<TH_C.length;k++){
-      (function(idx){
-        var hit=el('rect',{x:X(TH_C[idx])-12,y:T,width:24,height:ph,fill:'transparent',style:'cursor:crosshair'});
-        hit.addEventListener('mousemove',function(e){
-          showTT(e,'<b>Within '+TH_C[idx]+'h of confirmation</b>'+
-            '<div class="row"><span>PRE</span><span>'+PRE_C[idx].toFixed(2)+'%</span></div>'+
-            '<div class="row"><span>POST</span><span>'+POST_C[idx].toFixed(2)+'%</span></div>');
-        });
-        hit.addEventListener('mouseleave',hideTT);
-        s.appendChild(hit);
-      })(k);
-    }
-  }
-
-  /* ---------- chart 7: install rate by latency band ---------- */
-  /* label, n, rate */
-  var IB=[
-    ['<15 min',   987,48.73],
-    ['15–60 min',  89,49.44],
-    ['1–2 h',     101,44.55],
-    ['2–3 h',      54,55.56],
-    ['3–4 h',      32,43.75],
-    ['4–5 h',      33,48.48],
-    ['5–6 h',      27,51.85]
-  ];
-  var POOLED=48.68;
-
-  function c7(){
-    var s=document.getElementById('c7'); if(!s) return; s.innerHTML='';
-    var W=760,H=330,L=104,R=118,T=16,B=54, pw=W-L-R, ph=H-T-B;
-    var xmin=0, xmax=70, row=ph/IB.length;
-    var X=function(v){ return L + ((v-xmin)/(xmax-xmin))*pw; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
-        s1=cv('--s1'), ink2=cv('--ink2'), surf=cv('--surface');
-
-    for(var v=0; v<=70; v+=10){
-      s.appendChild(el('line',{x1:X(v),x2:X(v),y1:T,y2:T+ph,stroke:grid,'stroke-width':1}));
-      var tx=el('text',{x:X(v),y:T+ph+20,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v+'%'; s.appendChild(tx);
-    }
-    /* pooled reference */
-    s.appendChild(el('line',{x1:X(POOLED),x2:X(POOLED),y1:T,y2:T+ph,
-      stroke:muted,'stroke-width':1.5,'stroke-dasharray':'4 3'}));
-    var pl=el('text',{x:X(POOLED),y:T-4,fill:muted,'font-size':11.5,'text-anchor':'middle','font-weight':600});
-    pl.textContent='pooled 48.7%'; s.appendChild(pl);
-    s.appendChild(el('line',{x1:L,x2:L,y1:T,y2:T+ph,stroke:axis,'stroke-width':1}));
-
-    IB.forEach(function(b,i){
-      var y=T+i*row+row/2, bh=Math.min(18,row-10);
-      var lb=el('text',{x:L-12,y:y+4,fill:ink2,'font-size':12.5,'text-anchor':'end'});
-      lb.textContent=b[0]; s.appendChild(lb);
-      /* bar from the axis to the rate */
-      s.appendChild(el('rect',{x:L,y:y-bh/2,width:Math.max(X(b[2])-L,2),height:bh,rx:4,fill:s1}));
-      /* value + n */
-      var vt=el('text',{x:X(xmax)+10,y:y+4,fill:ink2,'font-size':12,'font-variant-numeric':'tabular-nums'});
-      vt.textContent=b[2].toFixed(1)+'%  (n='+b[1]+')'; s.appendChild(vt);
-
-      var hit=el('rect',{x:L,y:T+i*row,width:pw,height:row,fill:'transparent',style:'cursor:pointer'});
+    QH.forEach(function(hv,idx){
+      var hit=el('rect',{x:X(hv)-16,y:T,width:32,height:ph,fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>Assigned in '+b[0]+'</b>'+
-          '<div class="row"><span>Tasks assigned</span><span>'+b[1]+'</span></div>'+
-          '<div class="row"><span>Installed</span><span>'+Math.round(b[1]*b[2]/100)+'</span></div>'+
-          '<div class="row"><span>Install rate</span><span>'+b[2].toFixed(2)+'%</span></div>');
+        var html='<b>P41 = '+hv+' working hour'+(hv===1?'':'s')+'</b>';
+        QU.forEach(function(g){ html+='<div class="row"><span>'+g.k+'</span><span>'+g.v[idx].toFixed(2)+'%</span></div>'; });
+        showTT(e,html);
       });
       hit.addEventListener('mouseleave',hideTT);
       s.appendChild(hit);
     });
-
-    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Install rate (reached CONNECTION_ACTIVE)'; s.appendChild(xl);
   }
 
-  function draw(){ c1(); c2(); c4(); c5(); c6(); c7(); c8(); }
+  /* ---------- cancellation hazard bars ---------- */
+  function c4(){
+    var s=document.getElementById('c4'); if(!s) return; s.innerHTML='';
+    var W=720,H=340,L=56,R=26,T=18,B=52, pw=W-L-R, ph=H-T-B;
+    var ymax=1.6, bw=pw/HAZ.length;
+    var Y=function(v){ return T+ph-(v/ymax)*ph; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), s1=cv('--s1'), ink2=cv('--ink2');
+    for(var v=0; v<=1.6; v+=0.4){
+      s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
+      var tx=el('text',{x:L-10,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
+      tx.textContent=v.toFixed(1)+'%'; s.appendChild(tx);
+    }
+    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
+    HAZ.forEach(function(v,i){
+      var x=L+i*bw+3, w=bw-6, y=Y(v);
+      s.appendChild(el('rect',{x:x,y:y,width:w,height:T+ph-y,rx:3,fill:s1,opacity:(i<6?1:0.45)}));
+      var tx=el('text',{x:x+w/2,y:T+ph+20,fill:muted,'font-size':11,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
+      tx.textContent=i; s.appendChild(tx);
+      if(i===0||i===5){
+        var vl=el('text',{x:x+w/2,y:y-7,fill:ink2,'font-size':11.5,'font-weight':620,'text-anchor':'middle'});
+        vl.textContent=v.toFixed(2)+'%'; s.appendChild(vl);
+      }
+      var hit=el('rect',{x:L+i*bw,y:T,width:bw,height:ph,fill:'transparent',style:'cursor:pointer'});
+      hit.addEventListener('mousemove',function(e){
+        showTT(e,'<b>Hour '+i+' – '+(i+1)+' of waiting</b>'+
+          '<div class="row"><span>Cancelled that hour</span><span>'+v.toFixed(3)+'%</span></div>');
+      });
+      hit.addEventListener('mouseleave',hideTT);
+      s.appendChild(hit);
+    });
+    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Hours since booking confirmation'; s.appendChild(xl);
+  }
+
+  function draw(){ c1(); c2(); c3(); c4(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();
