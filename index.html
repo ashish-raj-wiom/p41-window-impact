@@ -118,24 +118,33 @@ the work.</p>
 <h2>Recommendation</h2>
 
 <div class="rec">
-  <p class="big">Keep P41 at 6 working hours.</p>
-  <p>It is close to correctly calibrated. Six working hours captures <b>95%+ of every CSP quartile's responses</b>,
-  and the hours it buys are cheap in customer patience: the cancellation hazard is <b>1.56%/hour in the first
-  hour but 0.09%/hour by hour six</b>. Cutting to 4h would forfeit ~1.9pp of positive action — roughly 1.8pp of
-  booking-level supply efficiency — to save about 0.28pp of cancellation. That is a bad trade.</p>
-  <p><b>Do not extend beyond 6h on current evidence.</b> The window is binding, so what CSPs would do at hour 7+
-  is unobservable — the data cannot support the case either way, and the marginal return is already decaying
-  (+1.82pp/h of positive action at hour 2–3, +0.85pp/h by hour 5–6).</p>
+  <p class="big">Keep P41 at 6 working hours as the default.</p>
+  <p>The binding constraint is not customer impatience by the clock — it is the <b>promised slot day</b>. 69% of
+  customer cancellations happen only after that day has passed, peaking the day after. So the allocation chain has
+  to finish before the slot day ends.</p>
+  <p>The median booking has <b>12.8 working hours</b> of runway to that deadline and passes through <b>2 CSPs</b>.
+  That implies <b>12.8 ÷ 2 ≈ 6.4 working hours</b> per CSP — the median booking can be offered, time out, be
+  re-offered, and still be installed on the day it was promised. Six hours sits just inside that.</p>
+  <p>It also comfortably covers CSP behaviour: <b>P95 response is 4h 52m in the worst quartile</b> and 3h 24m in
+  the best, so 6 hours captures essentially everyone who was ever going to respond.</p>
+</div>
+
+<div class="rec" style="border-left-color:var(--s2)">
+  <p class="big" style="font-size:20px">But cut it to ~5 hours for same-day slots.</p>
+  <p>The runway is not the same for every booking. For the <b>65% promised a next-day slot</b> it is 16.5 working
+  hours and 6h is comfortable. For the <b>24% promised a same-day slot</b> it is only <b>9.9 working hours</b> —
+  which fits just <b>1.7</b> P41 cycles. One timeout consumes the runway and any reroute lands after the day the
+  customer was promised.</p>
+  <p>The strongest version of this: <b>make P41 a function of the runway the booking actually has</b> — slot date
+  minus now, divided by the expected chain length — rather than a constant. A single global number is currently
+  doing two different jobs, and doing one of them badly.</p>
 </div>
 
 <div class="rec" style="border-left-color:var(--s1)">
-  <p class="big" style="font-size:20px">Then: make it depend on the CSP, not one number for everyone.</p>
-  <p>A single global value is the wrong shape for this. The bottom quartile of CSPs responds to just
-  <b>5.15%</b> of bookings even when given the full six hours — and 3.13% of that arrives within two hours.
-  Cutting <b>their</b> window to 2h would cost about <b>11 tasks</b> across the week while releasing roughly
-  <b>520 bookings four working hours sooner</b>.</p>
-  <p>The top quartile already responds to 92% of bookings within two hours, so the window rarely binds for them
-  either. <b>The 6-hour window is earning its keep almost entirely in the middle two quartiles.</b></p>
+  <p class="big" style="font-size:20px">And shorten it for CSPs who never respond.</p>
+  <p>The bottom quartile responds to just <b>5.2%</b> of bookings even given the full six hours — and 3.1% of that
+  arrives within two. Cutting <b>their</b> window to 2h would cost about <b>11 tasks</b> a week while releasing
+  roughly <b>520 bookings four working hours sooner</b>, buying back runway for the reroute.</p>
 </div>
 
 <h2>Why</h2>
@@ -232,38 +241,91 @@ never exceeds <b>4h 52m</b>, which is what makes six hours a sufficient ceiling.
 <p>Going from 4h to 6h adds <b>+3.4pp of response</b> and <b>+1.9pp of jobs taken</b> — worth roughly
 <b>1.8pp of booking-level supply efficiency</b>. That is the gain a shorter window would give up.</p>
 
-<h3>4. What each extra hour costs</h3>
-<p>The customer-side cost is cancellation while waiting. Measured as a hazard — of the bookings still live at the
-start of each hour, the share the customer cancels during that hour.</p>
+<h3>4. The real deadline is the promised slot, not the clock</h3>
+<p>Cancellations in the first few hours of a booking are not impatience — they are bookings the customer never
+intended to keep. The hazard is <b>0.55%/hour in the first six hours</b>, then collapses to <b>0.08%/hour</b>
+between hours 6 and 12. Those early ones would have cancelled whatever P41 was set to, so they should not be
+priced as a cost of waiting.</p>
 
 <figure>
 <div class="chartcard">
-  <div class="charttitle">Customer cancellation hazard, per hour of waiting</div>
-  <div class="chartsub">Bookings confirmed 21 Jul – 2 Aug 2026 · n=2,187 · deduped to distinct mobiles</div>
-  <svg id="c4" viewBox="0 0 720 340" role="img" aria-label="Customer cancellation hazard per hour of waiting"></svg>
+  <div class="charttitle">Customer cancellation hazard, per hour, by age of booking</div>
+  <div class="chartsub">Matured cohort: bookings confirmed 1–20 Jul 2026, observed to 4 Aug · n=4,193 · deduped to distinct mobiles</div>
+  <svg id="c4" viewBox="0 0 720 340" role="img" aria-label="Customer cancellation hazard per hour by age of booking"></svg>
 </div>
-<figcaption>Impatience is almost entirely spent in the first hour — <b>1.56%</b> of waiting customers cancel in
-hour one, against <b>0.09%</b> in hour six. The hours P41 is actually deciding about are the cheap ones.</figcaption>
+<figcaption>After the mistake-booking spike, the hazard troughs at hours 6–12 and then <b>rises again to a plateau
+across days 1–3, peaking at 48–60 hours</b>. That second rise is real impatience — and it is anchored to something
+specific.</figcaption>
 </figure>
 
-<h3>5. The trade at the margin</h3>
+<p>Re-cutting the same cancellations against the customer's <b>promised slot date</b> rather than the booking time
+shows what they are actually waiting for:</p>
+
 <div class="tblscroll">
 <table>
-<thead><tr><th>At the hour 5→6 margin</th><th class="n">Per additional hour</th></tr></thead>
+<thead><tr><th>Customer cancelled…</th><th class="n">Connections</th><th class="n">Share of cancellations</th></tr></thead>
 <tbody>
-<tr><td>Jobs taken (gain)</td><td class="n up">+0.85pp</td></tr>
-<tr><td>Customers cancelling while waiting (cost)</td><td class="n">−0.09pp</td></tr>
-<tr class="hi"><td><b>Ratio</b></td><td class="n"><b>≈ 9 : 1 in favour of waiting</b></td></tr>
+<tr><td>1 day before the slot</td><td class="n">59</td><td class="n">11%</td></tr>
+<tr><td>On the slot day</td><td class="n">100</td><td class="n">19%</td></tr>
+<tr class="hi"><td><b>1 day after the slot passed</b></td><td class="n"><b>117</b></td><td class="n"><b>23%</b></td></tr>
+<tr><td>2 days after</td><td class="n">64</td><td class="n">12%</td></tr>
+<tr><td>3 days after</td><td class="n">45</td><td class="n">9%</td></tr>
+<tr><td>4+ days after</td><td class="n">133</td><td class="n">26%</td></tr>
 </tbody>
 </table>
 </div>
-<p>Even at the sixth hour, the supply gained still outweighs the customers lost by roughly nine to one on this
-comparison. That is why the recommendation is to hold at 6h rather than cut back.</p>
-<p>What this comparison does <b>not</b> price is <b>reroute delay</b> — every booking that eventually times out
-now waits six hours instead of two before the search for a second CSP begins. How much that costs depends on how
-quickly a released booking finds someone else, which is not measured here and is the main open question.</p>
+<p><b>69% of customer cancellations happen after the promised slot has already passed</b>, and the single biggest
+day is the one immediately after. The customer is not counting hours since booking — he is waiting for the day he
+was promised, and giving up once it goes by. <b>That is the guardrail: the allocation must finish before the end
+of the slot day.</b></p>
 
-<h3>6. Time of day makes no difference</h3>
+<h3>5. Calibrating against that guardrail</h3>
+<p>If the slot day is the deadline, the parameter follows from three measurements:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Input</th><th class="n">Value</th><th>How it is measured</th></tr></thead>
+<tbody>
+<tr><td><b>Runway</b> — time from the booking first reaching a CSP to the end of the promised slot day</td>
+    <td class="n"><b>12.8 working h</b></td><td style="color:var(--ink2)">median; 24.8 calendar hours</td></tr>
+<tr><td><b>Chain</b> — distinct CSPs a connection passes through</td>
+    <td class="n"><b>2</b></td><td style="color:var(--ink2)">median; mean 1.91</td></tr>
+<tr class="hi"><td><b>Implied P41</b> = runway ÷ chain</td>
+    <td class="n"><b>6.4 working h</b></td><td style="color:var(--ink2)">so the median booking survives one reroute and still makes its slot</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The current setting of six working hours sits just inside that. Two CSPs at 6h consume 12 working hours against
+a 12.8-hour median runway — the median booking can be offered, time out, be re-offered, and still be installed on
+the day it was promised. <b>That is the case for 6 hours, and it is a tighter one than a marginal cost-benefit
+ratio.</b></p>
+
+<h3>6. Where 6 hours is too generous</h3>
+<p>The runway is not the same for everyone. It depends entirely on how far ahead the promised slot is:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Promised slot</th><th class="n">Share of bookings</th><th class="n">Runway</th><th class="n">Fits how many CSPs at 6h?</th><th class="n">Implied P41 for 2 CSPs</th></tr></thead>
+<tbody>
+<tr class="hi"><td><b>Same day</b></td><td class="n">23.8%</td><td class="n">9.9 working h</td><td class="n"><b>1.7</b></td><td class="n"><b>~5 h</b></td></tr>
+<tr><td>Next day</td><td class="n">65.4%</td><td class="n">16.5 working h</td><td class="n">2.8</td><td class="n">~8 h</td></tr>
+<tr><td>2 days ahead</td><td class="n">6.6%</td><td class="n">26.8 working h</td><td class="n">4.5</td><td class="n">~13 h</td></tr>
+<tr><td>3+ days ahead</td><td class="n">3.7%</td><td class="n">40+ working h</td><td class="n">6.7</td><td class="n">~20 h</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>For the <b>65% of bookings promised a next-day slot</b>, six hours is comfortable — the runway absorbs almost
+three full P41 cycles. For the <b>24% promised a same-day slot</b>, six hours is too long: the runway only stretches
+to 1.7 cycles, so a single timeout consumes most of it and any reroute lands after the promised day. Those bookings
+need roughly <b>5 working hours</b> to preserve a two-CSP chain, and arguably less.</p>
+
+<p>This is the same conclusion the CSP quartiles pointed at, reached from the customer's side: <b>a single global
+number is doing two jobs badly.</b> The strongest version of this recommendation is to make P41 a function of the
+runway the booking actually has — slot date minus now — rather than a constant.</p>
+
+<h3>7. Time of day makes no difference</h3>
 <p>Because P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), a booking arriving at 8 PM gets the
 same effective budget as one arriving at 10 AM. The data confirms the clock is doing its job:</p>
 
@@ -348,7 +410,11 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     {k:'Q4 worst',c:'--s4', v:[ 2.76, 3.13, 3.86, 4.41, 4.78, 5.15]}
   ];
 
-  var HAZ=[1.555,0.464,0.233,0.327,0.188,0.094,0.094,0.094,0.094,0.047,0.094,0.047];
+  /* hazard %/hour by band, matured cohort: [label, per-hour rate] */
+  var HAZ=[
+    ['0–6h',0.553],['6–12h',0.082],['12–24h',0.132],['1–1.5d',0.103],['1.5–2d',0.134],
+    ['2–2.5d',0.140],['2.5–3d',0.125],['3–4d',0.100],['4–5d',0.087],['5–7d',0.075],['7–10d',0.016]
+  ];
 
   /* ---------- generic line chart on the TH grid ---------- */
   function lineChart(id, series, ymin, ymax, ystep, mark){
@@ -445,35 +511,42 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   /* ---------- cancellation hazard bars ---------- */
   function c4(){
     var s=document.getElementById('c4'); if(!s) return; s.innerHTML='';
-    var W=720,H=340,L=56,R=26,T=18,B=52, pw=W-L-R, ph=H-T-B;
-    var ymax=1.6, bw=pw/HAZ.length;
-    var Y=function(v){ return T+ph-(v/ymax)*ph; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), s1=cv('--s1'), ink2=cv('--ink2');
-    for(var v=0; v<=1.6; v+=0.4){
+    var W=720,H=340,L=58,R=26,T=26,B=56, pw=W-L-R, ph=H-T-B;
+    var ymax=0.6, bw=pw/HAZ.length;
+    var Y=function(v){ return T+ph-(Math.min(v,ymax)/ymax)*ph; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
+        s1=cv('--s1'), s2=cv('--s2'), ink2=cv('--ink2');
+    for(var v=0; v<=0.6; v+=0.1){
       s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
       var tx=el('text',{x:L-10,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
       tx.textContent=v.toFixed(1)+'%'; s.appendChild(tx);
     }
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
-    HAZ.forEach(function(v,i){
+    HAZ.forEach(function(b,i){
+      var lbl=b[0], v=b[1];
       var x=L+i*bw+3, w=bw-6, y=Y(v);
-      s.appendChild(el('rect',{x:x,y:y,width:w,height:T+ph-y,rx:3,fill:s1,opacity:(i<6?1:0.45)}));
-      var tx=el('text',{x:x+w/2,y:T+ph+20,fill:muted,'font-size':11,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
-      tx.textContent=i; s.appendChild(tx);
-      if(i===0||i===5){
-        var vl=el('text',{x:x+w/2,y:y-7,fill:ink2,'font-size':11.5,'font-weight':620,'text-anchor':'middle'});
-        vl.textContent=v.toFixed(2)+'%'; s.appendChild(vl);
+      /* first bar is the mistake-booking spike — drawn muted, it is not a P41 cost */
+      var col = (i===0) ? s2 : s1;
+      s.appendChild(el('rect',{x:x,y:y,width:w,height:T+ph-y,rx:3,fill:col,opacity:(i===0?0.5:1)}));
+      var tx=el('text',{x:x+w/2,y:T+ph+20,fill:muted,'font-size':10.5,'text-anchor':'middle'});
+      tx.textContent=lbl; s.appendChild(tx);
+      if(i===0||i===1||i===5){
+        var vl=el('text',{x:x+w/2,y:y-7,fill:ink2,'font-size':11,'font-weight':620,'text-anchor':'middle'});
+        vl.textContent=v.toFixed(2); s.appendChild(vl);
       }
       var hit=el('rect',{x:L+i*bw,y:T,width:bw,height:ph,fill:'transparent',style:'cursor:pointer'});
       hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>Hour '+i+' – '+(i+1)+' of waiting</b>'+
-          '<div class="row"><span>Cancelled that hour</span><span>'+v.toFixed(3)+'%</span></div>');
+        showTT(e,'<b>'+lbl+' after booking</b>'+
+          '<div class="row"><span>Cancelled per hour</span><span>'+v.toFixed(3)+'%</span></div>'+
+          (i===0?'<div class="row" style="margin-top:5px"><span>mistake bookings — not a P41 cost</span></div>':''));
       });
       hit.addEventListener('mouseleave',hideTT);
       s.appendChild(hit);
     });
-    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Hours since booking confirmation'; s.appendChild(xl);
+    var pk=el('text',{x:L+5.5*bw,y:T-10,fill:muted,'font-size':11,'font-weight':600,'text-anchor':'middle'});
+    pk.textContent='second peak — real impatience'; s.appendChild(pk);
+    var xl=el('text',{x:L+pw/2,y:T+ph+46,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Age of booking'; s.appendChild(xl);
   }
 
   function draw(){ c1(); c2(); c3(); c4(); }

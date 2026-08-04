@@ -18,24 +18,40 @@ The parameter sits on one trade-off:
 
 ## Recommendation
 
-### Keep P41 at 6 working hours
+### Keep P41 at 6 working hours as the default
 
-It is close to correctly calibrated. Six working hours captures **95%+ of every CSP quartile's responses**, and
-those hours are cheap in customer patience: the cancellation hazard is **1.56%/hour in the first hour but
-0.09%/hour by hour six**. Cutting to 4h would forfeit ~1.9pp of positive action — roughly **1.8pp of
-booking-level supply efficiency** — to save about 0.28pp of cancellation.
+The binding constraint is not customer impatience by the clock — it is the **promised slot day**. 69% of customer
+cancellations happen only after that day has passed, peaking the day after. So the allocation chain has to finish
+before the slot day ends.
 
-**Do not extend beyond 6h on current evidence.** The window is binding, so what CSPs would do at hour 7+ is
-unobservable. The marginal return is also decaying: +1.82pp/h of positive action at hour 2–3, +0.85pp/h by 5–6.
+The median booking has **12.8 working hours** of runway to that deadline and passes through **2 CSPs**. That
+implies **12.8 ÷ 2 ≈ 6.4 working hours** per CSP — the median booking can be offered, time out, be re-offered, and
+still be installed on the day it was promised. Six hours sits just inside that.
 
-### Then: make it depend on the CSP, not one number for everyone
+It also comfortably covers CSP behaviour: **P95 response is 4h 52m in the worst quartile** and 3h 24m in the best.
 
-The bottom quartile responds to just **5.15%** of bookings even given the full six hours — and 3.13% of that
-arrives within two hours. Cutting **their** window to 2h would cost about **11 tasks** across the week while
-releasing roughly **520 bookings four working hours sooner**.
+### But cut it to ~5 hours for same-day slots
 
-The top quartile already responds to 92% within two hours, so the window rarely binds for them either.
-**The 6-hour window earns its keep almost entirely in the middle two quartiles.**
+The runway is not the same for every booking:
+
+| Promised slot | Share | Runway | Fits how many CSPs at 6h? | Implied P41 for 2 CSPs |
+|---|---:|---:|---:|---:|
+| **Same day** | 23.8% | 9.9 working h | **1.7** | **~5 h** |
+| Next day | 65.4% | 16.5 working h | 2.8 | ~8 h |
+| 2 days ahead | 6.6% | 26.8 working h | 4.5 | ~13 h |
+| 3+ days ahead | 3.7% | 40+ working h | 6.7 | ~20 h |
+
+For the 65% promised a next-day slot, 6h is comfortable. For the 24% promised a same-day slot it is too long —
+one timeout consumes the runway and any reroute lands after the promised day.
+
+**The strongest version: make P41 a function of the runway the booking actually has** — slot date minus now,
+divided by expected chain length — rather than a constant.
+
+### And shorten it for CSPs who never respond
+
+The bottom quartile responds to just **5.2%** of bookings even given six hours, and 3.1% of that arrives within
+two. Cutting **their** window to 2h would cost ~**11 tasks** a week while releasing ~**520 bookings four working
+hours sooner**, buying back runway for the reroute.
 
 ## Why
 
@@ -84,26 +100,47 @@ hours a sufficient ceiling.
 
 4h → 6h adds **+3.4pp of response** and **+1.9pp of jobs taken**, worth ~1.8pp of booking-level supply efficiency.
 
-### 4. What each extra hour costs
+### 4. The real deadline is the promised slot, not the clock
 
-Customer cancellation hazard — of bookings still live at the start of each hour, the share cancelled during it:
+Cancellations in the first few hours are not impatience — they are bookings the customer never intended to keep.
+Hazard is **0.55%/hour in the first six hours**, then collapses to **0.08%/hour** between hours 6 and 12. Those
+would have cancelled whatever P41 was set to.
 
-| Hour of waiting | 0–1 | 1–2 | 2–3 | 3–4 | 4–5 | 5–6 | 6–12 |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Cancelled that hour | **1.56%** | 0.46% | 0.23% | 0.33% | 0.19% | **0.09%** | ~0.08% |
+| Age of booking | 0–6h | 6–12h | 12–24h | 1–1.5d | 1.5–2d | **2–2.5d** | 2.5–3d | 3–4d | 5–7d | 7–10d |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Cancelled per hour | 0.55% | 0.08% | 0.13% | 0.10% | 0.13% | **0.14%** | 0.13% | 0.10% | 0.08% | 0.02% |
 
-Impatience is almost entirely spent in the first hour. The hours P41 is actually deciding about are the cheap ones.
+After the mistake-booking spike the hazard troughs, then **rises again across days 1–3, peaking at 48–60 hours**.
+Re-cut against the customer's **promised slot date** it becomes obvious what they are waiting for:
 
-### 5. The trade at the margin
+| Customer cancelled… | Connections | Share |
+|---|---:|---:|
+| 1 day before the slot | 59 | 11% |
+| On the slot day | 100 | 19% |
+| **1 day after the slot passed** | **117** | **23%** |
+| 2 days after | 64 | 12% |
+| 3 days after | 45 | 9% |
+| 4+ days after | 133 | 26% |
 
-At the hour 5→6 margin, per additional hour: **+0.85pp** jobs taken against **−0.09pp** customers cancelling —
-roughly **9 : 1 in favour of waiting**.
+**69% of cancellations happen after the promised slot has passed**, biggest single day immediately after. The
+customer is waiting for the day he was promised. **That is the guardrail.**
 
-Not priced here: **reroute delay.** Every booking that eventually times out now waits six hours instead of two
-before the search for a second CSP begins. How much that costs depends on how quickly a released booking finds
-someone else — not measured, and the main open question.
+### 5. Calibrating against that guardrail
 
-### 6. Time of day makes no difference
+| Input | Value | How measured |
+|---|---:|---|
+| **Runway** — booking reaching a CSP → end of promised slot day | **12.8 working h** | median; 24.8 calendar hours |
+| **Chain** — distinct CSPs a connection passes through | **2** | median; mean 1.91 |
+| **Implied P41** = runway ÷ chain | **6.4 working h** | median booking survives one reroute and still makes its slot |
+
+Two CSPs at 6h consume 12 working hours against a 12.8-hour median runway. That is the case for 6 hours, and it
+is tighter than a marginal cost-benefit ratio.
+
+### 6. Where 6 hours is too generous
+
+See the runway table in the recommendation above — same-day slots (24% of bookings) only fit 1.7 P41 cycles.
+
+### 7. Time of day makes no difference
 
 P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), so a booking arriving at 8 PM gets the same
 effective budget as one arriving at 10 AM. The data confirms it:
