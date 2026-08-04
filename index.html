@@ -262,18 +262,31 @@ positive action alone.</figcaption>
 
 <figure>
 <div class="chartcard">
-  <div class="charttitle">That response split into positive action and decline — both cohorts</div>
-  <div class="chartsub">Shared axes · PRE n=4,985 (action = slot proposal) · POST n=3,165 (action = technician assignment)</div>
-  <svg id="c5" viewBox="0 0 760 400" role="img" aria-label="Positive action and decline by elapsed working hours, pre and post cohorts side by side"></svg>
+  <div class="charttitle">Positive action rate — the CSP acted on the task</div>
+  <div class="chartsub">PRE action = slot proposal · POST action = technician assignment</div>
+  <svg id="c5" viewBox="0 0 760 400" role="img" aria-label="Cumulative positive action rate by elapsed working hours, pre versus post"></svg>
   <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>Positive action</span>
-    <span><i class="swatch" style="background:var(--s8)"></i>Decline</span>
+    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · n=4,985</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · n=3,165</span>
   </div>
 </div>
-<figcaption>In PRE both lines stop dead at hour 2 — the 2-hour window cuts off positive action and declines alike.
-In POST both keep climbing to hour 6, and roughly in step: of the <b>+8.50pp</b> extra response the longer window
-buys, <b>+4.61pp is a technician assignment and +3.89pp is a decline</b>. <b>46% of the gain is a refusal</b>,
-not progress.</figcaption>
+<figcaption>PRE freezes at 33.08%; POST carries on to 41.80%. The extra four hours add
+<b>+4.61pp of positive action</b>.</figcaption>
+</figure>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Decline rate — the CSP refused the task</div>
+  <div class="chartsub">Same cohorts, same clock · a decline is a response, but not progress</div>
+  <svg id="c8" viewBox="0 0 760 400" role="img" aria-label="Cumulative decline rate by elapsed working hours, pre versus post"></svg>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--s1)"></i>PRE · P41 = 2h · n=4,985</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>POST · P41 = 6h · n=3,165</span>
+  </div>
+</div>
+<figcaption>The same shape again. PRE freezes at 13.94%; POST carries on to 20.79%, adding <b>+3.89pp of
+declines</b>. The longer window truncates refusals exactly as it truncates progress — which is why 46% of what it
+surfaces is a refusal.</figcaption>
 </figure>
 
 <div class="tblscroll">
@@ -1091,91 +1104,24 @@ candidates in the POST window under each). The resulting IST creation distributi
   var PRE_POS=[25.94,27.44,29.89,31.72,33.08,33.08,33.08,33.08,33.08,33.08,33.08];
   var PRE_DEC=[ 8.24, 9.51,11.21,12.76,13.92,13.94,13.94,13.94,13.94,13.94,13.94];
 
-  /* small multiples: PRE | POST, shared axes */
+  /* 2 · positive action, PRE vs POST */
   function c5(){
-    var s=document.getElementById('c5'); if(!s) return; s.innerHTML='';
-    var W=760,H=400,T=34,B=52, ph=H-T-B;
-    var LM=52, RM=16, GAP=54, panelW=(W-LM-RM-GAP)/2;
-    var xmax=8, ymin=5, ymax=45;
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
-        s1=cv('--s1'), s8=cv('--s8'), surf=cv('--surface'), ink2=cv('--ink2');
-    var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
+    lineChart('c5',
+      [{v:PRE_POS, c:'--s1', label:'PRE 33.1%', dy:14},
+       {v:POST_POS,c:'--s2', label:'POST 41.8%', dy:4}],
+      24, 44, 4,
+      [[2,'Old P41 · 2h','--s1'],[6,'New P41 · 6h','--s2']],
+      [{v:POST_POS, c:'--s2', label:'+4.61pp', off:3}]);
+  }
 
-    /* shared y-axis labels, drawn once on the left */
-    for(var v=5; v<=45; v+=10){
-      var tx=el('text',{x:LM-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v+'%'; s.appendChild(tx);
-    }
-
-    var panels=[
-      {x:LM, title:'PRE · P41 = 2h', n:'n=4,985', cut:2,
-       pos:PRE_POS, dec:PRE_DEC, showAccrual:false},
-      {x:LM+panelW+GAP, title:'POST · P41 = 6h', n:'n=3,165', cut:6,
-       pos:POST_POS, dec:POST_DEC, showAccrual:true}
-    ];
-
-    panels.forEach(function(p){
-      var X=function(v){ return p.x + (v/xmax)*panelW; };
-
-      var ttl=el('text',{x:p.x,y:T-16,fill:ink2,'font-size':12.5,'font-weight':650});
-      ttl.textContent=p.title; s.appendChild(ttl);
-      var nt=el('text',{x:p.x+panelW,y:T-16,fill:muted,'font-size':11.5,'text-anchor':'end'});
-      nt.textContent=p.n; s.appendChild(nt);
-
-      for(var v=5; v<=45; v+=10){
-        s.appendChild(el('line',{x1:p.x,x2:p.x+panelW,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
-      }
-      [0,2,4,6,8].forEach(function(v){
-        var tx=el('text',{x:X(v),y:T+ph+20,fill:muted,'font-size':11,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
-        tx.textContent=v; s.appendChild(tx);
-      });
-      s.appendChild(el('line',{x1:p.x,x2:p.x+panelW,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
-
-      /* this panel's own P41 cutoff */
-      s.appendChild(el('line',{x1:X(p.cut),x2:X(p.cut),y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.5}));
-      var ct=el('text',{x:X(p.cut)+5,y:T+ph-8,fill:muted,'font-size':11,'font-weight':600});
-      ct.textContent=p.cut+'h'; s.appendChild(ct);
-
-      [{v:p.pos,c:s1},{v:p.dec,c:s8}].forEach(function(g){
-        var d='';
-        for(var i=0;i<TH.length;i++){ if(TH[i]>xmax) break; d+=(i?'L':'M')+X(TH[i])+' '+Y(g.v[i]); }
-        s.appendChild(el('path',{d:d,fill:'none',stroke:g.c,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
-        for(var j=0;j<TH.length;j++){ if(TH[j]>xmax) break;
-          s.appendChild(el('circle',{cx:X(TH[j]),cy:Y(g.v[j]),r:3,fill:g.c,stroke:surf,'stroke-width':2})); }
-        var lt=el('text',{x:X(8),y:Y(g.v[TH.length-1])-9,fill:g.c,'font-size':11.5,'font-weight':620,'text-anchor':'end'});
-        lt.textContent=g.v[TH.length-1].toFixed(1)+'%'; s.appendChild(lt);
-      });
-
-      if(p.showAccrual){
-        var i2=TH.indexOf(2), i6=TH.indexOf(6);
-        [{v:p.pos,c:s1,l:'+4.61pp'},{v:p.dec,c:s8,l:'+3.89pp'}].forEach(function(b){
-          var bx=X(6)+5;
-          s.appendChild(el('line',{x1:bx,x2:bx,y1:Y(b.v[i2]),y2:Y(b.v[i6]),stroke:b.c,'stroke-width':1.5}));
-          s.appendChild(el('line',{x1:bx-3,x2:bx+3,y1:Y(b.v[i2]),y2:Y(b.v[i2]),stroke:b.c,'stroke-width':1.5}));
-          s.appendChild(el('line',{x1:bx-3,x2:bx+3,y1:Y(b.v[i6]),y2:Y(b.v[i6]),stroke:b.c,'stroke-width':1.5}));
-          var t=el('text',{x:bx+6,y:(Y(b.v[i2])+Y(b.v[i6]))/2+4,fill:b.c,'font-size':11,'font-weight':650});
-          t.textContent=b.l; s.appendChild(t);
-        });
-      }
-
-      for(var k=0;k<TH.length;k++){
-        if(TH[k]>xmax) break;
-        (function(idx){
-          var hit=el('rect',{x:X(TH[idx])-10,y:T,width:20,height:ph,fill:'transparent',style:'cursor:crosshair'});
-          hit.addEventListener('mousemove',function(e){
-            showTT(e,'<b>'+p.title+' · within '+TH[idx]+'h</b>'+
-              '<div class="row"><span>Positive action</span><span>'+p.pos[idx].toFixed(2)+'%</span></div>'+
-              '<div class="row"><span>Decline</span><span>'+p.dec[idx].toFixed(2)+'%</span></div>'+
-              '<div class="row"><span>Response</span><span>'+(p.pos[idx]+p.dec[idx]).toFixed(2)+'%</span></div>');
-          });
-          hit.addEventListener('mouseleave',hideTT);
-          s.appendChild(hit);
-        })(k);
-      }
-    });
-
-    var xl=el('text',{x:W/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Elapsed working hours since task notification'; s.appendChild(xl);
+  /* 3 · decline, PRE vs POST */
+  function c8(){
+    lineChart('c8',
+      [{v:PRE_DEC, c:'--s1', label:'PRE 13.9%', dy:14},
+       {v:POST_DEC,c:'--s2', label:'POST 20.8%', dy:4}],
+      6, 22, 2,
+      [[2,'Old P41 · 2h','--s1'],[6,'New P41 · 6h','--s2']],
+      [{v:POST_DEC, c:'--s2', label:'+3.89pp', off:3}]);
   }
 
   /* ---------- chart 6: hourly cancellation ---------- */
@@ -1297,7 +1243,7 @@ candidates in the POST window under each). The resulting IST creation distributi
     xl.textContent='Install rate (reached CONNECTION_ACTIVE)'; s.appendChild(xl);
   }
 
-  function draw(){ c1(); c2(); c3(); c4(); c5(); c6(); c7(); }
+  function draw(){ c1(); c2(); c3(); c4(); c5(); c6(); c7(); c8(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();
