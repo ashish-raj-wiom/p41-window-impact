@@ -195,15 +195,6 @@ the slot promised at that point, so re-slotting and rerouting do not double-coun
 4 Aug are included. The behaviour measured — customers give up when the promised day passes — is not specific to
 the P41 window, which is why the wider window is acceptable here.
 
-| Slot promised | Connections | Cancelled | Before slot | On slot day | Day after | **On or after** |
-|---|---:|---:|---:|---:|---:|---:|
-| Same day | 494 | 91 | 0% | 29.7% | 27.5% | **100%** |
-| Next day | 1,985 | 370 | 14.1% | 16.8% | 21.9% | **85.9%** |
-| 2+ days out | 301 | 57 | 12.3% | 19.3% | 19.3% | **87.7%** |
-
-86–100% land on or after the slot day in every bucket. Elapsed time since booking is not the trigger; the slot
-passing is.
-
 ### 5. Putting the two halves together
 
 **Section 3 established:** every extra hour buys more response, at a near-constant 2.1pp/h, in every quartile.
