@@ -173,27 +173,6 @@ at six working hours — the 6–12, 12–24 and >24h buckets are all empty. The
 sits in the other flow, where the CSP proposes a slot first and technician assignment comes after customer
 confirmation, outside P41's scope.
 
-## Two filter pitfalls worth knowing
-
-1. **`slot_details:proposedBy` is a flow marker, not a customer attribute.** It takes exactly one value across
-   the whole booking table — `CUSTOMER`, on 2,388 rows of 1,104,543; everything else is NULL. It matches 53.1%
-   of POST candidates but only 2.1% of PRE, so using it on one side of a comparison silently swaps the
-   denominator for "tasks that arrive with a slot already confirmed" and lifts the curve ~7pp at every elapsed
-   time. An earlier version of this analysis made exactly that mistake.
-2. **`dynamodb_read.booking` is a mutable current-state snapshot.** The identical query 40 minutes apart
-   returned 2,083 → 2,045 candidates, 960 → 956 assigned, 713 → 689 P41 deaths. Use
-   `SLOT_CONFIRMATION_SOURCE = 'CUSTOMER_PROPOSED'` on the candidate row instead — same intent, immutable, and
-   more complete (3,165 vs 2,045).
-
-## Method
-
-- Clock start = `CREATED_AT` (the exact anchor P41 is measured from).
-- Clock end = first `TO_STATE='TECHNICIAN_ASSIGNED'` (POST) / first CSP `SLOT_SELECTED` (PRE), reassignments excluded.
-- Working hours = monotonic working-time coordinate, `day_index × 43200 + clamp(seconds since 09:00, 0, 43200)`,
-  differenced. All seven days counted.
-- Timezone verified three ways (`DATEADD +330` on raw TZ, same after `TO_TIMESTAMP_NTZ`, and
-  `CONVERT_TIMEZONE`) — all agree exactly.
-
 ## Sources
 
 Snowflake (Metabase DB 113):
