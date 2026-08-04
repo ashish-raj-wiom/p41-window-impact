@@ -372,7 +372,7 @@ evenly. And for the next-day-or-later group plotted below, the day after is deci
 <figure>
 <div class="chartcard">
   <div class="charttitle">The same alignment, split by the slot the customer chose</div>
-  <div class="chartsub">Same 12-hour buckets and the same base convention · y = % of <em>that group's</em> bookings</div>
+  <div class="chartsub">Same 12-hour buckets, one pair of columns per bucket · y = % of <em>that group's</em> bookings</div>
   <svg id="c7" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation per twelve-hour bucket, split by whether the customer chose a same-day or a later slot"></svg>
   <div class="legend">
     <span><i class="swatch" style="background:var(--s1)"></i>Next day or later (n=572)</span>
@@ -793,7 +793,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
 
   /* shared frame for both 12h charts */
   function bucketFrame(s, ymax){
-    var W=720,H=400,L=54,R=118,T=30,B=64, pw=W-L-R, ph=H-T-B;
+    var W=720,H=400,L=54,R=44,T=30,B=64, pw=W-L-R, ph=H-T-B;
     var X=function(i){ return L+(i+0.5)/B12.length*pw; }, Y=function(v){ return T+ph-(v/ymax)*ph; };
     var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), ink=cv('--ink');
     for(var v=0; v<=ymax; v+=1){
@@ -849,22 +849,29 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     });
   }
 
-  /* 5b — split, as lines so the shapes can be compared */
+  /* 5b — split, as paired columns so the two groups can be compared bucket by bucket */
   function c7(){
     var s=document.getElementById('c7'); if(!s) return; s.innerHTML='';
-    var ymax=3.5, f=bucketFrame(s,ymax), surf=cv('--surface');
-    SPLIT.forEach(function(g){
-      var col=cv(g.c), d='';
-      g.v.forEach(function(y,i){ d+=(i?'L':'M')+f.X(i)+' '+f.Y(y); });
-      s.appendChild(el('path',{d:d,fill:'none',stroke:col,'stroke-width':2,
-        'stroke-linejoin':'round','stroke-linecap':'round'}));
-      g.v.forEach(function(y,i){ s.appendChild(el('circle',{cx:f.X(i),cy:f.Y(y),r:3.2,fill:col,
-        stroke:surf,'stroke-width':2})); });
-      var lt=el('text',{x:f.X(11)+10,y:f.Y(g.v[11])+4,fill:col,'font-size':11.5,'font-weight':620});
-      lt.textContent=g.k; s.appendChild(lt);
+    var ymax=3.5, f=bucketFrame(s,ymax), surf=cv('--surface'), ink=cv('--ink');
+    var slot=f.pw/B12.length, bw=slot*0.38, gap=2;
+
+    SPLIT.forEach(function(g,gi){
+      var col=cv(g.c);
+      var dx = gi===0 ? -(gap/2+bw) : (gap/2);
+      g.v.forEach(function(y,i){
+        if(y<=0) return;
+        s.appendChild(el('rect',{x:f.X(i)+dx, y:f.Y(y), width:bw, height:f.T+f.ph-f.Y(y),
+          rx:4, fill:col, opacity:0.85}));
+      });
+      /* each group's own peak, labelled */
+      var pk=g.v.indexOf(Math.max.apply(null,g.v));
+      var lt=el('text',{x:f.X(pk)+dx+bw/2, y:f.Y(g.v[pk])-7, fill:col,
+        'font-size':11.5,'font-weight':660,'text-anchor':'middle'});
+      lt.textContent=g.v[pk].toFixed(2)+'%'; s.appendChild(lt);
     });
+
     B12.forEach(function(b,i){
-      var hit=el('rect',{x:f.X(i)-f.pw/B12.length/2,y:f.T,width:f.pw/B12.length,height:f.ph,
+      var hit=el('rect',{x:f.X(i)-slot/2,y:f.T,width:slot,height:f.ph,
         fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
         var html='<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='morning'?'00:00–12:00':'12:00–24:00')+'</b>';
