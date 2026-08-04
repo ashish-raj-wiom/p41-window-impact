@@ -132,16 +132,12 @@ the work.</p>
 </div>
 
 <div class="rec" style="border-left-color:var(--s2)">
-  <p class="big" style="font-size:20px">Same-day slots are the segment that sets that limit.</p>
-  <p><b>37.5% of customers ask for a slot today.</b> Their median runway to the pivot is <b>12.07 working
-  hours</b> — almost exactly two 6-hour cycles, with no margin. Every other slot type has 19 to 43 hours.</p>
-  <p>And <b>226 of those 620 same-day bookings (36.5%) arrive with no runway at all</b> — too late in the day for
-  even one window to close before the pivot. No value of P41 reaches them; that is a scheduling question, not a
-  timer one. A cut-off hour for same-day booking would do more for this segment than any change to P41.</p>
-  <p>For everyone else the constraint is slack. <b>The strongest version: make P41 a function of the runway the
-  booking actually has</b> — slot date minus now, divided by the chain length you want to absorb. That holds
-  same-day at roughly today's 6 hours while letting next-day and later bookings run to 9 hours or more, buying
-  back response at no cost to the promise.</p>
+  <p class="big" style="font-size:20px">A seventh of bookings cannot be helped by any P41 value.</p>
+  <p><b>226 of 1,654 bookings (13.7%) reach their first CSP too late in the day</b> for even one full window to
+  close before the pivot. They fit nothing at 2 hours and nothing at 12, which is why the "one attempt fits"
+  column sits flat at about 85% across the entire range.</p>
+  <p>That is a scheduling matter, not a timer one. If this segment is worth recovering, the lever is when
+  bookings are allowed to enter allocation relative to the slot they are promised — not the length of P41.</p>
 </div>
 
 <div class="rec" style="border-left-color:var(--s1)">
@@ -352,8 +348,12 @@ close to separate. <b>The shape does not change with the slot chosen — only th
 spike does, and that moves because the booking moment moves.</b></figcaption>
 </figure>
 
-<p>Which slot the customer picks therefore does not change the calibration. What changes is only how much runway
-the booking has before that pivot arrives — and almost every customer picks one of the two shortest options:</p>
+<p><b>That is the whole purpose of this split.</b> It rules out the objection that the pivot is an artefact of
+slot mix — that the peak sits where it does only because most customers happen to choose the next day. It does
+not: each group pivots on <em>its own</em> promised slot. The same-day and next-day groups behave identically
+once you line them up on the day they were promised.</p>
+
+<p>Summed to whole days, and with the underlying counts:</p>
 
 <div class="tblscroll">
 <table>
@@ -378,23 +378,22 @@ the booking has before that pivot arrives — and almost every customer picks on
 same denominator — connections in that row's group</b>, never cancellations. So the table's 3.9% and 4.2% are the
 same numbers the charts plot, just summed to whole days.</p>
 
-<p><b>95.5% of customers propose today or tomorrow.</b> That matters for calibration as much as the cancellation
-shape does: the runway P41 has to fit inside is short for essentially the entire base, not just a tail. It also
-caps how much this section can say about long lead times — 2- and 3-day slots are 44 connections and 5
-cancellations between them, which is a count, not a rate.</p>
+<p>With the pivot established and shown to be independent of the slot chosen, <b>the split has done its job and
+the calibration does not need it.</b> Section 6 works on the whole cohort and a single median.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)">For completeness: 2- and 3-day slots are 44 connections and 5
+cancellations between them here, which is a count rather than a rate — they are shown for transparency, not
+relied on.</p>
 
 <div class="note-box">
-<p><b>Two cohorts, two slot mixes — read them separately.</b> This section runs on the <b>cancellation cohort</b>
-(981 connections, 25 Jun – 30 Jul, matured), because cancellation needs the slot to be several days past before
-it can be counted. Sections 6 and 7 run on the <b>response cohort</b> (1,654 connections, 26 Jul – 1 Aug), the
-same population as sections 1–4.</p>
-<p>The slot mix differs between them, and the numbers should not be cross-read:</p>
-<p style="margin-left:2px"><b>Cancellation cohort</b> — same day 41.7%, next day 53.8%, 2 days 2.9%, 3 days 1.6%,
-4+ days 0%.<br>
-<b>Response cohort</b> — same day 37.5%, next day 54.8%, 2 days 4.1%, 3+ days 3.7%.</p>
-<p>Later slots are somewhat more common in the more recent window. The behavioural finding — cancellation pivots
-on the promised slot, whatever slot was chosen — holds in both, which is why the pivot travels safely from this
-section into the calibration. The <em>shares</em> do not travel; sections 6 and 7 use their own.</p>
+<p><b>Two cohorts — read them separately.</b> This section runs on the <b>cancellation cohort</b> (981
+connections, 25 Jun – 30 Jul, matured), because cancellation needs the slot to be several days past before it can
+be counted. Section 6 runs on the <b>response cohort</b> (1,654 connections, 26 Jul – 1 Aug), the same population
+as sections 1–4.</p>
+<p>The slot mix differs a little between them — later slots are somewhat more common in the more recent window —
+so the shares above are this cohort's, not the calibration cohort's. What carries across is the behaviour:
+cancellation pivots on the promised slot whatever slot was chosen, and that holds in both. <b>Section 6 needs
+only the pivot, and then measures its own runway on its own population.</b></p>
 </div>
 <p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
 above (26 Jul – 1 Aug), the cancellation cohort runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
@@ -418,120 +417,64 @@ lets the <em>median</em> allocation conclude before it — not to the point wher
 marginal cancellation cost, because that point does not exist.</p>
 </div>
 
-<p>Taking the pivot as <b>12:00 on the day after the slot</b> — the start of the peak bucket — the runway is
-three working hours longer than the slot day itself provides:</p>
+<p>Taking the pivot as <b>12:00 on the day after the slot</b> — the start of the peak bucket — and measuring how
+much working time a booking has from the moment it first reaches a CSP:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Slot the customer proposed</th><th class="n">Connections</th><th class="n">Share</th>
-<th class="n">Runway to end of slot day</th><th class="n">Runway to the PM pivot</th><th class="n">No runway at all</th></tr></thead>
+<thead><tr><th>Input</th><th class="n">Value</th><th>How it is measured</th></tr></thead>
 <tbody>
-<tr class="hi"><td><b>Same day</b></td><td class="n">620</td><td class="n">37.5%</td>
-    <td class="n">9.07 working h</td><td class="n"><b>12.07 working h</b></td><td class="n"><b>226 (36.5%)</b></td></tr>
-<tr><td>Next day</td><td class="n">906</td><td class="n">54.8%</td>
-    <td class="n">15.87 working h</td><td class="n">18.87 working h</td><td class="n">0</td></tr>
-<tr><td>2 days out</td><td class="n">67</td><td class="n">4.1%</td>
-    <td class="n">26.2 working h</td><td class="n">29.2 working h</td><td class="n">0</td></tr>
-<tr><td>3+ days out</td><td class="n">61</td><td class="n">3.7%</td>
-    <td class="n">40.3 working h</td><td class="n">43.3 working h</td><td class="n">0</td></tr>
-<tr><td><b>Whole cohort</b></td><td class="n"><b>1,654</b></td><td class="n">100%</td>
-    <td class="n">12.51 working h</td><td class="n"><b>15.51 working h</b></td><td class="n">226 (13.7%)</td></tr>
+<tr><td><b>Runway</b> — first CSP contact → the PM pivot</td>
+    <td class="n"><b>15.51 working h</b></td>
+    <td style="color:var(--ink2)">median across all 1,654 connections; 12.51 h to the end of the slot day, plus
+    the 3 working hours of the following morning</td></tr>
+<tr><td><b>Chain</b> — CSP attempts a connection passes through</td>
+    <td class="n"><b>1.91</b></td>
+    <td style="color:var(--ink2)">mean candidates per connection; each consumes one full P41 window</td></tr>
+<tr class="hi"><td><b>Implied P41</b> = runway ÷ chain</td>
+    <td class="n"><b>8.1 working h</b></td>
+    <td style="color:var(--ink2)">the ceiling, if all that is required is that the median booking finishes its chain</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>Medians throughout. Dividing by the chain — <b>1.91 candidates per connection on average</b>, each consuming
-one full P41 window:</p>
+<p>That 8.1 is a ceiling rather than a target, because it only asks the <em>median</em> chain to finish. The
+tighter question is whether a booking that times out once still has room to be re-offered and answered. Reading
+the whole cohort as a policy dial — the share of bookings whose allocation concludes before the pivot:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Population</th><th class="n">Median runway</th><th class="n">÷ chain</th><th class="n">Implied P41</th></tr></thead>
+<thead><tr><th class="n">P41</th><th class="n">One attempt fits</th><th class="n">Two attempts fit</th>
+<th>What that means</th></tr></thead>
 <tbody>
-<tr class="hi"><td><b>Whole cohort</b></td><td class="n"><b>15.51 working h</b></td><td class="n">1.91</td>
-    <td class="n"><b>8.1 working hours</b></td></tr>
-<tr><td>Same day — the tight segment</td><td class="n">12.07 working h</td><td class="n">1.94</td>
-    <td class="n">6.2 working hours</td></tr>
-<tr><td>Next day</td><td class="n">18.87 working h</td><td class="n">1.89</td>
-    <td class="n">10.0 working hours</td></tr>
-<tr><td>2+ days out</td><td class="n">29.2–43.3 working h</td><td class="n">1.93</td>
-    <td class="n">15–23 working hours</td></tr>
-</tbody>
-</table>
-</div>
-
-<p>Read as a policy dial — the share of bookings whose allocation concludes before the pivot, at each setting:</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr><th class="n">P41</th><th class="n">All: 1 attempt fits</th><th class="n">All: 2 attempts fit</th>
-<th class="n">Next day or later: 1 fits</th><th class="n">Next day or later: 2 fit</th></tr></thead>
-<tbody>
-<tr><td class="n">2 h</td><td class="n">86.0%</td><td class="n">85.4%</td><td class="n">100%</td><td class="n">100%</td></tr>
-<tr><td class="n">4 h</td><td class="n">85.4%</td><td class="n">84.8%</td><td class="n">100%</td><td class="n">100%</td></tr>
+<tr><td class="n">2 h</td><td class="n">86.0%</td><td class="n">85.4%</td>
+    <td style="color:var(--ink2)">room to spare, but gives up 8.5pp of response</td></tr>
+<tr><td class="n">4 h</td><td class="n">85.4%</td><td class="n">84.8%</td>
+    <td style="color:var(--ink2)">still comfortable</td></tr>
 <tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n"><b>85.1%</b></td><td class="n"><b>81.6%</b></td>
-    <td class="n"><b>100%</b></td><td class="n"><b>100%</b></td></tr>
-<tr><td class="n">8 h</td><td class="n">84.8%</td><td class="n"><b>47.0%</b></td><td class="n">100%</td><td class="n">75.1%</td></tr>
-<tr><td class="n">10 h</td><td class="n">83.3%</td><td class="n">31.0%</td><td class="n">100%</td><td class="n">49.6%</td></tr>
-<tr><td class="n">12 h</td><td class="n">81.6%</td><td class="n">10.8%</td><td class="n">100%</td><td class="n">17.3%</td></tr>
+    <td style="color:var(--ink2)"><b>the last setting that still absorbs a reroute</b></td></tr>
+<tr><td class="n">8 h</td><td class="n">84.8%</td><td class="n"><b>47.0%</b></td>
+    <td style="color:var(--ink2)">a timeout now costs the slot for half the base</td></tr>
+<tr><td class="n">10 h</td><td class="n">83.3%</td><td class="n">31.0%</td>
+    <td style="color:var(--ink2)">—</td></tr>
+<tr><td class="n">12 h</td><td class="n">81.6%</td><td class="n">10.8%</td>
+    <td style="color:var(--ink2)">—</td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>Six hours is the last setting that still leaves room for a reroute.</b> Fitting one attempt is easy at any
-value in the range — 85% throughout, because the 14% that never fit are same-day bookings arriving too late for
-any window. What actually binds is the <em>second</em> attempt: <b>81.6% of bookings can absorb two full 6-hour
-windows before the pivot, and that collapses to 47.0% at eight hours</b>. For every booking promised the next day
-or later, 6h fits two attempts with certainty.</p>
+<p><b>Six hours is the last setting that still leaves room for a reroute.</b> Fitting one attempt is easy
+anywhere in the range — flat at about 85% — because the bookings that never fit are not failing on the parameter.
+What actually binds is the <em>second</em> attempt: <b>81.6% of bookings can absorb two full 6-hour windows before
+the pivot, and that collapses to 47.0% at eight hours.</b> Below 6h nothing is gained on the promise side, and
+section 4 has already priced what is lost on the response side.</p>
 
-<p style="font-size:13.5px;color:var(--ink2)">The runway-÷-chain figure of 8.1 hours is the ceiling if you only
-require the median booking to finish its chain. The two-attempt criterion is the tighter and more useful one,
-because a P41 that leaves no room for a reroute converts every CSP timeout directly into a missed slot.</p>
+<p style="font-size:13.5px;color:var(--ink2)">The 14% that fit nothing at any setting are bookings that reach a
+CSP too late in the day for a single window to close before the pivot — <b>226 of 1,654 (13.7%)</b>. That is a
+scheduling matter rather than a timer one: no value of P41 reaches them, and it is why the "one attempt fits"
+column barely moves across the whole range.</p>
 
-<h3>7. The same picture, per slot type</h3>
-<p>Each CSP given the booking consumes one full P41 window before the system can try the next. Laying the median
-runway of each slot type against the current setting and two full cycles of it:</p>
-
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Runway to the PM pivot, per slot type</div>
-  <div class="chartsub">Median working hours from first CSP contact to 12:00 on the day after the promised slot · dashed lines = one and two full 6-hour attempts</div>
-  <svg id="c5" viewBox="0 0 720 330" role="img" aria-label="Median runway to the PM pivot by slot type, against one and two six-hour P41 windows"></svg>
-  <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>Runway available before the pivot</span>
-  </div>
-</div>
-<figcaption>Every slot type clears one 6-hour window at the median, and all but same-day clear two comfortably.
-<b>Same-day slots are the tight segment</b>: 12.07 working hours of median runway is almost exactly two 6-hour
-cycles, so a single timeout uses up the margin — and <b>226 of the 620 same-day bookings (36.5%) arrive with no
-runway at all</b>, too late in the day for any window to close before the pivot.</figcaption>
-</figure>
-
-<div class="tblscroll">
-<table>
-<thead><tr><th>Promised slot</th><th class="n">Share</th><th class="n">Median runway to the pivot</th>
-<th class="n">6h attempts that fit</th><th class="n">Implied P41 for a 2-CSP chain</th></tr></thead>
-<tbody>
-<tr class="hi"><td><b>Same day</b></td><td class="n">37.5%</td><td class="n"><b>12.07 working h</b></td>
-    <td class="n"><b>2.0</b> — no margin</td><td class="n"><b>~6 h</b></td></tr>
-<tr><td>Next day</td><td class="n">54.8%</td><td class="n">18.87 working h</td>
-    <td class="n">3.1</td><td class="n">~9 h</td></tr>
-<tr><td>2 days out</td><td class="n">4.1%</td><td class="n">29.2 working h</td>
-    <td class="n">4.9</td><td class="n">~15 h</td></tr>
-<tr><td>3+ days out</td><td class="n">3.7%</td><td class="n">43.3 working h</td>
-    <td class="n">7.2</td><td class="n">~22 h</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)">Attempts that fit is runway ÷ 6. These are medians per slot type;
-the spread within each type is why 36.5% of same-day bookings fit nothing at all even though the median fits two.</p>
-
-<p>So one global number is being asked to serve runways that differ by a factor of three. Six hours is set by the
-tightest segment and is therefore conservative for everyone else. <b>The strongest version of the recommendation
-is to make P41 a function of the runway the booking actually has</b> — slot date minus now, divided by the chain
-length you want to absorb — rather than a constant. That would leave same-day at roughly today's 6 hours while
-letting next-day and later bookings run to 9 hours or more, buying back response at no cost to the promise.</p>
-
-<h3>8. Time of day makes no difference</h3>
+<h3>7. Time of day makes no difference</h3>
 <p>Because P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), a booking arriving at 8 PM gets the
 same effective budget as one arriving at 10 AM. The data confirms the clock is doing its job:</p>
 
@@ -798,67 +741,6 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   }
 
   /* ---------- runway vs 6h CSP attempt blocks ---------- */
-  /* median working hours from first CSP contact to the PM pivot
-     (= 12:00 on the day after the promised slot) */
-  var RUN=[
-    {k:'Same day',    share:'37.5%', runway:12.07, cap:false},
-    {k:'Next day',    share:'54.8%', runway:18.87, cap:false},
-    {k:'2 days out',  share:'4.1%',  runway:29.20, cap:false},
-    {k:'3+ days out', share:'3.7%',  runway:43.28, cap:true}
-  ];
-
-  /* runway to the PM pivot, with one and two full P41 cycles drawn against it */
-  function c5(){
-    var s=document.getElementById('c5'); if(!s) return; s.innerHTML='';
-    var W=720,H=330,L=108,R=76,T=34,B=56, pw=W-L-R, ph=H-T-B;
-    var xmax=48, row=ph/RUN.length, bh=Math.min(26,row-22);
-    var X=function(v){ return L+(Math.min(v,xmax)/xmax)*pw; };
-    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
-        s1=cv('--s1'), s2=cv('--s2'), ink=cv('--ink'), ink2=cv('--ink2');
-
-    for(var v=0; v<=xmax; v+=6){
-      s.appendChild(el('line',{x1:X(v),x2:X(v),y1:T,y2:T+ph,stroke:grid,'stroke-width':1}));
-      var tx=el('text',{x:X(v),y:T+ph+20,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v; s.appendChild(tx);
-    }
-    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Median working hours available before the pivot'; s.appendChild(xl);
-
-    /* one and two full 6-hour attempts */
-    [{h:6,lab:'one 6h attempt',c:ink2},{h:12,lab:'two 6h attempts',c:s2}].forEach(function(m){
-      s.appendChild(el('line',{x1:X(m.h),x2:X(m.h),y1:T,y2:T+ph,stroke:m.c,'stroke-width':1.5,
-        'stroke-dasharray':'4 3',opacity:.85}));
-      var t=el('text',{x:X(m.h),y:T-12,fill:m.c,'font-size':11,'font-weight':620,'text-anchor':'middle'});
-      t.textContent=m.lab; s.appendChild(t);
-    });
-
-    RUN.forEach(function(r,i){
-      var y=T+i*row+(row-bh)/2;
-      var lb=el('text',{x:L-12,y:y+bh/2,fill:ink2,'font-size':12.5,'text-anchor':'end'});
-      lb.textContent=r.k; s.appendChild(lb);
-      var sh=el('text',{x:L-12,y:y+bh/2+15,fill:muted,'font-size':10.5,'text-anchor':'end'});
-      sh.textContent=r.share+' of bookings'; s.appendChild(sh);
-
-      var tight = r.runway < 13;   /* under two full cycles plus margin */
-      s.appendChild(el('rect',{x:X(0),y:y,width:Math.max(2,X(r.runway)-X(0)),height:bh,rx:4,
-        fill:s1, opacity:tight?0.92:0.6}));
-
-      var vt=el('text',{x:X(r.runway)+8,y:y+bh/2+4,fill:ink,'font-size':12,'font-weight':640});
-      vt.textContent=r.runway.toFixed(1)+' h'+(r.cap?'+':''); s.appendChild(vt);
-
-      var hit=el('rect',{x:L,y:y-6,width:pw,height:bh+12,fill:'transparent',style:'cursor:crosshair'});
-      hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>'+r.k+' slot</b>'
-          +'<div class="row"><span>Share of bookings</span><span>'+r.share+'</span></div>'
-          +'<div class="row"><span>Median runway</span><span>'+r.runway.toFixed(2)+' working h</span></div>'
-          +'<div class="row"><span>6h attempts that fit</span><span>'+(r.runway/6).toFixed(1)+'</span></div>');
-      });
-      hit.addEventListener('mouseleave',hideTT);
-      s.appendChild(hit);
-    });
-    s.appendChild(el('line',{x1:L,x2:L,y1:T,y2:T+ph,stroke:axis,'stroke-width':1}));
-    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
-  }
   /* ---------- cancellation aligned on the promised slot, 12-hour buckets ----------
      Anchor = midnight starting the promised slot date. Every series is a hazard:
      denominator is always connections in that group, never cancellations.      */
@@ -964,7 +846,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     });
   }
 
-  function draw(){ c1(); c3(); c4(); c5(); c6(); c7(); }
+  function draw(){ c1(); c3(); c4(); c6(); c7(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();

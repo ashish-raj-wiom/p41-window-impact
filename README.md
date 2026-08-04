@@ -31,25 +31,14 @@ to 47.0% at eight hours.**
 **Six hours is the last setting that still leaves room for a second CSP.** It also comfortably covers CSP
 behaviour — every quartile's P95 response is inside 5 hours, 3h 24m for the best and 4h 52m for the worst.
 
-### Same-day slots are the segment that sets that limit
+### A seventh of bookings cannot be helped by any P41 value
 
-**37.5% of customers ask for a slot today.** Their median runway to the pivot is **12.07 working hours** — almost
-exactly two 6-hour cycles, with no margin. Every other slot type has 19 to 43 hours.
+**226 of 1,654 bookings (13.7%) reach their first CSP too late in the day** for even one full window to close
+before the pivot. They fit nothing at 2 hours and nothing at 12, which is why the "one attempt fits" column sits
+flat at about 85% across the entire range.
 
-| Promised slot | Share | Median runway to the pivot | 6h attempts that fit | Implied P41 for a 2-CSP chain |
-|---|---:|---:|---:|---:|
-| **Same day** | 37.5% | **12.07 working h** | **2.0** — no margin | **~6 h** |
-| Next day | 54.8% | 18.87 working h | 3.1 | ~9 h |
-| 2 days out | 4.1% | 29.2 working h | 4.9 | ~15 h |
-| 3+ days out | 3.7% | 43.3 working h | 7.2 | ~22 h |
-
-And **226 of those 620 same-day bookings (36.5%) arrive with no runway at all** — too late in the day for even
-one window to close before the pivot. No value of P41 reaches them; that is a scheduling question, not a timer
-one. A cut-off hour for same-day booking would do more for this segment than any change to P41.
-
-**The strongest version: make P41 a function of the runway the booking actually has** — slot date minus now,
-divided by the chain length you want to absorb. That holds same-day at roughly today's 6 hours while letting
-next-day and later bookings run to 9 hours or more, buying back response at no cost to the promise.
+That is a scheduling matter, not a timer one. If this segment is worth recovering, the lever is when bookings are
+allowed to enter allocation relative to the slot they are promised — not the length of P41.
 
 ### And shorten it for CSPs who never respond
 
@@ -187,24 +176,20 @@ chosen — only the position of the booking spike, and that moves because the bo
 **Every percentage in this section uses the same denominator — connections in that row's group**, never
 cancellations. So the table's 3.9% and 4.2% are the same numbers the buckets above plot, summed to whole days.
 
-**95.5% of customers propose today or tomorrow.** That matters for
+**95.5% of customers propose today or tomorrow.** Noted for context rather than used — it matters for
 calibration as much as the cancellation shape: the runway P41 must fit inside is short for essentially the entire
 base, not just a tail. It also caps what this section can say about long lead times — 2- and 3-day slots are 44
 connections and 5 cancellations between them, a count rather than a rate.
 
-**Two cohorts, two slot mixes — read them separately.** This section runs on the **cancellation cohort** (981
-connections, 25 Jun – 30 Jul, matured), because cancellation needs the slot several days past before it can be
-counted. Sections 5 and 6 run on the **response cohort** (1,654 connections, 26 Jul – 1 Aug), the same population
-as sections 1–3.
+**That is the whole purpose of this split.** It rules out the objection that the pivot is an artefact of slot
+mix — that the peak sits where it does only because most customers choose the next day. It does not: each group
+pivots on *its own* promised slot. With that established, **the split has done its job and the calibration does
+not need it** — section 5 works on the whole cohort and a single median.
 
-| Cohort | Same day | Next day | 2 days | 3+ days |
-|---|---:|---:|---:|---:|
-| Cancellation (n=981) | 41.7% | 53.8% | 2.9% | 1.6% |
-| Response (n=1,654) | 37.5% | 54.8% | 4.1% | 3.7% |
-
-Later slots are somewhat more common in the more recent window. The behavioural finding — cancellation pivots on
-the promised slot, whatever slot was chosen — holds in both, which is why the pivot travels into the calibration.
-The *shares* do not travel; sections 5 and 6 use their own.
+**Two cohorts — read them separately.** This section runs on the **cancellation cohort** (981 connections,
+25 Jun – 30 Jul, matured), because cancellation needs the slot several days past before it can be counted.
+Section 5 runs on the **response cohort** (1,654 connections, 26 Jul – 1 Aug), the same population as sections
+1–3. The slot mix differs a little; what carries across is the pivot, not the shares.
 
 **Population for this section.** Unlike the response analysis (26 Jul – 1 Aug), the cancellation cohort runs
 **25 Jun – 30 Jul 2026** — cancellation is a slow signal and needs the slot to be several days past before it can
@@ -219,63 +204,45 @@ the P41 window, which is why the wider window is acceptable here.
 Nothing in 1h–6h flattens out. On its own that argues for a longer window.
 
 **Section 4 established:** the offsetting cost is not paid by the hour — it lands in one bucket, the **afternoon
-and evening of the day after the promised slot**. That is the largest single bucket anywhere in the window and
-where the customer stops waiting. **The pivot is PM of the day after the slot.**
+and evening of the day after the promised slot**, and it does so whatever slot the customer chose. **The pivot is
+PM of the day after the slot.**
 
 **So the two do not trade off smoothly.** Extra hours are close to free right up until the allocation stops
 fitting ahead of that pivot, and expensive after. Set P41 to the largest value that still lets the *median*
 allocation conclude before it — not to where marginal gain equals marginal cost, because that point does not
 exist.
 
-Taking the pivot as **12:00 on the day after the slot**, the runway is three working hours longer than the slot
-day itself provides:
+Taking the pivot as **12:00 on the day after the slot** and measuring the whole cohort — no split by slot type:
 
-| Slot the customer proposed | Connections | Share | Runway to end of slot day | Runway to the PM pivot | No runway at all |
-|---|---:|---:|---:|---:|---:|
-| **Same day** | 620 | 37.5% | 9.07 working h | **12.07 working h** | **226 (36.5%)** |
-| Next day | 906 | 54.8% | 15.87 working h | 18.87 working h | 0 |
-| 2 days out | 67 | 4.1% | 26.2 working h | 29.2 working h | 0 |
-| 3+ days out | 61 | 3.7% | 40.3 working h | 43.3 working h | 0 |
-| **Whole cohort** | **1,654** | 100% | 12.51 working h | **15.51 working h** | 226 (13.7%) |
+| Input | Value | How measured |
+|---|---:|---|
+| **Runway** — first CSP contact → the PM pivot | **15.51 working h** | median across all 1,654 connections; 12.51 h to the end of the slot day plus the following morning's 3 working hours |
+| **Chain** — CSP attempts a connection passes through | **1.91** | mean candidates per connection; each consumes one full P41 window |
+| **Implied P41** = runway ÷ chain | **8.1 working h** | the ceiling, if all that is required is that the median booking finishes its chain |
 
-Medians throughout. Dividing by the chain — **1.91 candidates per connection**, each consuming one full P41
-window:
+8.1 is a ceiling rather than a target, because it only asks the *median* chain to finish. The tighter question is
+whether a booking that times out once still has room to be re-offered and answered:
 
-| Population | Median runway | ÷ chain | Implied P41 |
-|---|---:|---:|---:|
-| **Whole cohort** | **15.51 working h** | 1.91 | **8.1 working hours** |
-| Same day — the tight segment | 12.07 working h | 1.94 | 6.2 working hours |
-| Next day | 18.87 working h | 1.89 | 10.0 working hours |
-| 2+ days out | 29.2–43.3 working h | 1.93 | 15–23 working hours |
+| P41 | One attempt fits | Two attempts fit | What that means |
+|---:|---:|---:|---|
+| 2 h | 86.0% | 85.4% | room to spare, but gives up 8.5pp of response |
+| 4 h | 85.4% | 84.8% | still comfortable |
+| **6 h — current** | **85.1%** | **81.6%** | **the last setting that still absorbs a reroute** |
+| 8 h | 84.8% | **47.0%** | a timeout now costs the slot for half the base |
+| 10 h | 83.3% | 31.0% | — |
+| 12 h | 81.6% | 10.8% | — |
 
-Share of bookings whose allocation concludes before the pivot, at each setting:
+**Six hours is the last setting that still leaves room for a reroute.** Fitting one attempt is easy anywhere in
+the range — flat at about 85% — because the bookings that never fit are not failing on the parameter. What binds
+is the *second* attempt: **81.6% of bookings absorb two full 6-hour windows before the pivot, collapsing to 47.0%
+at eight hours.** Below 6h nothing is gained on the promise side, and section 3 has already priced what is lost
+on the response side.
 
-| P41 | All: 1 attempt | All: 2 attempts | Next day or later: 1 | Next day or later: 2 |
-|---:|---:|---:|---:|---:|
-| 2 h | 86.0% | 85.4% | 100% | 100% |
-| 4 h | 85.4% | 84.8% | 100% | 100% |
-| **6 h — current** | **85.1%** | **81.6%** | **100%** | **100%** |
-| 8 h | 84.8% | **47.0%** | 100% | 75.1% |
-| 10 h | 83.3% | 31.0% | 100% | 49.6% |
-| 12 h | 81.6% | 10.8% | 100% | 17.3% |
+The 14% that fit nothing at any setting reach a CSP too late in the day for a single window to close before the
+pivot — **226 of 1,654 (13.7%)**. No value of P41 reaches them, which is why the "one attempt fits" column barely
+moves across the whole range.
 
-**Six hours is the last setting that still leaves room for a reroute.** Fitting one attempt is easy at any value
-in the range — 85% throughout, because the 14% that never fit are same-day bookings arriving too late for any
-window. What binds is the *second* attempt: **81.6% of bookings can absorb two full 6-hour windows before the
-pivot, collapsing to 47.0% at eight hours.** For every booking promised the next day or later, 6h fits two
-attempts with certainty.
-
-The runway-÷-chain figure of 8.1 hours is the ceiling if you only require the median booking to finish its chain.
-The two-attempt criterion is tighter and more useful, because a P41 leaving no room for a reroute converts every
-CSP timeout directly into a missed slot.
-
-### 6. The same picture, per slot type
-
-See the runway table in the recommendation above. One global number is being asked to serve runways that differ
-by a factor of three — 12 working hours for same-day slots against 43 for the longest. Six hours is set by the
-tightest segment and is therefore conservative for everyone else.
-
-### 7. Time of day makes no difference
+### 6. Time of day makes no difference
 
 P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), so a booking arriving at 8 PM gets the same
 effective budget as one arriving at 10 AM. The data confirms it:
