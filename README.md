@@ -146,6 +146,23 @@ customer is waiting for the day he was promised. **That is the guardrail.**
 And it holds **regardless of how far ahead the slot was** — a customer promised a slot three days out waits the
 three days rather than giving up at a fixed number of hours:
 
+Lining every booking up on **its own** slot date — day 0 = the promised day, whether that was today, tomorrow or
+two days out — the curves land on top of each other:
+
+| Days relative to promised slot | −1 | **0** | **+1** | +2 | +3 | +4 | +5 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Same day (n=977) | 0% | **3.89%** | 3.07% | 2.35% | 1.84% | 0.92% | 0.31% |
+| Next day (n=2,911) | 2.58% | 3.20% | **3.74%** | 2.13% | 1.72% | 1.00% | 1.07% |
+| 2 days out (n=400) | 3.00% | **3.50%** | **3.50%** | 2.75% | 2.25% | 1.00% | 1.25% |
+
+Whatever day was promised, cancellation peaks **on that day or the one after** and decays. Nothing at all happens
+two or three days *before* the slot, however long the customer has already been waiting. **The clock the customer
+runs is the slot date, not the booking date.**
+
+Two notes: same-day slots peak at day 0 because for them day 0 is also the booking day, so it carries the
+mistake-booking spike. 3-days-out slots (n=51) also peak at +1 but are one or two cancellations per point — too
+thin to plot.
+
 | Slot promised | Connections | Cancelled | Before slot | On slot day | Day after | **On or after** |
 |---|---:|---:|---:|---:|---:|---:|
 | Same day | 494 | 91 | 0% | 29.7% | 27.5% | **100%** |
