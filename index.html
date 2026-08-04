@@ -129,25 +129,15 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
   </div>
 </div>
 
-<div class="callout">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--s1)" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M8 5v.5M8 7.5v3.5" stroke-linecap="round"/></svg>The one-line answer</h4>
-  <p>Under the 2-hour window PRE stopped dead at hour 2 with tasks still arriving. Under 6 hours POST keeps
-  accruing for another four — <b>+4.61pp</b> — then flattens absolutely at hour 6, with nothing whatsoever beyond
-  it. That within-cohort accrual is the P41 effect, and it doesn't depend on who is in which cohort. CSP
-  responsiveness didn't improve; what improved is how much of their work survived long enough to count.</p>
-  <p><b>But only just over half of what the extra hours surface is progress.</b> Total CSP response rises
-  <b>+8.50pp</b> between hour 2 and hour 6 — of which +4.61pp is a technician assignment and <b>+3.89pp is a
-  decline</b>. See <a href="#response">the response split</a>.</p>
-</div>
+<p>Between working-hour 2 and working-hour 6, total CSP response rises <b>+8.50pp</b> — <b>+4.61pp</b> of it a
+technician assignment and <b>+3.89pp</b> a decline (<a href="#response">response split</a>). Of the extra
+assignments, <b>≈+1.6pp</b> survives as incremental installs once the reroute path's own recovery rate is netted
+off (<a href="#installs">install section</a>).</p>
 
-<div class="callout warn">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--warning)" stroke-width="1.6"><path d="M8 2.2 14.4 13.4H1.6z" stroke-linejoin="round"/><path d="M8 6.4v3M8 11.3v.4" stroke-linecap="round"/></svg>Read the shape of each curve, never the gap between them</h4>
-  <p>The two cohorts are deliberately scoped differently: POST is <b>customer-proposed-slot bookings</b>, PRE is the
-  whole pre-change week, because that flow did not exist before ~21 Jul and so has no equivalent subset. POST
-  therefore sits above PRE from the very first quarter-hour — before either deadline can bind — and that vertical
-  gap is <b>cohort composition, not P41</b>. Only the accrual <em>within</em> each curve after hour 2 is
-  attributable to the change. See <a href="#pitfall">the scoping notes</a> below.</p>
-</div>
+<p>The two cohorts are scoped differently: POST is customer-proposed-slot bookings, PRE is the whole pre-change
+week, since that flow did not exist before ~21 Jul. POST therefore sits above PRE from the first quarter-hour,
+before either deadline can bind; that vertical gap is cohort composition, not P41. Only the accrual <em>within</em>
+each curve after hour 2 is attributable to the change (<a href="#pitfall">scoping notes</a>).</p>
 
 <h2>The change is real in the config</h2>
 <p class="lede">Verified rather than assumed — and it confirms P41 is natively a <b>working-hours</b> timer. Measured
@@ -272,17 +262,18 @@ positive action alone.</figcaption>
 
 <figure>
 <div class="chartcard">
-  <div class="charttitle">POST cohort — that response split into positive action and decline</div>
-  <div class="chartsub">Customer-proposed-slot bookings, 26 Jul – 1 Aug 2026 · n=3,165</div>
-  <svg id="c5" viewBox="0 0 760 400" role="img" aria-label="Post-change cohort split into positive action and decline by elapsed working hours"></svg>
+  <div class="charttitle">That response split into positive action and decline — both cohorts</div>
+  <div class="chartsub">Shared axes · PRE n=4,985 (action = slot proposal) · POST n=3,165 (action = technician assignment)</div>
+  <svg id="c5" viewBox="0 0 760 400" role="img" aria-label="Positive action and decline by elapsed working hours, pre and post cohorts side by side"></svg>
   <div class="legend">
-    <span><i class="swatch" style="background:var(--s1)"></i>Positive action — technician assigned</span>
+    <span><i class="swatch" style="background:var(--s1)"></i>Positive action</span>
     <span><i class="swatch" style="background:var(--s8)"></i>Decline</span>
   </div>
 </div>
-<figcaption>Both lines keep climbing after hour 2, and roughly in step. Of the <b>+8.50pp</b> extra response the
-longer window buys, <b>+4.61pp is a technician assignment and +3.89pp is a decline</b> — <b>46% of the gain is a
-refusal</b>, not progress.</figcaption>
+<figcaption>In PRE both lines stop dead at hour 2 — the 2-hour window cuts off positive action and declines alike.
+In POST both keep climbing to hour 6, and roughly in step: of the <b>+8.50pp</b> extra response the longer window
+buys, <b>+4.61pp is a technician assignment and +3.89pp is a decline</b>. <b>46% of the gain is a refusal</b>,
+not progress.</figcaption>
 </figure>
 
 <div class="tblscroll">
@@ -299,17 +290,11 @@ refusal</b>, not progress.</figcaption>
 </table>
 </div>
 
-<div class="callout warn">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--warning)" stroke-width="1.6"><path d="M8 2.2 14.4 13.4H1.6z" stroke-linejoin="round"/><path d="M8 6.4v3M8 11.3v.4" stroke-linecap="round"/></svg>The decline half is not free — it delays rerouting</h4>
-  <p>Under the 2-hour window, a CSP who was going to refuse simply timed out at hour 2 and the booking was released
-  for reroute. Under six hours, that same CSP now holds the booking and declines at hour 3, 4 or 5 — so the customer
-  waits <b>up to four extra working hours</b> before the task even starts looking for someone else. The same applies
-  to the 35.5% who still time out: they now hold the booking for six hours instead of two.</p>
-  <p>So the honest ledger is <b>+4.61pp genuinely converted to progress</b>, bought at the cost of delayed release
-  on the +3.89pp who decline late plus the whole timeout population. That trade turns on what the reroute path
-  would have delivered instead — measured in <a href="#installs">the install section</a>: it already recovers about
-  one in six timed-out bookings, which cuts the gain to roughly <b>+1.6pp of install rate</b>.</p>
-</div>
+<p>The decline half carries a timing cost. Under the 2-hour window a CSP who was going to refuse timed out at hour 2
+and the booking was released for reroute; under six hours the same CSP holds it and declines at hour 3, 4 or 5, so
+the booking waits up to four extra working hours before it starts looking for anyone else. The same applies to the
+35.5% who still time out — they now hold for six hours instead of two. What that costs depends on what the reroute
+path would have delivered instead, measured in <a href="#installs">the install section</a>.</p>
 
 <details>
 <summary>Table view — response rate and split</summary>
@@ -380,21 +365,15 @@ function of sample size: the hourly bands hold 27 to 54 tasks each, so their int
 </table>
 </div>
 
-<div class="callout">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--s1)" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M5.4 8.2l1.8 1.8 3.4-3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>No deviation — tested, not eyeballed</h4>
-  <p>A chi-square test across all seven bands gives <b>χ² = 2.15, df = 6, p = 0.906</b>. That is nowhere near
-  significance — the install rate does <b>not</b> vary with how long the CSP took. Comparing the two groups
-  directly, &lt;2h (48.34%) against 2–6h (50.68%), gives a 2.34pp difference at <b>p = 0.593</b>: also nothing.</p>
-  <p>Highlighted rows are the P41 gain — the tasks that only exist because the window was extended. They install
-  at the same rate as everything else. <b>A CSP who takes five hours to assign is not a worse CSP</b>, and the
-  extra tasks the longer window captures are not lower quality.</p>
-</div>
+<p>Chi-square across all seven bands: <b>χ² = 2.15, df = 6, p = 0.906</b> — no detectable variation in install rate
+by assignment speed. The two-group comparison, &lt;2h (48.34%) against 2–6h (50.68%), gives a 2.34pp difference at
+<b>p = 0.593</b>. Highlighted rows are the tasks that exist only because the window was extended; they install at
+the same rate as everything else.</p>
 
-<h3>2. But a timed-out booking is not a lost booking</h3>
-<p>This is what stops the headline number being the answer. When a candidate dies on <code>TIMEOUT_P41</code> the
-connection is released and rerouted — <b>78.1%</b> of them pick up a fresh candidate, and <b>15.9%</b> of the
-timed-out connections go on to install anyway with somebody else. So the counterfactual for the 146 late
-assignments is not zero installs; it is roughly 23.</p>
+<h3>2. A timed-out booking is not a lost booking</h3>
+<p>When a candidate dies on <code>TIMEOUT_P41</code> the connection is released and rerouted — <b>78.1%</b> of them
+pick up a fresh candidate, and <b>15.9%</b> of the timed-out connections go on to install anyway with somebody else.
+So the counterfactual for the 146 late assignments is not zero installs; it is roughly 23.</p>
 
 <div class="tiles">
   <div class="tile">
@@ -419,15 +398,13 @@ assignments is not zero installs; it is roughly 23.</p>
   </div>
 </div>
 
-<div class="callout">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--s1)" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M8 5v.5M8 7.5v3.5" stroke-linecap="round"/></svg>So: yes, but roughly a third of the headline</h4>
-  <p>Giving the CSP four more hours <b>does</b> raise the install rate — by about <b>+1.6pp</b>, not the +4.61pp of
-  extra positive action and not the +2.34pp of raw installs. The gap is the reroute path, which was already
-  recovering about one in six timed-out bookings without any change to P41.</p>
-  <p><b>Treat +1.6pp as a ceiling.</b> Reroute recovery is measured on the same recent window and is still
-  maturing — recovery rises the younger the cohort (7.9% for mid-June, 9.0% for early July, 15.1% for late July),
-  so the 15.9% subtracted here will likely grow, which shrinks the net gain further.</p>
-</div>
+<p>Four more hours raises the install rate by about <b>+1.6pp</b> — not the +4.61pp of extra positive action, and not
+the +2.34pp of raw installs. The difference is the reroute path, which was already recovering about one in six
+timed-out bookings without any change to P41.</p>
+
+<p><b>+1.6pp is a ceiling, not a point estimate.</b> Reroute recovery rises the younger the cohort — 7.9% for
+mid-June, 9.0% for early July, 15.1% for late July — so the 15.9% subtracted here will likely grow, shrinking the
+net gain further.</p>
 
 <details>
 <summary>Reroute recovery by cohort age — why 15.9% is not a censoring artifact</summary>
@@ -609,14 +586,11 @@ assignment — the two are separate things and the second does not define the fi
 this flow the slot is already confirmed when the candidate is created, so nothing stands between notification and
 assignment.</p>
 
-<div class="callout warn">
-  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--warning)" stroke-width="1.6"><path d="M8 2.2 14.4 13.4H1.6z" stroke-linejoin="round"/><path d="M8 6.4v3M8 11.3v.4" stroke-linecap="round"/></svg>POST's higher percentiles are not "CSPs got slower"</h4>
-  <p>PRE's distribution is <b>right-truncated by its own deadline</b>. Under a 2h window you cannot observe a
-  five-hour slot proposal — the task was already dead. PRE's flattering P95 of 1.44 working hours is therefore
-  largely an artifact of the guillotine, not evidence of faster CSPs. POST's P95 of 5.35 working hours is a
-  <em>fuller</em> measurement, not a worse one. The censoring-consistent comparison is the curve shape and the
-  action rate, never the conditional percentiles.</p>
-</div>
+<p>PRE's distribution is <b>right-truncated by its own deadline</b>: under a 2h window a five-hour slot proposal
+cannot be observed, because the task was already dead. Its P95 of 1.44 working hours is therefore largely an
+artifact of that cutoff rather than evidence of faster CSPs, and POST's higher P95 is a fuller measurement, not a
+worse one. The censoring-consistent comparisons are the curve shape and the action rate, not the conditional
+percentiles.</p>
 
 <h2>Where the post-change tasks land</h2>
 <p class="lede">The whole POST cohort — customer-proposed-slot bookings created 26 Jul – 1 Aug — by how long the
@@ -1095,14 +1069,95 @@ candidates in the POST window under each). The resulting IST creation distributi
       [[2,'Old P41 · 2h','--s1'],[6,'New P41 · 6h','--s2']],
       [{v:POST_RESP, c:'--s2', label:'+8.50pp', off:3}]);
   }
+  /* PRE equivalents — same first-response classification */
+  var PRE_POS=[25.94,27.44,29.89,31.72,33.08,33.08,33.08,33.08,33.08,33.08,33.08];
+  var PRE_DEC=[ 8.24, 9.51,11.21,12.76,13.92,13.94,13.94,13.94,13.94,13.94,13.94];
+
+  /* small multiples: PRE | POST, shared axes */
   function c5(){
-    lineChart('c5',
-      [{v:POST_POS, c:'--s1', label:'Assigned 41.8%', dy:4},
-       {v:POST_DEC, c:'--s8', label:'Declined 20.8%', dy:4}],
-      8, 44, 4,
-      [[2,'Old P41 · 2h','--muted'],[6,'New P41 · 6h','--muted']],
-      [{v:POST_POS, c:'--s1', label:'+4.61pp', off:3},
-       {v:POST_DEC, c:'--s8', label:'+3.89pp', off:3}]);
+    var s=document.getElementById('c5'); if(!s) return; s.innerHTML='';
+    var W=760,H=400,T=34,B=52, ph=H-T-B;
+    var LM=52, RM=16, GAP=54, panelW=(W-LM-RM-GAP)/2;
+    var xmax=8, ymin=5, ymax=45;
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
+        s1=cv('--s1'), s8=cv('--s8'), surf=cv('--surface'), ink2=cv('--ink2');
+    var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
+
+    /* shared y-axis labels, drawn once on the left */
+    for(var v=5; v<=45; v+=10){
+      var tx=el('text',{x:LM-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
+      tx.textContent=v+'%'; s.appendChild(tx);
+    }
+
+    var panels=[
+      {x:LM, title:'PRE · P41 = 2h', n:'n=4,985', cut:2,
+       pos:PRE_POS, dec:PRE_DEC, showAccrual:false},
+      {x:LM+panelW+GAP, title:'POST · P41 = 6h', n:'n=3,165', cut:6,
+       pos:POST_POS, dec:POST_DEC, showAccrual:true}
+    ];
+
+    panels.forEach(function(p){
+      var X=function(v){ return p.x + (v/xmax)*panelW; };
+
+      var ttl=el('text',{x:p.x,y:T-16,fill:ink2,'font-size':12.5,'font-weight':650});
+      ttl.textContent=p.title; s.appendChild(ttl);
+      var nt=el('text',{x:p.x+panelW,y:T-16,fill:muted,'font-size':11.5,'text-anchor':'end'});
+      nt.textContent=p.n; s.appendChild(nt);
+
+      for(var v=5; v<=45; v+=10){
+        s.appendChild(el('line',{x1:p.x,x2:p.x+panelW,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
+      }
+      [0,2,4,6,8].forEach(function(v){
+        var tx=el('text',{x:X(v),y:T+ph+20,fill:muted,'font-size':11,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
+        tx.textContent=v; s.appendChild(tx);
+      });
+      s.appendChild(el('line',{x1:p.x,x2:p.x+panelW,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
+
+      /* this panel's own P41 cutoff */
+      s.appendChild(el('line',{x1:X(p.cut),x2:X(p.cut),y1:T,y2:T+ph,stroke:muted,'stroke-width':1,opacity:.5}));
+      var ct=el('text',{x:X(p.cut)+5,y:T+ph-8,fill:muted,'font-size':11,'font-weight':600});
+      ct.textContent=p.cut+'h'; s.appendChild(ct);
+
+      [{v:p.pos,c:s1},{v:p.dec,c:s8}].forEach(function(g){
+        var d='';
+        for(var i=0;i<TH.length;i++){ if(TH[i]>xmax) break; d+=(i?'L':'M')+X(TH[i])+' '+Y(g.v[i]); }
+        s.appendChild(el('path',{d:d,fill:'none',stroke:g.c,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+        for(var j=0;j<TH.length;j++){ if(TH[j]>xmax) break;
+          s.appendChild(el('circle',{cx:X(TH[j]),cy:Y(g.v[j]),r:3,fill:g.c,stroke:surf,'stroke-width':2})); }
+        var lt=el('text',{x:X(8),y:Y(g.v[TH.length-1])-9,fill:g.c,'font-size':11.5,'font-weight':620,'text-anchor':'end'});
+        lt.textContent=g.v[TH.length-1].toFixed(1)+'%'; s.appendChild(lt);
+      });
+
+      if(p.showAccrual){
+        var i2=TH.indexOf(2), i6=TH.indexOf(6);
+        [{v:p.pos,c:s1,l:'+4.61pp'},{v:p.dec,c:s8,l:'+3.89pp'}].forEach(function(b){
+          var bx=X(6)+5;
+          s.appendChild(el('line',{x1:bx,x2:bx,y1:Y(b.v[i2]),y2:Y(b.v[i6]),stroke:b.c,'stroke-width':1.5}));
+          s.appendChild(el('line',{x1:bx-3,x2:bx+3,y1:Y(b.v[i2]),y2:Y(b.v[i2]),stroke:b.c,'stroke-width':1.5}));
+          s.appendChild(el('line',{x1:bx-3,x2:bx+3,y1:Y(b.v[i6]),y2:Y(b.v[i6]),stroke:b.c,'stroke-width':1.5}));
+          var t=el('text',{x:bx+6,y:(Y(b.v[i2])+Y(b.v[i6]))/2+4,fill:b.c,'font-size':11,'font-weight':650});
+          t.textContent=b.l; s.appendChild(t);
+        });
+      }
+
+      for(var k=0;k<TH.length;k++){
+        if(TH[k]>xmax) break;
+        (function(idx){
+          var hit=el('rect',{x:X(TH[idx])-10,y:T,width:20,height:ph,fill:'transparent',style:'cursor:crosshair'});
+          hit.addEventListener('mousemove',function(e){
+            showTT(e,'<b>'+p.title+' · within '+TH[idx]+'h</b>'+
+              '<div class="row"><span>Positive action</span><span>'+p.pos[idx].toFixed(2)+'%</span></div>'+
+              '<div class="row"><span>Decline</span><span>'+p.dec[idx].toFixed(2)+'%</span></div>'+
+              '<div class="row"><span>Response</span><span>'+(p.pos[idx]+p.dec[idx]).toFixed(2)+'%</span></div>');
+          });
+          hit.addEventListener('mouseleave',hideTT);
+          s.appendChild(hit);
+        })(k);
+      }
+    });
+
+    var xl=el('text',{x:W/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Elapsed working hours since task notification'; s.appendChild(xl);
   }
 
   /* ---------- chart 6: hourly cancellation ---------- */

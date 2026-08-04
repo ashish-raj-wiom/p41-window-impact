@@ -39,7 +39,7 @@ window the old config used to discard.
 
 `TIMEOUT_P41` deaths fell 52.5% → 35.5%.
 
-### But only half the gain is progress
+### Response split: positive action vs decline
 
 A CSP can respond two ways — act, or decline. Both are responses; only one is progress. Splitting the
 accrual between working-hour 2 and working-hour 6:
@@ -56,7 +56,7 @@ Under six hours that same CSP holds the booking and declines at hour 3, 4 or 5, 
 four extra working hours before the task starts looking for anyone else. The same applies to the 35.5% who
 still time out: they now hold for six hours instead of two.
 
-### Does that extra response become installs?
+### Conversion to installs
 
 Yes — but roughly a third of the headline, because a timed-out booking was never a lost booking.
 
@@ -95,7 +95,7 @@ will likely grow and shrink the net gain further.
 
 Still unmeasured: reroute *latency* — how long the second attempt takes.
 
-### But the customer does not appear to walk away
+### Customer cancellation
 
 The obvious place that longer wait would show is **customer-initiated cancellation**. It does not.
 
