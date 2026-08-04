@@ -58,6 +58,33 @@ still time out: they now hold for six hours instead of two.
 
 Whether the trade is worth it depends on how fast a rerouted booking finds a second CSP — not measured here.
 
+### But the customer does not appear to walk away
+
+The obvious place that longer wait would show is **customer-initiated cancellation**. It does not.
+
+Cohorts anchored on booking confirmation; cancellation measured at fixed horizons from that moment, because
+cancellation takes ~80 hours on average and a "has cancelled by now" measure right-truncates recent weeks.
+
+| Cohort | n | ≤6h | ≤24h | ≤72h |
+|---|---:|---:|---:|---:|
+| PRE — confirmed before 22 Jul | 7,329 | 3.33% | 5.40% | 10.79% |
+| **POST — confirmed 22 Jul onward** | 1,337 | **2.77%** | 5.91% | 11.67% |
+| Change | | **−0.56pp** | +0.51pp | +0.88pp |
+
+**Inside the six-hour window P41 now holds — exactly where the task used to die at hour 2 and go looking for
+someone else — cancellation went down, not up.** The 24h and 72h figures rise slightly, but PRE weeks swing
+between 3.45% and 8.04% at 24 hours on their own, so that sits inside week-to-week noise. The 7-day rate has been
+falling all year (27% in May → 14% by late July) and the post-change weeks stay on that line.
+
+Three caveats: only **one uncensored POST week** exists (n=1,337); the customer-proposed-slot flow launched ~21 Jul
+so it is confounded with the P41 change; and a small P41 penalty could hide inside the secular decline at this
+sample size. A second full week is the cheapest way to strengthen or overturn this.
+
+> ⚠️ **`BOOKING_LOGS` duplicates `cancelled` events since 10 July 2026** — 43,985 rows on 13 July across 63
+> distinct mobiles, ~700 writes per real cancellation. Counted raw, the series shows a cancellation explosion
+> starting twelve days before the P41 change, which reads exactly like a P41 effect. **Always dedupe to distinct
+> `MOBILE`.** This will corrupt any other analysis touching the table.
+
 Read the **shape of each curve, never the gap between them**. The cohorts are scoped differently by design, so
 POST sits above PRE from the first quarter-hour — before either deadline can bind — and that vertical offset is
 cohort composition, not P41. Only the accrual *within* each curve after hour 2 is attributable to the change.

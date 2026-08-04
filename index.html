@@ -288,6 +288,100 @@ remainder — 52.98% for PRE, 37.38% for POST, closely matching the <code>TIMEOU
 </div>
 </details>
 
+<h2 id="cancellations">The cost side — did customers cancel?</h2>
+<p class="lede">The longer window buys +4.61pp of positive action, but 46% of what it surfaces is a decline and
+the 35.5% who still time out now hold for six working hours instead of two. Either way the customer waits longer
+before their booking looks for anyone else. The obvious place that cost would show is <b>customer-initiated
+cancellation</b>. It does not.</p>
+
+<div class="callout warn">
+<p><b>Read this table on distinct customers, never on event rows.</b> <code>BOOKING_LOGS</code> has been writing
+duplicate <code>cancelled</code> events since <b>10 July 2026</b> — 43,985 rows on 13 July across just 63 distinct
+mobiles, roughly 700 writes per real cancellation. Counted raw, the series shows a cancellation explosion beginning
+twelve days before the P41 change, which would read exactly like a P41 effect. Every figure here is deduped to one
+row per mobile.</p>
+</div>
+
+<p>Cohorts are anchored on <b>booking confirmation</b>, and cancellation is measured at fixed horizons from that
+moment. Fixed horizons matter: cancellation takes ~80 hours on average, so a recent week measured on "has cancelled
+by now" is right-truncated and looks artificially clean.</p>
+
+<div class="tblscroll">
+<table>
+<thead>
+<tr><th>Week booking confirmed</th><th class="n">Confirmed</th><th class="n">Cancelled ≤24h</th><th class="n">≤72h</th><th class="n">≤7d</th></tr>
+</thead>
+<tbody>
+<tr><td>11 May</td><td class="n">270</td><td class="n">7.78%</td><td class="n">15.93%</td><td class="n">27.04%</td></tr>
+<tr><td>18 May</td><td class="n">540</td><td class="n">5.19%</td><td class="n">14.26%</td><td class="n">27.22%</td></tr>
+<tr><td>25 May</td><td class="n">467</td><td class="n">6.85%</td><td class="n">18.84%</td><td class="n">31.05%</td></tr>
+<tr><td>1 Jun</td><td class="n">724</td><td class="n">3.45%</td><td class="n">11.46%</td><td class="n">20.99%</td></tr>
+<tr><td>8 Jun</td><td class="n">858</td><td class="n">8.04%</td><td class="n">14.69%</td><td class="n">24.71%</td></tr>
+<tr><td>15 Jun</td><td class="n">796</td><td class="n">3.77%</td><td class="n">10.80%</td><td class="n">20.48%</td></tr>
+<tr><td>22 Jun</td><td class="n">1,194</td><td class="n">7.12%</td><td class="n">10.64%</td><td class="n">17.09%</td></tr>
+<tr><td>29 Jun</td><td class="n">962</td><td class="n">4.68%</td><td class="n">10.40%</td><td class="n">18.19%</td></tr>
+<tr><td>6 Jul</td><td class="n">1,704</td><td class="n">6.81%</td><td class="n">11.74%</td><td class="n">17.25%</td></tr>
+<tr><td>13 Jul</td><td class="n">1,536</td><td class="n">4.17%</td><td class="n">10.55%</td><td class="n">18.88%</td></tr>
+<tr class="hi"><td>20 Jul — P41 changes on the 22nd</td><td class="n">1,137</td><td class="n">4.93%</td><td class="n">10.20%</td><td class="n">16.09%</td></tr>
+<tr class="hi"><td>27 Jul — first full week at 6h</td><td class="n">1,337</td><td class="n">5.91%</td><td class="n">11.67%</td><td class="n">14.14%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Nothing breaks at 22 July. The 7-day rate has been falling all year — 27% in May, 14% by late July — and the
+post-change weeks sit on that same downward line rather than departing from it.</p>
+
+<h3>The window P41 actually holds</h3>
+<p>The sharpest test is the first six hours, because that is exactly the span a CSP now occupies where previously
+the task died at hour 2 and went looking for someone else.</p>
+
+<div class="tblscroll">
+<table>
+<thead>
+<tr><th>Cohort</th><th class="n">Confirmed</th><th class="n">Cancelled ≤6h</th><th class="n">≤24h</th><th class="n">≤72h</th></tr>
+</thead>
+<tbody>
+<tr><td>PRE — confirmed before 22 Jul</td><td class="n">7,329</td><td class="n">3.33%</td><td class="n">5.40%</td><td class="n">10.79%</td></tr>
+<tr class="hi"><td>POST — confirmed 22 Jul onward</td><td class="n">1,337</td><td class="n"><b>2.77%</b></td><td class="n">5.91%</td><td class="n">11.67%</td></tr>
+<tr><td>Change</td><td class="n">—</td><td class="n"><b>−0.56pp</b></td><td class="n">+0.51pp</td><td class="n">+0.88pp</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Cancellation inside the six-hour window went down, not up.</b> The 24h and 72h figures rise by half a point
+and just under a point, but PRE weeks swing between 3.45% and 8.04% at 24 hours on their own, so a 0.5pp move sits
+comfortably inside week-to-week noise.</p>
+
+<p class="lede">On the evidence available, the +4.61pp of positive action is <b>not</b> being paid for in customer
+cancellations.</p>
+
+<h3>What would change this conclusion</h3>
+<ul>
+<li><b>Only one uncensored POST week exists</b> (n=1,337). Cancellation averages ~80 hours, so later weeks have not
+had time to happen yet. A second full week would firm this up materially — it is the single cheapest way to
+strengthen or overturn the finding.</li>
+<li><b>Cancellation is booking-level, not P41-attributable.</b> The customer-proposed-slot flow launched around
+21 July, one day before the P41 change, so the two are confounded in the POST cohort. This measures what happened,
+not what P41 alone caused.</li>
+<li><b>The secular decline could be masking a small penalty.</b> The 7-day rate has fallen steadily since May for
+reasons unrelated to P41. A modest P41 cost could be hidden inside that improvement and would not be visible at
+this sample size.</li>
+<li><b>The real unmeasured cost is still reroute latency.</b> Cancellation is only one way the wait hurts. How long
+a released booking takes to find a second CSP — and whether four extra working hours of holding pushes that past
+the customer's patience in some other form — remains unmeasured, as noted in the response-rate section.</li>
+</ul>
+
+<h3>Method</h3>
+<ul>
+<li>Numerator: distinct <code>MOBILE</code> with <code>EVENT_NAME='cancelled'</code> and
+<code>DATA:initiated_by='customer'</code> in <code>PROD_DB.PUBLIC.BOOKING_LOGS</code>. The other value,
+<code>cops_unserviceable</code>, is excluded — it is not a customer decision.</li>
+<li>Denominator: distinct <code>MOBILE</code> with <code>EVENT_NAME='booking_confirmed'</code>, first occurrence.</li>
+<li>Both sides deduped to one row per mobile, which is what neutralises the duplication bug above.</li>
+<li>Only cancellations at or after the booking's own confirmation are counted.</li>
+<li>Weeks are IST (<code>ADDED_TIME</code> is UTC; +330 minutes). The partial week from 3 August is excluded.</li>
+</ul>
+
 <h2>The change is real in the config</h2>
 <p class="lede">Verified rather than assumed — and it confirms P41 is natively a <b>working-hours</b> timer. Measured
 on that clock, <code>P41_DEADLINE_AT − CREATED_AT</code> is exactly <b>2.00 working hours</b> before the change and
