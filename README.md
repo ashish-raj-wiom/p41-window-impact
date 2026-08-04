@@ -62,14 +62,14 @@ faster than a timeout) but it is not progress.
 
 | CSP quartile | CSPs | Bookings | Response rate | P25 | P50 | P90 | P95 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Q1 — best | 60 | 485 | 100% | 0.01 | 0.01 | 1.68 | 3.44 |
-| Q2 | 59 | 545 | 89.9% | 0.01 | 0.09 | 3.05 | 4.23 |
-| Q3 | 59 | 568 | 54.6% | 0.01 | 0.09 | 3.86 | 4.70 |
-| **Q4 — worst** | 59 | 544 | **5.2%** | 0.02 | 0.46 | 4.21 | 4.87 |
+| Q1 — best | 60 | 485 | 100% | 25 sec | 41 sec | 1h 37m | 3h 24m |
+| Q2 | 59 | 545 | 89.9% | 30 sec | 5 min | 3h 4m | 4h 23m |
+| Q3 | 59 | 568 | 54.6% | 33 sec | 5 min | 3h 48m | 4h 42m |
+| **Q4 — worst** | 59 | 544 | **5.2%** | 1 min | 28 min | 4h 12m | 4h 52m |
 
-Working hours, among bookings that got a response. Median response is under 30 minutes in every quartile —
-**when a CSP responds at all, he is usually fast.** P95 never exceeds 4.87 working hours, which is what makes 6h
-a sufficient ceiling.
+Elapsed working time, among bookings that got a response. Median response is **minutes, not hours**, in every
+quartile — when a CSP responds at all, he is usually fast. P95 never exceeds **4h 52m**, which is what makes six
+hours a sufficient ceiling.
 
 ### 3. What each extra hour buys
 
@@ -110,12 +110,12 @@ effective budget as one arriving at 10 AM. The data confirms it:
 
 | Booking reached CSP at | Bookings | Working hrs left that day | Response rate | Jobs taken | P90 response |
 |---|---:|---:|---:|---:|---:|
-| 09–12 morning | 602 | 10.4 | 60.5% | 42.0% | 2.36 |
-| 12–15 midday | 679 | 7.5 | 63.0% | 40.8% | 2.28 |
-| 15–18 afternoon | 790 | 4.7 | 62.9% | 39.8% | 2.16 |
-| 18–21 late day | 647 | 1.4 | 61.4% | 41.1% | 2.35 |
-| 21–24 after close | 267 | 0.0 | 67.8% | 49.8% | 2.07 |
-| 00–09 before open | 180 | 12.0 | 63.9% | 44.4% | 1.71 |
+| 09–12 morning | 602 | 10h 24m | 60.5% | 42.0% | 2h 22m |
+| 12–15 midday | 679 | 7h 30m | 63.0% | 40.8% | 2h 17m |
+| 15–18 afternoon | 790 | 4h 42m | 62.9% | 39.8% | 2h 10m |
+| 18–21 late day | 647 | 1h 24m | 61.4% | 41.1% | 2h 21m |
+| 21–24 after close | 267 | 0 | 67.8% | 49.8% | 2h 4m |
+| 00–09 before open | 180 | 12h | 63.9% | 44.4% | 1h 43m |
 
 Response rate sits in a 60–68% band regardless of arrival time. **No time-of-day-specific parameter is needed.**
 
