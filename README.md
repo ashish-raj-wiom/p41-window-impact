@@ -43,15 +43,23 @@ changed. CSPs did not get faster; more of their work survived long enough to cou
 
 ### Percentiles
 
-| Cohort | P50 cal | P90 cal | P95 cal | P50 work | P90 work | P95 work |
-|---|---|---|---|---|---|---|
-| PRE — slot proposal (n=1,649) | 0.02 | 1.96 | 8.78 | 0.02 | 0.99 | 1.44 |
-| POST — tech assigned (n=1,502) | 0.03 | 8.33 | 12.22 | 0.02 | 3.44 | **5.35** |
-| ↳ customer-proposed subset (n=1,323) | 0.02 | 5.42 | 9.11 | 0.01 | 2.25 | 3.60 |
+All figures in **working hours** (9 AM – 9 PM IST) — the same clock P41 itself runs on.
 
-Hours. "work" = 9 AM – 9 PM IST clock. PRE's flattering percentiles are **right-truncated by its own 2h
-deadline** — you cannot observe a 5-hour slot proposal when the task is killed at hour 2, so POST's higher P95
-is a *fuller* measurement, not a worse one.
+| Cohort | P50 | P90 | P95 |
+|---|---|---|---|
+| PRE — slot proposal (n=1,649) | 0.02 | 0.99 | 1.44 |
+| POST — tech assigned (n=1,502) | 0.02 | 3.44 | **5.35** |
+| ↳ customer-proposed subset (n=1,323) | 0.01 | 2.25 | 3.60 |
+
+PRE's flattering percentiles are **right-truncated by its own 2h deadline** — you cannot observe a 5-hour slot
+proposal when the task is killed at hour 2, so POST's higher P95 is a *fuller* measurement, not a worse one.
+
+### P41 is natively a working-hours timer
+
+Measured on a working-hours clock, `P41_DEADLINE_AT − CREATED_AT` is exactly **2.00** before the change and
+exactly **6.00** after — minimum, median and maximum all identical to within rounding, zero variance either
+side. On a wall clock the same constant budget appears to vary wildly, because the deadline defers past the
+9 PM cutoff to the next morning. That is why every figure here is reported in working hours.
 
 In the **customer-proposed flow**, technician assignment *is* the P41-gated action, and there is a hard ceiling
 at six working hours — the 6–12, 12–24 and >24h buckets are all empty. The entire long tail (50 assignments)
