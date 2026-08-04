@@ -194,6 +194,36 @@ least 5 bookings that week. The times are how long the answers took, when they c
 slowest group has 19 in 20 answers in under 5 hours. <b>No group of CSPs needs more than 6 hours. The weak group
 simply does not answer.</b></p>
 
+<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">CSPs on the Dominance programme</h4>
+
+<p>The same cut, for the 25 CSPs who accepted Dominance in late July against everyone else. Their bookings are
+counted only from the day each one joined:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Group</th><th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Answers at all</th>
+<th class="n">Takes the job</th><th class="n">Half within</th><th class="n">9 in 10 within</th><th class="n">19 in 20 within</th></tr></thead>
+<tbody>
+<tr class="hi"><td><b>Dominance</b></td><td class="n">23</td><td class="n">81</td>
+    <td class="n"><b>86%</b></td><td class="n"><b>69%</b></td>
+    <td class="n">50 sec</td><td class="n">1h 32m</td><td class="n">2h 28m</td></tr>
+<tr><td>Everyone else</td><td class="n">655</td><td class="n">3,068</td>
+    <td class="n">62%</td><td class="n">41%</td>
+    <td class="n">71 sec</td><td class="n">2h 49m</td><td class="n">4h 7m</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Dominance CSPs answer far more often — 86% against 62% — and take the job 69% of the time against 41%.</b>
+They are also quicker: 19 in 20 of their answers land inside 2h 28m, against 4h 7m for everyone else.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)"><b>Two cautions before reading anything causal into this.</b>
+The sample is thin — <b>81 bookings</b>, because the programme started on 27–30 July and the week ends on 1
+August, giving each CSP only two to six days inside the window. And these CSPs were <em>selected</em> for the
+programme on the strength of their area coverage, so the gap describes who is in it at least as much as what it
+has done to them. Read it as a profile of the group, not as a measured effect. (16 bookings that reached a
+Dominance CSP before he joined are excluded from both rows.)</p>
+
 <h3>3. The gap between them is not one that waiting closes</h3>
 <p>The same four groups drawn against the clock:</p>
 
@@ -665,8 +695,6 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
 
     /* shade the first 6 hours — mistake bookings, not a P41 cost */
     s.appendChild(el('rect',{x:L,y:T,width:X(6)-L,height:ph,fill:s2,opacity:0.10}));
-    var sh=el('text',{x:X(6)+6,y:T+14,fill:s2,'font-size':11,'font-weight':600});
-    sh.textContent='first 6h — bookings never meant to be kept (3.3%)'; s.appendChild(sh);
 
     /* window and the slot-day guardrail */
     [[13,'P41 = 6 working h ≈ 13 cal h',s1,T+ph-26],[48,'day 2',muted,T+ph-8]].forEach(function(m){

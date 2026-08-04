@@ -74,6 +74,27 @@ delivered:
 3h 24m — under 90 minutes of spread at P95, against a 6-hour window. Every quarter's median is minutes, not
 hours. **No quarter of CSPs needs more than six working hours; the bad quarter simply does not answer.**
 
+#### CSPs on the Dominance programme
+
+The same cut for the 25 CSPs who accepted Dominance in late July, counted only from the day each one joined:
+
+| Group | CSPs | Bookings | Answers at all | Takes the job | Half within | 9 in 10 within | 19 in 20 within |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| **Dominance** | 23 | 81 | **86%** | **69%** | 50 sec | 1h 32m | 2h 28m |
+| Everyone else | 655 | 3,068 | 62% | 41% | 71 sec | 2h 49m | 4h 7m |
+
+**Dominance CSPs answer far more often — 86% against 62% — and take the job 69% of the time against 41%.** They
+are quicker too: 19 in 20 answers inside 2h 28m against 4h 7m.
+
+**Two cautions before reading anything causal into this.** The sample is thin — 81 bookings, because the
+programme started 27–30 July and the week ends 1 August, giving each CSP two to six days inside the window. And
+these CSPs were *selected* for the programme on the strength of their area coverage, so the gap describes who is
+in it at least as much as what it has done to them. Read it as a profile of the group, not a measured effect.
+(16 bookings that reached a Dominance CSP before he joined are excluded from both rows.)
+
+Resolution: partner ids from the Dominance sheet → `DBT_CSP_POD.INT_EW_CSP_ACCOUNTS` → the `CSP_ID` used on
+install candidates. All 25 resolved; 24 were active that week, 23 after their own join date.
+
 ### 3. Every extra hour buys more response
 
 | P41 set to | Q1 | Q2 | Q3 | Q4 | Overall response | Overall jobs taken |
