@@ -99,7 +99,7 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
     <span class="chip">Currently 6 working hours</span>
     <span class="chip">Response data 26 Jul – 1 Aug 2026</span>
     <span class="chip">Cancellation data 25 Jun – 30 Jul 2026</span>
-    <span class="chip">Runway measured to the PM pivot</span>
+    <span class="chip">Deadline: evening after the promised day</span>
     <span class="chip">All times IST</span>
   </div>
 </header>
@@ -120,55 +120,53 @@ the work.</p>
 <h2>Recommendation</h2>
 
 <div class="rec">
-  <p class="big">Keep P41 at 6 working hours.</p>
-  <p>The binding constraint is the <b>pivot</b>: the afternoon and evening of the day after the promised slot,
-  which is where customer cancellation peaks. The allocation has to finish before it.</p>
-  <p>Measured to that pivot the median booking has <b>15.51 working hours</b> of runway and passes through
-  <b>1.91 CSP attempts</b> — a ceiling of <b>8.1 working hours</b> per attempt. But the tighter and more useful
-  test is whether a <em>reroute</em> still fits: <b>81.6% of bookings can absorb two full 6-hour windows before
-  the pivot, and that collapses to 47.0% at eight hours.</b></p>
-  <p><b>Six hours is the last setting that still leaves room for a second CSP.</b> It also comfortably covers CSP
-  behaviour — every quartile's P95 response is inside 5 hours, 3h 24m for the best and 4h 52m for the worst.</p>
+  <p class="big">Raise P41 from 6 to 8 working hours.</p>
+  <p>The deadline that matters is the <b>evening after the promised day</b> — that is when customers give up and
+  cancel. Working back from it, the average booking has <b>15.5 working hours</b> before it — about a day and a half of real time — and passes through
+  <b>1.9 CSPs</b>. That leaves <b>8 working hours per CSP</b>.</p>
+  <p>Six hours leaves two of those hours unused. CSPs were still accepting jobs at a steady rate when the current
+  window cut them off, so the extra time should convert: we expect roughly <b>+3 points of response</b> and
+  <b>+1.5 points of jobs accepted</b>, worth about <b>+1.6 points on installs per booking</b>.</p>
+  <p style="color:var(--muted)">Those three figures are a projection, not a measurement — see the caveat in
+  section 5. The 8-hour figure itself is measured.</p>
 </div>
 
 <div class="rec" style="border-left-color:var(--s2)">
-  <p class="big" style="font-size:20px">A seventh of bookings cannot be helped by any P41 value.</p>
-  <p><b>226 of 1,654 bookings (13.7%) reach their first CSP too late in the day</b> for even one full window to
-  close before the pivot. They fit nothing at 2 hours and nothing at 12, which is why the "one attempt fits"
-  column sits flat at about 85% across the entire range.</p>
-  <p>That is a scheduling matter, not a timer one. If this segment is worth recovering, the lever is when
-  bookings are allowed to enter allocation relative to the slot they are promised — not the length of P41.</p>
+  <p class="big" style="font-size:20px">One booking in seven cannot be helped by any timer value.</p>
+  <p><b>226 of 1,654 bookings reach their first CSP too late in the day</b> for even one full window to close
+  before the deadline. They fail at 2 hours and they fail at 12.</p>
+  <p>That is about when bookings enter the queue relative to the day they are promised — not about P41. If this
+  segment is worth recovering, that is where to look.</p>
 </div>
 
 <div class="rec" style="border-left-color:var(--s1)">
-  <p class="big" style="font-size:20px">And shorten it for CSPs who never respond.</p>
-  <p>The bottom quartile responds to just <b>5.1%</b> of bookings even given the full six hours — and 3.3% of that
-  arrives within two. Cutting <b>their</b> window to 2h would cost about <b>10 tasks</b> a week while releasing
-  roughly <b>526 bookings four working hours sooner</b>, buying back runway for the reroute.</p>
+  <p class="big" style="font-size:20px">And keep it short for CSPs who never respond.</p>
+  <p>The weakest quarter of CSPs answer just <b>5%</b> of bookings even given the full six hours, and two-thirds
+  of that arrives in the first two. Holding their window to 2 hours would cost about <b>10 jobs a week</b> while
+  freeing roughly <b>526 bookings four hours sooner</b> to reach someone who will act.</p>
 </div>
 
 <h2>Why</h2>
 
-<h3>A note on method: this looks only at the current regime</h3>
+<h3>A note on method</h3>
 <div class="note-box">
-  <p>All figures below are drawn from the period <b>after</b> P41 moved to 6 hours. This is deliberately not a
-  before/after comparison, for two reasons:</p>
-  <p><b>1. Several changes shipped at once.</b> The customer-scheduling flow went live ~21 July, one day before
-  the P41 change. Any pre/post difference mixes the two, and neither can be isolated cleanly.</p>
-  <p><b>2. Changing the timer changes the behaviour being measured.</b> Under a 2-hour window you cannot observe a
-  five-hour response — the task was already dead. The old regime's numbers are truncated by its own deadline, so
-  comparing them to the new regime's is not like-for-like. Calibration needs the distribution of what CSPs
-  <em>actually do</em> when given room, which only the current regime shows.</p>
+  <p>Everything below comes from the period <b>after</b> P41 moved to 6 hours. It is deliberately not a
+  before/after comparison, for two reasons.</p>
+  <p><b>Several changes shipped at once.</b> The customer-scheduling flow went live around 21 July, a day before
+  the P41 change. Any before/after difference mixes the two.</p>
+  <p><b>And the timer changes what we can see.</b> Under a 2-hour window you never observe a five-hour response —
+  the booking was already gone. The old numbers are cut off by their own deadline. To set the parameter we need
+  to see what CSPs do when given room, and only the current setting shows that.</p>
 </div>
 
 <h3>1. How fast do CSPs respond?</h3>
-<p>Cumulative share of bookings where the CSP has responded, by elapsed working hours since the booking reached
-him — with the response split into the two things it can be.</p>
+<p>A CSP can do one of two things: take the job or decline it. Both count as a response. Here is how quickly each
+arrives.</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">Response rate by elapsed working hours, split into taking the job and declining it</div>
-  <div class="chartsub">Customer-proposed-slot bookings, 26 Jul – 1 Aug 2026 · n=3,165 · the two bands stack to the response rate</div>
+  <div class="chartsub">1,654 bookings, 3,165 offers to CSPs, 26 Jul – 1 Aug 2026 · the two bands add up to the response rate</div>
   <svg id="c1" viewBox="0 0 720 400" role="img" aria-label="Cumulative CSP response rate against elapsed working hours, stacked into jobs taken and declines"></svg>
   <div class="legend">
     <span><i class="swatch" style="background:var(--s1)"></i>Took the job</span>
@@ -176,65 +174,58 @@ him — with the response split into the two things it can be.</p>
     <span><i class="swatch" style="background:var(--ink);border-radius:1px;height:3px"></i>Response = the two together</span>
   </div>
 </div>
-<figcaption>Response is heavily front-loaded — <b>41% inside the first quarter-hour</b> — then a long, slowly
-decaying tail still climbing when the 6-hour deadline cuts it off at <b>62.6%</b>. The shaded stretch is what
-hours 2→6 add: <b>+4.61pp</b> of jobs taken and <b>+3.89pp</b> of declines, so <b>46% of what the later hours
-surface is a refusal</b>. A decline is still useful — it releases the booking with a reason attached, faster than
-waiting for the timeout — but it is not progress.</figcaption>
+<figcaption>Most of the action is immediate — <b>41% respond within fifteen minutes</b>. After that it keeps
+climbing slowly and is <b>still climbing at 62.6% when the 6-hour timer cuts it off</b>. Of everything the window
+adds between hour 2 and hour 6, a little under half is a decline rather than an acceptance. A decline is still
+useful — it hands the booking on faster than waiting for the timer — but it is not progress.</figcaption>
 </figure>
 
-<h3>2. How long the responders actually take</h3>
+<h3>2. Some CSPs answer, some do not</h3>
 
-<p>Ranking every CSP by <b>his own response rate</b> across the week's tasks — CSPs with at least 5 bookings, 237
-of them carrying 2,142 tasks — and cutting them into four equal groups of CSPs. The percentiles below are of the
-response times of the tasks those CSPs actually answered:</p>
+<p>Ranking each CSP by how often he answers at all, then splitting them into four equal groups — 237 CSPs with at
+least 5 bookings that week. The times are how long the answers took, when they came.</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>CSP quartile <span style="font-weight:400;color:var(--ink2)">(by response rate)</span></th>
-<th class="n">CSPs</th><th class="n">Tasks</th><th class="n">Response rate</th>
-<th class="n">P25</th><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
+<thead><tr><th>CSP group <span style="font-weight:400;color:var(--ink2)">(by how often they answer)</span></th>
+<th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Answers at all</th>
+<th class="n">Half within</th><th class="n">9 in 10 within</th><th class="n">19 in 20 within</th></tr></thead>
 <tbody>
-<tr><td>Q1 — best responders <span style="color:var(--ink2)">(100%)</span></td><td class="n">60</td><td class="n">485</td><td class="n"><b>100%</b></td>
-    <td class="n">24 sec</td><td class="n">38 sec</td><td class="n">1h 37m</td><td class="n">3h 24m</td></tr>
-<tr><td>Q2 <span style="color:var(--ink2)">(80–100%)</span></td><td class="n">59</td><td class="n">545</td><td class="n">89.9%</td>
-    <td class="n">31 sec</td><td class="n">5m 18s</td><td class="n">3h 11m</td><td class="n">4h 23m</td></tr>
-<tr><td>Q3 <span style="color:var(--ink2)">(20–80%)</span></td><td class="n">59</td><td class="n">568</td><td class="n">54.6%</td>
-    <td class="n">34 sec</td><td class="n">5m 31s</td><td class="n">3h 48m</td><td class="n">4h 42m</td></tr>
-<tr class="hi"><td><b>Q4 — worst responders</b> <span style="color:var(--ink2)">(0–20%)</span></td><td class="n">59</td><td class="n">544</td><td class="n"><b>5.1%</b></td>
-    <td class="n">1m 11s</td><td class="n">33m 26s</td><td class="n">4h 12m</td><td class="n"><b>4h 52m</b></td></tr>
+<tr><td>Best quarter</td><td class="n">60</td><td class="n">485</td><td class="n"><b>100%</b></td>
+    <td class="n">38 sec</td><td class="n">1h 37m</td><td class="n">3h 24m</td></tr>
+<tr><td>Second</td><td class="n">59</td><td class="n">545</td><td class="n">90%</td>
+    <td class="n">5m</td><td class="n">3h 11m</td><td class="n">4h 23m</td></tr>
+<tr><td>Third</td><td class="n">59</td><td class="n">568</td><td class="n">55%</td>
+    <td class="n">6m</td><td class="n">3h 48m</td><td class="n">4h 42m</td></tr>
+<tr class="hi"><td><b>Worst quarter</b></td><td class="n">59</td><td class="n">544</td><td class="n"><b>5%</b></td>
+    <td class="n">33m</td><td class="n">4h 12m</td><td class="n"><b>4h 52m</b></td></tr>
 </tbody>
 </table>
 </div>
 
-<p>Two things fall out of this, and they point in opposite directions.</p>
+<p><b>How often they answer varies twentyfold — 100% down to 5%.</b> That is the real difference between CSPs.</p>
 
-<p><b>Response rate collapses across the quartiles — 100% to 5.1%, a 20× spread.</b> That is the real difference
-between CSPs, and it is what section 3 is about.</p>
+<p><b>How fast they answer barely varies at all.</b> Every group answers in minutes at the median, and even the
+slowest group has 19 in 20 answers in under 5 hours. <b>No group of CSPs needs more than 6 hours. The weak group
+simply does not answer.</b></p>
 
-<p><b>Response speed barely moves in comparison.</b> Even the worst quartile's P95 is <b>4h 52m</b>, and the best
-quartile's is 3h 24m — the whole spread at P95 is under an hour and a half, against a 6-hour window. Every
-quartile's median response is minutes, not hours. <b>No quartile of CSPs needs more than six working hours; the
-bad quartile simply does not answer at all.</b></p>
-
-<h3>3. The same quartiles, read by <em>whether</em> they respond</h3>
-<p>The 20× spread in response rate from the table above, drawn against the clock — so it is clear that the gap
-between a good CSP and a bad one is not a gap that more waiting closes:</p>
+<h3>3. The gap between them is not one that waiting closes</h3>
+<p>The same four groups drawn against the clock:</p>
 
 <figure>
 <div class="chartcard">
-  <div class="charttitle">Cumulative response rate by CSP, ranked into quartiles by response rate</div>
-  <div class="chartsub">The same 237 CSPs and 2,142 bookings as the tables above, same quartiles — read by rate, not by speed</div>
-  <svg id="c3" viewBox="0 0 720 380" role="img" aria-label="Cumulative response rate by CSP quartile against working hours"></svg>
+  <div class="charttitle">Cumulative response rate by CSP, ranked into quarters by response rate</div>
+  <div class="chartsub">The same 237 CSPs and 2,142 bookings as the tables above, same quarters — read by rate, not by speed</div>
+  <svg id="c3" viewBox="0 0 720 380" role="img" aria-label="Cumulative response rate by CSP quarter against working hours"></svg>
 </div>
 <figcaption>These are separated almost entirely by <em>level</em>, not slope. Q1 responds to everything; Q4 responds
 to one booking in twenty however long it is given. Waiting six hours on a Q4 CSP is close to pure delay — which is
 what drives the third recommendation.</figcaption>
 </figure>
 
-<h3>4. Establishing the first half: more time buys more response, steadily</h3>
+<h3>4. Every extra hour buys more response</h3>
 <p>Reading the response curve as a policy dial — what the response rate would have been had P41 been set to each
-value, for each CSP quartile:</p>
+value, for each CSP quarter:</p>
 
 <div class="tblscroll">
 <table>
@@ -246,48 +237,48 @@ value, for each CSP quartile:</p>
 <tr><td class="n">4 h</td><td class="n">96.3%</td><td class="n">84.6%</td><td class="n">49.5%</td><td class="n">4.4%</td><td class="n">59.2%</td><td class="n">39.9%</td></tr>
 <tr><td class="n">5 h</td><td class="n">98.8%</td><td class="n">86.8%</td><td class="n">52.3%</td><td class="n">4.8%</td><td class="n">61.0%</td><td class="n">41.0%</td></tr>
 <tr class="hi"><td class="n">6 h — current</td><td class="n">100%</td><td class="n">89.9%</td><td class="n">54.6%</td><td class="n">5.1%</td><td class="n">62.6%</td><td class="n">41.8%</td></tr>
-<tr><td class="n"><b>Gain per hour, 2h → 6h</b></td><td class="n"><b>+2.1pp</b></td><td class="n"><b>+3.5pp</b></td>
-    <td class="n"><b>+3.2pp</b></td><td class="n"><b>+0.5pp</b></td><td class="n"><b>+2.1pp</b></td><td class="n"><b>+1.2pp</b></td></tr>
+<tr><td class="n"><b>Gain per hour, 2h → 6h</b></td><td class="n"><b>+2.1 points</b></td><td class="n"><b>+3.5 points</b></td>
+    <td class="n"><b>+3.2 points</b></td><td class="n"><b>+0.5 points</b></td><td class="n"><b>+2.1 points</b></td><td class="n"><b>+1.2 points</b></td></tr>
 </tbody>
 </table>
 </div>
-<p style="font-size:13.5px;color:var(--ink2)">Q1–Q4 are the same CSP quartiles as sections 2 and 3 — the 237 CSPs
+<p style="font-size:13.5px;color:var(--ink2)">Q1–Q4 are the same CSP quarters as sections 2 and 3 — the 237 CSPs
 with at least 5 tasks in the week. The two <b>Overall</b> columns cover every POST task, including CSPs below that
-threshold, which is why they do not sit inside the quartile range.</p>
+threshold, which is why they do not sit inside the quarter range.</p>
 
 <p><b>Every extra hour buys more response, and it does so at a near-constant rate.</b> The first hour is the
-steep one; from hour 2 onward each additional hour adds roughly the same amount again — 2.1pp/h overall, and the
-bottom row shows the same steady climb inside every quartile. There is no point in the range where the curve
+steep one; from hour 2 onward each additional hour adds roughly the same amount again — 2.1 points/h overall, and the
+bottom row shows the same steady climb inside every quarter. There is no point in the range where the curve
 flattens out and the next hour stops paying.</p>
 
-<p><b>The shape is the same in every quartile; the size is not.</b> Q1, Q2 and Q3 all gain 2–3.5pp per hour.
-Q4 gains <b>0.5pp per hour</b> — a seventh of Q2's rate. Waiting buys real response from CSPs who engage at all,
+<p><b>The shape is the same in every quarter; the size is not.</b> Q1, Q2 and Q3 all gain 2–3.5 points per hour.
+Q4 gains <b>0.5 points per hour</b> — a seventh of Q2's rate. Waiting buys real response from CSPs who engage at all,
 and almost nothing from those who do not. That asymmetry is the whole basis for the third recommendation.</p>
 
 <div class="note-box">
-<p><b>What the move from 2h to 6h was worth.</b> Response rose <b>54.1% → 62.6% (+8.5pp)</b> and jobs taken
-<b>37.2% → 41.8% (+4.6pp)</b>. Converting the task-level gain to bookings:</p>
-<p>+4.6pp across <b>3,165 tasks</b> ≈ <b>146 additional first-pass assignments</b>. But a task that times out is
-not a booking lost — <b>44.2%</b> of connections whose CSP never responded still get a technician from a later
-CSP. So only 55.8% of those 146 are genuinely incremental: <b>≈81 connections</b> against the cohort's
-<b>1,654</b>, or <b>+4.9pp of booking-level supply efficiency</b>. That is what a return to 2 hours would give
+<p><b>What the move from 2h to 6h was worth.</b> Response rose <b>54.1% → 62.6% (+8.5 points)</b> and jobs taken
+<b>37.2% → 41.8% (+4.6 points)</b>. Converting the task-level gain to bookings:</p>
+<p>+4.6 points across <b>3,165 tasks</b> ≈ <b>146 additional first-pass assignments</b>. But a task that times out is
+not a booking lost — <b>44.2%</b> of bookings whose CSP never responded still get a technician from a later
+CSP. So only 55.8% of those 146 are genuinely incremental: <b>≈81 bookings</b> against the group's
+<b>1,654</b>, or <b>+4.9 points of installs per booking</b>. That is what a return to 2 hours would give
 back.</p>
 </div>
 
-<h3>5. Establishing the second half: more time also costs cancellations — but only past one pivot</h3>
+<h3>5. But customers give up at a fixed point — the evening after the promised day</h3>
 <p>If waiting only ever bought response, the answer would be to set P41 very long. It does not: the customer is
 running a clock of his own. The question is what that clock is measuring, because it is <em>not</em> hours since
 booking.</p>
 
 <p>Cancellations in the first few hours are not impatience — they are bookings the customer never intended to
-keep. <b>3.3% cancel inside the first six hours</b>, then the curve almost stops: only <b>+0.5pp more</b> across
+keep. <b>3.3% cancel inside the first six hours</b>, then the curve almost stops: only <b>+0.5 points more</b> across
 the whole of hours 6 to 12. Those early ones would have cancelled whatever P41 was set to, so they should not be
 priced as a cost of waiting.</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">Cumulative customer cancellation, by age of booking</div>
-  <div class="chartsub">Matured cohort: bookings confirmed 1–20 Jul 2026, observed to 4 Aug · n=4,193 · deduped to distinct mobiles</div>
+  <div class="chartsub">Matured group: bookings confirmed 1–20 Jul 2026, observed to 4 Aug · n=4,193 · deduped to distinct mobiles</div>
   <svg id="c4" viewBox="0 0 720 360" role="img" aria-label="Cumulative percentage of bookings cancelled by the customer against days since booking"></svg>
 </div>
 <figcaption>After the early spike the curve flattens through hour 12, then <b>steepens again across days 1 to 3</b> —
@@ -295,30 +286,30 @@ climbing from 3.8% to 10.9%, with the sharpest stretch around day 2. That second
 is anchored to something specific. By day 7 it reaches 17.9%.</figcaption>
 </figure>
 
-<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5a. When cancellation actually happens, relative to the promised slot</h4>
+<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5a. When customers actually cancel</h4>
 
 <p>Re-cutting the same cancellations against the customer's <b>promised slot date</b> rather than the booking time
-shows what he is really waiting for. All <b>981 customer-proposed connections</b> whose slot is now at least five
+shows what he is really waiting for. All <b>981 customer-proposed bookings</b> whose slot is now at least five
 days past, pooled — no split yet — in <b>12-hour buckets</b>:</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">Customer cancellation aligned on the promised slot date</div>
-  <div class="chartsub">All customer-proposed connections, n=981 · 12-hour buckets · y = % of the 981 cancelling in that half-day</div>
+  <div class="chartsub">All customer-proposed bookings, n=981 · 12-hour buckets · y = % of the 981 cancelling in that half-day</div>
   <svg id="c6" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation rate per twelve-hour bucket relative to the promised slot date"></svg>
 </div>
 <figcaption>Nothing happens before the promised day beyond a small booking-day spike. The single largest bucket is
 the <b>afternoon and evening of the day after the slot — 2.45%</b>, four times the morning bucket that
-precedes it. Cancellation then decays, but with a persistent <b>PM-heavy sawtooth</b>: across the whole window
+precedes it. Cancellation then decays, but with a persistent <b>tilt towards afternoons and evenings</b>: across the whole window
 <b>80 cancellations fall in a 12:00–24:00 bucket against 43 in a 00:00–12:00 one</b>. Customers wait out the
 working day and give up in the evening.<br><span style="opacity:.85">The window is cut at +4 days:
-<b>139 of the cohort's 172 customer cancellations fall inside it</b>, the remaining 33 arriving later and
-tailing off. The bars are rates per bucket, so they do not sum to the cohort's 17.5% overall cancellation
+<b>139 of the group's 172 customer cancellations fall inside it</b>, the remaining 33 arriving later and
+tailing off. The bars are rates per bucket, so they do not sum to the group's 17.5% overall cancellation
 rate.</span></figcaption>
 </figure>
 
 <p>So the customer is not counting hours since booking. He is waiting for the day he was promised, and gives up in
-the evening once it has gone by. <b>The pivot is the evening of the day after the slot</b> — the largest single
+the evening once it has gone by. <b>The deadline is the evening of the day after the slot</b> — the largest single
 bucket anywhere in the window — and that is the point the allocation has to finish before.</p>
 
 <p style="font-size:13.5px;color:var(--ink2)">Stated precisely, because the 12-hour view makes it visible:
@@ -326,14 +317,14 @@ summed to whole days, the slot day and the day after are <em>level</em> pooled (
 is concentration — the day after puts 80% of its mass in one evening bucket, while the slot day spreads its
 evenly. And for the next-day-or-later group plotted below, the day after is decisively larger (3.85% against 2.45%).</p>
 
-<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5b. And it does not depend on which slot he chose</h4>
+<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5b. It does not matter which day they chose</h4>
 
-<p>Splitting the same 981 connections by the slot they proposed — everything else identical:</p>
+<p>Splitting the same 981 bookings by the slot they proposed — everything else identical:</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">The same alignment, split by the slot the customer chose</div>
-  <div class="chartsub">Same 12-hour buckets and the same denominator convention · y = % of <em>that group's</em> connections</div>
+  <div class="chartsub">Same 12-hour buckets and the same base convention · y = % of <em>that group's</em> bookings</div>
   <svg id="c7" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation per twelve-hour bucket, split by whether the customer chose a same-day or a later slot"></svg>
   <div class="legend">
     <span><i class="swatch" style="background:var(--s1)"></i>Next day or later (n=572)</span>
@@ -342,13 +333,13 @@ evenly. And for the next-day-or-later group plotted below, the day after is deci
 </div>
 <figcaption>Both groups do the same two things. Each spikes once at <b>its own booking moment</b> — slot-day
 morning for same-day slots, the evening before for later ones — which is the mistake-booking effect, not
-impatience. Each then clusters again <b>after the promised day, in the PM buckets</b>. The post-slot peak for
-later slots is <b>+1 PM (3.15%)</b>; for same-day slots the post-slot buckets run 6, 8 and 7 cancellations, too
+impatience. Each then clusters again <b>after the promised day, in the afternoon and evening</b>. The post-slot peak for
+later slots is <b>the afternoon after the promised day (3.15%)</b>; for same-day slots the post-slot buckets run 6, 8 and 7 cancellations, too
 close to separate. <b>The shape does not change with the slot chosen — only the position of the booking
 spike does, and that moves because the booking moment moves.</b></figcaption>
 </figure>
 
-<p><b>That is the whole purpose of this split.</b> It rules out the objection that the pivot is an artefact of
+<p><b>That is the whole purpose of this split.</b> It rules out the objection that the deadline is an artefact of
 slot mix — that the peak sits where it does only because most customers happen to choose the next day. It does
 not: each group pivots on <em>its own</em> promised slot. The same-day and next-day groups behave identically
 once you line them up on the day they were promised.</p>
@@ -357,7 +348,7 @@ once you line them up on the day they were promised.</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Slot the customer proposed</th><th class="n">Connections</th><th class="n">Share of cohort</th>
+<thead><tr><th>Slot the customer proposed</th><th class="n">Connections</th><th class="n">Share of group</th>
 <th class="n">Cancelled</th><th class="n">Before the slot</th><th class="n">On the slot day</th>
 <th class="n">Day after</th></tr></thead>
 <tbody>
@@ -375,112 +366,96 @@ once you line them up on the day they were promised.</p>
 </table>
 </div>
 <p style="font-size:13.5px;color:var(--ink2)"><b>Every percentage in this table and both charts above uses the
-same denominator — connections in that row's group</b>, never cancellations. So the table's 3.9% and 4.2% are the
+same base — bookings in that row's group</b>, never cancellations. So the table's 3.9% and 4.2% are the
 same numbers the charts plot, just summed to whole days.</p>
 
-<p>With the pivot established and shown to be independent of the slot chosen, <b>the split has done its job and
-the calibration does not need it.</b> Section 6 works on the whole cohort and a single median.</p>
+<p>With the deadline established and shown to be independent of the slot chosen, <b>the split has done its job and
+the calibration does not need it.</b> Section 6 works on the whole group and a single median.</p>
 
-<p style="font-size:13.5px;color:var(--ink2)">For completeness: 2- and 3-day slots are 44 connections and 5
+<p style="font-size:13.5px;color:var(--ink2)">For completeness: 2- and 3-day slots are 44 bookings and 5
 cancellations between them here, which is a count rather than a rate — they are shown for transparency, not
 relied on.</p>
 
 <div class="note-box">
-<p><b>Two cohorts — read them separately.</b> This section runs on the <b>cancellation cohort</b> (981
-connections, 25 Jun – 30 Jul, matured), because cancellation needs the slot to be several days past before it can
-be counted. Section 6 runs on the <b>response cohort</b> (1,654 connections, 26 Jul – 1 Aug), the same population
+<p><b>Two groups — read them separately.</b> This section runs on the <b>cancellation group</b> (981
+bookings, 25 Jun – 30 Jul, matured), because cancellation needs the slot to be several days past before it can
+be counted. Section 6 runs on the <b>response group</b> (1,654 bookings, 26 Jul – 1 Aug), the same population
 as sections 1–4.</p>
 <p>The slot mix differs a little between them — later slots are somewhat more common in the more recent window —
-so the shares above are this cohort's, not the calibration cohort's. What carries across is the behaviour:
+so the shares above are this group's, not the calibration group's. What carries across is the behaviour:
 cancellation pivots on the promised slot whatever slot was chosen, and that holds in both. <b>Section 6 needs
-only the pivot, and then measures its own runway on its own population.</b></p>
+only the deadline, and then measures its own runway on its own population.</b></p>
 </div>
 <p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
-above (26 Jul – 1 Aug), the cancellation cohort runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
+above (26 Jul – 1 Aug), the cancellation group runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
 and needs the slot to be several days in the past before it can be counted, so the POST-only window is too recent
-to supply it. Customer-proposed slots only, one row per connection: its <em>first</em> candidate and the slot
+to supply it. Customer-proposed slots only, one row per booking: its <em>first</em> candidate and the slot
 promised at that point, so re-slotting and rerouting do not double-count. Only slots at least five days past as of
 4 Aug are included. The behaviour being measured — customers give up when the promised day passes — is not
-specific to the P41 window, which is why the wider window is acceptable here.</p>
+specific to the window, which is why the wider window is acceptable here.</p>
 
-<h3>6. Putting the two halves together</h3>
+<h3>6. The calculation</h3>
 
 <div class="note-box">
-<p><b>Section 4 established:</b> every extra hour of P41 buys more response, at a near-constant 2.1pp/h, in every
-quartile of CSPs. Nothing in the range 1h–6h flattens out. On its own, that argues for a longer window.</p>
+<p><b>Section 4 established:</b> every extra hour of P41 buys more response, at a near-constant 2.1 points/h, in every
+quarter of CSPs. Nothing in the range 1h–6h flattens out. On its own, that argues for a longer window.</p>
 <p><b>Section 5 established:</b> the offsetting cost is not paid by the hour — it lands in one bucket, the
 <b>afternoon and evening of the day after the promised slot</b>. That is the largest single bucket anywhere in
-the window, and it is where the customer stops waiting. <b>The pivot is PM of the day after the slot.</b></p>
+the window, and it is where the customer stops waiting. <b>The deadline is the afternoon and evening of the day after the promised slot.</b></p>
 <p><b>So the two do not trade off smoothly.</b> Extra hours are close to free right up until the allocation stops
 fitting ahead of that pivot, and expensive after. The parameter should be set to the largest value that still
 lets the <em>median</em> allocation conclude before it — not to the point where marginal response gain equals
 marginal cancellation cost, because that point does not exist.</p>
 </div>
 
-<p>Taking the pivot as <b>12:00 on the day after the slot</b> — the start of the peak bucket — and measuring how
-much working time a booking has from the moment it first reaches a CSP:</p>
+<p>Working back from that deadline — <b>the evening after the promised day</b> — across all 1,654 bookings in the
+week:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Input</th><th class="n">Value</th><th>How it is measured</th></tr></thead>
+<thead><tr><th>What we measure</th><th class="n">Value</th><th>How</th></tr></thead>
 <tbody>
-<tr><td><b>Runway</b> — first CSP contact → the PM pivot</td>
-    <td class="n"><b>15.51 working h</b></td>
-    <td style="color:var(--ink2)">median across all 1,654 connections; 12.51 h to the end of the slot day, plus
-    the 3 working hours of the following morning</td></tr>
-<tr><td><b>Chain</b> — CSP attempts a connection passes through</td>
-    <td class="n"><b>1.91</b></td>
-    <td style="color:var(--ink2)">mean candidates per connection; each consumes one full P41 window</td></tr>
-<tr class="hi"><td><b>Implied P41</b> = runway ÷ chain</td>
-    <td class="n"><b>8.1 working h</b></td>
-    <td style="color:var(--ink2)">the ceiling, if all that is required is that the median booking finishes its chain</td></tr>
+<tr><td><b>Time available</b> — from the booking reaching its first CSP to the deadline</td>
+    <td class="n"><b>15.5 working hours</b><br><span style="font-weight:400;color:var(--ink2)">39.5 calendar hours</span></td>
+    <td style="color:var(--ink2)">the middle booking — about a day and a half of real time, which is 15.5 hours once
+    the overnight gap is taken out</td></tr>
+<tr><td><b>CSPs tried</b> — how many get the booking before it is done</td>
+    <td class="n"><b>1.9</b></td>
+    <td style="color:var(--ink2)">average per booking; each one holds it for a full window</td></tr>
+<tr class="hi"><td><b>Time per CSP</b> = available ÷ tried</td>
+    <td class="n"><b>8 working hours</b></td>
+    <td style="color:var(--ink2)">the setting at which the typical booking still finishes ahead of the deadline</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>That 8.1 is a ceiling rather than a target, because it only asks the <em>median</em> chain to finish. The
-tighter question is whether a booking that times out once still has room to be re-offered and answered. Reading
-the whole cohort as a policy dial — the share of bookings whose allocation concludes before the pivot:</p>
+<p><b>So the answer is 8 working hours, and we are currently at 6.</b> Two hours are being left on the table.</p>
 
-<div class="tblscroll">
-<table>
-<thead><tr><th class="n">P41</th><th class="n">One attempt fits</th><th class="n">Two attempts fit</th>
-<th>What that means</th></tr></thead>
-<tbody>
-<tr><td class="n">2 h</td><td class="n">86.0%</td><td class="n">85.4%</td>
-    <td style="color:var(--ink2)">room to spare, but gives up 8.5pp of response</td></tr>
-<tr><td class="n">4 h</td><td class="n">85.4%</td><td class="n">84.8%</td>
-    <td style="color:var(--ink2)">still comfortable</td></tr>
-<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n"><b>85.1%</b></td><td class="n"><b>81.6%</b></td>
-    <td style="color:var(--ink2)"><b>the last setting that still absorbs a reroute</b></td></tr>
-<tr><td class="n">8 h</td><td class="n">84.8%</td><td class="n"><b>47.0%</b></td>
-    <td style="color:var(--ink2)">a timeout now costs the slot for half the base</td></tr>
-<tr><td class="n">10 h</td><td class="n">83.3%</td><td class="n">31.0%</td>
-    <td style="color:var(--ink2)">—</td></tr>
-<tr><td class="n">12 h</td><td class="n">81.6%</td><td class="n">10.8%</td>
-    <td style="color:var(--ink2)">—</td></tr>
-</tbody>
-</table>
+<div class="note-box">
+<p><b>What the extra two hours should buy — and why this part is an estimate.</b></p>
+<p>We cannot measure it directly. The timer currently kills a booking at 6 hours, so no CSP has ever had the
+chance to answer in hour 7. The response curve looks flat after 6 hours only because that is where it is cut off,
+not because CSPs stop responding.</p>
+<p>What we can see is the rate at which acceptances were still arriving when the window closed: <b>+2.1, +1.8 and
++1.6 points</b> in the last three hours before the cut-off — slowing, but nowhere near stopped. Carrying that
+same slowdown two hours further gives <b>+2.8 points of response</b> and <b>+1.5 points of jobs accepted</b>,
+worth about <b>+1.6 points on installs per booking</b>.</p>
+<p>Treat that as the central case. If the slowdown is steeper than assumed the gain is smaller; if response held
+at its recent pace it would be closer to +4 points. The direction is not in doubt — only the size.</p>
 </div>
 
-<p><b>Six hours is the last setting that still leaves room for a reroute.</b> Fitting one attempt is easy
-anywhere in the range — flat at about 85% — because the bookings that never fit are not failing on the parameter.
-What actually binds is the <em>second</em> attempt: <b>81.6% of bookings can absorb two full 6-hour windows before
-the pivot, and that collapses to 47.0% at eight hours.</b> Below 6h nothing is gained on the promise side, and
-section 4 has already priced what is lost on the response side.</p>
-
-<p style="font-size:13.5px;color:var(--ink2)">The 14% that fit nothing at any setting are bookings that reach a
-CSP too late in the day for a single window to close before the pivot — <b>226 of 1,654 (13.7%)</b>. That is a
-scheduling matter rather than a timer one: no value of P41 reaches them, and it is why the "one attempt fits"
-column barely moves across the whole range.</p>
+<p style="font-size:13.5px;color:var(--ink2)">One caveat on coverage. <b>226 of the 1,654 bookings (one in seven)
+reach a CSP too late in the day</b> for even a single window to close before the deadline. No timer value reaches
+them, at 2 hours or at 12 — which is why they are called out separately in the recommendation rather than folded
+into this calculation.</p>
 
 <h3>7. Time of day makes no difference</h3>
-<p>Because P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), a booking arriving at 8 PM gets the
-same effective budget as one arriving at 10 AM. The data confirms the clock is doing its job:</p>
+<p>Because P41 runs on a working-hours clock (9am–9pm, pausing overnight), a booking arriving at 8pm gets the
+same effective budget as one arriving at 10am. The data confirms the clock is doing its job:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Booking reached CSP at</th><th class="n">Bookings</th><th class="n">Working hrs left that day</th><th class="n">Response rate</th><th class="n">Jobs taken</th><th class="n">P90 response</th></tr></thead>
+<thead><tr><th>Booking reached CSP at</th><th class="n">Bookings</th><th class="n">Working hrs left that day</th><th class="n">Response rate</th><th class="n">Jobs taken</th><th class="n">9 in 10 answered within</th></tr></thead>
 <tbody>
 <tr><td>09–12 morning</td><td class="n">602</td><td class="n">10h 24m</td><td class="n">60.5%</td><td class="n">42.0%</td><td class="n">2h 22m</td></tr>
 <tr><td>12–15 midday</td><td class="n">679</td><td class="n">7h 30m</td><td class="n">63.0%</td><td class="n">40.8%</td><td class="n">2h 17m</td></tr>
@@ -491,26 +466,26 @@ same effective budget as one arriving at 10 AM. The data confirms the clock is d
 </tbody>
 </table>
 </div>
-<p>Response rate sits in a 60–68% band regardless of arrival time, and P90 response time varies by about 20
-minutes across the whole day. A booking arriving at 8 PM with <b>1h 24m</b> of working time left performs the same
+<p>Response rate sits in a 60–68% band regardless of arrival time, and the time to get 9 answers in 10 varies by about 20
+minutes across the whole day. A booking arriving at 8pm with <b>1h 24m</b> of working time left performs the same
 as one arriving mid-morning with over ten hours. <b>No time-of-day-specific parameter is needed.</b></p>
 
 <details>
 <summary>Definitions</summary>
 <div class="dwrap">
 <ul>
-  <li><b>Working hours</b> — 9 AM – 9 PM IST, counted every day of the week. This is P41's native unit: measured on
+  <li><b>Working hours</b> — 9am–9pm IST, counted every day of the week. This is P41's native unit: measured on
   that clock the window is exactly 6.00 hours, with minimum, median and maximum identical.</li>
-  <li><b>Response</b> — the first of either a positive action or a decline by the CSP. The two are mutually
+  <li><b>Response</b> — the first of either a accepting the job or a decline by the CSP. The two are mutually
   exclusive and sum to the response rate.</li>
-  <li><b>Positive action</b> — technician assignment. In the customer-proposed-slot flow the slot is already
+  <li><b>Accepting the job</b> — technician assignment. In the customer-proposed-slot flow the slot is already
   confirmed when the booking reaches the CSP, so assigning a technician is his first required step.</li>
-  <li><b>Population</b> — install candidates on customer-proposed-slot bookings created 26 Jul – 1 Aug 2026
-  (n=3,165 across 1,654 connections). Quartile analysis restricted to CSPs with ≥5 bookings in the week
+  <li><b>Population</b> — bookings offered to a CSP on customer-proposed-slot bookings created 26 Jul – 1 Aug 2026
+  (n=3,165 across 1,654 bookings). Quartile analysis restricted to CSPs with ≥5 bookings in the week
   (237 CSPs, 2,142 bookings).</li>
   <li><b>Cancellation</b> — a customer-initiated <code>cancelled</code> event. Two cuts are used, on different
-  cohorts. <em>By age of booking</em> (section 5): distinct mobiles, bookings confirmed 1–20 Jul 2026 observed to
-  4 Aug, n=4,193. <em>Aligned on the promised slot</em> (5a/5b): one row per connection, customer-proposed slots
+  groups. <em>By age of booking</em> (section 5): distinct mobiles, bookings confirmed 1–20 Jul 2026 observed to
+  4 Aug, n=4,193. <em>Aligned on the promised slot</em> (5a/5b): one row per booking, customer-proposed slots
   only, first candidate and the slot promised at that point, slot at least 5 days past as of 4 Aug — 25 Jun –
   30 Jul 2026, n=981.</li>
 </ul>
@@ -642,7 +617,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
   }
 
-  /* ---------- quartile chart, own x grid ---------- */
+  /* ---------- quarter chart, own x grid ---------- */
   function c3(){
     var s=document.getElementById('c3'); if(!s) return; s.innerHTML='';
     var W=720,H=380,L=56,R=118,T=18,B=52, pw=W-L-R, ph=H-T-B;
@@ -658,7 +633,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
       tx.textContent=v; s.appendChild(tx);
     });
     var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='P41 window, working hours'; s.appendChild(xl);
+    xl.textContent='window, working hours'; s.appendChild(xl);
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
 
     QU.forEach(function(g){
@@ -709,7 +684,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     var sh=el('text',{x:X(6)+6,y:T+14,fill:s2,'font-size':11,'font-weight':600});
     sh.textContent='first 6h — bookings never meant to be kept (3.3%)'; s.appendChild(sh);
 
-    /* P41 window and the slot-day guardrail */
+    /* window and the slot-day guardrail */
     [[13,'P41 = 6 working h ≈ 13 cal h',s1,T+ph-26],[48,'day 2',muted,T+ph-8]].forEach(function(m){
       s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:m[2],'stroke-width':1,opacity:.55}));
       var t=el('text',{x:X(m[0])+6,y:m[3],fill:m[2],'font-size':11,'font-weight':600});
@@ -743,11 +718,11 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   /* ---------- runway vs 6h CSP attempt blocks ---------- */
   /* ---------- cancellation aligned on the promised slot, 12-hour buckets ----------
      Anchor = midnight starting the promised slot date. Every series is a hazard:
-     denominator is always connections in that group, never cancellations.      */
+     base is always bookings in that group, never cancellations.      */
   var B12  =[-24,-12,0,12,24,36,48,60,72,84,96,108];
-  var BLAB =[['day −1','AM'],['day −1','PM'],['slot day','AM'],['slot day','PM'],
-             ['+1','AM'],['+1','PM'],['+2','AM'],['+2','PM'],
-             ['+3','AM'],['+3','PM'],['+4','AM'],['+4','PM']];
+  var BLAB =[['day −1','morning'],['day −1','afternoon'],['slot day','morning'],['slot day','afternoon'],
+             ['+1','morning'],['+1','afternoon'],['+2','morning'],['+2','afternoon'],
+             ['+3','morning'],['+3','afternoon'],['+4','morning'],['+4','afternoon']];
   var POOL ={n:981, v:[0,1.631,1.631,1.427,0.612,2.446,0.917,1.937,0.510,1.835,0.714,0.510],
                    c:[0,   16,   16,   14,    6,   24,    9,   19,    5,   18,    7,    5]};
   var SPLIT=[
@@ -775,14 +750,14 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     s.appendChild(el('line',{x1:x0,x2:x0,y1:T,y2:T+ph,stroke:ink,'stroke-width':1.5,opacity:.5}));
     var t0=el('text',{x:x0+6,y:T-12,fill:ink,'font-size':11.5,'font-weight':620});
     t0.textContent='the promised day starts here'; s.appendChild(t0);
-    /* the pivot */
+    /* the deadline */
     var xp=L+(5/B12.length)*pw;
     var tp=el('text',{x:X(5),y:T-12,fill:muted,'font-size':11.5,'font-weight':620,'text-anchor':'middle'});
     tp.textContent='pivot'; s.appendChild(tp);
     BLAB.forEach(function(lb,i){
       var a=el('text',{x:X(i),y:T+ph+20,fill:muted,'font-size':11,'text-anchor':'middle'});
       a.textContent=lb[0]; s.appendChild(a);
-      var b=el('text',{x:X(i),y:T+ph+34,fill:muted,'font-size':10.5,'text-anchor':'middle',opacity:.8});
+      var b=el('text',{x:X(i),y:T+ph+34,fill:muted,'font-size':9.5,'text-anchor':'middle',opacity:.8});
       b.textContent=lb[1]; s.appendChild(b);
     });
     var xl=el('text',{x:L+pw/2,y:T+ph+56,fill:muted,'font-size':12,'text-anchor':'middle'});
@@ -808,7 +783,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
       var hit=el('rect',{x:f.X(i)-f.pw/B12.length/2,y:f.T,width:f.pw/B12.length,height:f.ph,
         fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='AM'?'00:00–12:00':'12:00–24:00')+'</b>'
+        showTT(e,'<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='morning'?'00:00–12:00':'12:00–24:00')+'</b>'
           +'<div class="row"><span>Cancelled</span><span>'+POOL.c[i]+' of 981</span></div>'
           +'<div class="row"><span>Rate</span><span>'+POOL.v[i].toFixed(2)+'%</span></div>');
       });
@@ -835,7 +810,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
       var hit=el('rect',{x:f.X(i)-f.pw/B12.length/2,y:f.T,width:f.pw/B12.length,height:f.ph,
         fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
-        var html='<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='AM'?'00:00–12:00':'12:00–24:00')+'</b>';
+        var html='<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='morning'?'00:00–12:00':'12:00–24:00')+'</b>';
         SPLIT.forEach(function(g){
           html+='<div class="row"><span>'+g.k+'</span><span>'+g.ct[i]+'/'+g.n+' · '+g.v[i].toFixed(2)+'%</span></div>';
         });
