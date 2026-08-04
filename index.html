@@ -204,25 +204,28 @@ Q4 responds to one booking in twenty however long it is given. Waiting six hours
 delay.</figcaption>
 </figure>
 
+<p>Splitting the responses themselves into quartiles — every response sorted by how long it took, cut into four
+equal groups of ~496 bookings each:</p>
+
 <div class="tblscroll">
 <table>
-<thead><tr><th>CSP quartile</th><th class="n">CSPs</th><th class="n">Bookings</th><th class="n">Response rate</th>
-<th class="n">P25</th><th class="n">P50</th><th class="n">P90</th><th class="n">P95</th></tr></thead>
+<thead><tr><th>Response quartile</th><th class="n">Responses</th><th>Took</th><th class="n">Share of all bookings</th></tr></thead>
 <tbody>
-<tr><td>Q1 — best</td><td class="n">60</td><td class="n">485</td><td class="n">100%</td>
-    <td class="n">25 sec</td><td class="n">41 sec</td><td class="n">1h 37m</td><td class="n">3h 24m</td></tr>
-<tr><td>Q2</td><td class="n">59</td><td class="n">545</td><td class="n">89.9%</td>
-    <td class="n">30 sec</td><td class="n">5 min</td><td class="n">3h 4m</td><td class="n">4h 23m</td></tr>
-<tr><td>Q3</td><td class="n">59</td><td class="n">568</td><td class="n">54.6%</td>
-    <td class="n">33 sec</td><td class="n">5 min</td><td class="n">3h 48m</td><td class="n">4h 42m</td></tr>
-<tr class="hi"><td>Q4 — worst</td><td class="n">59</td><td class="n">544</td><td class="n">5.2%</td>
-    <td class="n">1 min</td><td class="n">28 min</td><td class="n">4h 12m</td><td class="n">4h 52m</td></tr>
+<tr><td>Q1 — fastest quarter</td><td class="n">496</td><td>under <b>28 sec</b></td><td class="n">15.7%</td></tr>
+<tr><td>Q2</td><td class="n">496</td><td>28 sec – 69 sec</td><td class="n">15.7%</td></tr>
+<tr><td>Q3</td><td class="n">495</td><td>69 sec – 55 min</td><td class="n">15.6%</td></tr>
+<tr class="hi"><td><b>Q4 — slowest quarter</b></td><td class="n">495</td><td><b>55 min – 6h</b> (P90 2h 43m, P95 4h 6m)</td><td class="n">15.6%</td></tr>
+<tr><td style="color:var(--ink2)">No response at all</td><td class="n">1,183</td><td style="color:var(--ink2)">—</td><td class="n">37.4%</td></tr>
 </tbody>
 </table>
 </div>
-<p style="font-size:13.5px;color:var(--ink2)">Elapsed working time, among bookings that got a response. Median
-response is <b>minutes, not hours</b>, in every quartile — when a CSP responds at all, he is usually fast. P95
-never exceeds <b>4h 52m</b>, which is what makes six hours a sufficient ceiling.</p>
+
+<p><b>Three quarters of all responses arrive inside 55 minutes.</b> The entire case for a multi-hour window rests
+on the slowest quarter — and even there, P95 is <b>4h 6m</b>. Nothing needs the sixth hour except the last
+handful.</p>
+
+<p>The same cut on positive action alone (technician assigned, n=1,323) is tighter still: fastest quarter under
+25 sec, three quarters inside <b>17 minutes</b>, slowest quarter 17 min – 5h 57m with P95 at <b>3h 36m</b>.</p>
 
 <h3>3. What each extra hour buys</h3>
 <div class="tblscroll">
@@ -301,29 +304,48 @@ a 12.8-hour median runway — the median booking can be offered, time out, be re
 the day it was promised. <b>That is the case for 6 hours, and it is a tighter one than a marginal cost-benefit
 ratio.</b></p>
 
-<h3>6. Where 6 hours is too generous</h3>
-<p>The runway is not the same for everyone. It depends entirely on how far ahead the promised slot is:</p>
+<h3>6. How many CSP attempts actually fit before that deadline</h3>
+<p>Each CSP given the booking consumes one full P41 window before the system can try the next. So the question is
+simply: how many 6-hour windows fit in the runway before the promised slot day runs out?</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">The runway, and the CSP attempts that fit inside it</div>
+  <div class="chartsub">Each block = one CSP given the full 6-working-hour window · the line is the end of the promised slot day</div>
+  <svg id="c5" viewBox="0 0 720 320" role="img" aria-label="Runway per slot lead time with six-hour CSP attempt blocks laid against it"></svg>
+  <div class="legend">
+    <span><i class="swatch" style="background:var(--s1)"></i>CSP attempt that completes in time</span>
+    <span><i class="swatch" style="background:var(--s2)"></i>Attempt that runs past the slot day</span>
+  </div>
+</div>
+<figcaption>For a <b>next-day slot</b> — 65% of bookings — two full attempts fit with time to spare. For a
+<b>same-day slot</b> the runway ends partway through the second attempt: the first CSP times out, the booking is
+re-offered, and the promised day is gone before the second CSP's window even closes.</figcaption>
+</figure>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Promised slot</th><th class="n">Share of bookings</th><th class="n">Runway</th><th class="n">Fits how many CSPs at 6h?</th><th class="n">Implied P41 for 2 CSPs</th></tr></thead>
+<thead><tr><th>Promised slot</th><th class="n">Share of bookings</th><th class="n">Runway</th>
+<th class="n">CSP attempts that fit at 6h</th><th class="n">P41 needed to fit 2 attempts</th></tr></thead>
 <tbody>
-<tr class="hi"><td><b>Same day</b></td><td class="n">23.8%</td><td class="n">9.9 working h</td><td class="n"><b>1.7</b></td><td class="n"><b>~5 h</b></td></tr>
-<tr><td>Next day</td><td class="n">65.4%</td><td class="n">16.5 working h</td><td class="n">2.8</td><td class="n">~8 h</td></tr>
-<tr><td>2 days ahead</td><td class="n">6.6%</td><td class="n">26.8 working h</td><td class="n">4.5</td><td class="n">~13 h</td></tr>
-<tr><td>3+ days ahead</td><td class="n">3.7%</td><td class="n">40+ working h</td><td class="n">6.7</td><td class="n">~20 h</td></tr>
+<tr class="hi"><td><b>Same day</b></td><td class="n">23.8%</td><td class="n">9.9 working h</td>
+    <td class="n"><b>1.7</b> — second attempt overruns</td><td class="n"><b>~5 h</b></td></tr>
+<tr><td>Next day</td><td class="n">65.4%</td><td class="n">16.5 working h</td>
+    <td class="n">2.8</td><td class="n">~8 h</td></tr>
+<tr><td>2 days ahead</td><td class="n">6.6%</td><td class="n">26.8 working h</td>
+    <td class="n">4.5</td><td class="n">~13 h</td></tr>
+<tr><td>3+ days ahead</td><td class="n">3.7%</td><td class="n">40+ working h</td>
+    <td class="n">6.7</td><td class="n">~20 h</td></tr>
 </tbody>
 </table>
 </div>
+<p style="font-size:13.5px;color:var(--ink2)">"CSP attempts that fit" is just runway ÷ 6 — how many complete
+6-hour windows the booking has room for before the slot day ends. 1.7 means one CSP gets a full window and the
+next only gets 70% of one before the day is gone.</p>
 
-<p>For the <b>65% of bookings promised a next-day slot</b>, six hours is comfortable — the runway absorbs almost
-three full P41 cycles. For the <b>24% promised a same-day slot</b>, six hours is too long: the runway only stretches
-to 1.7 cycles, so a single timeout consumes most of it and any reroute lands after the promised day. Those bookings
-need roughly <b>5 working hours</b> to preserve a two-CSP chain, and arguably less.</p>
-
-<p>This is the same conclusion the CSP quartiles pointed at, reached from the customer's side: <b>a single global
-number is doing two jobs badly.</b> The strongest version of this recommendation is to make P41 a function of the
-runway the booking actually has — slot date minus now — rather than a constant.</p>
+<p>So a single global number is doing two different jobs. The strongest version of the recommendation: <b>make
+P41 a function of the runway the booking actually has</b> — slot date minus now, divided by the chain length you
+want to be able to absorb — rather than a constant.</p>
 
 <h3>7. Time of day makes no difference</h3>
 <p>Because P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), a booking arriving at 8 PM gets the
@@ -549,7 +571,78 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     xl.textContent='Age of booking'; s.appendChild(xl);
   }
 
-  function draw(){ c1(); c2(); c3(); c4(); }
+  /* ---------- runway vs 6h CSP attempt blocks ---------- */
+  var RUN=[
+    {k:'Same day',    share:'23.8%', runway:9.9,  cap:false},
+    {k:'Next day',    share:'65.4%', runway:16.5, cap:false},
+    {k:'2 days ahead',share:'6.6%',  runway:26.8, cap:false},
+    {k:'3+ days',     share:'3.7%',  runway:40.4, cap:true}
+  ];
+  var P41H=6;
+
+  function c5(){
+    var s=document.getElementById('c5'); if(!s) return; s.innerHTML='';
+    var W=720,H=320,L=104,R=78,T=26,B=54, pw=W-L-R, ph=H-T-B;
+    var xmax=30, row=ph/RUN.length, bh=Math.min(30,row-24);
+    var X=function(v){ return L+(Math.min(v,xmax)/xmax)*pw; };
+    var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
+        s1=cv('--s1'), s2=cv('--s2'), ink=cv('--ink'), ink2=cv('--ink2'), surf=cv('--surface');
+
+    for(var v=0; v<=30; v+=6){
+      s.appendChild(el('line',{x1:X(v),x2:X(v),y1:T,y2:T+ph,stroke:grid,'stroke-width':1}));
+      var tx=el('text',{x:X(v),y:T+ph+20,fill:muted,'font-size':11.5,'text-anchor':'middle','font-variant-numeric':'tabular-nums'});
+      tx.textContent=v; s.appendChild(tx);
+    }
+    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Working hours after the booking reaches the first CSP'; s.appendChild(xl);
+    s.appendChild(el('line',{x1:L,x2:L,y1:T,y2:T+ph,stroke:axis,'stroke-width':1}));
+
+    RUN.forEach(function(r,i){
+      var y=T+i*row+(row-bh)/2;
+      var lb=el('text',{x:L-12,y:y+bh/2+4,fill:ink2,'font-size':12.5,'text-anchor':'end'});
+      lb.textContent=r.k; s.appendChild(lb);
+      var sh=el('text',{x:L-12,y:y+bh/2+18,fill:muted,'font-size':10.5,'text-anchor':'end'});
+      sh.textContent=r.share+' of bookings'; s.appendChild(sh);
+
+      /* 6h attempt blocks laid end to end */
+      var n=Math.ceil(Math.min(r.runway,xmax)/P41H);
+      for(var b=0;b<n;b++){
+        var st=b*P41H, en=Math.min((b+1)*P41H, xmax);
+        var fits = (b+1)*P41H <= r.runway;
+        var x0=X(st)+2, x1=X(en)-2;
+        s.appendChild(el('rect',{x:x0,y:y,width:Math.max(x1-x0,2),height:bh,rx:4,
+          fill: fits ? s1 : s2, opacity: fits ? 1 : 0.42}));
+        if(x1-x0>26){
+          var bt=el('text',{x:(x0+x1)/2,y:y+bh/2+4,fill:surf,'font-size':11,'font-weight':650,'text-anchor':'middle'});
+          bt.textContent=(b+1); s.appendChild(bt);
+        }
+      }
+      /* the deadline */
+      if(r.runway<=xmax){
+        s.appendChild(el('line',{x1:X(r.runway),x2:X(r.runway),y1:y-9,y2:y+bh+9,stroke:ink,'stroke-width':2}));
+        var dl=el('text',{x:X(r.runway)+7,y:y+bh/2+4,fill:ink,'font-size':11.5,'font-weight':620});
+        dl.textContent=r.runway+'h'; s.appendChild(dl);
+      } else {
+        var ar=el('text',{x:X(xmax)+7,y:y+bh/2+4,fill:ink2,'font-size':11.5,'font-weight':620});
+        ar.textContent='→ '+r.runway+'h'; s.appendChild(ar);
+      }
+
+      var hit=el('rect',{x:L,y:T+i*row,width:pw,height:row,fill:'transparent',style:'cursor:pointer'});
+      hit.addEventListener('mousemove',function(e){
+        showTT(e,'<b>'+r.k+' slot</b>'+
+          '<div class="row"><span>Share of bookings</span><span>'+r.share+'</span></div>'+
+          '<div class="row"><span>Runway</span><span>'+r.runway+' working h</span></div>'+
+          '<div class="row"><span>Attempts at 6h</span><span>'+(r.runway/P41H).toFixed(1)+'</span></div>');
+      });
+      hit.addEventListener('mouseleave',hideTT);
+      s.appendChild(hit);
+    });
+
+    var cap=el('text',{x:L,y:T-10,fill:muted,'font-size':11,'font-weight':600});
+    cap.textContent='vertical line = end of the promised slot day'; s.appendChild(cap);
+  }
+
+  function draw(){ c1(); c2(); c3(); c4(); c5(); }
   draw();
   addEventListener('resize',function(){ hideTT(); });
 })();

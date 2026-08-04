@@ -34,12 +34,15 @@ It also comfortably covers CSP behaviour: **P95 response is 4h 52m in the worst 
 
 The runway is not the same for every booking:
 
-| Promised slot | Share | Runway | Fits how many CSPs at 6h? | Implied P41 for 2 CSPs |
+| Promised slot | Share | Runway | CSP attempts that fit at 6h | P41 needed for 2 attempts |
 |---|---:|---:|---:|---:|
-| **Same day** | 23.8% | 9.9 working h | **1.7** | **~5 h** |
+| **Same day** | 23.8% | 9.9 working h | **1.7** — second attempt overruns | **~5 h** |
 | Next day | 65.4% | 16.5 working h | 2.8 | ~8 h |
 | 2 days ahead | 6.6% | 26.8 working h | 4.5 | ~13 h |
 | 3+ days ahead | 3.7% | 40+ working h | 6.7 | ~20 h |
+
+"Attempts that fit" is runway ÷ 6 — how many complete 6-hour windows the booking has room for before the
+slot day ends. 1.7 means one CSP gets a full window and the next only gets 70% of one.
 
 For the 65% promised a next-day slot, 6h is comfortable. For the 24% promised a same-day slot it is too long —
 one timeout consumes the runway and any reroute lands after the promised day.
@@ -76,16 +79,22 @@ faster than a timeout) but it is not progress.
 
 ### 2. The variation is in *whether* CSPs respond, not how fast
 
-| CSP quartile | CSPs | Bookings | Response rate | P25 | P50 | P90 | P95 |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Q1 — best | 60 | 485 | 100% | 25 sec | 41 sec | 1h 37m | 3h 24m |
-| Q2 | 59 | 545 | 89.9% | 30 sec | 5 min | 3h 4m | 4h 23m |
-| Q3 | 59 | 568 | 54.6% | 33 sec | 5 min | 3h 48m | 4h 42m |
-| **Q4 — worst** | 59 | 544 | **5.2%** | 1 min | 28 min | 4h 12m | 4h 52m |
+Splitting the **responses themselves** into quartiles — every response sorted by how long it took, cut into
+four equal groups of ~496 bookings:
 
-Elapsed working time, among bookings that got a response. Median response is **minutes, not hours**, in every
-quartile — when a CSP responds at all, he is usually fast. P95 never exceeds **4h 52m**, which is what makes six
-hours a sufficient ceiling.
+| Response quartile | Responses | Took | Share of all bookings |
+|---|---:|---|---:|
+| Q1 — fastest quarter | 496 | under **28 sec** | 15.7% |
+| Q2 | 496 | 28 sec – 69 sec | 15.7% |
+| Q3 | 495 | 69 sec – 55 min | 15.6% |
+| **Q4 — slowest quarter** | 495 | **55 min – 6h** (P90 2h 43m, P95 4h 6m) | 15.6% |
+| No response at all | 1,183 | — | 37.4% |
+
+**Three quarters of all responses arrive inside 55 minutes.** The entire case for a multi-hour window rests on the
+slowest quarter — and even there P95 is **4h 6m**.
+
+Positive action alone (n=1,323) is tighter: three quarters inside **17 minutes**, slowest quarter 17 min – 5h 57m,
+P95 **3h 36m**.
 
 ### 3. What each extra hour buys
 
