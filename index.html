@@ -366,15 +366,32 @@ task installs about half the time.</figcaption>
 </div>
 
 <p>Install rate is flat across the whole window — every band lands between 43.75% and 55.56% against a pooled
-48.60%, with no trend as latency rises. Grouped the other way, &lt;2h installs at 48.34% and 2–6h at 50.68%.
-Highlighted rows are the tasks that exist only because the window was extended; they install at the same rate as
-everything else. The hourly bands are small (27–54 tasks each), so their individual movement is not worth reading
-into — what matters is that none of them departs from the pooled rate.</p>
+48.60%, with no trend as latency rises. Highlighted rows are the tasks that exist only because the window was
+extended; they install at the same rate as everything else. The hourly bands are small (27–54 tasks each), so their
+individual movement is not worth reading into — what matters is that none of them departs from the pooled rate.</p>
+
+<p>Collapsed into the two groups that matter for the P41 decision — everything the old 2-hour window would have
+kept, against everything it would have thrown away:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Assignment latency</th><th class="n">Assigned</th><th class="n">Installed</th><th class="n">Install rate</th><th>What the old 2h window would have done</th></tr></thead>
+<tbody>
+<tr><td>Within 2 working hours</td><td class="n">1,177</td><td class="n">569</td><td class="n">48.34%</td><td style="color:var(--ink2)">Kept — unaffected by the change</td></tr>
+<tr class="hi"><td><b>2–6 working hours</b></td><td class="n"><b>146</b></td><td class="n"><b>74</b></td><td class="n"><b>50.68%</b></td><td style="color:var(--ink2)">Killed at hour 2 and rerouted</td></tr>
+<tr><td><b>Total assigned</b></td><td class="n"><b>1,323</b></td><td class="n"><b>643</b></td><td class="n"><b>48.60%</b></td><td></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>That is where 146 comes from</b>: the tasks a CSP only got to between working-hour 2 and working-hour 6, which
+exist as assignments solely because P41 was extended. They are 11.0% of all assignments in the cohort, and 74 of
+them reached an install.</p>
 
 <h3>2. A timed-out booking is not a lost booking</h3>
 <p>When a candidate dies on <code>TIMEOUT_P41</code> the connection is released and rerouted — <b>78.1%</b> of them
 pick up a fresh candidate, and <b>15.9%</b> of the timed-out connections go on to install anyway with somebody else.
-So the counterfactual for the 146 late assignments is not zero installs; it is roughly 23.</p>
+So the counterfactual for those 146 late assignments is not zero installs; it is roughly 23.</p>
 
 <div class="tiles">
   <div class="tile">
@@ -395,7 +412,7 @@ So the counterfactual for the 146 late assignments is not zero installs; it is r
   <div class="tile">
     <div class="lbl">POST cohort install rate</div>
     <div class="val">20.3%</div>
-    <div class="note">642 of 3,165 installed on their first candidate</div>
+    <div class="note">643 of 3,165 installed on their first candidate</div>
   </div>
 </div>
 

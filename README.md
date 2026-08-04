@@ -79,8 +79,20 @@ as latency rises. Grouped the other way: <2h installs at 48.34%, 2–6h at 50.68
 they install like everything else. The hourly bands are small (27–54 tasks each), so individual band movement
 isn't worth reading into; what matters is that none departs from the pooled rate.
 
+Collapsed into the two groups that matter for the P41 decision — everything the old 2-hour window would have
+kept, against everything it would have thrown away:
+
+| Assignment latency | Assigned | Installed | Install rate | Old 2h window |
+|---|---:|---:|---:|---|
+| Within 2 working hours | 1,177 | 569 | 48.34% | Kept |
+| **2–6 working hours** | **146** | **74** | **50.68%** | Killed at hour 2, rerouted |
+| **Total assigned** | **1,323** | **643** | **48.60%** | |
+
+**That is where 146 comes from** — the tasks a CSP only got to between working-hour 2 and 6, which exist as
+assignments solely because P41 was extended. They are 11.0% of all assignments, and 74 of them reached an install.
+
 **But the counterfactual is not zero.** When a candidate dies on `TIMEOUT_P41`, 78.1% of those connections pick
-up a fresh candidate and **15.9% install anyway with somebody else**. So the 146 late assignments would have
+up a fresh candidate and **15.9% install anyway with somebody else**. So those 146 late assignments would have
 produced ~23 installs regardless.
 
 | | |
