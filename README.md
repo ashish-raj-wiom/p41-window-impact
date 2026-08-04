@@ -47,25 +47,18 @@ the evidence.
 | **26 Jul – 1 Aug — P41 is 6 hours** | 3,850 | **59.1%** | **39.0%** | 49.2% |
 | **Difference** | — | **+12.2 pts** | **+5.8 pts** | +2.3 pts |
 
-**But that +12.2 cannot be read as the effect of P41, and the rest of this document does not use it.** Everything
-below comes from the current period only. Four reasons:
+**But that +12.2 cannot be read as the effect of P41**, so the rest of this document uses only the current
+period.
 
-**1. Two changes shipped a day apart.** The customer-scheduling flow went live around 21 July, P41 changed on
-22 July. Any before/after difference contains both.
+- **Several things went live at once**, the customer-scheduling flow among them. A before/after gap cannot be
+  attributed to any one of them.
+- **Like-for-like the gap is 2.3 points, not 12.2.** At a common 2-hour cut-off the two weeks are 46.9% against
+  49.2%. The other ten points are responses arriving in hours 2 to 6 — hours the old window did not have.
+- **The two weeks measure different actions** — proposing a slot then, assigning a technician now.
+- **The old window truncates its own data.** Its response rate is identical at 2 hours and at 6 — 46.9% either
+  way — because nothing could arrive later.
 
-**2. Like-for-like, most of the gap disappears.** Held to a common 2-hour cut-off the two weeks are **46.9%
-against 49.2% — just 2.3 points apart**. The other ten points are responses arriving in hours 2 to 6, which the
-old window could not have collected. And even those 2.3 points contain the scheduling change as well.
-
-**3. The two weeks measure different actions.** Under the old flow the CSP's first step was proposing a slot;
-under the new one the slot is already confirmed and his first step is assigning a technician.
-
-**4. The old window truncates its own data.** Under a 2-hour timer you never observe a five-hour response. Note
-that the old week's response rate is **identical at 2 hours and at 6** — 46.9% either way, because nothing could
-arrive later. A cut-off distribution being compared to a complete one.
-
-To set the parameter we need the distribution of what CSPs actually do when given room, and only the current
-setting shows that.
+---
 
 ## Part 1 of 3 — Does a longer window buy more response?
 
