@@ -227,22 +227,6 @@ promised day, in the afternoon and evening**. The post-slot peak for later slots
 post-slot buckets run 6, 8 and 7 cancellations, too close to separate. **The shape does not change with the slot
 chosen — only the position of the booking spike, and that moves because the booking moment moves.**
 
-| Slot the customer proposed | Connections | Share of group | Cancelled | Before the slot | On the slot day | Day after |
-|---|---:|---:|---:|---:|---:|---:|
-| Same day | 409 | 41.7% | 14.9% | 0% | **3.9%** | 2.0% |
-| **Next day** | **528** | **53.8%** | **20.1%** | 2.8% | 2.5% | **4.2%** |
-| 2 days out | 28 | 2.9% | 14.3% | *4 cancellations — too few to rate* | | |
-| 3 days out | 16 | 1.6% | 6.3% | *1 cancellation — too few to rate* | | |
-| 4+ days out | 0 | 0% | — | *nobody proposes a slot this far out* | | |
-
-**Every percentage in this section uses the same base — bookings in that row's group**, never
-cancellations. So the table's 3.9% and 4.2% are the same numbers the buckets above plot, summed to whole days.
-
-**95.5% of customers propose today or tomorrow.** Noted for context rather than used — it matters for
-calibration as much as the cancellation shape: the time available P41 must fit inside is short for essentially the entire
-base, not just a tail. It also caps what this section can say about long lead times — 2- and 3-day slots are 44
-bookings and 5 cancellations between them, a count rather than a rate.
-
 **That is the whole purpose of this split.** It rules out the objection that the deadline is an artefact of slot
 mix — that the peak sits where it does only because most customers choose the next day. It does not: each group
 turns on *its own* promised slot. With that established, **the split has done its job and the calibration does

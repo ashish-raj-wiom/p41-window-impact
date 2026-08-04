@@ -456,47 +456,20 @@ slot mix — that the peak sits where it does only because most customers happen
 not: each group pivots on <em>its own</em> promised slot. The same-day and next-day groups behave identically
 once you line them up on the day they were promised.</p>
 
-<p>Summed to whole days, and with the underlying counts:</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr><th>Slot the customer proposed</th><th class="n">Connections</th><th class="n">Share of group</th>
-<th class="n">Cancelled</th><th class="n">Before the slot</th><th class="n">On the slot day</th>
-<th class="n">Day after</th></tr></thead>
-<tbody>
-<tr><td>Same day</td><td class="n">409</td><td class="n">41.7%</td><td class="n">14.9%</td>
-    <td class="n">0%</td><td class="n"><b>3.9%</b></td><td class="n">2.0%</td></tr>
-<tr class="hi"><td><b>Next day</b></td><td class="n"><b>528</b></td><td class="n"><b>53.8%</b></td><td class="n"><b>20.1%</b></td>
-    <td class="n">2.8%</td><td class="n">2.5%</td><td class="n"><b>4.2%</b></td></tr>
-<tr><td>2 days out</td><td class="n">28</td><td class="n">2.9%</td><td class="n">14.3%</td>
-    <td class="n" colspan="3" style="color:var(--muted);text-align:center">4 cancellations — too few to rate</td></tr>
-<tr><td>3 days out</td><td class="n">16</td><td class="n">1.6%</td><td class="n">6.3%</td>
-    <td class="n" colspan="3" style="color:var(--muted);text-align:center">1 cancellation — too few to rate</td></tr>
-<tr><td>4+ days out</td><td class="n">0</td><td class="n">0%</td><td class="n">—</td>
-    <td class="n" colspan="3" style="color:var(--muted);text-align:center">nobody proposes a slot this far out</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:13.5px;color:var(--ink2)"><b>Every percentage in this table and both charts above uses the
-same base — bookings in that row's group</b>, never cancellations. So the table's 3.9% and 4.2% are the
-same numbers the charts plot, just summed to whole days.</p>
-
 <p>With the deadline established and shown to be independent of the slot chosen, <b>the split has done its job and
 the calibration does not need it.</b> Section 6 works on the whole group and a single median.</p>
 
-<p style="font-size:13.5px;color:var(--ink2)">For completeness: 2- and 3-day slots are 44 bookings and 5
-cancellations between them here, which is a count rather than a rate — they are shown for transparency, not
-relied on.</p>
+<p style="font-size:13.5px;color:var(--ink2)">The 44 bookings promised a slot two or more days out are folded
+into "next day or later" — on their own they carry 5 cancellations between them, a count rather than a rate.</p>
 
 <div class="note-box">
 <p><b>Two groups — read them separately.</b> This section runs on the <b>cancellation group</b> (981
 bookings, 25 Jun – 30 Jul, matured), because cancellation needs the slot to be several days past before it can
 be counted. Section 6 runs on the <b>response group</b> (1,654 bookings, 26 Jul – 1 Aug), the same population
 as sections 1–4.</p>
-<p>The slot mix differs a little between them — later slots are somewhat more common in the more recent window —
-so the shares above are this group's, not the calibration group's. What carries across is the behaviour:
-cancellation pivots on the promised slot whatever slot was chosen, and that holds in both. <b>Section 6 needs
-only the deadline, and then measures its own runway on its own population.</b></p>
+<p>What carries across between them is the behaviour, not the numbers: cancellation turns on the promised slot
+whatever slot was chosen, and that holds in both. <b>Section 6 takes only the deadline from here, and measures
+its own time-available on its own population.</b></p>
 </div>
 <p style="font-size:13.5px;color:var(--ink2)"><b>Population for this section.</b> Unlike the response analysis
 above (26 Jul – 1 Aug), the cancellation group runs <b>25 Jun – 30 Jul 2026</b> — cancellation is a slow signal
