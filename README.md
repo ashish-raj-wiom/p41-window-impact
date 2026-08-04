@@ -99,15 +99,6 @@ delivered:
 3h 24m — under 90 minutes of spread at P95, against a 6-hour window. Every quartile's median is minutes, not
 hours. **No quartile of CSPs needs more than six working hours; the bad quartile simply does not answer.**
 
-| Positive action only (technician assigned) | CSPs | Tasks | P50 | P90 | P95 |
-|---|---:|---:|---:|---:|---:|
-| Q1 — best responders | 60 | 485 | 32 sec | 1h 18m | 3h 24m |
-| Q2 | 59 | 545 | 57 sec | 2h 1m | 3h 33m |
-| Q3 | 59 | 568 | 2m 19s | 3h 25m | 4h 11m |
-| **Q4 — worst responders** | 59 | 544 | 22m 39s | 3h 32m | 4h 52m |
-
-Same shape, slightly tighter throughout — declines skew later than jobs taken, so removing them pulls the tail in.
-
 ### 3. First half: more time buys more response, steadily
 
 | P41 set to | Q1 | Q2 | Q3 | Q4 | Overall response | Overall jobs taken |
