@@ -79,22 +79,30 @@ faster than a timeout) but it is not progress.
 
 ### 2. The variation is in *whether* CSPs respond, not how fast
 
-Splitting the **responses themselves** into quartiles — every response sorted by how long it took, cut into
-four equal groups of ~496 bookings:
+Taking only the bookings that **did** get a response, sorted by how long it took, cut into four equal groups:
 
-| Response quartile | Responses | Took | Share of all bookings |
-|---|---:|---|---:|
-| Q1 — fastest quarter | 496 | under **28 sec** | 15.7% |
-| Q2 | 496 | 28 sec – 69 sec | 15.7% |
-| Q3 | 495 | 69 sec – 55 min | 15.6% |
-| **Q4 — slowest quarter** | 495 | **55 min – 6h** (P90 2h 43m, P95 4h 6m) | 15.6% |
-| No response at all | 1,183 | — | 37.4% |
+| Response quartile | Responses | CSPs involved | Response arrived in |
+|---|---:|---:|---|
+| Q1 — fastest quarter | 496 | 253 | under **28 sec** |
+| Q2 | 496 | 291 | 28 sec – 69 sec |
+| Q3 | 495 | 281 | 69 sec – **55 min** |
+| **Q4 — slowest quarter** | 495 | 236 | **55 min – 6h** · P90 2h 43m · P95 4h 6m |
 
-**Three quarters of all responses arrive inside 55 minutes.** The entire case for a multi-hour window rests on the
-slowest quarter — and even there P95 is **4h 6m**.
+**Three quarters of responses arrive inside 55 minutes.** The entire case for a multi-hour window rests on the
+slowest quarter alone — and even there P95 is **4h 6m**.
 
-Positive action alone (n=1,323) is tighter: three quarters inside **17 minutes**, slowest quarter 17 min – 5h 57m,
-P95 **3h 36m**.
+The CSP counts matter as much as the times: **236–291 distinct CSPs appear in every quartile**, out of ~650 active
+that week. The same CSPs show up fast on one booking and slow on another. **Speed is a property of the booking,
+not of the CSP.**
+
+| Positive action only | Assignments | CSPs involved | Arrived in |
+|---|---:|---:|---|
+| Q1 — fastest quarter | 331 | 189 | under 25 sec |
+| Q2 | 331 | 215 | 25 sec – 44 sec |
+| Q3 | 331 | 227 | 44 sec – **17 min** |
+| **Q4 — slowest quarter** | 330 | 194 | **17 min – 5h 57m** · P95 3h 36m |
+
+Tighter than response overall — three quarters inside **17 minutes** — because declines skew later than jobs taken.
 
 ### 3. What each extra hour buys
 
@@ -111,15 +119,16 @@ P95 **3h 36m**.
 
 ### 4. The real deadline is the promised slot, not the clock
 
-Cancellations in the first few hours are not impatience — they are bookings the customer never intended to keep.
-Hazard is **0.55%/hour in the first six hours**, then collapses to **0.08%/hour** between hours 6 and 12. Those
-would have cancelled whatever P41 was set to.
+Cancellations in the first few hours are not impatience — they are bookings the customer never intended to keep,
+and they would have cancelled whatever P41 was set to.
 
-| Age of booking | 0–6h | 6–12h | 12–24h | 1–1.5d | 1.5–2d | **2–2.5d** | 2.5–3d | 3–4d | 5–7d | 7–10d |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Cancelled per hour | 0.55% | 0.08% | 0.13% | 0.10% | 0.13% | **0.14%** | 0.13% | 0.10% | 0.08% | 0.02% |
+| Days since booking | 0.25d | 0.5d | 1d | 1.5d | **2d** | 3d | 4d | 5d | 7d |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Cumulative % cancelled | 3.3% | 3.8% | 5.3% | 6.5% | **8.0%** | 10.9% | 13.0% | 14.9% | 17.9% |
 
-After the mistake-booking spike the hazard troughs, then **rises again across days 1–3, peaking at 48–60 hours**.
+3.3% cancel inside the first six hours, then the curve almost stops — only +0.5pp across the whole of hours 6–12.
+It then **steepens again across days 1–3**, climbing 3.8% → 10.9%.
+
 Re-cut against the customer's **promised slot date** it becomes obvious what they are waiting for:
 
 | Customer cancelled… | Connections | Share |

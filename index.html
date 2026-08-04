@@ -125,8 +125,8 @@ the work.</p>
   <p>The median booking has <b>12.8 working hours</b> of runway to that deadline and passes through <b>2 CSPs</b>.
   That implies <b>12.8 ÷ 2 ≈ 6.4 working hours</b> per CSP — the median booking can be offered, time out, be
   re-offered, and still be installed on the day it was promised. Six hours sits just inside that.</p>
-  <p>It also comfortably covers CSP behaviour: <b>P95 response is 4h 52m in the worst quartile</b> and 3h 24m in
-  the best, so 6 hours captures essentially everyone who was ever going to respond.</p>
+  <p>It also comfortably covers CSP behaviour: <b>three quarters of all responses arrive inside 55 minutes</b> and
+  P95 is <b>4h 6m</b>, so six hours captures essentially everyone who was ever going to respond.</p>
 </div>
 
 <div class="rec" style="border-left-color:var(--s2)">
@@ -190,44 +190,61 @@ tail that is still climbing when the 6-hour deadline cuts it off at 62.6%.</figc
 (it releases the booking with a reason attached, faster than waiting for the timeout) but it is not progress.</figcaption>
 </figure>
 
-<h3>2. The variation is in <em>whether</em> CSPs respond, not how fast</h3>
-<p>Splitting CSPs into quartiles by their own response rate (CSPs with at least 5 bookings in the week):</p>
+<h3>2. How long the responders actually take</h3>
 
-<figure>
-<div class="chartcard">
-  <div class="charttitle">Cumulative response rate by CSP quartile</div>
-  <div class="chartsub">237 CSPs, 2,142 bookings · quartiles ranked by each CSP's own response rate</div>
-  <svg id="c3" viewBox="0 0 720 380" role="img" aria-label="Cumulative response rate by CSP quartile against working hours"></svg>
-</div>
-<figcaption>The quartiles are separated almost entirely by <em>level</em>, not slope. Q1 responds to everything;
-Q4 responds to one booking in twenty however long it is given. Waiting six hours on a Q4 CSP is close to pure
-delay.</figcaption>
-</figure>
-
-<p>Splitting the responses themselves into quartiles — every response sorted by how long it took, cut into four
-equal groups of ~496 bookings each:</p>
+<p>Taking only the bookings that <b>did</b> get a response, sorted by how long it took and cut into four equal
+groups:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Response quartile</th><th class="n">Responses</th><th>Took</th><th class="n">Share of all bookings</th></tr></thead>
+<thead><tr><th>Response quartile</th><th class="n">Responses</th><th class="n">CSPs involved</th><th>Response arrived in</th></tr></thead>
 <tbody>
-<tr><td>Q1 — fastest quarter</td><td class="n">496</td><td>under <b>28 sec</b></td><td class="n">15.7%</td></tr>
-<tr><td>Q2</td><td class="n">496</td><td>28 sec – 69 sec</td><td class="n">15.7%</td></tr>
-<tr><td>Q3</td><td class="n">495</td><td>69 sec – 55 min</td><td class="n">15.6%</td></tr>
-<tr class="hi"><td><b>Q4 — slowest quarter</b></td><td class="n">495</td><td><b>55 min – 6h</b> (P90 2h 43m, P95 4h 6m)</td><td class="n">15.6%</td></tr>
-<tr><td style="color:var(--ink2)">No response at all</td><td class="n">1,183</td><td style="color:var(--ink2)">—</td><td class="n">37.4%</td></tr>
+<tr><td>Q1 — fastest quarter</td><td class="n">496</td><td class="n">253</td><td>under <b>28 sec</b></td></tr>
+<tr><td>Q2</td><td class="n">496</td><td class="n">291</td><td>28 sec – 69 sec</td></tr>
+<tr><td>Q3</td><td class="n">495</td><td class="n">281</td><td>69 sec – <b>55 min</b></td></tr>
+<tr class="hi"><td><b>Q4 — slowest quarter</b></td><td class="n">495</td><td class="n">236</td><td><b>55 min – 6h</b> · P90 2h 43m · P95 4h 6m</td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>Three quarters of all responses arrive inside 55 minutes.</b> The entire case for a multi-hour window rests
-on the slowest quarter — and even there, P95 is <b>4h 6m</b>. Nothing needs the sixth hour except the last
-handful.</p>
+<p><b>Three quarters of responses arrive inside 55 minutes.</b> The entire case for a multi-hour window rests on
+the slowest quarter alone — and even there, P95 is <b>4h 6m</b>.</p>
 
-<p>The same cut on positive action alone (technician assigned, n=1,323) is tighter still: fastest quarter under
-25 sec, three quarters inside <b>17 minutes</b>, slowest quarter 17 min – 5h 57m with P95 at <b>3h 36m</b>.</p>
+<p>The CSP counts matter as much as the times: <b>236 to 291 distinct CSPs appear in every quartile</b>, out of
+roughly 650 active in the week. The same CSPs show up fast on one booking and slow on another — this is not a
+population of fast CSPs and a separate population of slow ones. <b>Speed is a property of the booking, not of the
+CSP.</b></p>
 
-<h3>3. What each extra hour buys</h3>
+<div class="tblscroll">
+<table>
+<thead><tr><th>Positive action only</th><th class="n">Assignments</th><th class="n">CSPs involved</th><th>Arrived in</th></tr></thead>
+<tbody>
+<tr><td>Q1 — fastest quarter</td><td class="n">331</td><td class="n">189</td><td>under 25 sec</td></tr>
+<tr><td>Q2</td><td class="n">331</td><td class="n">215</td><td>25 sec – 44 sec</td></tr>
+<tr><td>Q3</td><td class="n">331</td><td class="n">227</td><td>44 sec – <b>17 min</b></td></tr>
+<tr class="hi"><td><b>Q4 — slowest quarter</b></td><td class="n">330</td><td class="n">194</td><td><b>17 min – 5h 57m</b> · P95 3h 36m</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13.5px;color:var(--ink2)">Restricted to technician assignments. Tighter than response overall —
+three quarters land inside <b>17 minutes</b> — because declines skew later than jobs taken.</p>
+
+<h3>3. Separately: CSPs differ enormously in <em>whether</em> they respond</h3>
+<p>Speed is not the differentiator between CSPs — but whether they engage at all very much is. Ranking CSPs by
+their own response rate (those with at least 5 bookings in the week):</p>
+
+<figure>
+<div class="chartcard">
+  <div class="charttitle">Cumulative response rate by CSP, ranked into quartiles by response rate</div>
+  <div class="chartsub">237 CSPs, 2,142 bookings · a different cut from the tables above — by rate, not by speed</div>
+  <svg id="c3" viewBox="0 0 720 380" role="img" aria-label="Cumulative response rate by CSP quartile against working hours"></svg>
+</div>
+<figcaption>These are separated almost entirely by <em>level</em>, not slope. Q1 responds to everything; Q4 responds
+to one booking in twenty however long it is given. Waiting six hours on a Q4 CSP is close to pure delay — which is
+what drives the third recommendation.</figcaption>
+</figure>
+
+<h3>4. What each extra hour buys</h3>
 <div class="tblscroll">
 <table>
 <thead><tr><th class="n">P41 set to</th><th class="n">Q1</th><th class="n">Q2</th><th class="n">Q3</th><th class="n">Q4</th><th class="n">Overall response</th><th class="n">Overall jobs taken</th></tr></thead>
@@ -244,21 +261,21 @@ handful.</p>
 <p>Going from 4h to 6h adds <b>+3.4pp of response</b> and <b>+1.9pp of jobs taken</b> — worth roughly
 <b>1.8pp of booking-level supply efficiency</b>. That is the gain a shorter window would give up.</p>
 
-<h3>4. The real deadline is the promised slot, not the clock</h3>
+<h3>5. The real deadline is the promised slot, not the clock</h3>
 <p>Cancellations in the first few hours of a booking are not impatience — they are bookings the customer never
-intended to keep. The hazard is <b>0.55%/hour in the first six hours</b>, then collapses to <b>0.08%/hour</b>
-between hours 6 and 12. Those early ones would have cancelled whatever P41 was set to, so they should not be
-priced as a cost of waiting.</p>
+intended to keep. <b>3.3% cancel inside the first six hours</b>, then the curve almost stops: only
+<b>+0.5pp more</b> across the whole of hours 6 to 12. Those early ones would have cancelled whatever P41 was set
+to, so they should not be priced as a cost of waiting.</p>
 
 <figure>
 <div class="chartcard">
-  <div class="charttitle">Customer cancellation hazard, per hour, by age of booking</div>
+  <div class="charttitle">Cumulative customer cancellation, by age of booking</div>
   <div class="chartsub">Matured cohort: bookings confirmed 1–20 Jul 2026, observed to 4 Aug · n=4,193 · deduped to distinct mobiles</div>
-  <svg id="c4" viewBox="0 0 720 340" role="img" aria-label="Customer cancellation hazard per hour by age of booking"></svg>
+  <svg id="c4" viewBox="0 0 720 360" role="img" aria-label="Cumulative percentage of bookings cancelled by the customer against days since booking"></svg>
 </div>
-<figcaption>After the mistake-booking spike, the hazard troughs at hours 6–12 and then <b>rises again to a plateau
-across days 1–3, peaking at 48–60 hours</b>. That second rise is real impatience — and it is anchored to something
-specific.</figcaption>
+<figcaption>After the early spike the curve flattens through hour 12, then <b>steepens again across days 1 to 3</b> —
+climbing from 3.8% to 10.9%, with the sharpest stretch around day 2. That second climb is real impatience, and it
+is anchored to something specific. By day 7 it reaches 17.9%.</figcaption>
 </figure>
 
 <p>Re-cutting the same cancellations against the customer's <b>promised slot date</b> rather than the booking time
@@ -282,7 +299,7 @@ day is the one immediately after. The customer is not counting hours since booki
 was promised, and giving up once it goes by. <b>That is the guardrail: the allocation must finish before the end
 of the slot day.</b></p>
 
-<h3>5. Calibrating against that guardrail</h3>
+<h3>6. Calibrating against that guardrail</h3>
 <p>If the slot day is the deadline, the parameter follows from three measurements:</p>
 
 <div class="tblscroll">
@@ -304,7 +321,7 @@ a 12.8-hour median runway — the median booking can be offered, time out, be re
 the day it was promised. <b>That is the case for 6 hours, and it is a tighter one than a marginal cost-benefit
 ratio.</b></p>
 
-<h3>6. How many CSP attempts actually fit before that deadline</h3>
+<h3>7. How many CSP attempts actually fit before that deadline</h3>
 <p>Each CSP given the booking consumes one full P41 window before the system can try the next. So the question is
 simply: how many 6-hour windows fit in the runway before the promised slot day runs out?</p>
 
@@ -347,7 +364,7 @@ next only gets 70% of one before the day is gone.</p>
 P41 a function of the runway the booking actually has</b> — slot date minus now, divided by the chain length you
 want to be able to absorb — rather than a constant.</p>
 
-<h3>7. Time of day makes no difference</h3>
+<h3>8. Time of day makes no difference</h3>
 <p>Because P41 runs on a working-hours clock (9 AM – 9 PM, pausing overnight), a booking arriving at 8 PM gets the
 same effective budget as one arriving at 10 AM. The data confirms the clock is doing its job:</p>
 
@@ -432,11 +449,10 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     {k:'Q4 worst',c:'--s4', v:[ 2.76, 3.13, 3.86, 4.41, 4.78, 5.15]}
   ];
 
-  /* hazard %/hour by band, matured cohort: [label, per-hour rate] */
-  var HAZ=[
-    ['0–6h',0.553],['6–12h',0.082],['12–24h',0.132],['1–1.5d',0.103],['1.5–2d',0.134],
-    ['2–2.5d',0.140],['2.5–3d',0.125],['3–4d',0.100],['4–5d',0.087],['5–7d',0.075],['7–10d',0.016]
-  ];
+  /* cumulative % of bookings cancelled by the customer, by hours since booking */
+  var CUMH=[0,3,6,9,12,18,24,30,36,42,48,54,60,72,84,96,120,144,168,216,264,336];
+  var CUMV=[0,2.743,3.315,3.530,3.792,4.317,5.318,6.082,6.487,6.916,7.990,9.015,
+            9.540,10.899,11.638,13.046,14.858,16.599,17.935,18.650,18.984,19.747];
 
   /* ---------- generic line chart on the TH grid ---------- */
   function lineChart(id, series, ymin, ymax, ystep, mark){
@@ -530,45 +546,63 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     });
   }
 
-  /* ---------- cancellation hazard bars ---------- */
+  /* ---------- cumulative cancellation line ---------- */
   function c4(){
     var s=document.getElementById('c4'); if(!s) return; s.innerHTML='';
-    var W=720,H=340,L=58,R=26,T=26,B=56, pw=W-L-R, ph=H-T-B;
-    var ymax=0.6, bw=pw/HAZ.length;
-    var Y=function(v){ return T+ph-(Math.min(v,ymax)/ymax)*ph; };
+    var W=720,H=360,L=58,R=56,T=22,B=56, pw=W-L-R, ph=H-T-B;
+    var xmax=168, ymax=20;            /* 7 days, 20% */
+    var X=function(v){ return L+(Math.min(v,xmax)/xmax)*pw; };
+    var Y=function(v){ return T+ph-(v/ymax)*ph; };
     var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'),
-        s1=cv('--s1'), s2=cv('--s2'), ink2=cv('--ink2');
-    for(var v=0; v<=0.6; v+=0.1){
+        s1=cv('--s1'), s2=cv('--s2'), ink=cv('--ink'), ink2=cv('--ink2'), surf=cv('--surface');
+
+    for(var v=0; v<=ymax; v+=4){
       s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
       var tx=el('text',{x:L-10,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
-      tx.textContent=v.toFixed(1)+'%'; s.appendChild(tx);
+      tx.textContent=v+'%'; s.appendChild(tx);
     }
-    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
-    HAZ.forEach(function(b,i){
-      var lbl=b[0], v=b[1];
-      var x=L+i*bw+3, w=bw-6, y=Y(v);
-      /* first bar is the mistake-booking spike — drawn muted, it is not a P41 cost */
-      var col = (i===0) ? s2 : s1;
-      s.appendChild(el('rect',{x:x,y:y,width:w,height:T+ph-y,rx:3,fill:col,opacity:(i===0?0.5:1)}));
-      var tx=el('text',{x:x+w/2,y:T+ph+20,fill:muted,'font-size':10.5,'text-anchor':'middle'});
-      tx.textContent=lbl; s.appendChild(tx);
-      if(i===0||i===1||i===5){
-        var vl=el('text',{x:x+w/2,y:y-7,fill:ink2,'font-size':11,'font-weight':620,'text-anchor':'middle'});
-        vl.textContent=v.toFixed(2); s.appendChild(vl);
-      }
-      var hit=el('rect',{x:L+i*bw,y:T,width:bw,height:ph,fill:'transparent',style:'cursor:pointer'});
-      hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>'+lbl+' after booking</b>'+
-          '<div class="row"><span>Cancelled per hour</span><span>'+v.toFixed(3)+'%</span></div>'+
-          (i===0?'<div class="row" style="margin-top:5px"><span>mistake bookings — not a P41 cost</span></div>':''));
-      });
-      hit.addEventListener('mouseleave',hideTT);
-      s.appendChild(hit);
+    [0,24,48,72,96,120,144,168].forEach(function(v){
+      var tx=el('text',{x:X(v),y:T+ph+20,fill:muted,'font-size':11.5,'text-anchor':'middle'});
+      tx.textContent=(v/24)+'d'; s.appendChild(tx);
     });
-    var pk=el('text',{x:L+5.5*bw,y:T-10,fill:muted,'font-size':11,'font-weight':600,'text-anchor':'middle'});
-    pk.textContent='second peak — real impatience'; s.appendChild(pk);
-    var xl=el('text',{x:L+pw/2,y:T+ph+46,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='Age of booking'; s.appendChild(xl);
+    var xl=el('text',{x:L+pw/2,y:T+ph+44,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Days since booking confirmed'; s.appendChild(xl);
+    s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
+
+    /* shade the first 6 hours — mistake bookings, not a P41 cost */
+    s.appendChild(el('rect',{x:L,y:T,width:X(6)-L,height:ph,fill:s2,opacity:0.10}));
+    var sh=el('text',{x:X(6)+6,y:T+14,fill:s2,'font-size':11,'font-weight':600});
+    sh.textContent='first 6h — bookings never meant to be kept (3.3%)'; s.appendChild(sh);
+
+    /* P41 window and the slot-day guardrail */
+    [[13,'P41 = 6 working h ≈ 13 cal h',s1,T+ph-26],[48,'day 2',muted,T+ph-8]].forEach(function(m){
+      s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:m[2],'stroke-width':1,opacity:.55}));
+      var t=el('text',{x:X(m[0])+6,y:m[3],fill:m[2],'font-size':11,'font-weight':600});
+      t.textContent=m[1]; s.appendChild(t);
+    });
+
+    var d='';
+    for(var i=0;i<CUMH.length;i++){ if(CUMH[i]>xmax) break; d+=(i?'L':'M')+X(CUMH[i])+' '+Y(CUMV[i]); }
+    s.appendChild(el('path',{d:d,fill:'none',stroke:s1,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    for(var j=0;j<CUMH.length;j++){ if(CUMH[j]>xmax) break;
+      s.appendChild(el('circle',{cx:X(CUMH[j]),cy:Y(CUMV[j]),r:3,fill:s1,stroke:surf,'stroke-width':2})); }
+
+    var endLbl=el('text',{x:X(168)+8,y:Y(17.935)+4,fill:s1,'font-size':12,'font-weight':620});
+    endLbl.textContent='17.9%'; s.appendChild(endLbl);
+
+    for(var k=0;k<CUMH.length;k++){
+      if(CUMH[k]>xmax) break;
+      (function(idx){
+        var hit=el('rect',{x:X(CUMH[idx])-9,y:T,width:18,height:ph,fill:'transparent',style:'cursor:crosshair'});
+        hit.addEventListener('mousemove',function(e){
+          var hrs=CUMH[idx];
+          showTT(e,'<b>'+(hrs<24? hrs+'h' : (hrs/24)+' days')+' after booking</b>'+
+            '<div class="row"><span>Cancelled by now</span><span>'+CUMV[idx].toFixed(2)+'%</span></div>');
+        });
+        hit.addEventListener('mouseleave',hideTT);
+        s.appendChild(hit);
+      })(k);
+    }
   }
 
   /* ---------- runway vs 6h CSP attempt blocks ---------- */
