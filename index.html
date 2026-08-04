@@ -301,29 +301,27 @@ is anchored to something specific. By day 7 it reaches 17.9%.</figcaption>
 
 <p>Re-cutting the same cancellations against the customer's <b>promised slot date</b> rather than the booking time
 shows what he is really waiting for. All <b>981 customer-proposed connections</b> whose slot is now at least five
-days past, pooled — no split yet — in <b>12-hour buckets</b>:</p>
+days past, pooled — no split yet — <b>by day</b>:</p>
 
 <figure>
 <div class="chartcard">
   <div class="charttitle">Customer cancellation aligned on the promised slot date</div>
-  <div class="chartsub">All customer-proposed connections, n=981 · 12-hour buckets · y = % of the 981 cancelling in that half-day</div>
-  <svg id="c6" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation rate per twelve-hour bucket relative to the promised slot date"></svg>
+  <div class="chartsub">All customer-proposed connections, n=981 · day 0 = the promised day · y = % of the 981 cancelling that day</div>
+  <svg id="c6" viewBox="0 0 720 390" role="img" aria-label="Customer cancellation rate per day relative to the promised slot date"></svg>
 </div>
-<figcaption>Nothing happens before the promised day beyond a small booking-day spike. The single largest bucket is
-the <b>afternoon and evening of the day after the slot — 2.45%</b>, more than double the morning bucket that
-precedes it. Cancellation then decays, but with a persistent <b>PM-heavy sawtooth</b>: across the whole window
-<b>80 cancellations fall in a 12:00–24:00 bucket against 43 in a 00:00–12:00 one</b>. Customers wait out the
-working day and give up in the evening.</figcaption>
+<figcaption>Before the promised day, almost nothing: <b>1 cancellation two days out and 16 the day before</b>,
+against 981 connections. Then it steps up sharply and stays up — <b>the promised day and the day after are the
+two largest days, level at 3.06% each</b>, and together they carry <b>a third of every cancellation in the
+window</b>. From +2 it decays steadily. The step is at the promise, not at any fixed age of the booking.</figcaption>
 </figure>
 
-<p>So the customer is not counting hours since booking. He is waiting for the day he was promised, and gives up in
-the evening once it has gone by. <b>The pivot is the evening of the day after the slot</b> — the largest single
-bucket anywhere in the window — and that is the point the allocation has to finish before.</p>
+<p>So the customer is not counting hours since booking. He is waiting for the day he was promised, and gives up
+once it has gone by. <b>The pivot is the promised day and the one after it</b> — that is where cancellation steps
+up, and that is the point the allocation has to finish before.</p>
 
-<p style="font-size:13.5px;color:var(--ink2)">Stated precisely, because the 12-hour view makes it visible:
-summed to whole days, the slot day and the day after are <em>level</em> pooled (3.06% each). What separates them
-is concentration — the day after puts 80% of its mass in one evening bucket, while the slot day spreads its
-evenly. And for next-day slots, which are the majority, the day after is decisively larger (4.17% against 2.46%).</p>
+<p style="font-size:13.5px;color:var(--ink2)">Pooled, those two days are level rather than one clearly higher.
+That is a composition effect, and the split below resolves it: same-day slots load onto day 0 because for them
+day 0 <em>is</em> the booking day, while later slots — the majority — peak clearly on <b>+1</b>.</p>
 
 <h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5b. And it does not depend on which slot he chose</h4>
 
@@ -332,19 +330,19 @@ evenly. And for next-day slots, which are the majority, the day after is decisiv
 <figure>
 <div class="chartcard">
   <div class="charttitle">The same alignment, split by the slot the customer chose</div>
-  <div class="chartsub">Same 12-hour buckets and the same denominator convention · y = % of <em>that group's</em> connections</div>
-  <svg id="c7" viewBox="0 0 720 400" role="img" aria-label="Customer cancellation per twelve-hour bucket, split by whether the customer chose a same-day or a later slot"></svg>
+  <div class="chartsub">Same days and the same denominator convention · y = % of <em>that group's</em> connections cancelling that day</div>
+  <svg id="c7" viewBox="0 0 720 390" role="img" aria-label="Customer cancellation per day relative to the promised slot, split by whether the customer chose a same-day or a later slot"></svg>
   <div class="legend">
     <span><i class="swatch" style="background:var(--s1)"></i>Next day or later (n=572)</span>
     <span><i class="swatch" style="background:var(--s2)"></i>Same day (n=409)</span>
   </div>
 </div>
-<figcaption>Both groups do the same two things. Each spikes once at <b>its own booking moment</b> — slot-day
-morning for same-day slots, the evening before for later ones — which is the mistake-booking effect, not
-impatience. Each then clusters again <b>after the promised day, in the PM buckets</b>. The post-slot peak for
-later slots is <b>+1 PM (3.15%)</b>; for same-day slots the post-slot buckets run 6, 8 and 7 cancellations, too
-close to separate. <b>The shape does not change with the slot chosen — only the position of the booking
-spike does, and that moves because the booking moment moves.</b></figcaption>
+<figcaption>Both groups do the same thing: flat before the promise, a step up at it, then a slow decay.
+<b>Later slots peak on +1, the day after the promise (3.85%)</b>. <b>Same-day slots peak on day 0 (3.91%)</b> —
+but for them day 0 <em>is</em> the booking day, so that point carries the mistake-booking spike as well and is
+not comparable like-for-like; their own +1 is the noisier 1.96% on 8 cancellations. Neither group shows anything
+before the promise falls due — same-day slots cannot by construction, and later slots sit at 2.80% on their
+booking day and essentially nothing before it. <b>The trend does not change with the slot chosen.</b></figcaption>
 </figure>
 
 <p>Which slot the customer picks therefore does not change the calibration. What changes is only how much runway
@@ -798,27 +796,25 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     var cap=el('text',{x:L,y:T-10,fill:muted,'font-size':11,'font-weight':600});
     cap.textContent='vertical line = end of the promised slot day'; s.appendChild(cap);
   }
-  /* ---------- cancellation aligned on the promised slot, 12-hour buckets ----------
-     Anchor = midnight starting the promised slot date. Every series is a hazard:
-     denominator is always connections in that group, never cancellations.      */
-  var B12  =[-24,-12,0,12,24,36,48,60,72,84,96,108];
-  var BLAB =[['day −1','AM'],['day −1','PM'],['slot day','AM'],['slot day','PM'],
-             ['+1','AM'],['+1','PM'],['+2','AM'],['+2','PM'],
-             ['+3','AM'],['+3','PM'],['+4','AM'],['+4','PM']];
-  var POOL ={n:981, v:[0,1.631,1.631,1.427,0.612,2.446,0.917,1.937,0.510,1.835,0.714,0.510],
-                   c:[0,   16,   16,   14,    6,   24,    9,   19,    5,   18,    7,    5]};
+  /* ---------- cancellation aligned on the promised slot, by DAY ----------
+     Day 0 = the promised slot date. Every series is a hazard: the denominator
+     is always connections in that group, never cancellations.            */
+  var B12  =[-2,-1,0,1,2,3,4,5];
+  var BLAB =['−2','−1','slot day','+1','+2','+3','+4','+5'];
+  var POOL ={n:981, v:[0.102,1.631,3.058,3.058,2.854,2.345,1.223,1.529],
+                   c:[    1,   16,   30,   30,   28,   23,   12,   15]};
   var SPLIT=[
     {k:'Next day or later', n:572, c:'--s1',
-     v:[0,2.797,0.524,1.923,0.699,3.147,1.224,1.923,0.524,1.923,0.699,0.699],
-     ct:[0,  16,    3,   11,    4,   18,    7,   11,    3,   11,    4,    4]},
+     v:[0.175,2.797,2.448,3.846,3.147,2.448,1.399,2.098],
+     ct:[   1,   16,   14,   22,   18,   14,    8,   12]},
     {k:'Same day', n:409, c:'--s2',
-     v:[0,0,3.178,0.733,0.489,1.467,0.489,1.956,0.489,1.711,0.733,0.244],
-     ct:[0,0,  13,    3,    2,    6,    2,    8,    2,    7,    3,    1]}
+     v:[0,0,3.912,1.956,2.445,2.200,0.978,0.733],
+     ct:[0,0,  16,    8,   10,    9,    4,    3]}
   ];
 
-  /* shared frame for both 12h charts */
+  /* shared frame for both slot-aligned charts */
   function bucketFrame(s, ymax){
-    var W=720,H=400,L=54,R=118,T=30,B=64, pw=W-L-R, ph=H-T-B;
+    var W=720,H=390,L=54,R=124,T=30,B=52, pw=W-L-R, ph=H-T-B;
     var X=function(i){ return L+(i+0.5)/B12.length*pw; }, Y=function(v){ return T+ph-(v/ymax)*ph; };
     var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), ink=cv('--ink');
     for(var v=0; v<=ymax; v+=1){
@@ -830,42 +826,48 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
     var x0=L+(2/B12.length)*pw;
     s.appendChild(el('rect',{x:x0,y:T,width:L+pw-x0,height:ph,fill:ink,opacity:0.035}));
     s.appendChild(el('line',{x1:x0,x2:x0,y1:T,y2:T+ph,stroke:ink,'stroke-width':1.5,opacity:.5}));
-    var t0=el('text',{x:x0+6,y:T-12,fill:ink,'font-size':11.5,'font-weight':620});
-    t0.textContent='the promised day starts here'; s.appendChild(t0);
-    /* the pivot */
-    var xp=L+(5/B12.length)*pw;
-    var tp=el('text',{x:X(5),y:T-12,fill:muted,'font-size':11.5,'font-weight':620,'text-anchor':'middle'});
-    tp.textContent='pivot'; s.appendChild(tp);
+    var t0=el('text',{x:x0+7,y:T-11,fill:ink,'font-size':11.5,'font-weight':620});
+    t0.textContent='the promised day, and everything after it'; s.appendChild(t0);
     BLAB.forEach(function(lb,i){
-      var a=el('text',{x:X(i),y:T+ph+20,fill:muted,'font-size':11,'text-anchor':'middle'});
-      a.textContent=lb[0]; s.appendChild(a);
-      var b=el('text',{x:X(i),y:T+ph+34,fill:muted,'font-size':10.5,'text-anchor':'middle',opacity:.8});
-      b.textContent=lb[1]; s.appendChild(b);
+      var a=el('text',{x:X(i),y:T+ph+21,fill:muted,'font-size':(i===2?11.5:12),'text-anchor':'middle',
+        'font-weight':(i===2?620:400)});
+      a.textContent=lb; s.appendChild(a);
     });
-    var xl=el('text',{x:L+pw/2,y:T+ph+56,fill:muted,'font-size':12,'text-anchor':'middle'});
-    xl.textContent='12-hour bucket, relative to the promised slot date'; s.appendChild(xl);
+    var xl=el('text',{x:L+pw/2,y:T+ph+43,fill:muted,'font-size':12,'text-anchor':'middle'});
+    xl.textContent='Days relative to the promised slot date'; s.appendChild(xl);
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
-    return {L:L,R:R,T:T,pw:pw,ph:ph,X:X,Y:Y,bw:(pw/B12.length)*0.62};
+    return {L:L,R:R,T:T,pw:pw,ph:ph,X:X,Y:Y,bw:(pw/B12.length)*0.58};
+  }
+
+  function dayLabel(i){
+    var d=B12[i];
+    if(d===0) return 'On the promised slot day';
+    if(d<0)   return Math.abs(d)+' day'+(d===-1?'':'s')+' before the slot';
+    return d+' day'+(d===1?'':'s')+' after the slot';
   }
 
   /* 5a — pooled, as columns */
   function c6(){
     var s=document.getElementById('c6'); if(!s) return; s.innerHTML='';
-    var ymax=3.5, f=bucketFrame(s,ymax);
-    var col=cv('--s1'), ink=cv('--ink'), surf=cv('--surface');
+    var ymax=4.5, f=bucketFrame(s,ymax);
+    var col=cv('--s1'), ink=cv('--ink');
     POOL.v.forEach(function(v,i){
       if(v<=0) return;
-      var peak=(i===5);
+      var peak=(i===2||i===3);
       s.appendChild(el('rect',{x:f.X(i)-f.bw/2,y:f.Y(v),width:f.bw,height:f.T+f.ph-f.Y(v),
-        rx:4,fill:peak?ink:col,opacity:peak?0.92:0.72}));
+        rx:4,fill:peak?ink:col,opacity:peak?0.9:0.7}));
     });
-    var lt=el('text',{x:f.X(5),y:f.Y(POOL.v[5])-9,fill:ink,'font-size':12,'font-weight':660,'text-anchor':'middle'});
-    lt.textContent='2.45%'; s.appendChild(lt);
+    [2,3].forEach(function(i){
+      var lt=el('text',{x:f.X(i),y:f.Y(POOL.v[i])-9,fill:ink,'font-size':12,'font-weight':660,'text-anchor':'middle'});
+      lt.textContent='3.06%'; s.appendChild(lt);
+    });
+    var note=el('text',{x:f.X(3)+f.bw/2+12,y:f.Y(POOL.v[3])+16,fill:cv('--ink2'),'font-size':11.5,'font-weight':600});
+    note.textContent='level — see the split below'; s.appendChild(note);
     B12.forEach(function(b,i){
       var hit=el('rect',{x:f.X(i)-f.pw/B12.length/2,y:f.T,width:f.pw/B12.length,height:f.ph,
         fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
-        showTT(e,'<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='AM'?'00:00–12:00':'12:00–24:00')+'</b>'
+        showTT(e,'<b>'+dayLabel(i)+'</b>'
           +'<div class="row"><span>Cancelled</span><span>'+POOL.c[i]+' of 981</span></div>'
           +'<div class="row"><span>Rate</span><span>'+POOL.v[i].toFixed(2)+'%</span></div>');
       });
@@ -877,7 +879,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   /* 5b — split, as lines so the shapes can be compared */
   function c7(){
     var s=document.getElementById('c7'); if(!s) return; s.innerHTML='';
-    var ymax=3.5, f=bucketFrame(s,ymax), surf=cv('--surface');
+    var ymax=4.5, f=bucketFrame(s,ymax), surf=cv('--surface');
     SPLIT.forEach(function(g){
       var col=cv(g.c), d='';
       g.v.forEach(function(y,i){ d+=(i?'L':'M')+f.X(i)+' '+f.Y(y); });
@@ -885,14 +887,20 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
         'stroke-linejoin':'round','stroke-linecap':'round'}));
       g.v.forEach(function(y,i){ s.appendChild(el('circle',{cx:f.X(i),cy:f.Y(y),r:3.2,fill:col,
         stroke:surf,'stroke-width':2})); });
-      var lt=el('text',{x:f.X(11)+10,y:f.Y(g.v[11])+4,fill:col,'font-size':11.5,'font-weight':620});
+      var lt=el('text',{x:f.X(7)+11,y:f.Y(g.v[7])+4,fill:col,'font-size':11.5,'font-weight':620});
       lt.textContent=g.k; s.appendChild(lt);
+    });
+    /* each group's own peak */
+    [{g:0,i:3},{g:1,i:2}].forEach(function(p){
+      var g=SPLIT[p.g], col=cv(g.c);
+      var t=el('text',{x:f.X(p.i),y:f.Y(g.v[p.i])-10,fill:col,'font-size':11.5,'font-weight':660,'text-anchor':'middle'});
+      t.textContent=g.v[p.i].toFixed(2)+'%'; s.appendChild(t);
     });
     B12.forEach(function(b,i){
       var hit=el('rect',{x:f.X(i)-f.pw/B12.length/2,y:f.T,width:f.pw/B12.length,height:f.ph,
         fill:'transparent',style:'cursor:crosshair'});
       hit.addEventListener('mousemove',function(e){
-        var html='<b>'+BLAB[i][0]+', '+(BLAB[i][1]==='AM'?'00:00–12:00':'12:00–24:00')+'</b>';
+        var html='<b>'+dayLabel(i)+'</b>';
         SPLIT.forEach(function(g){
           html+='<div class="row"><span>'+g.k+'</span><span>'+g.ct[i]+'/'+g.n+' · '+g.v[i].toFixed(2)+'%</span></div>';
         });

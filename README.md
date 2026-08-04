@@ -139,38 +139,35 @@ It then **steepens again across days 1–3**, climbing 3.8% → 10.9%.
 
 #### 4a. When it happens, relative to the promised slot
 
-Re-cut against the customer's **promised slot date**, all **981** customer-proposed connections pooled, in
-**12-hour buckets** (denominator = the 981 connections):
+Re-cut against the customer's **promised slot date**, all **981** customer-proposed connections pooled,
+**by day** (denominator = the 981 connections):
 
-| Bucket | day −1 PM | slot day AM | slot day PM | +1 AM | **+1 PM** | +2 AM | +2 PM | +3 AM | +3 PM |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| % cancelling | 1.63% | 1.63% | 1.43% | 0.61% | **2.45%** | 0.92% | 1.94% | 0.51% | 1.84% |
-| cancellations | 16 | 16 | 14 | 6 | **24** | 9 | 19 | 5 | 18 |
+| Days from promised slot | −2 | −1 | **slot day** | **+1** | +2 | +3 | +4 | +5 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| % cancelling | 0.10% | 1.63% | **3.06%** | **3.06%** | 2.85% | 2.35% | 1.22% | 1.53% |
+| cancellations | 1 | 16 | **30** | **30** | 28 | 23 | 12 | 15 |
 
-Nothing before the promised day beyond a small booking-day spike. The largest single bucket anywhere is the
-**afternoon and evening of the day after the slot — 2.45%**, four times the morning bucket before it. Cancellation
-then decays with a persistent **PM-heavy sawtooth**: **80 cancellations in 12:00–24:00 buckets against 43 in
-00:00–12:00**. Customers wait out the working day and give up in the evening.
+Before the promised day, almost nothing — 1 cancellation two days out and 16 the day before, against 981
+connections. Then a sharp step up that holds: **the promised day and the day after are the two largest days,
+level at 3.06% each**, together carrying a third of every cancellation in the window. From +2 it decays steadily.
 
-**The pivot is the evening of the day after the slot.** Stated precisely: summed to whole days the slot day and
-the day after are *level* pooled (3.06% each) — what separates them is concentration, the day after putting 80% of
-its mass in one evening bucket. For next-day slots, the majority, the day after is decisively larger (4.17% vs
-2.46%).
+**The pivot is the promised day and the one after it.** Pooled, those two days are level rather than one clearly
+higher — a composition effect that 4b resolves.
 
 #### 4b. And it does not depend on which slot he chose
 
-Same 981 connections, same buckets, split by the slot proposed:
+Same 981 connections, same days, split by the slot proposed:
 
-| Bucket | day −1 PM | slot day AM | slot day PM | +1 AM | +1 PM | +2 AM | +2 PM |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Next day or later (n=572) | 2.80% | 0.52% | 1.92% | 0.70% | **3.15%** | 1.22% | 1.92% |
-| Same day (n=409) | 0% | **3.18%** | 0.73% | 0.49% | 1.47% | 0.49% | 1.96% |
+| Days from promised slot | −2 | −1 | slot day | +1 | +2 | +3 | +4 | +5 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Next day or later (n=572) | 0.18% | 2.80% | 2.45% | **3.85%** | 3.15% | 2.45% | 1.40% | 2.10% |
+| Same day (n=409) | 0% | 0% | **3.91%** | 1.96% | 2.45% | 2.20% | 0.98% | 0.73% |
 
-Both groups do the same two things: spike once at **their own booking moment** — slot-day morning for same-day
-slots, the evening before for later ones, which is the mistake-booking effect — then cluster again **after the
-promised day, in the PM buckets**. The post-slot peak for later slots is +1 PM (3.15%); for same-day slots the
-post-slot buckets run 6, 8 and 7 cancellations, too close to separate. **The shape does not change with the slot
-chosen — only the position of the booking spike, and that moves because the booking moment moves.**
+Both groups do the same thing: flat before the promise, a step up at it, then a slow decay. **Later slots peak on
++1, the day after the promise (3.85%).** **Same-day slots peak on day 0 (3.91%)** — but for them day 0 *is* the
+booking day, so that point carries the mistake-booking spike too and is not comparable like-for-like; their own +1
+is a noisier 1.96% on 8 cancellations. Neither shows anything before the promise falls due. **The trend does not
+change with the slot chosen.**
 
 | Slot the customer proposed | Connections | Share of cohort | Cancelled | Before the slot | On the slot day | Day after |
 |---|---:|---:|---:|---:|---:|---:|
