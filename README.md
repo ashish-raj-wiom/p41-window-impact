@@ -12,58 +12,63 @@ candidates created 26 July – 1 August 2026, after P41 was set to 6 hours.
 
 ## Cohorts
 
-Both cohorts are anchored on **task creation date**, and each measures **the CSP's first required action**
-in its own regime — because the flow changed between them:
+Both anchored on **task creation date**, both **full and unsubset**. Each measures the CSP's *first required
+action* under the flow in force that week, because the flow changed between them:
 
 | | PRE 14–20 Jul | POST 26 Jul – 1 Aug |
 |---|---|---|
 | P41 | 2h | 6h |
 | CSP's first action | **slot proposal** | **technician assignment** |
-| Cohort | valid Indian mobile | `slot_details:proposedBy = 'CUSTOMER'` + valid mobile |
-| n | 4,903 | 2,083 |
-
-The POST cohort is scoped to bookings where the **customer proposed the slot**, so technician assignment
-genuinely is the CSP's first step. 99.2% of the selected candidates independently carry
-`SLOT_CONFIRMATION_SOURCE='CUSTOMER_PROPOSED'`, which cross-validates the filter.
+| n created | 4,985 | 3,850 |
+| n actioned | 1,649 (33.1%) | 1,502 (39.0%) |
 
 ## Headline
 
-**The P41 effect is +5.5pp more tasks actioned** — measured as within-cohort accrual between working-hour 2
-and working-hour 6, the window the old config used to discard.
+**The P41 effect is +4.96pp** — the within-cohort accrual between working-hour 2 and working-hour 6, i.e. the
+window the old config used to discard.
 
-| | PRE | POST |
+| Within (working h) | PRE | POST |
 |---|---|---|
-| Actioned by working-hour 2 | 33.08% | 40.57% |
-| Actioned by working-hour 6 | 33.08% | 46.09% |
-| **Accrual, hour 2 → 6** | **+0.00pp** | **+5.52pp** |
-| Died on `TIMEOUT_P41` | 52.4% | 34.2% |
+| 0.25 | 25.94% | 26.75% |
+| 1.0 | 29.89% | 29.64% |
+| **2.0 — old P41** | **33.08%** | **32.75%** |
+| **6.0 — new P41** | **33.08%** | **37.71%** |
+| **Accrual, hour 2 → 6** | **+0.00pp** | **+4.96pp** |
 
-Each curve flattens exactly at its own P41 deadline. PRE stops dead at hour 2 with tasks still arriving;
-POST keeps accruing and only flattens at hour 6, after which **zero** assignments arrive — P41 is a hard
-binding ceiling, not a slack constraint.
+`TIMEOUT_P41` deaths fell 52.5% → 37.4%.
+
+The two weeks are **within ~1pp of each other through hour 2** — POST is marginally *behind* at hours 1 and 2.
+They diverge only after the old cutoff, which is what isolates the P41 effect from everything else that
+changed. CSPs did not get faster; more of their work survived long enough to count.
 
 ### Percentiles
 
 | Cohort | P50 cal | P90 cal | P95 cal | P50 work | P90 work | P95 work |
 |---|---|---|---|---|---|---|
-| PRE — slot proposal (n=1,622) | 0.02 | 1.96 | 8.78 | 0.02 | 0.99 | 1.44 |
-| POST — tech assigned (n=960) | 0.03 | 8.33 | 12.22 | 0.01 | 2.44 | **3.61** |
+| PRE — slot proposal (n=1,649) | 0.02 | 1.96 | 8.78 | 0.02 | 0.99 | 1.44 |
+| POST — tech assigned (n=1,502) | 0.03 | 8.33 | 12.22 | 0.02 | 3.44 | **5.35** |
+| ↳ customer-proposed subset (n=1,323) | 0.02 | 5.42 | 9.11 | 0.01 | 2.25 | 3.60 |
 
-Hours, over every candidate that reached the action. "work" = 9 AM – 9 PM IST clock.
+Hours. "work" = 9 AM – 9 PM IST clock. PRE's flattering percentiles are **right-truncated by its own 2h
+deadline** — you cannot observe a 5-hour slot proposal when the task is killed at hour 2, so POST's higher P95
+is a *fuller* measurement, not a worse one.
 
-Medians sit near zero because in this flow the slot is already confirmed when the candidate is created —
-45% of assignments happen within a minute of notification, since nothing stands between the two.
+In the **customer-proposed flow**, technician assignment *is* the P41-gated action, and there is a hard ceiling
+at six working hours — the 6–12, 12–24 and >24h buckets are all empty. The entire long tail (50 assignments)
+sits in the other flow, where the CSP proposes a slot first and technician assignment comes after customer
+confirmation, outside P41's scope.
 
-PRE's flattering percentiles are **right-truncated by its own 2h deadline** — you cannot observe a 5-hour
-slot proposal when the task is killed at hour 2. POST's higher P95 is a *fuller* measurement, not a worse one.
+## Two filter pitfalls worth knowing
 
-## Two things not to conclude
-
-1. **The vertical gap between the curves is not the P41 effect.** POST sits ~7pp above PRE from the first
-   quarter-hour, before either deadline can matter — that is cohort composition (customers who actively
-   proposed a slot are higher-intent). Applying the one symmetric filter component, valid mobile, moves PRE
-   by nothing (33.1% → 33.1%). Only the within-cohort accrual after hour 2 is attributable to P41.
-2. **CSPs did not get faster.** The gain is entirely tasks surviving long enough to be actioned.
+1. **`slot_details:proposedBy` is a flow marker, not a customer attribute.** It takes exactly one value across
+   the whole booking table — `CUSTOMER`, on 2,388 rows of 1,104,543; everything else is NULL. It matches 53.1%
+   of POST candidates but only 2.1% of PRE, so using it on one side of a comparison silently swaps the
+   denominator for "tasks that arrive with a slot already confirmed" and lifts the curve ~7pp at every elapsed
+   time. An earlier version of this analysis made exactly that mistake.
+2. **`dynamodb_read.booking` is a mutable current-state snapshot.** The identical query 40 minutes apart
+   returned 2,083 → 2,045 candidates, 960 → 956 assigned, 713 → 689 P41 deaths. Use
+   `SLOT_CONFIRMATION_SOURCE = 'CUSTOMER_PROPOSED'` on the candidate row instead — same intent, immutable, and
+   more complete (3,165 vs 2,045).
 
 ## Method
 
@@ -71,19 +76,16 @@ slot proposal when the task is killed at hour 2. POST's higher P95 is a *fuller*
 - Clock end = first `TO_STATE='TECHNICIAN_ASSIGNED'` (POST) / first CSP `SLOT_SELECTED` (PRE), reassignments excluded.
 - Working hours = monotonic working-time coordinate, `day_index × 43200 + clamp(seconds since 09:00, 0, 43200)`,
   differenced. All seven days counted.
-- Timezone verified: `CONVERT_TIMEZONE('Asia/Kolkata', …)` and `+330 minutes` agree on every row.
-
-Full definitions, the exact booking filter, its known snapshot limitation, data lineage and open questions
-are in the page's Methodology section.
+- Timezone verified three ways (`DATEADD +330` on raw TZ, same after `TO_TIMESTAMP_NTZ`, and
+  `CONVERT_TIMEZONE`) — all agree exactly.
 
 ## Sources
 
 Snowflake (Metabase DB 113):
 
-- `PROD_DB.DYNAMODB_READ.BOOKING` — POST cohort filter
-- `PROD_DB.PUBLIC.COMPANY_B_CONNECTION_BOOKING_ENRICHED` — mobile → connection bridge
 - `CSP_TAS_SERVICE…INSTALL_EXECUTION_CANDIDATES`
 - `CSP_TAS_SERVICE…INSTALL_STATE_TRANSITION_LOG`
 - `CSP_DEMAND_ALLOCATION_SERVICE…CONNECTION_ALLOCATIONS`
+- `PROD_DB.DYNAMODB_READ.BOOKING` — cross-check only, see pitfall 2
 
-Core table set matches the Health 2.0 Metabase card (#11646). Data as of 3 August 2026. All times IST.
+Core table set matches the Health 2.0 Metabase card (#11646). Data as of 4 August 2026. All times IST.
