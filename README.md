@@ -18,37 +18,40 @@ The parameter sits on one trade-off:
 
 ## Recommendation
 
-### Keep P41 at 6 working hours as the default
+### Cut P41 from 6 to 2 working hours
 
-The binding constraint is not customer impatience by the clock — it is the **promised slot day**. 90% of customer
-cancellations happen on or after that day, peaking the day after. So the allocation chain has to finish
-before the slot day ends.
+The binding constraint is the **promised slot day**. Cancellation steps up sharply on that day and stays up — the
+promise is to install *on* it, so the allocation has to conclude **before it begins**.
 
-The median booking has **12.8 working hours** of runway to that deadline and passes through **2 CSPs**. That
-implies **12.8 ÷ 2 ≈ 6.4 working hours** per CSP — the median booking can be offered, time out, be re-offered, and
-still be installed on the day it was promised. Six hours sits just inside that.
+Measured to that deadline, the median booking for which the constraint is achievable at all has **3.87 working
+hours** of runway and passes through **1.91 CSP attempts**. That implies **3.87 ÷ 1.91 ≈ 2 working hours**.
 
-It also comfortably covers CSP behaviour: **P95 response is 4h 52m in the worst quartile** and 3h 24m in the best.
+At the current six hours, **only 26.5% of bookings can complete even one CSP attempt before the promised day
+starts**. At two hours that rises to **42.8%**, and to **68.5%** among bookings with any runway at all. Two hours
+still captures the great majority of responders — every CSP quartile's median response is under 34 minutes.
 
-### But cut it to ~5 hours for same-day slots
+**The cost, stated plainly:** −8.5pp of response, −4.6pp of jobs taken, roughly **−4.9pp of booking-level supply
+efficiency**. That is the price of holding the promised day.
 
-The runway is not the same for every booking:
+### No P41 value fixes same-day slots — that needs a scheduling change
 
-| Promised slot | Share | Runway | CSP attempts that fit at 6h | P41 needed for 2 attempts |
+**37.5% of customers ask for a slot today.** For them the deadline has already passed by **2.93 working hours**
+when the booking first reaches a CSP — there was never a "before the slot day" to allocate in. Across the whole
+cohort **47.2% of bookings are past the deadline on arrival**.
+
+| Promised slot | Share | Median runway to the pivot | Attempts at 2h | at 6h |
 |---|---:|---:|---:|---:|
-| **Same day** | 23.8% | 9.9 working h | **1.7** — second attempt overruns | **~5 h** |
-| Next day | 65.4% | 16.5 working h | 2.8 | ~8 h |
-| 2 days ahead | 6.6% | 26.8 working h | 4.5 | ~13 h |
-| 3+ days ahead | 3.7% | 40+ working h | 6.7 | ~20 h |
+| **Same day** | 37.5% | **−2.93 working h** | **0** | **0** |
+| Next day | 54.8% | 3.87 working h | 1 | **0** |
+| 2 days out | 4.1% | 14.2 working h | 7 | 2 |
+| 3+ days out | 3.7% | 28.3 working h | 14 | 4 |
 
-"Attempts that fit" is runway ÷ 6 — how many complete 6-hour windows the booking has room for before the
-slot day ends. 1.7 means one CSP gets a full window and the next only gets 70% of one.
+Shortening the timer cannot recover time that does not exist. The lever is the promise, not the parameter: stop
+offering same-day slots after a cut-off hour, or treat a same-day booking as best-effort rather than dated.
 
-For the 65% promised a next-day slot, 6h is comfortable. For the 24% promised a same-day slot it is too long —
-one timeout consumes the runway and any reroute lands after the promised day.
-
-**The strongest version: make P41 a function of the runway the booking actually has** — slot date minus now,
-divided by expected chain length — rather than a constant.
+**The strongest version for everyone else: make P41 a function of the runway the booking actually has** — slot
+date minus now, divided by the chain length you want to absorb — rather than a constant. One global number is
+currently too long for the 92.3% asking for today or tomorrow and needlessly short for the rest.
 
 ### And shorten it for CSPs who never respond
 
@@ -151,8 +154,9 @@ Before the promised day, almost nothing — 1 cancellation two days out and 16 t
 connections. Then a sharp step up that holds: **the promised day and the day after are the two largest days,
 level at 3.06% each**, together carrying a third of every cancellation in the window. From +2 it decays steadily.
 
-**The pivot is the promised day and the one after it.** Pooled, those two days are level rather than one clearly
-higher — a composition effect that 4b resolves.
+**The pivot is the slot date itself** — cancellation is near-zero right up to it and steps up the moment it
+lands. Since the promise is to install *on* that day, the allocation must be finished before it begins. (Pooled,
+day 0 and +1 are level rather than one clearly higher — a composition effect that 4b resolves.)
 
 #### 4b. And it does not depend on which slot he chose
 
@@ -197,28 +201,54 @@ the P41 window, which is why the wider window is acceptable here.
 **Section 3 established:** every extra hour buys more response, at a near-constant 2.1pp/h, in every quartile.
 Nothing in 1h–6h flattens out. On its own that argues for a longer window.
 
-**Section 4 established:** the offsetting cost is not paid by the hour — it is paid at a pivot, the day after the
-promised slot.
+**Section 4 established:** the offsetting cost is not paid by the hour — it steps up at the promised slot day
+and stays up. The promise is to install *on* that day, so the allocation must be finished **before the slot day
+begins**, not merely before it ends. **The pivot is the slot date itself.**
 
 **So the two do not trade off smoothly.** Extra hours are close to free right up until the allocation stops
-fitting inside the slot day, and expensive immediately after. Set P41 to the largest value that still lets the
-*median* allocation conclude before that pivot — not to where marginal gain equals marginal cost, because that
-point does not exist.
+fitting ahead of the promised day, and expensive after. Set P41 to the largest value that still lets the *median*
+allocation conclude before that pivot — not to where marginal gain equals marginal cost, because that point does
+not exist.
 
+Measuring the runway to the **end of the working day before the slot** rather than the end of the slot day:
 
-| Input | Value | How measured |
-|---|---:|---|
-| **Runway** — booking reaching a CSP → end of promised slot day | **12.8 working h** | median; 24.8 calendar hours |
-| **Chain** — distinct CSPs a connection passes through | **2** | median; mean 1.91 |
-| **Implied P41** = runway ÷ chain | **6.4 working h** | median booking survives one reroute and still makes its slot |
+| Slot the customer proposed | Connections | Share | Median runway to the pivot | Already past the deadline on arrival |
+|---|---:|---:|---:|---:|
+| **Same day** | 620 | 37.5% | **−2.93 working h** | **620 — all of them** |
+| Next day | 906 | 54.8% | +3.87 working h | 160 (17.7%) |
+| 2 days out | 67 | 4.1% | +14.2 working h | 0 |
+| 3+ days out | 61 | 3.7% | +28.3 working h | 0 |
+| **Whole cohort** | **1,654** | 100% | **+0.51 working h** | **780 (47.2%)** |
 
-Two CSPs at 6h consume 12 working hours against a 12.8-hour median runway — the median booking can be offered,
-time out, be re-offered, and still be installed on the day it was promised, **ahead of the pivot**. Six hours is
-close to the largest value that satisfies the constraint.
+**Nearly half the base is past the deadline before a CSP ever sees it.** Dividing runway by the chain — **1.91
+candidates per connection**, each consuming one full P41 window:
 
-### 6. Where 6 hours is too generous
+| Population | Median runway | ÷ chain | Implied P41 |
+|---|---:|---:|---|
+| Whole cohort | 0.51 working h | 1.91 | 0.27 working h — **not a usable parameter** |
+| **Achievable subset** (next day or later, 1,034 conns, 62.5%) | **3.87 working h** | 1.91 | **2.03 → 2 working hours** |
 
-See the runway table in the recommendation above — same-day slots (24% of bookings) only fit 1.7 P41 cycles.
+Share of bookings whose allocation would conclude before the promised day begins, at each setting:
+
+| P41 | All: 1 attempt | All: 2 attempts | Next day or later: 1 | Next day or later: 2 |
+|---:|---:|---:|---:|---:|
+| 1 h | 47.0% | 42.8% | 75.1% | 68.5% |
+| **2 h** | **42.8%** | **34.7%** | **68.5%** | **55.5%** |
+| 3 h | 38.6% | 26.5% | 61.8% | 42.4% |
+| 4 h | 34.7% | 16.4% | 55.5% | 26.2% |
+| 5 h | 31.0% | 10.0% | 49.6% | 16.1% |
+| 6 h — current | 26.5% | 9.3% | 42.4% | 14.9% |
+
+**At six hours only 26.5% of bookings can complete even one attempt before the promised day starts**, and 9.3%
+can fit two. Cutting to two hours takes that to 42.8% and 34.7% — and among bookings for which the constraint is
+achievable at all, from 42.4% to 68.5%. The cost is section 3's: −8.5pp response, −4.6pp jobs taken, ≈−4.9pp
+booking-level supply efficiency.
+
+### 6. The same picture, per slot type
+
+See the runway table in the recommendation above. Under the slot-date pivot a single global number fails at both
+ends: too long for the **92.3%** asking for today or tomorrow — neither can fit one 6-hour attempt at the median —
+and needlessly short for the **7.8%** asking for two or more days out, who have 14–28 working hours to play with.
 
 ### 7. Time of day makes no difference
 
