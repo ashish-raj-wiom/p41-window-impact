@@ -108,23 +108,33 @@ hours. **No quartile of CSPs needs more than six working hours; the bad quartile
 
 Same shape, slightly tighter throughout — declines skew later than jobs taken, so removing them pulls the tail in.
 
-### 3. What each extra hour buys
+### 3. First half: more time buys more response, steadily
 
 | P41 set to | Q1 | Q2 | Q3 | Q4 | Overall response | Overall jobs taken |
 |---:|---:|---:|---:|---:|---:|---:|
 | 1 h | 84.5% | 61.5% | 35.9% | 2.9% | 47.4% | 34.0% |
-| 2 h | 91.8% | 75.8% | 41.7% | 3.3% | 54.1% | 37.2% |
+| 2 h — old setting | 91.8% | 75.8% | 41.7% | 3.3% | 54.1% | 37.2% |
 | 3 h | 94.2% | 80.4% | 46.7% | 3.9% | 57.1% | 38.9% |
 | 4 h | 96.3% | 84.6% | 49.5% | 4.4% | 59.2% | 39.9% |
 | 5 h | 98.8% | 86.8% | 52.3% | 4.8% | 61.0% | 41.0% |
 | **6 h — current** | **100%** | **89.9%** | **54.6%** | **5.1%** | **62.6%** | **41.8%** |
+| **Gain per hour, 2h → 6h** | **+2.1pp** | **+3.5pp** | **+3.2pp** | **+0.5pp** | **+2.1pp** | **+1.2pp** |
 
-Q1–Q4 are the same CSP quartiles as above (237 CSPs with ≥5 tasks). The two **Overall** columns cover every POST
-task including CSPs below that threshold, which is why they sit outside the quartile range.
+**Every extra hour buys more response, at a near-constant rate.** The first hour is the steep one; from hour 2
+onward each additional hour adds roughly the same again — 2.1pp/h overall. Nothing in the 1h–6h range flattens
+out, so there is no point where the next hour stops paying.
 
-4h → 6h adds **+3.4pp of response** and **+1.9pp of jobs taken**, worth ~1.8pp of booking-level supply efficiency.
+**The shape is the same in every quartile; the size is not.** Q1–Q3 gain 2–3.5pp per hour. Q4 gains **0.5pp per
+hour**, a seventh of Q2's rate. Waiting buys real response from CSPs who engage at all and almost nothing from
+those who do not — the basis for the third recommendation.
 
-### 4. The real deadline is the promised slot, not the clock
+**What the move from 2h to 6h was worth.** Response rose **54.1% → 62.6% (+8.5pp)**, jobs taken **37.2% → 41.8%
+(+4.6pp)**. Converting to bookings: +4.6pp across **3,165 tasks** ≈ **146 additional first-pass assignments**;
+but **44.2%** of connections whose CSP never responded still get a technician from a later CSP, so only 55.8% are
+incremental — **≈81 connections** against the cohort's **1,654**, or **+4.9pp of booking-level supply
+efficiency**. That is what a return to 2 hours would give back.
+
+### 4. Second half: more time also costs cancellations — but only past one pivot
 
 Cancellations in the first few hours are not impatience — they are bookings the customer never intended to keep,
 and they would have cancelled whatever P41 was set to.
@@ -140,7 +150,8 @@ Re-cut against the customer's **promised slot date** it becomes obvious what the
 
 Across **980 customer-proposed connections** whose slot is now at least five days past, 172 were cancelled by the
 customer, and **90% of those landed on or after the promised day. Only 10% came before it.** The customer is
-waiting for the day he was promised. **That is the guardrail.**
+waiting for the day he was promised. **The pivot is the day after the slot day** — that is where cancellation
+peaks, and that is the point the allocation has to finish before.
 
 And the peak moves with the promise, not with the age of the booking. Lining every booking up on **its own** slot
 date — day 0 = the promised day:
@@ -187,7 +198,19 @@ the P41 window, which is why the wider window is acceptable here.
 86–100% land on or after the slot day in every bucket. Elapsed time since booking is not the trigger; the slot
 passing is.
 
-### 5. Calibrating against that guardrail
+### 5. Putting the two halves together
+
+**Section 3 established:** every extra hour buys more response, at a near-constant 2.1pp/h, in every quartile.
+Nothing in 1h–6h flattens out. On its own that argues for a longer window.
+
+**Section 4 established:** the offsetting cost is not paid by the hour — it is paid at a pivot, the day after the
+promised slot.
+
+**So the two do not trade off smoothly.** Extra hours are close to free right up until the allocation stops
+fitting inside the slot day, and expensive immediately after. Set P41 to the largest value that still lets the
+*median* allocation conclude before that pivot — not to where marginal gain equals marginal cost, because that
+point does not exist.
+
 
 | Input | Value | How measured |
 |---|---:|---|
@@ -195,8 +218,9 @@ passing is.
 | **Chain** — distinct CSPs a connection passes through | **2** | median; mean 1.91 |
 | **Implied P41** = runway ÷ chain | **6.4 working h** | median booking survives one reroute and still makes its slot |
 
-Two CSPs at 6h consume 12 working hours against a 12.8-hour median runway. That is the case for 6 hours, and it
-is tighter than a marginal cost-benefit ratio.
+Two CSPs at 6h consume 12 working hours against a 12.8-hour median runway — the median booking can be offered,
+time out, be re-offered, and still be installed on the day it was promised, **ahead of the pivot**. Six hours is
+close to the largest value that satisfies the constraint.
 
 ### 6. Where 6 hours is too generous
 

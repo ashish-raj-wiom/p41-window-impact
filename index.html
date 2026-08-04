@@ -253,31 +253,57 @@ to one booking in twenty however long it is given. Waiting six hours on a Q4 CSP
 what drives the third recommendation.</figcaption>
 </figure>
 
-<h3>4. What each extra hour buys</h3>
+<h3>4. Establishing the first half: more time buys more response, steadily</h3>
+<p>Reading the response curve as a policy dial — what the response rate would have been had P41 been set to each
+value, for each CSP quartile:</p>
+
 <div class="tblscroll">
 <table>
 <thead><tr><th class="n">P41 set to</th><th class="n">Q1</th><th class="n">Q2</th><th class="n">Q3</th><th class="n">Q4</th><th class="n">Overall response</th><th class="n">Overall jobs taken</th></tr></thead>
 <tbody>
 <tr><td class="n">1 h</td><td class="n">84.5%</td><td class="n">61.5%</td><td class="n">35.9%</td><td class="n">2.9%</td><td class="n">47.4%</td><td class="n">34.0%</td></tr>
-<tr><td class="n">2 h</td><td class="n">91.8%</td><td class="n">75.8%</td><td class="n">41.7%</td><td class="n">3.3%</td><td class="n">54.1%</td><td class="n">37.2%</td></tr>
+<tr><td class="n">2 h — old setting</td><td class="n">91.8%</td><td class="n">75.8%</td><td class="n">41.7%</td><td class="n">3.3%</td><td class="n">54.1%</td><td class="n">37.2%</td></tr>
 <tr><td class="n">3 h</td><td class="n">94.2%</td><td class="n">80.4%</td><td class="n">46.7%</td><td class="n">3.9%</td><td class="n">57.1%</td><td class="n">38.9%</td></tr>
 <tr><td class="n">4 h</td><td class="n">96.3%</td><td class="n">84.6%</td><td class="n">49.5%</td><td class="n">4.4%</td><td class="n">59.2%</td><td class="n">39.9%</td></tr>
 <tr><td class="n">5 h</td><td class="n">98.8%</td><td class="n">86.8%</td><td class="n">52.3%</td><td class="n">4.8%</td><td class="n">61.0%</td><td class="n">41.0%</td></tr>
 <tr class="hi"><td class="n">6 h — current</td><td class="n">100%</td><td class="n">89.9%</td><td class="n">54.6%</td><td class="n">5.1%</td><td class="n">62.6%</td><td class="n">41.8%</td></tr>
+<tr><td class="n"><b>Gain per hour, 2h → 6h</b></td><td class="n"><b>+2.1pp</b></td><td class="n"><b>+3.5pp</b></td>
+    <td class="n"><b>+3.2pp</b></td><td class="n"><b>+0.5pp</b></td><td class="n"><b>+2.1pp</b></td><td class="n"><b>+1.2pp</b></td></tr>
 </tbody>
 </table>
 </div>
 <p style="font-size:13.5px;color:var(--ink2)">Q1–Q4 are the same CSP quartiles as sections 2 and 3 — the 237 CSPs
 with at least 5 tasks in the week. The two <b>Overall</b> columns cover every POST task, including CSPs below that
 threshold, which is why they do not sit inside the quartile range.</p>
-<p>Going from 4h to 6h adds <b>+3.4pp of response</b> and <b>+1.9pp of jobs taken</b> — worth roughly
-<b>1.8pp of booking-level supply efficiency</b>. That is the gain a shorter window would give up.</p>
 
-<h3>5. The real deadline is the promised slot, not the clock</h3>
-<p>Cancellations in the first few hours of a booking are not impatience — they are bookings the customer never
-intended to keep. <b>3.3% cancel inside the first six hours</b>, then the curve almost stops: only
-<b>+0.5pp more</b> across the whole of hours 6 to 12. Those early ones would have cancelled whatever P41 was set
-to, so they should not be priced as a cost of waiting.</p>
+<p><b>Every extra hour buys more response, and it does so at a near-constant rate.</b> The first hour is the
+steep one; from hour 2 onward each additional hour adds roughly the same amount again — 2.1pp/h overall, and the
+bottom row shows the same steady climb inside every quartile. There is no point in the range where the curve
+flattens out and the next hour stops paying.</p>
+
+<p><b>The shape is the same in every quartile; the size is not.</b> Q1, Q2 and Q3 all gain 2–3.5pp per hour.
+Q4 gains <b>0.5pp per hour</b> — a seventh of Q2's rate. Waiting buys real response from CSPs who engage at all,
+and almost nothing from those who do not. That asymmetry is the whole basis for the third recommendation.</p>
+
+<div class="note-box">
+<p><b>What the move from 2h to 6h was worth.</b> Response rose <b>54.1% → 62.6% (+8.5pp)</b> and jobs taken
+<b>37.2% → 41.8% (+4.6pp)</b>. Converting the task-level gain to bookings:</p>
+<p>+4.6pp across <b>3,165 tasks</b> ≈ <b>146 additional first-pass assignments</b>. But a task that times out is
+not a booking lost — <b>44.2%</b> of connections whose CSP never responded still get a technician from a later
+CSP. So only 55.8% of those 146 are genuinely incremental: <b>≈81 connections</b> against the cohort's
+<b>1,654</b>, or <b>+4.9pp of booking-level supply efficiency</b>. That is what a return to 2 hours would give
+back.</p>
+</div>
+
+<h3>5. Establishing the second half: more time also costs cancellations — but only past one pivot</h3>
+<p>If waiting only ever bought response, the answer would be to set P41 very long. It does not: the customer is
+running a clock of his own. The question is what that clock is measuring, because it is <em>not</em> hours since
+booking.</p>
+
+<p>Cancellations in the first few hours are not impatience — they are bookings the customer never intended to
+keep. <b>3.3% cancel inside the first six hours</b>, then the curve almost stops: only <b>+0.5pp more</b> across
+the whole of hours 6 to 12. Those early ones would have cancelled whatever P41 was set to, so they should not be
+priced as a cost of waiting.</p>
 
 <figure>
 <div class="chartcard">
@@ -296,7 +322,8 @@ least five days past, 172 were cancelled by the customer — and <b>90% of those
 the promised day. Only 10% came before it.</b></p>
 
 <p>The customer is not counting hours since booking. He is waiting for the day he was promised, and giving up
-once it goes by. <b>That is the guardrail: the allocation must finish before the end of the slot day.</b></p>
+once it goes by. <b>The pivot is the day after the slot day</b> — that is where cancellation peaks, and that is
+the point the allocation has to finish before.</p>
 
 <p>And it holds <b>regardless of how far ahead the slot was</b>. Lining every booking up on <em>its own</em> slot
 date — so day 0 is the promised day whether that was today or tomorrow — the peak moves with the promise:</p>
@@ -359,8 +386,21 @@ promised at that point, so re-slotting and rerouting do not double-count. Only s
 4 Aug are included. The behaviour being measured — customers give up when the promised day passes — is not
 specific to the P41 window, which is why the wider window is acceptable here.</p>
 
-<h3>6. Calibrating against that guardrail</h3>
-<p>If the slot day is the deadline, the parameter follows from three measurements:</p>
+<h3>6. Putting the two halves together</h3>
+
+<div class="note-box">
+<p><b>Section 4 established:</b> every extra hour of P41 buys more response, at a near-constant 2.1pp/h, in every
+quartile of CSPs. Nothing in the range 1h–6h flattens out. On its own, that argues for a longer window.</p>
+<p><b>Section 5 established:</b> the offsetting cost is not paid by the hour — it is paid at a pivot, the day
+after the promised slot. 90% of customer cancellations land on or after the promised day, and next-day slots
+peak the day after it.</p>
+<p><b>So the two do not trade off smoothly.</b> Extra hours are close to free right up until the allocation
+stops fitting inside the slot day, and expensive immediately after. The parameter should therefore be set to the
+largest value that still lets the <em>median</em> allocation conclude before that pivot — not to the point where
+marginal response gain equals marginal cancellation cost, because that point does not exist.</p>
+</div>
+
+<p>That turns the setting into arithmetic on three measurements:</p>
 
 <div class="tblscroll">
 <table>
@@ -378,8 +418,9 @@ specific to the P41 window, which is why the wider window is acceptable here.</p
 
 <p>The current setting of six working hours sits just inside that. Two CSPs at 6h consume 12 working hours against
 a 12.8-hour median runway — the median booking can be offered, time out, be re-offered, and still be installed on
-the day it was promised. <b>That is the case for 6 hours, and it is a tighter one than a marginal cost-benefit
-ratio.</b></p>
+the day it was promised, <b>ahead of the pivot</b>. Six hours is therefore close to the largest value that
+satisfies the constraint; it is not a compromise between two smoothly opposing costs, because section 5 showed
+there is no such smooth trade-off to split.</p>
 
 <h3>7. How many CSP attempts actually fit before that deadline</h3>
 <p>Each CSP given the booking consumes one full P41 window before the system can try the next. So the question is
