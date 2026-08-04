@@ -56,7 +56,34 @@ Under six hours that same CSP holds the booking and declines at hour 3, 4 or 5, 
 four extra working hours before the task starts looking for anyone else. The same applies to the 35.5% who
 still time out: they now hold for six hours instead of two.
 
-Whether the trade is worth it depends on how fast a rerouted booking finds a second CSP — not measured here.
+### Does that extra response become installs?
+
+Yes — but roughly a third of the headline, because a timed-out booking was never a lost booking.
+
+**Late assignments convert as well as early ones:**
+
+| When the CSP assigned | Assignments | Installed | Conversion | Still in flight |
+|---|---:|---:|---:|---:|
+| Within 2 working hours | 1,177 | 568 | 48.26% | 7.6% |
+| **2–6 working hours (the P41 gain)** | 146 | 74 | **50.68%** | 7.5% |
+
+No penalty for acting late. Both bands are equally matured, so the comparison is fair.
+
+**But the counterfactual is not zero.** When a candidate dies on `TIMEOUT_P41`, 78.1% of those connections pick
+up a fresh candidate and **15.9% install anyway with somebody else**. So the 146 late assignments would have
+produced ~23 installs regardless.
+
+| | |
+|---|---|
+| Raw uplift — 74 installs on 3,165 candidates | +2.34pp |
+| Less what reroute would have recovered (146 × 15.9%) | −0.74pp |
+| **Net install-rate gain** | **≈ +1.6pp** |
+
+**Treat +1.6pp as a ceiling.** Reroute recovery rises the *younger* the cohort — 7.9% (mid-Jun), 9.0% (early Jul),
+11.1% (mid-Jul), 15.1% (late Jul) — which is the opposite of a censoring artifact, so the 15.9% subtracted here
+will likely grow and shrink the net gain further.
+
+Still unmeasured: reroute *latency* — how long the second attempt takes.
 
 ### But the customer does not appear to walk away
 

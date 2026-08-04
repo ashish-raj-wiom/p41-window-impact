@@ -252,8 +252,9 @@ refusal</b>, not progress.</figcaption>
   waits <b>up to four extra working hours</b> before the task even starts looking for someone else. The same applies
   to the 35.5% who still time out: they now hold the booking for six hours instead of two.</p>
   <p>So the honest ledger is <b>+4.61pp genuinely converted to progress</b>, bought at the cost of delayed release
-  on the +3.89pp who decline late plus the whole timeout population. Whether that trade is worth it depends on how
-  quickly a rerouted booking finds a second CSP — which this analysis does not measure.</p>
+  on the +3.89pp who decline late plus the whole timeout population. That trade turns on what the reroute path
+  would have delivered instead — measured in <a href="#installs">the install section</a>: it already recovers about
+  one in six timed-out bookings, which cuts the gain to roughly <b>+1.6pp of install rate</b>.</p>
 </div>
 
 <details>
@@ -285,6 +286,85 @@ refusal</b>, not progress.</figcaption>
 <b>first</b>, so positive and decline are mutually exclusive and sum to the response rate. Non-response is the
 remainder — 52.98% for PRE, 37.38% for POST, closely matching the <code>TIMEOUT_P41</code> shares of 52.5% and
 35.5%.</p>
+</div>
+</details>
+
+<h2 id="installs">Does the extra response become installs?</h2>
+<p class="lede">The +4.61pp is only worth something if those late assignments finish the job. Two things decide
+that: whether a CSP who acts in hour 2–6 installs as reliably as one who acts immediately, and what would have
+happened to those bookings under the old window instead.</p>
+
+<h3>1. Late assignments convert just as well</h3>
+<div class="tblscroll">
+<table>
+<thead><tr><th>When the CSP assigned a technician</th><th class="n">Assignments</th><th class="n">Reached CONNECTION_ACTIVE</th><th class="n">Conversion</th><th class="n">Still in flight</th></tr></thead>
+<tbody>
+<tr><td>Within 2 working hours</td><td class="n">1,177</td><td class="n">568</td><td class="n">48.26%</td><td class="n">7.6%</td></tr>
+<tr class="hi"><td>2–6 working hours — the P41 gain</td><td class="n">146</td><td class="n">74</td><td class="n"><b>50.68%</b></td><td class="n">7.5%</td></tr>
+</tbody>
+</table>
+</div>
+<p>No penalty for acting late — if anything marginally better, though on 146 assignments the 2.4pp difference is
+noise. The share still in flight is identical (7.6% vs 7.5%), so both bands are equally matured and the comparison
+is fair. <b>A CSP who takes five hours to assign is not a worse CSP.</b></p>
+
+<h3>2. But a timed-out booking is not a lost booking</h3>
+<p>This is what stops the headline number being the answer. When a candidate dies on <code>TIMEOUT_P41</code> the
+connection is released and rerouted — <b>78.1%</b> of them pick up a fresh candidate, and <b>15.9%</b> of the
+timed-out connections go on to install anyway with somebody else. So the counterfactual for the 146 late
+assignments is not zero installs; it is roughly 23.</p>
+
+<div class="tiles">
+  <div class="tile">
+    <div class="lbl">Raw uplift — installs from the 2–6h band</div>
+    <div class="val">+2.34pp</div>
+    <div class="note">74 installs on 3,165 candidates, counting the old window as a total loss</div>
+  </div>
+  <div class="tile">
+    <div class="lbl">Less what reroute would have recovered</div>
+    <div class="val">−0.74pp</div>
+    <div class="note">146 × 15.9% ≈ 23 installs the old path would have produced anyway</div>
+  </div>
+  <div class="tile">
+    <div class="lbl">Net install-rate gain</div>
+    <div class="val up">≈ +1.6pp</div>
+    <div class="note">And this is an upper bound — see below</div>
+  </div>
+  <div class="tile">
+    <div class="lbl">POST cohort install rate</div>
+    <div class="val">20.3%</div>
+    <div class="note">642 of 3,165 installed on their first candidate</div>
+  </div>
+</div>
+
+<div class="callout">
+  <h4><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="var(--s1)" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M8 5v.5M8 7.5v3.5" stroke-linecap="round"/></svg>So: yes, but roughly a third of the headline</h4>
+  <p>Giving the CSP four more hours <b>does</b> raise the install rate — by about <b>+1.6pp</b>, not the +4.61pp of
+  extra positive action and not the +2.34pp of raw installs. The gap is the reroute path, which was already
+  recovering about one in six timed-out bookings without any change to P41.</p>
+  <p><b>Treat +1.6pp as a ceiling.</b> Reroute recovery is measured on the same recent window and is still
+  maturing — recovery rises the younger the cohort (7.9% for mid-June, 9.0% for early July, 15.1% for late July),
+  so the 15.9% subtracted here will likely grow, which shrinks the net gain further.</p>
+</div>
+
+<details>
+<summary>Reroute recovery by cohort age — why 15.9% is not a censoring artifact</summary>
+<div class="dwrap">
+<div class="tblscroll">
+<table>
+<thead><tr><th>P41-timeout cohort</th><th class="n">Timed out</th><th class="n">Connection installed anyway</th><th class="n">Recovery</th></tr></thead>
+<tbody>
+<tr><td>15–30 Jun (35+ days old)</td><td class="n">1,956</td><td class="n">154</td><td class="n">7.87%</td></tr>
+<tr><td>1–15 Jul (20+ days old)</td><td class="n">5,327</td><td class="n">480</td><td class="n">9.01%</td></tr>
+<tr><td>16–25 Jul (10+ days old)</td><td class="n">2,822</td><td class="n">312</td><td class="n">11.06%</td></tr>
+<tr class="hi"><td>26 Jul – 1 Aug (3–9 days old)</td><td class="n">1,441</td><td class="n">217</td><td class="n">15.06%</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:14.5px;color:var(--ink2)">Recovery is <em>highest</em> in the youngest cohort, which is the
+opposite of what censoring produces — if the recent figure were simply immature it would be the lowest. Reroute
+has genuinely been getting better (or the customer-scheduling flow reroutes better). Either way the recent ~15–16%
+is a floor, not an inflated number, so subtracting it gives an upper bound on the net gain.</p>
 </div>
 </details>
 
@@ -397,9 +477,11 @@ not what P41 alone caused.</li>
 <li><b>The secular decline could be masking a small penalty.</b> The 7-day rate has fallen steadily since May for
 reasons unrelated to P41. A modest P41 cost could be hidden inside that improvement and would not be visible at
 this sample size.</li>
-<li><b>The real unmeasured cost is still reroute latency.</b> Cancellation is only one way the wait hurts. How long
-a released booking takes to find a second CSP — and whether four extra working hours of holding pushes that past
-the customer's patience in some other form — remains unmeasured, as noted in the response-rate section.</li>
+<li><b>Reroute <em>latency</em> is still unmeasured.</b> Reroute <em>recovery</em> now is — see
+<a href="#installs">the install section</a>, where 78.1% of timed-out bookings pick up a fresh candidate and 15.9%
+eventually install. What is still missing is how <em>long</em> that second attempt takes, and whether four extra
+working hours of holding pushes the total wait past the customer's patience in some form other than an outright
+cancellation.</li>
 </ul>
 
 <h3>Method</h3>
