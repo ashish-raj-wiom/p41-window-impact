@@ -622,12 +622,12 @@ candidates in the POST window under each). The resulting IST creation distributi
   function c1(){
     var s=document.getElementById('c1'); s.innerHTML='';
     var W=760,H=410,L=58,R=104,T=18,B=52, pw=W-L-R, ph=H-T-B;
-    var xmax=8, ymin=24, ymax=40;
+    var xmax=8, ymin=24, ymax=44;
     var X=function(v){ return L + (v/xmax)*pw; };
     var Y=function(v){ return T + ph - ((v-ymin)/(ymax-ymin))*ph; };
     var grid=cv('--grid'), axis=cv('--axis'), muted=cv('--muted'), s1=cv('--s1'), s2=cv('--s2'), surf=cv('--surface');
 
-    for(var v=24; v<=40; v+=2){
+    for(var v=24; v<=44; v+=4){
       s.appendChild(el('line',{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:grid,'stroke-width':1}));
       var tx=el('text',{x:L-11,y:Y(v)+4,fill:muted,'font-size':11.5,'text-anchor':'end','font-variant-numeric':'tabular-nums'});
       tx.textContent=v+'%'; s.appendChild(tx);
@@ -640,9 +640,11 @@ candidates in the POST window under each). The resulting IST creation distributi
     xl.textContent='Elapsed working hours since task notification'; s.appendChild(xl);
     s.appendChild(el('line',{x1:L,x2:L+pw,y1:T+ph,y2:T+ph,stroke:axis,'stroke-width':1}));
 
+    /* rule labels sit at the BOTTOM here — the curves occupy the upper half,
+       and the hour-6 bracket needs the top-right clear */
     [[2,'Old P41 · 2h',s1],[6,'New P41 · 6h',s2]].forEach(function(m){
       s.appendChild(el('line',{x1:X(m[0]),x2:X(m[0]),y1:T,y2:T+ph,stroke:m[2],'stroke-width':1,opacity:.34}));
-      var t=el('text',{x:X(m[0])+7,y:T+13,fill:m[2],'font-size':11.5,'font-weight':600});
+      var t=el('text',{x:X(m[0])+7,y:T+ph-8,fill:m[2],'font-size':11.5,'font-weight':600});
       t.textContent=m[1]; s.appendChild(t);
     });
 
