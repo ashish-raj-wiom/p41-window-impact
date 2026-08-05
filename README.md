@@ -263,10 +263,28 @@ Working back from that deadline across all 1,654 bookings in the week:
 | What we measure | Value | How |
 |---|---:|---|
 | **Time available** — booking reaching its first CSP → the deadline | **15.5 working h**<br>(39.5 calendar h) | the middle booking — about a day and a half of real time, 15.5 hours once the overnight gap is taken out |
-| **CSPs tried** — how many get the booking before it is done | **1.9** | average per booking; each holds it for a full window |
+| **CSPs tried** — how many get the booking before it is done | **1.9** (median 1) | average per booking; each holds it for a full window. Median 1, P75 2, P90 4, P95 4, longest 9 |
 | **Time per CSP** = available ÷ tried | **8 working hours** | the setting at which the typical booking still finishes ahead of the deadline |
 
 **So the answer is 8 working hours, and we are currently at 6.**
+
+**One caveat on the average of 1.9.** The distribution is skewed:
+
+| CSPs tried | Bookings | Share | Running total | Time each, if the 15.5 hours is shared |
+|---:|---:|---:|---:|---|
+| **1** | 829 | **50.1%** | 50.1% | 15.5 h — the whole runway |
+| 2 | 484 | 29.3% | 79.4% | 7.8 h |
+| 3 | 128 | 7.7% | 87.1% | 5.2 h |
+| 4 | 143 | 8.6% | 95.7% | 3.9 h |
+| 5 or more | 70 | 4.3% | 100% | 3.1 h or less — longest chain is 9 |
+
+**Half of all bookings never leave the first CSP.** For them the full 15.5 hours is available and 8 is
+comfortable. The average is carried by a tail: the fifth of bookings passing through three CSPs or more already
+overrun the deadline at today's 6 hours, and no single setting fixes them — their problem is repeated rerouting,
+not the length of each window.
+
+Eight hours is the right system-wide number, but **generous for the half answered first time and irrelevant to
+the fifth rerouted three times or more**.
 
 **What the extra two hours should buy — and why this part is an estimate.** We cannot measure it directly: the
 timer kills a booking at 6 hours, so no CSP has ever had the chance to answer in hour 7. The response curve looks

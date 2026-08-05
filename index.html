@@ -515,6 +515,35 @@ week:</p>
 <p><b>So the answer is 8 working hours, and we are currently at 6.</b> Two hours are being left on the table.</p>
 
 <div class="note-box">
+<p><b>One caveat on the average of 1.9.</b> The distribution is skewed, so it is worth seeing rather than
+trusting the mean alone:</p>
+<div class="tblscroll" style="margin:12px 0">
+<table>
+<thead><tr><th class="n">CSPs tried</th><th class="n">Bookings</th><th class="n">Share</th>
+<th class="n">Running total</th><th>Time each, if the 15.5 hours is shared</th></tr></thead>
+<tbody>
+<tr class="hi"><td class="n"><b>1</b></td><td class="n">829</td><td class="n"><b>50.1%</b></td><td class="n">50.1%</td>
+    <td style="color:var(--ink2)">15.5 h — the whole runway</td></tr>
+<tr><td class="n">2</td><td class="n">484</td><td class="n">29.3%</td><td class="n">79.4%</td>
+    <td style="color:var(--ink2)">7.8 h</td></tr>
+<tr><td class="n">3</td><td class="n">128</td><td class="n">7.7%</td><td class="n">87.1%</td>
+    <td style="color:var(--ink2)">5.2 h</td></tr>
+<tr><td class="n">4</td><td class="n">143</td><td class="n">8.6%</td><td class="n">95.7%</td>
+    <td style="color:var(--ink2)">3.9 h</td></tr>
+<tr><td class="n">5 or more</td><td class="n">70</td><td class="n">4.3%</td><td class="n">100%</td>
+    <td style="color:var(--ink2)">3.1 h or less — longest chain is 9</td></tr>
+</tbody>
+</table>
+</div>
+<p><b>Half of all bookings never leave the first CSP.</b> For them the full 15.5 hours is available and 8 is
+comfortable. The average of 1.9 is carried by a tail: the fifth of bookings that pass through three CSPs or more
+already overrun the deadline at today's 6 hours, and no single setting fixes them — their problem is that they
+are being rerouted repeatedly, not that each window is the wrong length.</p>
+<p>Eight hours is therefore the right system-wide number, but it is <b>generous for the half that are answered
+first time and irrelevant to the fifth that are rerouted three times or more</b>.</p>
+</div>
+
+<div class="note-box">
 <p><b>What the extra two hours should buy — and why this part is an estimate.</b></p>
 <p>We cannot measure it directly. The timer currently kills a booking at 6 hours, so no CSP has ever had the
 chance to answer in hour 7. The response curve looks flat after 6 hours only because that is where it is cut off,
