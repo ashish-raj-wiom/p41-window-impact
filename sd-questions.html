@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P41 — SD questions</title>
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7; --surface:#fcfcfb;
+  --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,0.10);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --warning:#fab219; --critical:#d03b3b; --good-text:#006300;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19;
+    --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --good-text:#0ca30c;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0d0d0d; --surface:#1a1a19;
+  --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --good-text:#0ca30c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+  font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:40px 24px 96px}
+.eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:clamp(26px,4vw,36px);line-height:1.16;margin:12px 0 10px;letter-spacing:-.02em;font-weight:650}
+.sub{color:var(--ink2);font-size:17px;max-width:74ch;margin:0}
+.meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12.5px;color:var(--ink2);background:var(--surface);border:1px solid var(--ring);border-radius:999px;padding:5px 12px}
+h2{font-size:22px;margin:54px 0 8px;letter-spacing:-.01em;font-weight:640}
+h3{font-size:16px;margin:34px 0 6px;font-weight:620}
+.lede{color:var(--ink2);margin:0 0 18px;max-width:78ch}
+p{max-width:78ch}
+.rec{background:var(--surface);border:1px solid var(--ring);border-left:4px solid var(--good-text);
+  border-radius:0 14px 14px 0;padding:22px 26px;margin:20px 0}
+.rec .big{font-size:26px;font-weight:660;letter-spacing:-.01em;margin:0 0 10px}
+.rec p{margin:0 0 10px;font-size:15.5px;color:var(--ink2)}
+.rec p:last-child{margin-bottom:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:22px 0 6px}
+.tile{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:18px}
+.tile .lbl{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px;min-height:2.6em}
+.tile .val{font-size:30px;line-height:1.05;font-weight:660;letter-spacing:-.02em}
+.tile .note{font-size:13px;color:var(--ink2);margin-top:7px}
+.up{color:var(--good-text);font-weight:640}
+.part{margin:60px 0 10px;padding:24px 28px;background:var(--surface);border:1px solid var(--ring);
+  border-left:4px solid var(--s1);border-radius:0 14px 14px 0}
+.part .lbl{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.part h2{font-size:23px;margin:9px 0 14px;letter-spacing:-.01em}
+.part .ans{font-size:17px;font-weight:640;color:var(--ink);margin:0 0 10px;max-width:none}
+.part p{margin:0 0 9px;font-size:15.5px;color:var(--ink2);max-width:none}
+.part p:last-child{margin-bottom:0}
+.note-box{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:16px 20px;margin:18px 0}
+.note-box p{margin:0 0 8px;font-size:15px;color:var(--ink2)}
+.note-box p:last-child{margin-bottom:0}
+figure{margin:22px 0 8px}
+figcaption{font-size:13.5px;color:var(--ink2);margin-top:12px;max-width:80ch}
+.chartcard{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:20px 20px 12px}
+.charttitle{font-size:15px;font-weight:620;margin-bottom:2px}
+.chartsub{font-size:13px;color:var(--muted);margin-bottom:14px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin:14px 0 2px;font-size:13.5px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.swatch{width:11px;height:11px;border-radius:3px;flex:none}
+.tblscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{text-align:left;padding:9px 14px 9px 0;border-bottom:1px solid var(--grid)}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:18px}
+tbody tr:last-child td{border-bottom:none}
+.hi{background:color-mix(in srgb, var(--s1) 7%, transparent)}
+code{font:13px/1.5 ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:color-mix(in srgb,var(--ink) 6%,transparent);padding:1.5px 5px;border-radius:4px}
+details{margin:14px 0;border:1px solid var(--ring);border-radius:12px;background:var(--surface);padding:0 18px}
+summary{cursor:pointer;padding:14px 0;font-weight:600;font-size:14.5px}
+details[open] summary{border-bottom:1px solid var(--grid)}
+.dwrap{padding:6px 0 16px}
+ul{padding-left:22px;max-width:78ch} li{margin:7px 0}
+.tt{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--surface);border:1px solid var(--ring);
+   border-radius:9px;padding:9px 12px;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.13);z-index:50;max-width:260px}
+.tt b{display:block;margin-bottom:5px;font-size:12.5px;color:var(--ink)}
+.tt .row{display:flex;justify-content:space-between;gap:16px;color:var(--ink2);font-variant-numeric:tabular-nums}
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-size:13.5px;color:var(--muted)}
+.themebtn{position:fixed;top:16px;right:16px;z-index:60;background:var(--surface);border:1px solid var(--ring);
+   color:var(--ink2);border-radius:9px;padding:7px 12px;font:13px system-ui,sans-serif;cursor:pointer}
+.nav{display:flex;gap:10px;margin:22px 0 0;flex-wrap:wrap}
+.nav a{font-size:13.5px;text-decoration:none;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--ring);border-radius:999px;padding:7px 15px;transition:border-color .15s}
+.nav a:hover{border-color:var(--ink2)}
+.nav a.on{background:var(--ink);color:var(--page);border-color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<button class="themebtn" id="tbtn" type="button">Theme</button>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Installation Flow · Demand Allocation OS</div>
+  <h1>SD questions</h1>
+  <p class="sub">Questions raised on the P41 analysis, and what the data says to each.</p>
+  <div class="nav">
+    <a href="index.html">← The analysis</a>
+    <a href="sd-questions.html" class="on">SD questions</a>
+  </div>
+</header>
+
+<div class="note-box" style="border-left:4px solid var(--critical);margin-top:32px">
+  <p><b>SD Q1 supersedes the recommendation in the main analysis.</b> It simulates total system efficiency
+  and finds <b>6 working hours is the optimum and 8 is worse</b>. Part 3 of the analysis still argues for 8,
+  on a runway ÷ chain calculation that does not price the window inflating the cost of every failed attempt.
+  Part 3 has deliberately been left unchanged.</p>
+</div>
+
+<h3>SD Q1. What is total system efficiency of install for P41 at 2 hour, 4 hour and 6 hour? Total efficiency is different from one CSP efficiency.</h3>
+<p><b>39.4%, 40.7% and 41.5%. And at 8 hours it falls back to 41.0%.</b></p>
+<p>Total system efficiency is not one CSP's efficiency, and the difference is the whole answer. Getting it needs a
+simulation, because the reroute is not a fixed fallback: <b>a shorter window sends the booking to the next CSP
+earlier, with more runway left</b>, and the rescue rate depends on exactly that.</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th class="n">P41</th><th class="n">Response rate</th><th class="n">Positive response rate</th>
+<th class="n">Served before the deadline</th><th class="n">Install from the window</th>
+<th class="n">Install from the rest</th><th class="n">Lost to no service</th><th class="n">Overall install</th></tr></thead>
+<tbody>
+<tr><td class="n">2 h</td><td class="n">54.0%</td><td class="n">37.2%</td><td class="n">56.6%</td>
+    <td class="n">34.6%</td><td class="n">4.7%</td><td class="n">21.8%</td><td class="n"><b>39.4%</b></td></tr>
+<tr><td class="n">4 h</td><td class="n">58.7%</td><td class="n">39.9%</td><td class="n">59.2%</td>
+    <td class="n">36.2%</td><td class="n">4.4%</td><td class="n">20.5%</td><td class="n"><b>40.7%</b></td></tr>
+<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">62.6%</td><td class="n">42.5%</td>
+    <td class="n"><b>60.9%</b></td><td class="n">37.2%</td><td class="n">4.3%</td><td class="n">19.7%</td>
+    <td class="n"><b>41.5%</b></td></tr>
+<tr><td class="n">8 h</td><td class="n"><b>63.4%</b></td><td class="n"><b>43.1%</b></td><td class="n">59.9%</td>
+    <td class="n">36.6%</td><td class="n">4.4%</td><td class="n">20.2%</td><td class="n"><b>41.0%</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Read the 8-hour row across.</b> Response rate and positive response rate are the best in the table — the
+individual CSP keeps improving with more time. But <b>bookings served before the deadline fall</b>, 60.9% to
+59.9%, and overall install falls with them. At 8 hours every failed attempt burns 8 working hours of runway
+instead of 6, so bookings needing a second CSP run past the promised day: <b>past-deadline failures rise from 205
+to 266</b>. More answers per offer, fewer bookings served.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)"><b>How it is built.</b> Each booking's actual CSP chain is replayed
+under a candidate P41. Every CSP's own response — accept, decline or silence — and his own latency are taken as
+observed; the only counterfactual is where the window truncates. Requeue lag is set to zero because that is what
+it measures: after a decline the next offer goes out in a median of <b>0.0 hours</b>, after a timeout in 14.6
+calendar hours, which is the timer itself. Population is the 1,030 bookings carrying a confirmed slot date.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)"><b>Three checks it passes.</b> At 6 hours it reproduces observed
+reality to <b>0.1 points</b> — 60.9% served against 60.8% actual. The optimum stays at 6 hours under all three
+deadline definitions (end of the slot day, noon the day after, end of the day after). And the truncation
+assumption holds: response curves inside the first two hours are near-parallel between the 2-hour and 6-hour
+regimes, so CSPs are not pacing themselves to the deadline.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)"><b>The limitation, and which way it cuts.</b> The simulation can
+only try CSPs who were actually offered the booking. Under a shorter window more reroutes would fit and we do not
+know who they would be — <b>296 bookings run out of chain at 2 hours against 198 at 6</b>. Crediting one extra
+attempt at the observed 41.6% acceptance rate moves the optimum to <b>3 hours (45.6%)</b>. So the optimum is
+6 hours if the reroute pool is shallow and 3 hours if it is deep — but <b>8 hours is worse than both in every
+specification run</b>.</p>
+
+<h3>SD Q2. Is all the data from the same time window?</h3>
+<p><b>Now yes — it was not.</b> Two problems, both fixed.</p>
+<p>The cancellation group was labelled <b>25 Jun – 30 Jul</b>. Its real range is <b>22–30 Jul</b>:
+customer-proposed slots barely existed before the flow change, so the lower bound never bound. The guardrail was
+already measured entirely on the new regime — the label understated how clean it was.</p>
+<p>The age-of-booking curve genuinely was from the old regime — bookings confirmed <b>1–20 July</b>, before both
+the flow change and the P41 change, and across all slot sources. Re-cut on customer-proposed bookings offered
+22–28 Jul with a full 7 days each. Same conclusion: 2.8% cancel inside the first six hours, then +0.5 points to
+hour 12.</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Series</th><th>Window</th><th class="n">Post the 22 Jul change?</th></tr></thead>
+<tbody>
+<tr><td>Response, Dominance, time of day</td><td>offers 26 Jul – 1 Aug</td><td class="n">yes</td></tr>
+<tr><td>Age-of-booking curve</td><td>offered 22–28 Jul</td><td class="n">yes</td></tr>
+<tr><td>Slot-aligned cancellation</td><td>offered 22–30 Jul, cancels to 4 Aug</td><td class="n">yes</td></tr>
+<tr><td>Method note, PRE row</td><td>12–19 Jul</td><td class="n">no — deliberately</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>SD Q3. Should cancellations exclude bookings where a technician was already assigned?</h3>
+<p><b>Conceptually yes, but the filter cannot be read cleanly, and the decision does not change.</b></p>
+<p>Only <b>224 of 981 bookings (23%)</b> never got a technician. Restricting to them cuts the evidence from 139
+cancellations in the plotted window to 56, and the largest bucket moves to +3 afternoon — on <b>10
+cancellations</b>, against 7, 7 and 7 in the next three buckets. That is not a peak.</p>
+<p>It also emerges that the sharp +1 peak is driven mainly by bookings that <em>did</em> get a technician — 17 of
+those 24. Which is a fair hit on the framing.</p>
+<p>But the filter conditions on an outcome downstream of the timing being measured: a booking cancelled on day 0
+can never be assigned afterwards, so it keeps early cancellers and drops late ones. The rates show it —
+never-assigned bookings cancel at <b>25.0%</b> against <b>15.3%</b> for assigned. Either way the deadline moves
+<em>later</em> under the restriction, which affords more runway, not less.</p>
+
+<h3>SD Q4. "CSPs tried: 1.9" is an average. What is the distribution?</h3>
+<p><b>Median 1, P75 2, P90 4, P95 4, longest 9.</b> The mean is carried by a tail.</p>
+<div class="tblscroll">
+<table>
+<thead><tr><th class="n">CSPs tried</th><th class="n">Bookings</th><th class="n">Share</th><th class="n">Running total</th></tr></thead>
+<tbody>
+<tr class="hi"><td class="n"><b>1</b></td><td class="n">829</td><td class="n"><b>50.1%</b></td><td class="n">50.1%</td></tr>
+<tr><td class="n">2</td><td class="n">484</td><td class="n">29.3%</td><td class="n">79.4%</td></tr>
+<tr><td class="n">3</td><td class="n">128</td><td class="n">7.7%</td><td class="n">87.1%</td></tr>
+<tr><td class="n">4</td><td class="n">143</td><td class="n">8.6%</td><td class="n">95.7%</td></tr>
+<tr><td class="n">5 or more</td><td class="n">70</td><td class="n">4.3%</td><td class="n">100%</td></tr>
+</tbody>
+</table>
+</div>
+<p><b>Half of bookings never leave the first CSP.</b> The fifth that pass through three or more already overrun
+the deadline at today's 6 hours — no single setting fixes them, because their problem is repeated rerouting
+rather than the length of each window.</p>
+
+<h3>SD Q5. "First response arrived" — is that a positive response?</h3>
+<p><b>No — it was any response, accept or decline, and that was hiding the finding.</b> The latency used was the
+earlier of technician-assigned and declined, so a fast decline sat in the same band as a fast acceptance. Split
+apart:</p>
+<div class="tblscroll">
+<table>
+<thead><tr><th>The first CSP…</th><th class="n">Bookings</th><th class="n">Install rate</th></tr></thead>
+<tbody>
+<tr><td>accepted within 2h</td><td class="n">605</td><td class="n"><b>57.0%</b></td></tr>
+<tr><td>accepted 2–4h</td><td class="n">38</td><td class="n"><b>57.9%</b></td></tr>
+<tr><td>accepted 4–6h</td><td class="n">32</td><td class="n"><b>46.9%</b></td></tr>
+<tr><td>declined within 2h</td><td class="n">225</td><td class="n">33.3%</td></tr>
+<tr><td>declined 2–6h</td><td class="n">46</td><td class="n">23.9%</td></tr>
+<tr class="hi"><td><b>never answered</b></td><td class="n">499</td><td class="n"><b>18.8%</b></td></tr>
+</tbody>
+</table>
+</div>
+<p>Two things the blend concealed. <b>A decline sits much closer to silence than to an acceptance</b> — 33.3%
+against 57.0% and 18.8%. And among acceptances the install rate is <em>flat</em> across bands. The booking-level
+view had appeared to slope downward; that was the rising share of declines dragging the blend down, not late
+acceptances converting worse.</p>
+
+<h3>SD Q6. Pre/post showed a much better response rate. Why not lean on it?</h3>
+<p><b>Because +12.2 points cannot be attributed to P41.</b> Response went 46.9% → 59.1% and jobs taken
+33.2% → 39.0% between 12–19 Jul and 26 Jul – 1 Aug. Three reasons it cannot carry the case.</p>
+<p>Several things went live at once, the customer-scheduling flow among them, and a before/after gap cannot be
+attributed to any one of them. <b>Held to a common 2-hour cut-off the two weeks are 46.9% against 49.2% — 2.3
+points apart</b>, so most of the headline is simply the window being longer. And the two weeks measure different
+actions: proposing a slot then, assigning a technician now.</p>
+
+
+<footer>
+  Data as of 4 Aug 2026 · all times IST · sources <code>csp-tas-service</code>,
+  <code>csp-demand-allocation-service</code>, <code>booking_logs</code> via Snowflake.
+  · <a href="index.html" style="color:var(--ink2)">Back to the analysis</a>
+</footer>
+</div>
+
+<script>
+(function(){
+var root=document.documentElement, btn=document.getElementById('tbtn');
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    if(!cur) cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light';
+    root.setAttribute('data-theme', cur==='dark'?'light':'dark');
+    setTimeout(draw,30);
+  });
+  })();
+</script>
+</body>
+</html>
