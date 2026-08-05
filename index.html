@@ -134,7 +134,7 @@ the work.</p>
   <p>Six hours leaves two of those hours unused. CSPs were still accepting jobs at a steady rate when the current
   window cut them off, so the extra time should convert — but modestly: roughly <b>+3 points of response</b>,
   worth about <b>+0.7 points of system install rate</b>. For scale, the move from 2 hours to 6 was worth
-  <b>+2 points</b> (point 5).</p>
+  <b>+1.8 points</b> (point 5).</p>
   <p style="color:var(--muted)">Those three figures are a projection, not a measurement — see the caveat in
   section 7. The 8-hour figure itself is measured.</p>
 </div>
@@ -187,7 +187,7 @@ Each part opens with its conclusion, then the evidence behind it.</p>
   the best quarter to 5% in the worst. Waiting longer does not close that gap.</p>
   <p>And the later hours are not lower quality: an acceptance in hour 5 becomes an install as often as one in
   the first minute. But the gain is smaller than the response numbers suggest — <b>2 hours to 6 is worth about
-  2 points of system install rate</b>, because a third of bookings never get a first answer at any setting and a
+  1.8 points of system install rate</b>, because a third of bookings never get a first answer at any setting and a
   fifth of those still install through someone else.</p>
   <p><b>On its own, this still argues for a longer window.</b> Points 1 to 5 below.</p>
 </div>
@@ -347,31 +347,34 @@ and almost nothing from those who do not.</p>
 <b>37.2% → 41.8% (+4.6 points)</b>.</p>
 <p>Those are task-level figures and they overstate the value of the window, because many of the extra
 acceptances are second or third attempts on bookings that would have been served anyway. <b>Point 5 measures it
-at booking level instead, and gets +2 points of system install rate.</b> That is the figure to use.</p>
+at booking level instead, and gets +1.8 points of system install rate.</b> That is the figure to use.</p>
 </div>
 
 
 <h3>5. What the extra hours are worth in installs</h3>
-<p>Response is not the point in itself — an install is. Two cuts, both on the same week.</p>
+<p>Response is not the point in itself — an install is. Both cuts below are restricted to offers made
+<b>inside working hours</b>, 9am–9pm, so no booking is credited with time the clock was not running:
+<b>2,718 offers across 1,445 bookings</b>.</p>
 
-<p><b>Per offer made to a CSP:</b></p>
+<p><b>Per offer made to a CSP, by when he acted:</b></p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th class="n">P41</th><th class="n">Offers</th><th class="n">Accepted</th>
-<th class="n">Offers ending in an install</th><th class="n">Install rate <em>of</em> those accepted</th></tr></thead>
+<thead><tr><th>The CSP…</th><th class="n">Offers</th><th class="n">Share</th>
+<th class="n">Ended in an install</th><th class="n">Install rate</th></tr></thead>
 <tbody>
-<tr><td class="n">2 h</td><td class="n">3,165</td><td class="n">37.2%</td><td class="n">18.0%</td><td class="n">48.4%</td></tr>
-<tr><td class="n">4 h</td><td class="n">3,165</td><td class="n">39.9%</td><td class="n">19.4%</td><td class="n">48.6%</td></tr>
-<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">3,165</td><td class="n"><b>41.8%</b></td>
-    <td class="n"><b>20.3%</b></td><td class="n"><b>48.7%</b></td></tr>
+<tr><td>accepted within 2h</td><td class="n">985</td><td class="n">36.2%</td><td class="n">465</td><td class="n"><b>47.2%</b></td></tr>
+<tr><td>accepted 2–4h</td><td class="n">71</td><td class="n">2.6%</td><td class="n">35</td><td class="n"><b>49.3%</b></td></tr>
+<tr><td>accepted 4–6h</td><td class="n">54</td><td class="n">2.0%</td><td class="n">25</td><td class="n"><b>46.3%</b></td></tr>
+<tr><td>declined</td><td class="n">576</td><td class="n">21.2%</td><td class="n">—</td><td class="n">—</td></tr>
+<tr class="hi"><td><b>never answered</b></td><td class="n">1,032</td><td class="n">38.0%</td><td class="n">—</td><td class="n">—</td></tr>
 </tbody>
 </table>
 </div>
 
-<p>The last column is the one that matters: <b>an acceptance in hour 5 becomes an install just as often as one in
-the first minute — 48.7% either way.</b> The later hours are not scraping the barrel; they buy the same quality
-of work, just later.</p>
+<p><b>An acceptance in hour 5 becomes an install just as often as one in the first minute — 46% to 49% right
+across the bands.</b> The later hours are not scraping the barrel; they buy the same quality of work, later.
+Note there is no bucket past 6 hours: the timer ends the offer there, so we cannot see what hour 7 would hold.</p>
 
 <p><b>Per booking, by how long its first CSP took:</b></p>
 
@@ -380,37 +383,38 @@ of work, just later.</p>
 <thead><tr><th>First response arrived</th><th class="n">Bookings</th><th class="n">Share</th>
 <th class="n">Installed</th><th class="n">Install rate</th></tr></thead>
 <tbody>
-<tr><td>Within 2h</td><td class="n">977</td><td class="n">59.1%</td><td class="n">495</td><td class="n"><b>50.7%</b></td></tr>
-<tr><td>2–4h</td><td class="n">76</td><td class="n">4.6%</td><td class="n">35</td><td class="n">46.1%</td></tr>
-<tr><td>4–6h</td><td class="n">57</td><td class="n">3.4%</td><td class="n">27</td><td class="n">47.4%</td></tr>
-<tr class="hi"><td><b>Never answered</b></td><td class="n">543</td><td class="n">32.8%</td><td class="n">118</td>
-    <td class="n"><b>21.7%</b></td></tr>
+<tr><td>within 2h</td><td class="n">830</td><td class="n">57.4%</td><td class="n">420</td><td class="n"><b>50.6%</b></td></tr>
+<tr><td>2–4h</td><td class="n">61</td><td class="n">4.2%</td><td class="n">28</td><td class="n">45.9%</td></tr>
+<tr><td>4–6h</td><td class="n">54</td><td class="n">3.7%</td><td class="n">20</td><td class="n">37.0%</td></tr>
+<tr class="hi"><td><b>never answered</b></td><td class="n">500</td><td class="n">34.6%</td><td class="n">94</td><td class="n"><b>18.8%</b></td></tr>
 </tbody>
 </table>
 </div>
 
-<p>Flat across the three response bands, then a cliff. <b>A booking whose first CSP goes silent still installs
-21.7% of the time</b> — someone else picks it up — so a timeout costs roughly 25 points of install probability,
-not all of it. That fallback is what makes the window worth less than the raw response numbers suggest.</p>
+<p>The bands slope down a little at booking level — 50.6%, 45.9%, 37.0% — but the 4–6h band is only 54 bookings,
+so read that as noise rather than decay. The real feature is the cliff: <b>a booking whose first CSP never
+answers still installs 18.8% of the time</b>, because someone else picks it up. A timeout costs roughly 25 points
+of install probability, not all of it — and that fallback is why the window is worth less than the response
+numbers alone suggest.</p>
 
-<p>Putting the two together gives the number that matters. Only <b>134 bookings (8.1%)</b> get their first
-response between hours 2 and 6 — that is the entire population the extra four hours buys:</p>
+<p>Putting the two together. Only <b>115 bookings (8.0%)</b> get their first answer between hours 2 and 6 — that
+is the entire population the extra four hours buys:</p>
 
 <div class="tblscroll">
 <table>
 <thead><tr><th class="n">P41 set to</th><th class="n">Bookings that would time out instead</th>
 <th class="n">System install rate</th></tr></thead>
 <tbody>
-<tr><td class="n">2 h</td><td class="n">134</td><td class="n">38.8%</td></tr>
-<tr><td class="n">4 h</td><td class="n">58</td><td class="n">39.9%</td></tr>
-<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">—</td><td class="n"><b>40.8%</b></td></tr>
+<tr><td class="n">2 h</td><td class="n">116</td><td class="n">37.1%</td></tr>
+<tr><td class="n">4 h</td><td class="n">55</td><td class="n">38.2%</td></tr>
+<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">—</td><td class="n"><b>38.9%</b></td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>Moving from 2 hours to 6 is worth about 2 points of system install rate.</b> Real, but a good deal smaller
-than the response numbers on their own imply — because a third of bookings never get a first answer whatever the
-setting, and a fifth of those still install through someone else.</p>
+<p><b>Moving from 2 hours to 6 is worth about 1.8 points of system install rate.</b> Real, but well below what
+the response numbers on their own imply — a third of bookings never get a first answer whatever the setting, and
+a fifth of those still install through someone else.</p>
 
 <div class="part" style="border-left-color:var(--s2)">
   <div class="lbl">Part 2 of 3</div>
@@ -616,10 +620,10 @@ not because CSPs stop responding.</p>
 <p>What we can see is the rate at which acceptances were still arriving when the window closed: <b>+2.1, +1.8 and
 +1.6 points</b> in the last three hours before the cut-off — slowing, but nowhere near stopped. Carrying that
 same slowdown two hours further gives <b>+2.8 points of response</b>. Run through point 5's booking-level
-arithmetic — about 46 bookings getting a first answer they would otherwise not get, at a 25-point install
+arithmetic — about 40 bookings getting a first answer they would otherwise not get, at a 25-point install
 differential — that is <b>+0.7 points of system install rate</b>.</p>
 <p>Treat that as the central case, and note it is <b>a third of what the last extension delivered</b>: the
-2-to-6 move was worth 2 points because it captured 134 bookings, where 6-to-8 reaches perhaps 46. The direction
+2-to-6 move was worth 1.8 points because it captured 115 bookings, where 6-to-8 reaches perhaps 40. The direction
 is not in doubt — only the size, and the size is small.</p>
 </div>
 

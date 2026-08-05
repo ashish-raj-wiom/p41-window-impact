@@ -26,7 +26,7 @@ through **1.9 CSPs**. That leaves **8 working hours per CSP**.
 
 Six hours leaves two of those hours unused. CSPs were still accepting jobs at a steady rate when the current
 window cut them off, so the extra time should convert — but modestly: roughly **+3 points of response**, worth
-about **+0.7 points of system install rate**. For scale, the move from 2 hours to 6 was worth **+2 points**
+about **+0.7 points of system install rate**. For scale, the move from 2 hours to 6 was worth **+1.8 points**
 (section 4).
 
 Those three figures are a projection, not a measurement — see the caveat in section 6. The 8-hour figure itself
@@ -151,45 +151,53 @@ those who do not.
 **What the move from 2h to 6h was worth.** Response rose **54.1% → 62.6% (+8.5 points)**, jobs taken
 **37.2% → 41.8% (+4.6 points)**. Those are task-level figures and they overstate the window's value, because many
 of the extra acceptances are second or third attempts on bookings that would have been served anyway. **Section 4
-measures it at booking level and gets +2 points of system install rate** — that is the figure to use.
+measures it at booking level and gets +1.8 points of system install rate** — that is the figure to use.
 
 ### 4. What the extra hours are worth in installs
 
-Response is not the point in itself — an install is. Per offer made to a CSP:
+Response is not the point in itself — an install is. Both cuts are restricted to offers made **inside working
+hours**, 9am–9pm, so no booking is credited with time the clock was not running: **2,718 offers across 1,445
+bookings**.
 
-| P41 | Offers | Accepted | Offers ending in an install | Install rate *of* those accepted |
-|---:|---:|---:|---:|---:|
-| 2 h | 3,165 | 37.2% | 18.0% | 48.4% |
-| 4 h | 3,165 | 39.9% | 19.4% | 48.6% |
-| **6 h — current** | 3,165 | **41.8%** | **20.3%** | **48.7%** |
+Per offer made to a CSP, by when he acted:
 
-The last column matters most: **an acceptance in hour 5 becomes an install just as often as one in the first
-minute — 48.7% either way.** The later hours buy the same quality of work, just later.
+| The CSP… | Offers | Share | Ended in an install | Install rate |
+|---|---:|---:|---:|---:|
+| accepted within 2h | 985 | 36.2% | 465 | **47.2%** |
+| accepted 2–4h | 71 | 2.6% | 35 | **49.3%** |
+| accepted 4–6h | 54 | 2.0% | 25 | **46.3%** |
+| declined | 576 | 21.2% | — | — |
+| **never answered** | 1,032 | 38.0% | — | — |
+
+**An acceptance in hour 5 becomes an install just as often as one in the first minute — 46% to 49% across the
+bands.** The later hours buy the same quality of work, later. There is no bucket past 6 hours: the timer ends the
+offer there, so we cannot see what hour 7 would hold.
 
 Per booking, by how long its first CSP took:
 
 | First response arrived | Bookings | Share | Installed | Install rate |
 |---|---:|---:|---:|---:|
-| Within 2h | 977 | 59.1% | 495 | **50.7%** |
-| 2–4h | 76 | 4.6% | 35 | 46.1% |
-| 4–6h | 57 | 3.4% | 27 | 47.4% |
-| **Never answered** | 543 | 32.8% | 118 | **21.7%** |
+| within 2h | 830 | 57.4% | 420 | **50.6%** |
+| 2–4h | 61 | 4.2% | 28 | 45.9% |
+| 4–6h | 54 | 3.7% | 20 | 37.0% |
+| **never answered** | 500 | 34.6% | 94 | **18.8%** |
 
-Flat across the response bands, then a cliff. **A booking whose first CSP goes silent still installs 21.7% of the
-time** — someone else picks it up — so a timeout costs roughly 25 points of install probability, not all of it.
+The bands slope down a little here — 50.6%, 45.9%, 37.0% — but the 4–6h band is 54 bookings, so read that as
+noise rather than decay. The real feature is the cliff: **a booking whose first CSP never answers still installs
+18.8% of the time**, because someone else picks it up. A timeout costs roughly 25 points of install probability,
+not all of it.
 
-Only **134 bookings (8.1%)** get their first response between hours 2 and 6 — the entire population the extra
-four hours buys:
+Only **115 bookings (8.0%)** get their first answer between hours 2 and 6 — the entire population the extra four
+hours buys:
 
 | P41 set to | Bookings that would time out instead | System install rate |
 |---:|---:|---:|
-| 2 h | 134 | 38.8% |
-| 4 h | 58 | 39.9% |
-| **6 h — current** | — | **40.8%** |
+| 2 h | 116 | 37.1% |
+| 4 h | 55 | 38.2% |
+| **6 h — current** | — | **38.9%** |
 
-**Moving from 2 hours to 6 is worth about 2 points of system install rate.** Real, but well below what the
-response numbers alone imply — a third of bookings never get a first answer at any setting, and a fifth of those
-still install through someone else.
+**Moving from 2 hours to 6 is worth about 1.8 points of system install rate.** Real, but well below what the
+response numbers alone imply.
 
 ---
 
@@ -330,7 +338,7 @@ flat after 6 hours only because that is where it is cut off.
 
 What we can see is the rate at which acceptances were still arriving when the window closed — **+2.1, +1.8 and
 +1.6 points** in the last three hours, slowing but nowhere near stopped. Carrying that same slowdown two hours
-further gives **+2.8 points of response**. Run through section 4's booking-level arithmetic — about 46
+further gives **+2.8 points of response**. Run through section 4's booking-level arithmetic — about 40
 bookings getting a first answer they otherwise would
 not, at a 25-point install differential — that is **+0.7 points of system install rate**, a third of what the
 last extension delivered. The direction is not in doubt, only the size, and the size is small.
