@@ -113,211 +113,130 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
   </div>
 </header>
 
-<div class="note-box" style="border-left:4px solid var(--s1);margin-top:32px">
-  <p><b>What this changes in the main analysis.</b> Part 3 sets P41 by dividing the time available by the number
-  of CSPs tried, which prices the window but not the reroute it delays. The simulation below prices both, and
-  finds the return on each extra pair of hours falling — <b>+1.3 points from 2 to 4, +0.8 from 4 to 6</b> — with
-  the loss term growing as the gain flattens.</p>
-  <p>It does <b>not</b> show 8 hours to be worse; that cannot be measured on this data, for the reason set out
-  under the correction below. Part 3 has been left unchanged.</p>
+<div class="note-box" style="margin-top:32px">
+  <p>Each answer opens with the conclusion, then the data behind it. Every figure here is counted from the
+  record — response times, acceptances, installs and re-offers as they actually happened. Where a question
+  cannot be answered from observation, that is said plainly rather than modelled around.</p>
 </div>
 
 <h3>SD Q1. What is total system efficiency of install for P41 at 2 hour, 4 hour and 6 hour? Total efficiency is different from one CSP efficiency.</h3>
 
-<p><b>39.4% at 2 hours, 40.7% at 4, 41.5% at 6.</b> Each step up buys less than the last, because the gain from
-giving a CSP longer is partly cancelled by reroutes that no longer happen in time.</p>
+<div class="note-box">
+<p class="big" style="font-size:17px;font-weight:640;color:var(--ink);margin:0 0 10px">Estimating it is tricky,
+and the honest answer has two halves.</p>
+<p><b>What is certain is the leading metric.</b> Response rate rises from <b>54% at 2 hours to 59% at 4 and 62%
+at 6</b>. Acceptance rises with it. And an acceptance that arrives late converts to an install just as well as
+one that arrives immediately — around 50% either way. So the extra hours buy real, equal-quality work.</p>
+<p><b>What is not knowable from observation is the offsetting half:</b> how many installs stop happening at a
+higher P41 that were happening at a lower one, because the booking used to be retriggered to another CSP sooner.
+<b>That cannot be settled by looking at history — it needs an experiment. Run P41 at different values across
+cohorts for a week and measure it.</b></p>
+</div>
 
-<p>P41 has only ever been set to 2 hours and 6 hours, so the 4-hour row is not an observation. What follows marks
-every figure as one of three things:</p>
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">The leading metric — certain</h4>
+<p>Every offer is recorded with the exact time the CSP answered. Counting how many landed inside 2, 4 or 6 hours
+needs no assumption at all:</p>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>Marker</th><th>What it means</th><th>Needs a model?</th></tr></thead>
+<thead><tr><th class="n">P41</th><th class="n">Offers</th><th class="n">Response rate</th>
+<th class="n">Acceptance rate</th></tr></thead>
 <tbody>
-<tr><td><b>● observed</b></td><td>This is what actually happened under the current 6-hour setting</td><td class="n">no</td></tr>
-<tr><td><b>◆ counted</b></td><td>Every offer carries its exact response time. Counting how many landed under
-    2 or 4 hours is arithmetic on that record, not a forecast</td><td class="n">no</td></tr>
-<tr><td><b>▲ replayed</b></td><td>Needs the chain simulation: real CSP behaviour, but a counterfactual moment
-    at which each timeout fires</td><td class="n">yes</td></tr>
-<tr><td><b>✕ blind</b></td><td>The current timer prevents it from ever being recorded</td><td class="n">—</td></tr>
+<tr><td class="n"><b>2 h</b></td><td class="n">3,165</td><td class="n"><b>54.1%</b></td><td class="n"><b>37.2%</b></td></tr>
+<tr><td class="n"><b>4 h</b></td><td class="n">3,165</td><td class="n"><b>59.2%</b></td><td class="n"><b>39.9%</b></td></tr>
+<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">3,165</td><td class="n"><b>62.6%</b></td><td class="n"><b>41.8%</b></td></tr>
 </tbody>
 </table>
 </div>
 
+<p style="font-size:13.5px;color:var(--ink2)">These are counts, not forecasts. The window is live at 6 hours, so
+every response inside 6 hours is in the record with its exact latency — the 2-hour and 4-hour rows are that same
+record, filtered. The method only works <em>downward</em> from the live setting, which is why there is no 8-hour
+row here.</p>
+
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">A late acceptance is worth as much as an early one</h4>
+<p>If the later hours were only picking up reluctant CSPs who then fail to deliver, the extra response would be
+worthless. They are not:</p>
+
 <div class="tblscroll">
 <table>
-<thead><tr><th class="n">P41</th><th class="n">Response rate</th><th class="n">Positive response rate</th>
-<th class="n">Install rate</th>
-<th class="n">Gained — CSPs who now get long enough</th>
-<th class="n">Lost — reroutes that no longer land in time</th>
-<th class="n">Net step</th></tr></thead>
+<thead><tr><th>The CSP accepted…</th><th class="n">Offers</th><th class="n">Ended in an install</th></tr></thead>
 <tbody>
-<tr><td class="n"><b>2 h</b></td>
-    <td class="n">54.3% <b>◆</b></td><td class="n">37.0% <b>◆</b></td><td class="n"><b>39.4% ▲</b></td>
-    <td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
-<tr><td class="n"><b>4 h</b></td>
-    <td class="n">59.1% <b>◆</b></td><td class="n">39.6% <b>◆</b></td><td class="n"><b>40.7% ▲</b></td>
-    <td class="n">+1.6 <b>▲</b> <span style="color:var(--muted)">(32 bookings)</span></td>
-    <td class="n">−0.2 <b>▲</b> <span style="color:var(--muted)">(5)</span></td>
-    <td class="n"><b>+1.3 ▲</b></td></tr>
-<tr class="hi"><td class="n"><b>6 h — current</b></td>
-    <td class="n">62.6% <b>●</b></td><td class="n">41.6% <b>●</b></td><td class="n"><b>41.5% ●</b></td>
-    <td class="n">+1.4 <b>▲</b> <span style="color:var(--muted)">(29 bookings)</span></td>
-    <td class="n">−0.6 <b>▲</b> <span style="color:var(--muted)">(12)</span></td>
-    <td class="n"><b>+0.8 ▲</b></td></tr>
-<tr><td class="n">8 h</td>
-    <td class="n" style="color:var(--muted)">✕</td><td class="n" style="color:var(--muted)">✕</td>
-    <td class="n" style="color:var(--muted)">✕</td>
-    <td class="n" style="color:var(--muted)">✕ — see the correction below</td>
-    <td class="n">−0.5 <b>▲</b> <span style="color:var(--muted)">(10)</span></td>
-    <td class="n" style="color:var(--muted)">✕</td></tr>
+<tr><td>within 2 hours</td><td class="n">1,177</td><td class="n"><b>48.7%</b></td></tr>
+<tr><td>between 2 and 4 hours</td><td class="n">86</td><td class="n"><b>51.2%</b></td></tr>
+<tr><td>between 4 and 6 hours</td><td class="n">60</td><td class="n"><b>50.0%</b></td></tr>
 </tbody>
 </table>
 </div>
 
-<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">Why the response columns need no model</h4>
-<p>Every offer in the week is recorded with the exact time the CSP answered it. An offer answered after 3 hours
-12 minutes sits in the data with that latency, under today's 6-hour window. Asking what the response rate would
-be at 4 hours is simply <b>counting the offers whose recorded latency is under 4 hours</b>. Nothing is projected.
-The same is true at 2 hours.</p>
-<p>This only works <em>downward</em> from the live setting. It cannot tell us anything about 8 hours, because
-every offer is destroyed at 6.</p>
-<p style="font-size:13.5px;color:var(--ink2)">The base is all <b>2,000 recorded offers</b>. The replay uses a
-slightly narrower one — it stops walking a booking's chain once someone accepts, so offers that would never have
-been made are not counted. That is why the install columns are marked differently from the response columns even
-at 6 hours.</p>
+<p><b>Flat across the bands.</b> An acceptance in hour 5 installs as often as one in the first minute. Whatever
+the later hours add to acceptance, they add to installs at the same rate.</p>
 
-<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">Why the install columns do need one</h4>
-<p>Shortening the window does not just cut responses off earlier — it changes <b>when the next CSP gets the
-booking</b>. That is what the replay models, and it is the only counterfactual in the exercise.</p>
-<p>For each booking the actual chain of CSPs is walked in order. Each CSP's own response — accept, decline or
-silence — and his own latency are taken exactly as recorded. The single thing that changes is the moment a
-timeout fires: at 4 hours it fires two hours earlier than it did, so the next CSP receives the booking two hours
-earlier and is measured against the same deadline. A booking counts as served when some CSP accepts before noon
-on the day after the promised slot. The requeue lag is set to zero because that is what it measures — after a
-decline the next offer goes out in a median of <b>0.0 hours</b>; after a timeout, 14.6 calendar hours, which is
-the timer itself and nothing else.</p>
-<p>Served bookings are then converted to installs at the observed rates: <b>61.2%</b> once served in time,
-<b>10.9%</b> if never served. Those two rates are measured, not assumed.</p>
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">The unknown, and why history cannot settle it</h4>
+<p>A booking whose CSP never answers is not lost. It goes to someone else, and it often still gets done:
+<b>543 bookings (33%) got no answer from their first CSP, and 118 of them installed anyway</b> — 21.7%, through
+a retrigger to another CSP.</p>
+<p>Raise P41 and those retriggers start later. Some of those 118 installs would not happen. <b>How many is the
+entire question, and it is not visible in the data</b>: the window is 6 hours, so we have never observed a
+retrigger that began at hour 8, nor a CSP given the chance to answer in hour 7.</p>
 
-<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">What validates the replay</h4>
-<p><b>Run at 6 hours it must reproduce reality, and it does — to 0.1 points.</b> 60.9% of bookings served against
-60.8% actually served. That is the test that matters: the machinery is being asked to predict a world we can
-already see, and it lands on it.</p>
-<p>Two further checks. The ranking of 2, 4 and 6 hours is unchanged under all three deadline definitions (end of
-the slot day, noon the day after, end of the day after). And the assumption that a CSP's speed is his own
-property rather than a reaction to the deadline holds: under the old 2-hour window and today's 6-hour window, the
-response curves inside the first two hours are near-parallel — 46.9% against 49.2% at the 2-hour mark, with no
-sign of a rush as the shorter deadline approaches.</p>
-
-<p><b>The loss column is what separates system efficiency from one CSP's efficiency.</b> Every booking in it was
-<em>already being installed</em> at the shorter setting — by a second CSP, after the first one timed out. Give
-the first CSP longer and that reroute starts later, and lands past the promised day. Checked individually:
-<b>5 of 5, 12 of 12 and 10 of 10 of the lost bookings had been rescued by a reroute at the shorter setting</b>.
-Not one was lost for any other reason.</p>
-
-<p>So the two forces are exactly the ones you described. Longer window, more first-pass acceptances. Longer
-window, fewer second chances. <b>At 2→4 the trade is strongly favourable (+1.6 against −0.2). By 4→6 it has
-narrowed (+1.4 against −0.6)</b> — the loss triples while the gain barely moves.</p>
-
-<div class="note-box" style="border-left:4px solid var(--warning)">
-<p><b>Correction — 8 hours cannot be evaluated on this data, and I previously said it could.</b></p>
-<p>The gain column at 8 hours is structurally empty. P41 is 6 hours, so no CSP has ever been given the chance to
-answer in hour 7. The replay can see every booking that <em>loses</em> a reroute at 8 hours and none of the ones
-it would <em>gain</em>. The −0.5 is the loss half of a two-sided ledger.</p>
-<p>Scaling the missing gain by the observed response decay — hours 4→6 added 3.4 points of response and rescued
-29 bookings, hours 6→8 project 2.8 — suggests roughly 24 bookings gained, about +1.2, for a net near <b>+0.7</b>.
-On that basis 8 hours is probably still positive, not negative.</p>
-<p><b>What the data establishes is the direction, not the turning point:</b> gain per step flat to falling, loss
-per step rising. The curve flattens and will eventually turn over. Where it turns cannot be known without running
-a longer window and measuring it.</p>
+<div class="note-box" style="border-left:4px solid var(--good-text)">
+<p><b>Recommendation: A/B test the parameter.</b> Set P41 to different values across comparable cohorts, run for
+a week, and read total install rate directly. That measures the two halves together — the response gained and the
+retriggers lost — without needing to assume anything about either.</p>
 </div>
-
-<p style="font-size:13.5px;color:var(--ink2)"><b>The limitation, and which way it cuts.</b> The replay can only
-try CSPs who were actually offered the booking. Under a shorter window more reroutes would fit and we do not know
-who they would be — <b>296 bookings run out of chain at 2 hours against 198 at 6</b>. Crediting one extra attempt
-at the observed 41.6% acceptance rate lifts every setting and moves the best to <b>3 hours</b>. So these figures
-understate short settings, and the true optimum is at or below 6 hours rather than above it. Population is the
-1,030 bookings carrying a confirmed slot date.</p>
-
 
 <h3>SD Q2. A CSP gets the same lead twice — what is the impact of that?</h3>
 
-<p><b>It almost never works, and it is expensive.</b> In the same week <b>530 offers went back to a CSP who had
-already timed out on that booking or declined it</b>. Twenty-two ended in an install — <b>4.2%</b>.</p>
+<div class="note-box">
+<p class="big" style="font-size:17px;font-weight:640;color:var(--ink);margin:0 0 10px">It depends how the lead
+reached him — and neither case is worth much.</p>
+<p><b>If he declined it the first time</b> and it comes back, he ignores or declines it again. <b>Effectively 0%
+install.</b></p>
+<p><b>If it timed out the first time</b> and comes back, there is a small chance he acts. <b>Around 3–6%
+install.</b></p>
+</div>
 
 <div class="tblscroll">
 <table>
-<thead><tr><th>What he did the first time</th><th class="n">Re-offered</th>
+<thead><tr><th>How the lead reached him again</th><th class="n">Re-offers</th>
 <th class="n">2nd: assigned</th><th class="n">2nd: declined</th><th class="n">2nd: timed out</th>
-<th class="n">Installs on the 2nd attempt</th></tr></thead>
+<th class="n">Installs</th></tr></thead>
 <tbody>
-<tr><td>Timed out — never answered</td><td class="n">360</td>
+<tr><td>after he <b>timed out</b> on it</td><td class="n">360</td>
     <td class="n">15.0%</td><td class="n">5.8%</td><td class="n"><b>79.2%</b></td>
-    <td class="n">21 <span style="color:var(--muted)">(5.8%)</span></td></tr>
-<tr class="hi"><td><b>Declined it</b></td><td class="n">170</td>
+    <td class="n"><b>21</b> <span style="color:var(--muted)">(5.8%)</span></td></tr>
+<tr class="hi"><td>after he <b>declined</b> it</td><td class="n">170</td>
     <td class="n">5.9%</td><td class="n"><b>77.6%</b></td><td class="n">16.5%</td>
     <td class="n"><b>1</b> <span style="color:var(--muted)">(0.6%)</span></td></tr>
-<tr><td><b>Both together</b></td><td class="n"><b>530</b></td>
-    <td class="n">12.1%</td><td class="n">28.9%</td><td class="n"><b>59.1%</b></td>
-    <td class="n"><b>22</b> <span style="color:var(--muted)">(4.2%)</span></td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>Behaviour repeats itself.</b> A CSP who ignored the booking ignores it again <b>79.2%</b> of the time. One
-who declined it declines again <b>77.6%</b> of the time, and that group produced <b>a single install out of
-170 attempts</b>. Re-asking a CSP who has said no is as close to worthless as this data contains.</p>
+<p><b>Behaviour repeats itself.</b> A CSP who ignored the booking ignores it again four times in five. One who
+declined it declines again at the same rate — and that group returned <b>a single install from 170 attempts</b>.
+Re-asking a CSP who has already said no is as close to worthless as this data contains.</p>
 
-<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">Why this matters for P41</h4>
+<p>The cost is real, because each of those offers holds the booking for a full window before it can move on.
+<b>One booking in four is re-offered to a CSP who has already seen it</b>, and for those bookings <b>46% of every
+offer made is a repeat</b>.</p>
 
-<p>Every one of those offers holds the booking for a full window before it can move on. Set against the runway
-measured in SD Q1 — a median of <b>15.5 working hours</b> before the deadline — that is the scarcest thing in the
-system being spent on the least productive thing in it. Counting <em>every</em> repeat offer, including the 57
-that went back to a CSP who had accepted and then failed downstream, the total is <b>587</b>.</p>
-
-<div class="tblscroll">
-<table>
-<thead><tr><th>Bookings by how often the same CSP was re-asked</th><th class="n">Bookings</th><th class="n">Share</th>
-<th class="n">Their offers</th><th class="n">of which repeats</th><th class="n">Install rate</th></tr></thead>
-<tbody>
-<tr><td>never re-offered to the same CSP</td><td class="n">1,254</td><td class="n">75.8%</td>
-    <td class="n">1,883</td><td class="n">0</td><td class="n"><b>52.6%</b></td></tr>
-<tr><td>one repeat</td><td class="n">253</td><td class="n">15.3%</td>
-    <td class="n">592</td><td class="n">253</td><td class="n">5.5%</td></tr>
-<tr class="hi"><td><b>two or more repeats</b></td><td class="n">147</td><td class="n">8.9%</td>
-    <td class="n">690</td><td class="n">334</td><td class="n"><b>7.5%</b></td></tr>
-</tbody>
-</table>
-</div>
-
-<p><b>One booking in four is re-offered to a CSP who has already seen it.</b> For those 400 bookings, <b>46% of
-every offer made is a repeat</b> — and at six hours a window, that is roughly <b>3,500 working hours against the
-6,200 those bookings collectively have</b>. Well over half their runway goes to re-asking people who have already
-not acted.</p>
-
-<div class="note-box" style="border-left:4px solid var(--warning)">
-<p><b>Read the last table as a cost, not a cause.</b> Bookings with repeats install at 5–8% against 53% for those
-without — but a booking gets re-offered <em>because</em> it is hard to place, so most of that gap is the
-difficulty, not the repeating. The causal claim is not available here.</p>
-<p>What is defensible is the arithmetic: <b>587 windows were consumed and 25 installs came back</b>, 530 of those
-windows going to a CSP who had already timed out or declined. That holds whatever the underlying difficulty,
-because the windows were spent either way.</p>
-</div>
-
-<p><b>The implication is not a change to P41's length.</b> It is that the same runway would be worth more if a
-CSP who has already timed out or declined were not asked again while an unasked CSP is available. That is a
-routing rule rather than a timer value — and it would make any P41 setting go further, because it stops the
-window being spent on the 79% who will not answer twice.</p>
-
+<p><b>The implication is a routing rule, not a timer value:</b> any P41 setting goes further if a CSP who has
+already timed out or declined is not asked again while an unasked CSP is available.</p>
 
 <h3>SD Q3. Why is P95 not the right cut-off, given the lead can go to someone else and/or come back again?</h3>
 
-<p><b>Because P95 is not a measurement of CSP behaviour — it is a measurement of the current setting.</b> Using
-it to choose the setting is circular.</p>
+<div class="note-box">
+<p class="big" style="font-size:17px;font-weight:640;color:var(--ink);margin:0 0 10px">Because P95 is set by the
+cut-off, not by the CSP. Using it to choose the cut-off is circular.</p>
+<p>More time does produce more response — that much the leading metric shows. But <b>P95 is around 4 hours only
+because the window is 6</b>. Raise the window and P95 rises with it. It can justify any number it is pointed at.</p>
+<p><b>The guardrail should come from the customer instead:</b> cancellation spikes the day after the confirmed
+slot, which works back to <b>about 8 working hours</b> per CSP. That is the recommendation.</p>
+</div>
 
-<p>The response window has been at 2 hours and at 6. Here is what the response-time distribution looked like
-under each:</p>
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">P95 moves with the window; the median does not</h4>
+<p>The window has been at 2 hours and at 6. The response distribution under each:</p>
 
 <div class="tblscroll">
 <table>
@@ -332,49 +251,28 @@ under each:</p>
 </table>
 </div>
 
-<p><b>The window tripled and P95 went up 2.6×, from 1h 34m to 4h 06m.</b> It lands at two-thirds to
-four-fifths of whatever it is given. Meanwhile <b>P50 did not move at all — about a minute in both regimes</b>.
-The median is a real property of how CSPs behave; the tail is a property of how long we let them take.</p>
+<p><b>The window tripled and P95 went up 2.6×.</b> Meanwhile <b>P50 did not move at all — about a minute in both
+regimes</b>. The median is a real property of how CSPs behave. The tail is a property of how long we let them
+take.</p>
 
-<p>So "set P41 to cover P95" has no fixed point. Set it to 2 and P95 arrives at 1h 34m. Set it to 6 and it
-arrives at 4h 06m. Set it to 8 and it would land somewhere near 5 or 6. The rule justifies whatever number it is
-pointed at, because the thing it measures is downstream of the thing it is meant to decide.</p>
+<p>So "cover P95" has no fixed point. At a 2-hour window it argues for 1h 34m. At 6 it argues for 4h 06m. At 8 it
+would argue for something near 6. <b>The measure is downstream of the decision it is meant to inform.</b></p>
 
-<p style="font-size:13.5px;color:var(--ink2)">Both rows are the CSP's first required action in that regime —
-proposing a slot before the flow change, assigning a technician after — and the 6-hour row is the
-customer-proposed population used throughout this analysis. On all slot sources the 6-hour P95 reads 5h 09m
-instead of 4h 06m, inflated by 292 responses still arriving through the old flow whose own P95 is over 18 hours.
-The comparison is not perfectly like-for-like because the flow changed a day before the window did; what is not
-in doubt is the direction and rough magnitude.</p>
+<p style="font-size:13.5px;color:var(--ink2)">The two rows are each regime's first required CSP action —
+proposing a slot before the flow change, assigning a technician after — so the comparison is not perfectly
+like-for-like. The direction and rough magnitude are not in doubt.</p>
 
 <h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">And the lead is not lost when the window closes</h4>
+<p>A CSP who does not answer is not the end of the booking. It goes to someone else, and <b>21.7% of those
+bookings still install</b>. So the last few percent of the response tail are being bought at the cost of delaying
+the retrigger for everyone who was never going to answer — which is precisely the trade P95 is blind to.</p>
 
-<p>The second half of the question matters just as much. P95 answers "how long until nearly every CSP who will
-ever answer has answered" — but a CSP who does not answer is not the end of the booking. It goes to someone else,
-and it can come back. <b>A booking whose first CSP never answers still installs 18.8% of the time</b> (SD Q1).</p>
-
-<p>That is why covering the tail is worth less than it looks: the last few percent of responses are being bought
-at the cost of delaying the reroute for everyone who was never going to answer at all. <b>SD Q1 measures that
-trade directly</b> — at 4→6 hours it is +1.4 points gained against −0.6 lost.</p>
-
-<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">What should set the cut-off instead</h4>
-
-<p>The customer's own deadline. Cancellation is near-zero until the promised slot day arrives and then steps up
-sharply, peaking the afternoon after it. Working back from that point, the median booking has <b>15.5 working
-hours</b> and passes through <b>1.9 CSPs</b> — which is where the <b>~8 working hours</b> recommendation in
-Part 3 comes from.</p>
-
-<p>That is a guardrail derived from the customer, not from the parameter's own past values. It cannot be gamed by
-changing the setting, which is exactly what P95 can.</p>
-
-<div class="note-box" style="border-left:4px solid var(--warning)">
-<p><b>One qualification the simulation adds.</b> Runway ÷ chain prices the window but not the reroute the window
-delays. SD Q1 prices both, and finds the return on each extra pair of hours falling — <b>+1.3 points from 2 to 4,
-+0.8 from 4 to 6</b> — while the loss from delayed reroutes triples across the same span.</p>
-<p>It does <em>not</em> show 8 hours to be worse; that cannot be measured, because no CSP has ever been given the
-chance to answer in hour 7. But it does mean 8 should be read as the top of a flattening curve rather than a
-target with room above it.</p>
-</div>
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">What should set the cut-off</h4>
+<p>The customer's own deadline. Cancellation is near-zero until the promised slot day and then steps up sharply,
+peaking the afternoon after it. Working back from that point the median booking has <b>15.5 working hours</b>
+before the deadline and passes through <b>1.9 CSPs</b> — <b>about 8 working hours each</b>.</p>
+<p>That guardrail is derived from customer behaviour, not from the parameter's own past values. It cannot be
+moved by changing the setting, which is exactly what P95 can.</p>
 
 <footer>
   Data as of 4 Aug 2026 · all times IST · sources <code>csp-tas-service</code>,
