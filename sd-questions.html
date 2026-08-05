@@ -153,15 +153,15 @@ every figure as one of three things:</p>
 <th class="n">Net step</th></tr></thead>
 <tbody>
 <tr><td class="n"><b>2 h</b></td>
-    <td class="n">54.0% <b>◆</b></td><td class="n">37.2% <b>◆</b></td><td class="n"><b>39.4% ▲</b></td>
+    <td class="n">54.3% <b>◆</b></td><td class="n">37.0% <b>◆</b></td><td class="n"><b>39.4% ▲</b></td>
     <td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
 <tr><td class="n"><b>4 h</b></td>
-    <td class="n">58.7% <b>◆</b></td><td class="n">39.9% <b>◆</b></td><td class="n"><b>40.7% ▲</b></td>
+    <td class="n">59.1% <b>◆</b></td><td class="n">39.6% <b>◆</b></td><td class="n"><b>40.7% ▲</b></td>
     <td class="n">+1.6 <b>▲</b> <span style="color:var(--muted)">(32 bookings)</span></td>
     <td class="n">−0.2 <b>▲</b> <span style="color:var(--muted)">(5)</span></td>
     <td class="n"><b>+1.3 ▲</b></td></tr>
 <tr class="hi"><td class="n"><b>6 h — current</b></td>
-    <td class="n">62.6% <b>●</b></td><td class="n">42.5% <b>●</b></td><td class="n"><b>41.5% ●</b></td>
+    <td class="n">62.6% <b>●</b></td><td class="n">41.6% <b>●</b></td><td class="n"><b>41.5% ●</b></td>
     <td class="n">+1.4 <b>▲</b> <span style="color:var(--muted)">(29 bookings)</span></td>
     <td class="n">−0.6 <b>▲</b> <span style="color:var(--muted)">(12)</span></td>
     <td class="n"><b>+0.8 ▲</b></td></tr>
@@ -182,6 +182,10 @@ be at 4 hours is simply <b>counting the offers whose recorded latency is under 4
 The same is true at 2 hours.</p>
 <p>This only works <em>downward</em> from the live setting. It cannot tell us anything about 8 hours, because
 every offer is destroyed at 6.</p>
+<p style="font-size:13.5px;color:var(--ink2)">The base is all <b>2,000 recorded offers</b>. The replay uses a
+slightly narrower one — it stops walking a booking's chain once someone accepts, so offers that would never have
+been made are not counted. That is why the install columns are marked differently from the response columns even
+at 6 hours.</p>
 
 <h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">Why the install columns do need one</h4>
 <p>Shortening the window does not just cut responses off earlier — it changes <b>when the next CSP gets the
