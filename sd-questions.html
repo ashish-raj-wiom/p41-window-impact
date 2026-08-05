@@ -240,6 +240,81 @@ at the observed 41.6% acceptance rate lifts every setting and moves the best to 
 understate short settings, and the true optimum is at or below 6 hours rather than above it. Population is the
 1,030 bookings carrying a confirmed slot date.</p>
 
+
+<h3>SD Q2. A CSP gets the same lead twice — what is the impact of that?</h3>
+
+<p><b>It almost never works, and it is expensive.</b> In the same week, <b>587 offers went to a CSP who had
+already had that booking</b>. Twenty-five of them ended in an install — <b>4.3%</b>.</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>What he did the first time</th><th class="n">Re-offered</th>
+<th class="n">2nd: assigned</th><th class="n">2nd: declined</th><th class="n">2nd: timed out</th>
+<th class="n">Installs on the 2nd attempt</th></tr></thead>
+<tbody>
+<tr><td>Timed out — never answered</td><td class="n">360</td>
+    <td class="n">15.0%</td><td class="n">5.8%</td><td class="n"><b>79.2%</b></td>
+    <td class="n">21 <span style="color:var(--muted)">(5.8%)</span></td></tr>
+<tr><td>Assigned a technician, failed downstream</td><td class="n">57</td>
+    <td class="n">45.6%</td><td class="n">42.1%</td><td class="n">12.3%</td>
+    <td class="n">3 <span style="color:var(--muted)">(5.3%)</span></td></tr>
+<tr class="hi"><td><b>Declined it</b></td><td class="n">170</td>
+    <td class="n">5.9%</td><td class="n"><b>77.6%</b></td><td class="n">16.5%</td>
+    <td class="n"><b>1</b> <span style="color:var(--muted)">(0.6%)</span></td></tr>
+<tr><td><b>All re-offers</b></td><td class="n"><b>587</b></td>
+    <td class="n">15.3%</td><td class="n">30.2%</td><td class="n">54.5%</td>
+    <td class="n"><b>25</b> <span style="color:var(--muted)">(4.3%)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Behaviour repeats itself.</b> A CSP who ignored the booking ignores it again <b>79.2%</b> of the time. One
+who declined it declines again <b>77.6%</b> of the time, and that group produced <b>a single install out of
+170 attempts</b>. Re-asking a CSP who has said no is as close to worthless as this data contains.</p>
+
+<p>The one case that is not futile is the CSP who <em>did</em> take the job and then failed downstream —
+he re-accepts 45.6% of the time. But even there the second attempt installs only 5.3%, so he is accepting a job
+he again does not complete.</p>
+
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">Why this matters for P41</h4>
+
+<p>Every one of those 587 offers holds the booking for a full window before it can move on. Set against the
+runway measured in SD Q1 — a median of <b>15.5 working hours</b> before the deadline — that is the scarcest
+thing in the system being spent on the least productive thing in it.</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Bookings by how often the same CSP was re-asked</th><th class="n">Bookings</th><th class="n">Share</th>
+<th class="n">Their offers</th><th class="n">of which repeats</th><th class="n">Install rate</th></tr></thead>
+<tbody>
+<tr><td>never re-offered to the same CSP</td><td class="n">1,254</td><td class="n">75.8%</td>
+    <td class="n">1,883</td><td class="n">0</td><td class="n"><b>52.6%</b></td></tr>
+<tr><td>one repeat</td><td class="n">253</td><td class="n">15.3%</td>
+    <td class="n">592</td><td class="n">253</td><td class="n">5.5%</td></tr>
+<tr class="hi"><td><b>two or more repeats</b></td><td class="n">147</td><td class="n">8.9%</td>
+    <td class="n">690</td><td class="n">334</td><td class="n"><b>7.5%</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>One booking in four is re-offered to a CSP who has already seen it.</b> For those 400 bookings, <b>46% of
+every offer made is a repeat</b> — and at six hours a window, that is roughly <b>3,500 working hours against the
+6,200 those bookings collectively have</b>. Well over half their runway goes to re-asking people who have already
+not acted.</p>
+
+<div class="note-box" style="border-left:4px solid var(--warning)">
+<p><b>Read the last table as a cost, not a cause.</b> Bookings with repeats install at 5–8% against 53% for those
+without — but a booking gets re-offered <em>because</em> it is hard to place, so most of that gap is the
+difficulty, not the repeating. The causal claim is not available here.</p>
+<p>What is defensible is the arithmetic: <b>587 windows were consumed and 25 installs came back</b>. That holds
+whatever the underlying difficulty, because the windows were spent either way.</p>
+</div>
+
+<p><b>The implication is not a change to P41's length.</b> It is that the same runway would be worth more if a
+CSP who has already timed out or declined were not asked again while an unasked CSP is available. That is a
+routing rule rather than a timer value — and it would make any P41 setting go further, because it stops the
+window being spent on the 79% who will not answer twice.</p>
+
 <footer>
   Data as of 4 Aug 2026 · all times IST · sources <code>csp-tas-service</code>,
   <code>csp-demand-allocation-service</code>, <code>booking_logs</code> via Snowflake.
