@@ -310,6 +310,64 @@ CSP who has already timed out or declined were not asked again while an unasked 
 routing rule rather than a timer value — and it would make any P41 setting go further, because it stops the
 window being spent on the 79% who will not answer twice.</p>
 
+
+<h3>SD Q3. Why is P95 not the right cut-off, given the lead can go to someone else and/or come back again?</h3>
+
+<p><b>Because P95 is not a measurement of CSP behaviour — it is a measurement of the current setting.</b> Using
+it to choose the setting is circular.</p>
+
+<p>The response window has been at 2 hours and at 6. Here is what the response-time distribution looked like
+under each:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Window in force</th><th class="n">Responses</th><th class="n">P50</th><th class="n">P90</th>
+<th class="n">P95</th><th class="n">P95 as a share of the window</th></tr></thead>
+<tbody>
+<tr><td>2 hours <span style="color:var(--ink2)">(12–19 Jul)</span></td><td class="n">2,689</td>
+    <td class="n">1 min</td><td class="n">1h 07m</td><td class="n"><b>1h 34m</b></td><td class="n">79%</td></tr>
+<tr class="hi"><td><b>6 hours</b> <span style="color:var(--ink2)">(26 Jul – 1 Aug)</span></td><td class="n">2,274</td>
+    <td class="n">2 min</td><td class="n">3h 27m</td><td class="n"><b>5h 09m</b></td><td class="n">86%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>P95 tripled when the window tripled.</b> It sits at roughly four-fifths of whatever it is given, in both
+regimes. Meanwhile <b>P50 barely moved — one minute to two</b>. The median is a real property of how CSPs
+behave; the tail is a property of how long we let them take.</p>
+
+<p>So "set P41 to cover P95" has no fixed point. Set it to 6 and P95 becomes 5. Set it to 8 and P95 becomes
+about 7. The rule would justify any number it was pointed at.</p>
+
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">And the lead is not lost when the window closes</h4>
+
+<p>The second half of the question matters just as much. P95 answers "how long until nearly every CSP who will
+ever answer has answered" — but a CSP who does not answer is not the end of the booking. It goes to someone else,
+and it can come back. <b>A booking whose first CSP never answers still installs 18.8% of the time</b> (SD Q1).</p>
+
+<p>That is why covering the tail is worth less than it looks: the last few percent of responses are being bought
+at the cost of delaying the reroute for everyone who was never going to answer at all. <b>SD Q1 measures that
+trade directly</b> — at 4→6 hours it is +1.4 points gained against −0.6 lost.</p>
+
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">What should set the cut-off instead</h4>
+
+<p>The customer's own deadline. Cancellation is near-zero until the promised slot day arrives and then steps up
+sharply, peaking the afternoon after it. Working back from that point, the median booking has <b>15.5 working
+hours</b> and passes through <b>1.9 CSPs</b> — which is where the <b>~8 working hours</b> recommendation in
+Part 3 comes from.</p>
+
+<p>That is a guardrail derived from the customer, not from the parameter's own past values. It cannot be gamed by
+changing the setting, which is exactly what P95 can.</p>
+
+<div class="note-box" style="border-left:4px solid var(--warning)">
+<p><b>One qualification the simulation adds.</b> Runway ÷ chain prices the window but not the reroute the window
+delays. SD Q1 prices both, and finds the return on each extra pair of hours falling — <b>+1.3 points from 2 to 4,
++0.8 from 4 to 6</b> — while the loss from delayed reroutes triples across the same span.</p>
+<p>It does <em>not</em> show 8 hours to be worse; that cannot be measured, because no CSP has ever been given the
+chance to answer in hour 7. But it does mean 8 should be read as the top of a flattening curve rather than a
+target with room above it.</p>
+</div>
+
 <footer>
   Data as of 4 Aug 2026 · all times IST · sources <code>csp-tas-service</code>,
   <code>csp-demand-allocation-service</code>, <code>booking_logs</code> via Snowflake.
