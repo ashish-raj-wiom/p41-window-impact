@@ -326,18 +326,26 @@ under each:</p>
 <tbody>
 <tr><td>2 hours <span style="color:var(--ink2)">(12–19 Jul)</span></td><td class="n">2,689</td>
     <td class="n">1 min</td><td class="n">1h 07m</td><td class="n"><b>1h 34m</b></td><td class="n">79%</td></tr>
-<tr class="hi"><td><b>6 hours</b> <span style="color:var(--ink2)">(26 Jul – 1 Aug)</span></td><td class="n">2,274</td>
-    <td class="n">2 min</td><td class="n">3h 27m</td><td class="n"><b>5h 09m</b></td><td class="n">86%</td></tr>
+<tr class="hi"><td><b>6 hours</b> <span style="color:var(--ink2)">(26 Jul – 1 Aug)</span></td><td class="n">1,982</td>
+    <td class="n">1 min</td><td class="n">2h 43m</td><td class="n"><b>4h 06m</b></td><td class="n">68%</td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>P95 tripled when the window tripled.</b> It sits at roughly four-fifths of whatever it is given, in both
-regimes. Meanwhile <b>P50 barely moved — one minute to two</b>. The median is a real property of how CSPs
-behave; the tail is a property of how long we let them take.</p>
+<p><b>The window tripled and P95 went up 2.6×, from 1h 34m to 4h 06m.</b> It lands at two-thirds to
+four-fifths of whatever it is given. Meanwhile <b>P50 did not move at all — about a minute in both regimes</b>.
+The median is a real property of how CSPs behave; the tail is a property of how long we let them take.</p>
 
-<p>So "set P41 to cover P95" has no fixed point. Set it to 6 and P95 becomes 5. Set it to 8 and P95 becomes
-about 7. The rule would justify any number it was pointed at.</p>
+<p>So "set P41 to cover P95" has no fixed point. Set it to 2 and P95 arrives at 1h 34m. Set it to 6 and it
+arrives at 4h 06m. Set it to 8 and it would land somewhere near 5 or 6. The rule justifies whatever number it is
+pointed at, because the thing it measures is downstream of the thing it is meant to decide.</p>
+
+<p style="font-size:13.5px;color:var(--ink2)">Both rows are the CSP's first required action in that regime —
+proposing a slot before the flow change, assigning a technician after — and the 6-hour row is the
+customer-proposed population used throughout this analysis. On all slot sources the 6-hour P95 reads 5h 09m
+instead of 4h 06m, inflated by 292 responses still arriving through the old flow whose own P95 is over 18 hours.
+The comparison is not perfectly like-for-like because the flow changed a day before the window did; what is not
+in doubt is the direction and rough magnitude.</p>
 
 <h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">And the lead is not lost when the window closes</h4>
 
