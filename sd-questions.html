@@ -127,6 +127,23 @@ footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);font-si
 <p><b>39.4% at 2 hours, 40.7% at 4, 41.5% at 6.</b> Each step up buys less than the last, because the gain from
 giving a CSP longer is partly cancelled by reroutes that no longer happen in time.</p>
 
+<p>P41 has only ever been set to 2 hours and 6 hours, so the 4-hour row is not an observation. What follows marks
+every figure as one of three things:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>Marker</th><th>What it means</th><th>Needs a model?</th></tr></thead>
+<tbody>
+<tr><td><b>● observed</b></td><td>This is what actually happened under the current 6-hour setting</td><td class="n">no</td></tr>
+<tr><td><b>◆ counted</b></td><td>Every offer carries its exact response time. Counting how many landed under
+    2 or 4 hours is arithmetic on that record, not a forecast</td><td class="n">no</td></tr>
+<tr><td><b>▲ replayed</b></td><td>Needs the chain simulation: real CSP behaviour, but a counterfactual moment
+    at which each timeout fires</td><td class="n">yes</td></tr>
+<tr><td><b>✕ blind</b></td><td>The current timer prevents it from ever being recorded</td><td class="n">—</td></tr>
+</tbody>
+</table>
+</div>
+
 <div class="tblscroll">
 <table>
 <thead><tr><th class="n">P41</th><th class="n">Response rate</th><th class="n">Positive response rate</th>
@@ -135,67 +152,89 @@ giving a CSP longer is partly cancelled by reroutes that no longer happen in tim
 <th class="n">Lost — reroutes that no longer land in time</th>
 <th class="n">Net step</th></tr></thead>
 <tbody>
-<tr><td class="n"><b>2 h</b></td><td class="n">54.0%</td><td class="n">37.2%</td><td class="n"><b>39.4%</b></td>
+<tr><td class="n"><b>2 h</b></td>
+    <td class="n">54.0% <b>◆</b></td><td class="n">37.2% <b>◆</b></td><td class="n"><b>39.4% ▲</b></td>
     <td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
-<tr><td class="n"><b>4 h</b></td><td class="n">58.7%</td><td class="n">39.9%</td><td class="n"><b>40.7%</b></td>
-    <td class="n">+1.6 pts <span style="color:var(--muted)">(32 bookings)</span></td>
-    <td class="n">−0.2 pts <span style="color:var(--muted)">(5)</span></td>
-    <td class="n"><b>+1.3</b></td></tr>
-<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">62.6%</td><td class="n">42.5%</td><td class="n"><b>41.5%</b></td>
-    <td class="n">+1.4 pts <span style="color:var(--muted)">(29 bookings)</span></td>
-    <td class="n">−0.6 pts <span style="color:var(--muted)">(12)</span></td>
-    <td class="n"><b>+0.8</b></td></tr>
-<tr><td class="n">8 h</td><td class="n" style="color:var(--muted)">not measurable</td>
-    <td class="n" style="color:var(--muted)">not measurable</td><td class="n" style="color:var(--muted)">not measurable</td>
-    <td class="n" style="color:var(--muted)">unobservable — see below</td>
-    <td class="n">−0.5 pts <span style="color:var(--muted)">(10)</span></td>
-    <td class="n" style="color:var(--muted)">—</td></tr>
+<tr><td class="n"><b>4 h</b></td>
+    <td class="n">58.7% <b>◆</b></td><td class="n">39.9% <b>◆</b></td><td class="n"><b>40.7% ▲</b></td>
+    <td class="n">+1.6 <b>▲</b> <span style="color:var(--muted)">(32 bookings)</span></td>
+    <td class="n">−0.2 <b>▲</b> <span style="color:var(--muted)">(5)</span></td>
+    <td class="n"><b>+1.3 ▲</b></td></tr>
+<tr class="hi"><td class="n"><b>6 h — current</b></td>
+    <td class="n">62.6% <b>●</b></td><td class="n">42.5% <b>●</b></td><td class="n"><b>41.5% ●</b></td>
+    <td class="n">+1.4 <b>▲</b> <span style="color:var(--muted)">(29 bookings)</span></td>
+    <td class="n">−0.6 <b>▲</b> <span style="color:var(--muted)">(12)</span></td>
+    <td class="n"><b>+0.8 ▲</b></td></tr>
+<tr><td class="n">8 h</td>
+    <td class="n" style="color:var(--muted)">✕</td><td class="n" style="color:var(--muted)">✕</td>
+    <td class="n" style="color:var(--muted)">✕</td>
+    <td class="n" style="color:var(--muted)">✕ — see the correction below</td>
+    <td class="n">−0.5 <b>▲</b> <span style="color:var(--muted)">(10)</span></td>
+    <td class="n" style="color:var(--muted)">✕</td></tr>
 </tbody>
 </table>
 </div>
 
-<p><b>The loss column is the thing that separates system efficiency from one CSP's efficiency.</b> Every booking
-in it was <em>already being installed</em> at the shorter setting — by a second CSP, after the first one timed
-out. Give the first CSP longer and that reroute starts later, and lands past the promised day. Checked
-individually: <b>5 of 5, 12 of 12 and 10 of 10 of the lost bookings had been rescued by a reroute at the shorter
-setting</b>. Not one was lost for any other reason.</p>
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">Why the response columns need no model</h4>
+<p>Every offer in the week is recorded with the exact time the CSP answered it. An offer answered after 3 hours
+12 minutes sits in the data with that latency, under today's 6-hour window. Asking what the response rate would
+be at 4 hours is simply <b>counting the offers whose recorded latency is under 4 hours</b>. Nothing is projected.
+The same is true at 2 hours.</p>
+<p>This only works <em>downward</em> from the live setting. It cannot tell us anything about 8 hours, because
+every offer is destroyed at 6.</p>
 
-<p>So the two forces are exactly the ones you described. Longer window: more first-pass acceptances. Longer
-window: fewer second chances. <b>At 2→4 the trade is strongly favourable (+1.6 against −0.2). By 4→6 it has
-narrowed (+1.4 against −0.6).</b> The loss term triples across those two steps while the gain barely moves.</p>
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">Why the install columns do need one</h4>
+<p>Shortening the window does not just cut responses off earlier — it changes <b>when the next CSP gets the
+booking</b>. That is what the replay models, and it is the only counterfactual in the exercise.</p>
+<p>For each booking the actual chain of CSPs is walked in order. Each CSP's own response — accept, decline or
+silence — and his own latency are taken exactly as recorded. The single thing that changes is the moment a
+timeout fires: at 4 hours it fires two hours earlier than it did, so the next CSP receives the booking two hours
+earlier and is measured against the same deadline. A booking counts as served when some CSP accepts before noon
+on the day after the promised slot. The requeue lag is set to zero because that is what it measures — after a
+decline the next offer goes out in a median of <b>0.0 hours</b>; after a timeout, 14.6 calendar hours, which is
+the timer itself and nothing else.</p>
+<p>Served bookings are then converted to installs at the observed rates: <b>61.2%</b> once served in time,
+<b>10.9%</b> if never served. Those two rates are measured, not assumed.</p>
+
+<h4 style="font-size:15px;margin:28px 0 6px;font-weight:620">What validates the replay</h4>
+<p><b>Run at 6 hours it must reproduce reality, and it does — to 0.1 points.</b> 60.9% of bookings served against
+60.8% actually served. That is the test that matters: the machinery is being asked to predict a world we can
+already see, and it lands on it.</p>
+<p>Two further checks. The ranking of 2, 4 and 6 hours is unchanged under all three deadline definitions (end of
+the slot day, noon the day after, end of the day after). And the assumption that a CSP's speed is his own
+property rather than a reaction to the deadline holds: under the old 2-hour window and today's 6-hour window, the
+response curves inside the first two hours are near-parallel — 46.9% against 49.2% at the 2-hour mark, with no
+sign of a rush as the shorter deadline approaches.</p>
+
+<p><b>The loss column is what separates system efficiency from one CSP's efficiency.</b> Every booking in it was
+<em>already being installed</em> at the shorter setting — by a second CSP, after the first one timed out. Give
+the first CSP longer and that reroute starts later, and lands past the promised day. Checked individually:
+<b>5 of 5, 12 of 12 and 10 of 10 of the lost bookings had been rescued by a reroute at the shorter setting</b>.
+Not one was lost for any other reason.</p>
+
+<p>So the two forces are exactly the ones you described. Longer window, more first-pass acceptances. Longer
+window, fewer second chances. <b>At 2→4 the trade is strongly favourable (+1.6 against −0.2). By 4→6 it has
+narrowed (+1.4 against −0.6)</b> — the loss triples while the gain barely moves.</p>
 
 <div class="note-box" style="border-left:4px solid var(--warning)">
 <p><b>Correction — 8 hours cannot be evaluated on this data, and I previously said it could.</b></p>
-<p>The gain column at 8 hours is structurally empty: P41 is currently 6 hours, so no CSP has ever been given the
-chance to answer in hour 7. The simulation can see every booking that <em>loses</em> a reroute at 8 hours, and
-none of the bookings that would be <em>gained</em>. The −0.5 is the loss half of a two-sided ledger.</p>
-<p>Scaling the gain by the observed response decay — hours 4→6 added 3.4 points of response and rescued 29
-bookings, hours 6→8 project 2.8 points — suggests roughly 24 bookings gained, about +1.2, giving a net near
-<b>+0.7</b>. On that basis 8 hours is probably still positive, not negative.</p>
-<p><b>What the data does establish is the direction, not the turning point:</b> the gain per step is flat to
-falling while the loss per step is rising. The curve flattens and will eventually turn over. Where it turns
-cannot be determined without running a longer window and measuring it.</p>
+<p>The gain column at 8 hours is structurally empty. P41 is 6 hours, so no CSP has ever been given the chance to
+answer in hour 7. The replay can see every booking that <em>loses</em> a reroute at 8 hours and none of the ones
+it would <em>gain</em>. The −0.5 is the loss half of a two-sided ledger.</p>
+<p>Scaling the missing gain by the observed response decay — hours 4→6 added 3.4 points of response and rescued
+29 bookings, hours 6→8 project 2.8 — suggests roughly 24 bookings gained, about +1.2, for a net near <b>+0.7</b>.
+On that basis 8 hours is probably still positive, not negative.</p>
+<p><b>What the data establishes is the direction, not the turning point:</b> gain per step flat to falling, loss
+per step rising. The curve flattens and will eventually turn over. Where it turns cannot be known without running
+a longer window and measuring it.</p>
 </div>
 
-<p style="font-size:13.5px;color:var(--ink2)"><b>How it is built.</b> Each booking's actual CSP chain is replayed
-under a candidate P41. Every CSP's own response — accept, decline or silence — and his own latency are taken as
-observed; the only counterfactual is where the window truncates. Requeue lag is set to zero because that is what
-it measures: after a decline the next offer goes out in a median of <b>0.0 hours</b>, after a timeout in 14.6
-calendar hours, which is the timer itself. A booking counts as served when some CSP accepts before the deadline —
-noon on the day after the promised slot. Once served it installs 61.2% of the time; if never served, 10.9%.
-Population is the 1,030 bookings carrying a confirmed slot date.</p>
-
-<p style="font-size:13.5px;color:var(--ink2)"><b>Three checks it passes.</b> At 6 hours it reproduces observed
-reality to <b>0.1 points</b> — 60.9% of bookings served against 60.8% actual. The ranking of 2, 4 and 6 hours is
-unchanged under all three deadline definitions (end of the slot day, noon the day after, end of the day after).
-And the truncation assumption holds: response curves inside the first two hours are near-parallel between the
-2-hour and 6-hour regimes, so CSPs are not pacing themselves to whatever deadline they are given.</p>
-
-<p style="font-size:13.5px;color:var(--ink2)"><b>The limitation, and which way it cuts.</b> The simulation can
-only try CSPs who were actually offered the booking. Under a shorter window more reroutes would fit and we do not
-know who they would be — <b>296 bookings run out of chain at 2 hours against 198 at 6</b>. Crediting one extra
-attempt at the observed 41.6% acceptance rate lifts every setting and moves the best to <b>3 hours</b>. So these
-figures understate short settings, and the true optimum is at or below 6 hours rather than above it.</p>
+<p style="font-size:13.5px;color:var(--ink2)"><b>The limitation, and which way it cuts.</b> The replay can only
+try CSPs who were actually offered the booking. Under a shorter window more reroutes would fit and we do not know
+who they would be — <b>296 bookings run out of chain at 2 hours against 198 at 6</b>. Crediting one extra attempt
+at the observed 41.6% acceptance rate lifts every setting and moves the best to <b>3 hours</b>. So these figures
+understate short settings, and the true optimum is at or below 6 hours rather than above it. Population is the
+1,030 bookings carrying a confirmed slot date.</p>
 
 <footer>
   Data as of 4 Aug 2026 · all times IST · sources <code>csp-tas-service</code>,
