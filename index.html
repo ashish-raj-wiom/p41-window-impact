@@ -132,10 +132,11 @@ the work.</p>
   cancel. Working back from it, the average booking has <b>15.5 working hours</b> before it — about a day and a half of real time — and passes through
   <b>1.9 CSPs</b>. That leaves <b>8 working hours per CSP</b>.</p>
   <p>Six hours leaves two of those hours unused. CSPs were still accepting jobs at a steady rate when the current
-  window cut them off, so the extra time should convert: we expect roughly <b>+3 points of response</b> and
-  <b>+1.5 points of jobs accepted</b>, worth about <b>+1.6 points on installs per booking</b>.</p>
+  window cut them off, so the extra time should convert — but modestly: roughly <b>+3 points of response</b>,
+  worth about <b>+0.7 points of system install rate</b>. For scale, the move from 2 hours to 6 was worth
+  <b>+2 points</b> (point 5).</p>
   <p style="color:var(--muted)">Those three figures are a projection, not a measurement — see the caveat in
-  section 6. The 8-hour figure itself is measured.</p>
+  section 7. The 8-hour figure itself is measured.</p>
 </div>
 
 <h2>Why</h2>
@@ -184,7 +185,11 @@ Each part opens with its conclusion, then the evidence behind it.</p>
   the next hour stops earning.</p>
   <p>What differs between CSPs is not how fast they answer but <b>whether they answer at all</b>: from 100% in
   the best quarter to 5% in the worst. Waiting longer does not close that gap.</p>
-  <p><b>On its own, this argues for a longer window.</b> Points 1 to 4 below.</p>
+  <p>And the later hours are not lower quality: an acceptance in hour 5 becomes an install as often as one in
+  the first minute. But the gain is smaller than the response numbers suggest — <b>2 hours to 6 is worth about
+  2 points of system install rate</b>, because a third of bookings never get a first answer at any setting and a
+  fifth of those still install through someone else.</p>
+  <p><b>On its own, this still argues for a longer window.</b> Points 1 to 5 below.</p>
 </div>
 
 <h3>1. How fast do CSPs respond?</h3>
@@ -339,13 +344,73 @@ and almost nothing from those who do not.</p>
 
 <div class="note-box">
 <p><b>What the move from 2h to 6h was worth.</b> Response rose <b>54.1% → 62.6% (+8.5 points)</b> and jobs taken
-<b>37.2% → 41.8% (+4.6 points)</b>. Converting the task-level gain to bookings:</p>
-<p>+4.6 points across <b>3,165 tasks</b> ≈ <b>146 additional first-pass assignments</b>. But a task that times out is
-not a booking lost — <b>44.2%</b> of bookings whose CSP never responded still get a technician from a later
-CSP. So only 55.8% of those 146 are genuinely incremental: <b>≈81 bookings</b> against the group's
-<b>1,654</b>, or <b>+4.9 points of installs per booking</b>. That is what a return to 2 hours would give
-back.</p>
+<b>37.2% → 41.8% (+4.6 points)</b>.</p>
+<p>Those are task-level figures and they overstate the value of the window, because many of the extra
+acceptances are second or third attempts on bookings that would have been served anyway. <b>Point 5 measures it
+at booking level instead, and gets +2 points of system install rate.</b> That is the figure to use.</p>
 </div>
+
+
+<h3>5. What the extra hours are worth in installs</h3>
+<p>Response is not the point in itself — an install is. Two cuts, both on the same week.</p>
+
+<p><b>Per offer made to a CSP:</b></p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th class="n">P41</th><th class="n">Offers</th><th class="n">Accepted</th>
+<th class="n">Offers ending in an install</th><th class="n">Install rate <em>of</em> those accepted</th></tr></thead>
+<tbody>
+<tr><td class="n">2 h</td><td class="n">3,165</td><td class="n">37.2%</td><td class="n">18.0%</td><td class="n">48.4%</td></tr>
+<tr><td class="n">4 h</td><td class="n">3,165</td><td class="n">39.9%</td><td class="n">19.4%</td><td class="n">48.6%</td></tr>
+<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">3,165</td><td class="n"><b>41.8%</b></td>
+    <td class="n"><b>20.3%</b></td><td class="n"><b>48.7%</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The last column is the one that matters: <b>an acceptance in hour 5 becomes an install just as often as one in
+the first minute — 48.7% either way.</b> The later hours are not scraping the barrel; they buy the same quality
+of work, just later.</p>
+
+<p><b>Per booking, by how long its first CSP took:</b></p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th>First response arrived</th><th class="n">Bookings</th><th class="n">Share</th>
+<th class="n">Installed</th><th class="n">Install rate</th></tr></thead>
+<tbody>
+<tr><td>Within 2h</td><td class="n">977</td><td class="n">59.1%</td><td class="n">495</td><td class="n"><b>50.7%</b></td></tr>
+<tr><td>2–4h</td><td class="n">76</td><td class="n">4.6%</td><td class="n">35</td><td class="n">46.1%</td></tr>
+<tr><td>4–6h</td><td class="n">57</td><td class="n">3.4%</td><td class="n">27</td><td class="n">47.4%</td></tr>
+<tr class="hi"><td><b>Never answered</b></td><td class="n">543</td><td class="n">32.8%</td><td class="n">118</td>
+    <td class="n"><b>21.7%</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Flat across the three response bands, then a cliff. <b>A booking whose first CSP goes silent still installs
+21.7% of the time</b> — someone else picks it up — so a timeout costs roughly 25 points of install probability,
+not all of it. That fallback is what makes the window worth less than the raw response numbers suggest.</p>
+
+<p>Putting the two together gives the number that matters. Only <b>134 bookings (8.1%)</b> get their first
+response between hours 2 and 6 — that is the entire population the extra four hours buys:</p>
+
+<div class="tblscroll">
+<table>
+<thead><tr><th class="n">P41 set to</th><th class="n">Bookings that would time out instead</th>
+<th class="n">System install rate</th></tr></thead>
+<tbody>
+<tr><td class="n">2 h</td><td class="n">134</td><td class="n">38.8%</td></tr>
+<tr><td class="n">4 h</td><td class="n">58</td><td class="n">39.9%</td></tr>
+<tr class="hi"><td class="n"><b>6 h — current</b></td><td class="n">—</td><td class="n"><b>40.8%</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Moving from 2 hours to 6 is worth about 2 points of system install rate.</b> Real, but a good deal smaller
+than the response numbers on their own imply — because a third of bookings never get a first answer whatever the
+setting, and a fifth of those still install through someone else.</p>
 
 <div class="part" style="border-left-color:var(--s2)">
   <div class="lbl">Part 2 of 3</div>
@@ -356,10 +421,10 @@ back.</p>
   <p>That fixes the point the allocation has to finish before. And it is <b>the same point whichever day the
   customer chose</b> — same-day and next-day bookings behave identically once each is lined up against its own
   promised date.</p>
-  <p><b>Extra hours are close to free until that deadline, and expensive after it.</b> Point 5 below.</p>
+  <p><b>Extra hours are close to free until that deadline, and expensive after it.</b> Point 6 below.</p>
 </div>
 
-<h3>5. When customers give up</h3>
+<h3>6. When customers give up</h3>
 <p>If waiting only ever bought response, the answer would be to set P41 very long. It does not: the customer is
 running a clock of his own. The question is what that clock is measuring, because it is <em>not</em> hours since
 booking.</p>
@@ -380,7 +445,7 @@ not be priced as a cost of waiting.</p>
 impatience, and it is anchored to something specific. By day 7 it reaches 20.7%.</figcaption>
 </figure>
 
-<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5a. When customers actually cancel</h4>
+<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">6a. When customers actually cancel</h4>
 
 <p>Re-cutting the same cancellations against the customer's <b>promised slot date</b> rather than the booking time
 shows what he is really waiting for. All <b>981 customer-proposed bookings</b> whose slot is now at least five
@@ -411,7 +476,7 @@ summed to whole days, the slot day and the day after are <em>level</em> pooled (
 is concentration — the day after puts 80% of its mass in one evening bucket, while the slot day spreads its
 evenly. And for the next-day-or-later group plotted below, the day after is decisively larger (3.85% against 2.45%).</p>
 
-<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">5b. It does not matter which day they chose</h4>
+<h4 style="font-size:15px;margin:30px 0 6px;font-weight:620">6b. It does not matter which day they chose</h4>
 
 <p>Splitting the same 981 bookings by the slot they proposed, with the two combined shown alongside — everything
 else identical:</p>
@@ -473,16 +538,16 @@ specific to the window, which is why the wider window is acceptable here.</p>
   <p class="ans">8 working hours. We are at 6.</p>
   <p>Part 1 says take as much time as the deadline allows. Part 2 says where the deadline is. The setting falls
   out of the two: <b>15.5 working hours available ÷ 1.9 CSPs tried = 8 working hours each.</b></p>
-  <p>Point 6 below sets out the measurement, what the extra two hours should be worth, and why that last figure
+  <p>Point 7 below sets out the measurement, what the extra two hours should be worth, and why that last figure
   is an estimate rather than something we can read off the data.</p>
 </div>
 
-<h3>6. The calculation</h3>
+<h3>7. The calculation</h3>
 
 <div class="note-box">
-<p><b>Section 4 established:</b> every extra hour of P41 buys more response, at a near-constant 2.1 points/h, in every
+<p><b>Part 1 established:</b> every extra hour of P41 buys more response, at a near-constant 2.1 points/h, in every
 quarter of CSPs. Nothing in the range 1h–6h flattens out. On its own, that argues for a longer window.</p>
-<p><b>Section 5 established:</b> the offsetting cost is not paid by the hour — it lands in one bucket, the
+<p><b>Part 2 established:</b> the offsetting cost is not paid by the hour — it lands in one bucket, the
 <b>afternoon and evening of the day after the promised slot</b>. That is the largest single bucket anywhere in
 the window, and it is where the customer stops waiting. <b>The deadline is the afternoon and evening of the day after the promised slot.</b></p>
 <p><b>So the two do not trade off smoothly.</b> Extra hours are close to free right up until the allocation stops
@@ -550,10 +615,12 @@ chance to answer in hour 7. The response curve looks flat after 6 hours only bec
 not because CSPs stop responding.</p>
 <p>What we can see is the rate at which acceptances were still arriving when the window closed: <b>+2.1, +1.8 and
 +1.6 points</b> in the last three hours before the cut-off — slowing, but nowhere near stopped. Carrying that
-same slowdown two hours further gives <b>+2.8 points of response</b> and <b>+1.5 points of jobs accepted</b>,
-worth about <b>+1.6 points on installs per booking</b>.</p>
-<p>Treat that as the central case. If the slowdown is steeper than assumed the gain is smaller; if response held
-at its recent pace it would be closer to +4 points. The direction is not in doubt — only the size.</p>
+same slowdown two hours further gives <b>+2.8 points of response</b>. Run through point 5's booking-level
+arithmetic — about 46 bookings getting a first answer they would otherwise not get, at a 25-point install
+differential — that is <b>+0.7 points of system install rate</b>.</p>
+<p>Treat that as the central case, and note it is <b>a third of what the last extension delivered</b>: the
+2-to-6 move was worth 2 points because it captured 134 bookings, where 6-to-8 reaches perhaps 46. The direction
+is not in doubt — only the size, and the size is small.</p>
 </div>
 
 <p style="font-size:13.5px;color:var(--ink2)">One caveat on coverage. <b>226 of the 1,654 bookings (one in seven)
@@ -597,7 +664,7 @@ as one arriving mid-morning with over ten hours. <b>No time-of-day-specific para
   (n=3,165 across 1,654 bookings). Quartile analysis restricted to CSPs with ≥5 bookings in the week
   (237 CSPs, 2,142 bookings).</li>
   <li><b>Cancellation</b> — a customer-initiated <code>cancelled</code> event. Two cuts are used, on different
-  groups. <em>By age of booking</em> (section 5): customer-proposed bookings offered 22–28 Jul 2026, each
+  groups. <em>By age of booking</em> (section 6): customer-proposed bookings offered 22–28 Jul 2026, each
   observed a full 7 days, n=642. <em>Aligned on the promised slot</em> (5a/5b): one row per booking, customer-proposed slots
   only, first candidate and the slot promised at that point, slot at least 5 days past as of 4 Aug — offered 22–30 Jul 2026, n=981.</li>
 </ul>

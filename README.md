@@ -25,10 +25,11 @@ Working back from it, the average booking has **15.5 working hours** (39.5 calen
 through **1.9 CSPs**. That leaves **8 working hours per CSP**.
 
 Six hours leaves two of those hours unused. CSPs were still accepting jobs at a steady rate when the current
-window cut them off, so the extra time should convert: roughly **+3 points of response**, **+1.5 points of jobs
-accepted**, worth about **+1.6 points on installs per booking**.
+window cut them off, so the extra time should convert — but modestly: roughly **+3 points of response**, worth
+about **+0.7 points of system install rate**. For scale, the move from 2 hours to 6 was worth **+2 points**
+(section 4).
 
-Those three figures are a projection, not a measurement — see the caveat in section 5. The 8-hour figure itself
+Those three figures are a projection, not a measurement — see the caveat in section 6. The 8-hour figure itself
 is measured.
 
 ## Why
@@ -147,11 +148,48 @@ out, so there is no point where the next hour stops paying.
 per hour**, a ninth of the second group's rate. Waiting buys real response from CSPs who engage at all and almost nothing from
 those who do not.
 
-**What the move from 2h to 6h was worth.** Response rose **54.1% → 62.6% (+8.5 points)**, jobs taken **37.2% → 41.8%
-(+4.6 points)**. Converting to bookings: +4.6 points across **3,165 tasks** ≈ **146 additional first-pass assignments**;
-but **44.2%** of bookings whose CSP never responded still get a technician from a later CSP, so only 55.8% are
-incremental — **≈81 bookings** against the group's **1,654**, or **+4.9 points of booking-level supply
-efficiency**. That is what a return to 2 hours would give back.
+**What the move from 2h to 6h was worth.** Response rose **54.1% → 62.6% (+8.5 points)**, jobs taken
+**37.2% → 41.8% (+4.6 points)**. Those are task-level figures and they overstate the window's value, because many
+of the extra acceptances are second or third attempts on bookings that would have been served anyway. **Section 4
+measures it at booking level and gets +2 points of system install rate** — that is the figure to use.
+
+### 4. What the extra hours are worth in installs
+
+Response is not the point in itself — an install is. Per offer made to a CSP:
+
+| P41 | Offers | Accepted | Offers ending in an install | Install rate *of* those accepted |
+|---:|---:|---:|---:|---:|
+| 2 h | 3,165 | 37.2% | 18.0% | 48.4% |
+| 4 h | 3,165 | 39.9% | 19.4% | 48.6% |
+| **6 h — current** | 3,165 | **41.8%** | **20.3%** | **48.7%** |
+
+The last column matters most: **an acceptance in hour 5 becomes an install just as often as one in the first
+minute — 48.7% either way.** The later hours buy the same quality of work, just later.
+
+Per booking, by how long its first CSP took:
+
+| First response arrived | Bookings | Share | Installed | Install rate |
+|---|---:|---:|---:|---:|
+| Within 2h | 977 | 59.1% | 495 | **50.7%** |
+| 2–4h | 76 | 4.6% | 35 | 46.1% |
+| 4–6h | 57 | 3.4% | 27 | 47.4% |
+| **Never answered** | 543 | 32.8% | 118 | **21.7%** |
+
+Flat across the response bands, then a cliff. **A booking whose first CSP goes silent still installs 21.7% of the
+time** — someone else picks it up — so a timeout costs roughly 25 points of install probability, not all of it.
+
+Only **134 bookings (8.1%)** get their first response between hours 2 and 6 — the entire population the extra
+four hours buys:
+
+| P41 set to | Bookings that would time out instead | System install rate |
+|---:|---:|---:|
+| 2 h | 134 | 38.8% |
+| 4 h | 58 | 39.9% |
+| **6 h — current** | — | **40.8%** |
+
+**Moving from 2 hours to 6 is worth about 2 points of system install rate.** Real, but well below what the
+response numbers alone imply — a third of bookings never get a first answer at any setting, and a fifth of those
+still install through someone else.
 
 ---
 
@@ -167,7 +205,7 @@ chose**.
 
 **Extra hours are close to free until that deadline, and expensive after it.** Point 4.
 
-### 4. When customers give up
+### 5. When customers give up
 
 Cancellations in the first few hours are not impatience — they are bookings the customer never intended to keep,
 and they would have cancelled whatever P41 was set to.
@@ -179,7 +217,7 @@ and they would have cancelled whatever P41 was set to.
 2.8% cancel inside the first six hours, then the curve almost stops — only +0.5 points across the whole of hours 6–12.
 It then **steepens again across days 1–3**, climbing 3.3% → 12.2%.
 
-#### 4a. When customers actually cancel
+#### 5a. When customers actually cancel
 
 Re-cut against the customer's **promised slot date**, all **981** customer-proposed bookings pooled, in
 **12-hour buckets** (base = the 981 bookings):
@@ -202,7 +240,7 @@ the day after are *level* pooled (3.06% each) — what separates them is concent
 its mass in one evening bucket. For next-day slots, the majority, the day after is decisively larger (4.17% vs
 2.46%).
 
-#### 4b. It does not matter which day they chose
+#### 5b. It does not matter which day they chose
 
 Same 981 bookings, same buckets, split by the slot proposed:
 
@@ -221,11 +259,11 @@ chosen — only the position of the booking spike, and that moves because the bo
 **That is the whole purpose of this split.** It rules out the objection that the deadline is an artefact of slot
 mix — that the peak sits where it does only because most customers choose the next day. It does not: each group
 turns on *its own* promised slot. With that established, **the split has done its job and the calibration does
-not need it** — section 5 works on the whole group and a single median.
+not need it** — section 6 works on the whole group and a single median.
 
 **Two groups — read them separately.** This section runs on the **cancellation group** (981 bookings offered
 22–30 Jul, matured), because cancellation needs the slot several days past before it can be counted.
-Section 5 runs on the **response group** (1,654 bookings, 26 Jul – 1 Aug), the same population as sections
+Section 6 runs on the **response group** (1,654 bookings, 26 Jul – 1 Aug), the same population as sections
 1–3. The slot mix differs a little; what carries across is the deadline, not the shares.
 
 **Population for this section.** Unlike the response analysis (26 Jul – 1 Aug), the cancellation group runs
@@ -244,12 +282,12 @@ the P41 window, which is why the wider window is acceptable here.
 Part 1 says take as much time as the deadline allows. Part 2 says where the deadline is. The setting falls out of
 the two: **15.5 working hours available ÷ 1.9 CSPs tried = 8 working hours each.**
 
-### 5. The calculation
+### 6. The calculation
 
-**Section 3 established:** every extra hour buys more response, at a near-constant 2.1 points an hour, in every quarter.
+**Part 1 established:** every extra hour buys more response, at a near-constant 2.1 points an hour, in every quarter.
 Nothing in 1h–6h flattens out. On its own that argues for a longer window.
 
-**Section 4 established:** the offsetting cost is not paid by the hour — it lands in one bucket, the **afternoon
+**Part 2 established:** the offsetting cost is not paid by the hour — it lands in one bucket, the **afternoon
 and evening of the day after the promised slot**, and it does so whatever slot the customer chose. **The deadline is
 the afternoon and evening of the day after the promised slot.**
 
@@ -292,9 +330,10 @@ flat after 6 hours only because that is where it is cut off.
 
 What we can see is the rate at which acceptances were still arriving when the window closed — **+2.1, +1.8 and
 +1.6 points** in the last three hours, slowing but nowhere near stopped. Carrying that same slowdown two hours
-further gives **+2.8 points of response** and **+1.5 points of jobs accepted**, worth about **+1.6 points on
-installs per booking**. If response held at its recent pace it would be nearer +4. The direction is not in doubt,
-only the size.
+further gives **+2.8 points of response**. Run through section 4's booking-level arithmetic — about 46
+bookings getting a first answer they otherwise would
+not, at a 25-point install differential — that is **+0.7 points of system install rate**, a third of what the
+last extension delivered. The direction is not in doubt, only the size, and the size is small.
 
 **Coverage caveat.** 226 of the 1,654 bookings (one in seven) reach a CSP too late in the day for even a single
 window to close before the deadline. No timer value reaches them, at 2 hours or at 12.
